@@ -25,14 +25,16 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
 
-        homeViewModel.text.observe(this, Observer {
-            textView.text = it
-        })
-        Mapbox.getInstance(this.context as Context, getString(R.string.mapbox_access_token))
-        mapView = view!!.findViewById(R.id.mapview_main)
+        //val textView: TextView = root.findViewById(R.id.text_home)
+        Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
+
+
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
+
+
+
+        mapView = root.findViewById(R.id.mapview_main)
         mapView?.onCreate(savedInstanceState)
         mapView?.getMapAsync { mapboxMap ->
 
