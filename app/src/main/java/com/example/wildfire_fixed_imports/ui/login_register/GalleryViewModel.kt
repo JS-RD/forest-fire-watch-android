@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.ui.gallery
+package com.example.wildfire_fixed_imports.ui.login_register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

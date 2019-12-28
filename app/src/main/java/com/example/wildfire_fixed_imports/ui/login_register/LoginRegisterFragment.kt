@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.ui.gallery
+package com.example.wildfire_fixed_imports.ui.login_register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.R
 
-class GalleryFragment : Fragment() {
+class LoginRegisterFragment : Fragment() {
 
     private lateinit var galleryViewModel: GalleryViewModel
 
@@ -21,7 +21,7 @@ class GalleryFragment : Fragment() {
     ): View? {
         galleryViewModel =
             ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
+        val root = inflater.inflate(R.layout.fragment_login_register, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
         galleryViewModel.text.observe(this, Observer {
             textView.text = it
