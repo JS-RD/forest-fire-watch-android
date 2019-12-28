@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.SettingsViewModel
 
 class SettingsFragment : Fragment() {
 

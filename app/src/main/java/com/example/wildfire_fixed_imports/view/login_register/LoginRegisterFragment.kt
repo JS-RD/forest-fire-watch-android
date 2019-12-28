@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.LoginRegisterViewModel
 
 class LoginRegisterFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var galleryViewModel: LoginRegisterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,7 +21,7 @@ class LoginRegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         galleryViewModel =
-            ViewModelProviders.of(this).get(GalleryViewModel::class.java)
+            ViewModelProviders.of(this).get(LoginRegisterViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_login_register, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
         galleryViewModel.text.observe(this, Observer {
