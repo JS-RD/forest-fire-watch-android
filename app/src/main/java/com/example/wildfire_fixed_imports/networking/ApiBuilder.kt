@@ -6,22 +6,27 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.util.*
 import java.util.concurrent.TimeUnit
+import com.example.wildfire_fixed_imports.model.User
+import com.example.wildfire_fixed_imports.model.UserLogin
+import com.example.wildfire_fixed_imports.model.UserResponse
 
 interface ApiBuilder {
-}@GET("api/users")
+@GET("api/users")
+
 fun getAllUsers(): Call<List<User>>
 
 @POST("api/users/login")
+
 fun login(@Body user: UserLogin): Call<UserResponse>
 
 @POST("api/users")
+
 fun createUser(@Body user: User): Call<UserResponse>
 
 
 
-companion object{
+companion object {
     const val BASE_URL = "https://herokuapp.com/"
 
     fun create(): ApiBuilder {
@@ -30,19 +35,20 @@ companion object{
         logger.level = HttpLoggingInterceptor.Level.BODY
 
         val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(logger)
-                .retryOnConnectionFailure(false)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .build()
+            .addInterceptor(logger)
+            .retryOnConnectionFailure(false)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .build()
 
         val retrofit = Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .client(okHttpClient)
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
         return retrofit.create(ApiBuilder::class.java)
     }
+}
   
 }
