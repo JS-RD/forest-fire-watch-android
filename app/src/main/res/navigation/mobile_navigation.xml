@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.wildfire_fixed_imports.ui.home.HomeFragment"
+        android:name="com.example.wildfire_fixed_imports.view.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_login_register"
-        android:name="com.example.wildfire_fixed_imports.ui.login_register.LoginRegisterFragment"
+        android:name="com.example.wildfire_fixed_imports.view.login_register.LoginRegisterFragment"
         android:label="@string/menu_login_register"
         tools:layout="@layout/fragment_login_register" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.wildfire_fixed_imports.ui.settings.SettingsFragment"
+        android:name="com.example.wildfire_fixed_imports.view.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.wildfire_fixed_imports.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
+        android:id="@+id/nav_debug"
+        android:name="com.example.wildfire_fixed_imports.view.tools.ToolsFragment"
+        android:label="@string/menu_debug"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.example.wildfire_fixed_imports.ui.share.ShareFragment"
+        android:name="com.example.wildfire_fixed_imports.view.share.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 

@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.ui.tools
+package com.example.wildfire_fixed_imports.view.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.R
 
-class ToolsFragment : Fragment() {
+class ShareFragment : Fragment() {
 
-    private lateinit var toolsViewModel: ToolsViewModel
+    private lateinit var shareViewModel: ShareViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        toolsViewModel =
-            ViewModelProviders.of(this).get(ToolsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_tools, container, false)
-        val textView: TextView = root.findViewById(R.id.text_tools)
-        toolsViewModel.text.observe(this, Observer {
+        shareViewModel =
+            ViewModelProviders.of(this).get(ShareViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_share, container, false)
+        val textView: TextView = root.findViewById(R.id.text_share)
+        shareViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
