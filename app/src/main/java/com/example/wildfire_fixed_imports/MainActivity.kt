@@ -1,23 +1,29 @@
 package com.example.wildfire_fixed_imports
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import android.view.Menu
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
+import com.example.wildfire_fixed_imports.view.home.HomeFragment
+import com.example.wildfire_fixed_imports.view.home.HomeFragment.OnFabHomePress
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import android.view.Menu
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), OnFabHomePress {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,8 +32,31 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val fm = supportFragmentManager
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+           val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
+            println(fragment2.toString())
+                    (fragment2 as HomeFragment).mapIT()
+           // val homeid = findNavController(R.id.nav_host_fragment).currentDestination!!.id
+         /*   will give you your current Fragment's id where
+*/
+          //  private fun navController() = Navigation.findNavController(this, R.id.navHostFragment)
+/*            this id is the id which you have given in your Navigation Graph XML file under fragment tag.
+            You could also compare currentDestination.label if you wan*/
+
+       /*   *//*  val fragment: HomeFragment =
+                fm.findFragmentById(R.id.home) as HomeFragment*//*
+         //   NewsItemFragment tag = ( NewsItemFragment)getFragmentManager().findFragmentByTag(MainActivity.NEWSITEM_FRAGMENT)
+            val fragment2 = fm.findFragmentById(R.id.nav_host_fragment)
+                val fraglist  = fm.fragments
+            print(fraglist.toString())
+            println("huh")
+            println(fragment2)
+       *//*  //   println(fragment2!!.tag)
+            println(fragment2.id)
+
+            *//*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()*/
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -53,5 +82,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onFabPRess() {
+        Toast.makeText(this,"yup",Toast.LENGTH_LONG).show()
     }
 }
