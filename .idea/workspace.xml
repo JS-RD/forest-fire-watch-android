@@ -124,7 +124,7 @@
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Lite_Pixel_XL_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="R58M50625YX" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -156,6 +156,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -164,18 +165,6 @@
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -237,6 +226,18 @@
       </method>
     </configuration>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -251,8 +252,11 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" />
-    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1366.768/1360.768" />
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1578071365309">
+      <screen x="1360" y="0" width="1366" height="768" />
+    </state>
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578071365309" />
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1366.768/1360.768" timestamp="1578071364089" />
   </component>
   <component name="masterDetails">
     <states>
