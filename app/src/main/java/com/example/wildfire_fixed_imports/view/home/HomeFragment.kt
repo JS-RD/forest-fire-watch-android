@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider.Companion.viewModelFactory
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.HomeViewModel
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.ViewModelFactory
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -29,9 +32,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        homeViewModel =
-            ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
+// Initialize Product View Model
+        homeViewModel = ViewModelProviders.of(this, viewModelFactory).get(
+            HomeViewModel::class.java)
         //val textView: TextView = root.findViewById(R.id.text_home)
          Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
 
@@ -50,12 +54,15 @@ class HomeFragment : Fragment() {
              mapController= MapController(myMapboxMap)
 
 
+
             myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
 
                 // Map is set up and the style has loaded. Now you can add data or make other map adjustments
 
 
             }
+
+             homeViewModel.setMyTargetMap(mapController)
 
         }
 
@@ -66,6 +73,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
  //       (activity as MainActivity).methodName()
+
 
     }
 
@@ -79,10 +87,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    public fun mapIT(){
-    print("oit got to fragment")
-       mapController.addbackgrondtomap()
-    }
+
 
     interface OnFabHomePress {
         fun onFabPRess()

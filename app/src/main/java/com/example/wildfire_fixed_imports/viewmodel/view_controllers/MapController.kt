@@ -20,7 +20,7 @@ import com.mapbox.mapboxsdk.style.sources.RasterDemSource
 * */
 class MapController (val targetMap:MapboxMap){
 
-fun addbackgrondtomap(){
+fun addbackgroundtomap(){
     targetMap.getStyle {
         val backgroundLayer = BackgroundLayer("background-layer")
         backgroundLayer.setProperties(PropertyFactory.backgroundColor(Color.BLUE))

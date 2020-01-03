@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,12 +16,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.view.home.HomeFragment
 import com.example.wildfire_fixed_imports.view.home.HomeFragment.OnFabHomePress
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.HomeViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity(), OnFabHomePress {
-
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     @SuppressLint("NewApi")
@@ -29,14 +31,18 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        homeViewModel = ViewModelProviders.of(this, ApplicationLevelProvider.viewModelFactory).get(
+            HomeViewModel::class.java)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            val fm = supportFragmentManager
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-           val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
-            println(fragment2.toString())
-                    (fragment2 as HomeFragment).mapIT()
+
+            homeViewModel.mapIT()
+            /* val fm = supportFragmentManager
+             val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+             val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
+              println(fragment2.toString())
+                      (fragment2 as HomeFragment).mapIT()*/
            // val homeid = findNavController(R.id.nav_host_fragment).currentDestination!!.id
          /*   will give you your current Fragment's id where
 */
