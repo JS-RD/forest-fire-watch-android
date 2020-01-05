@@ -41,8 +41,6 @@ class ApplicationLevelProvider : Application() {
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
-        /*        lateinit var viewModelFactory:HomeViewModelFactory
-                    private set*/
         fun getApplicaationLevelProviderInstance(): ApplicationLevelProvider {
             return instance
         }
