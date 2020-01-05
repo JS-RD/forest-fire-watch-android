@@ -1,6 +1,8 @@
 package com.example.wildfire_fixed_imports
 
+import android.app.Activity
 import android.app.Application
+import androidx.fragment.app.Fragment
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 
 
@@ -31,6 +33,11 @@ class ApplicationLevelProvider : Application() {
     *
     *
     * */
+    val mapViewModelFactory = MapViewModelFactory()
+    lateinit var currentActivity: Activity
+    lateinit var mapFragment: Fragment
+
+
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
@@ -42,7 +49,7 @@ class ApplicationLevelProvider : Application() {
 
     }
 
-    val mapViewModelFactory = MapViewModelFactory()
+
 
 
     override fun onCreate() {

@@ -18,12 +18,21 @@ import com.mapbox.mapboxsdk.maps.Style
 
 
 class MapFragment : Fragment() {
+    // get the correct instance of application level provider
+    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+
+    init {
+        //set this fragment as the map fragment in ApplicationLevelProvider
+        applicationLevelProvider.mapFragment = this
+    }
+
+
     private lateinit var listener: OnFabHomePress
     private lateinit var mapViewModel: MapViewModel
-    private var mapView: MapView? = null
-    var mapboxMap:MapboxMap? = null
-    lateinit var mapController:MapController
-    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private lateinit var mapboxMap:MapboxMap
+    private lateinit var mapView: MapView
+    private lateinit var mapController:MapController
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,11 +52,11 @@ class MapFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         mapView = root.findViewById(R.id.mapview_main)
-        mapView?.onCreate(savedInstanceState)
-         mapView?.getMapAsync { myMapboxMap ->
+        mapView.onCreate(savedInstanceState)
+         mapView.getMapAsync { myMapboxMap ->
 
              mapboxMap = myMapboxMap
-             mapController= MapController(myMapboxMap)
+             mapController= MapController(myMapboxMap,mapView)
 
             myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
 

@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
     private lateinit var mapViewModel: MapViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var fab: FloatingActionButton
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
 
@@ -30,6 +31,9 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //set this activity as the current activity in application level provider
+        applicationLevelProvider.currentActivity = this
 
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -41,17 +45,18 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
 
         //floating action button, can be removed.
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-
-            mapViewModel.mapIT()
-
-        }
+        fab = findViewById(R.id.fab)
+        val lambda= {mapViewModel.mapIT()}
+        setFabOnclick(lambda)
 
 
         setUpNav()
 
 
+    }
+
+    fun setFabOnclick(lambda: () -> Unit) {
+        fab.setOnClickListener {lambda.invoke()}
     }
 
     private fun setUpNav() {

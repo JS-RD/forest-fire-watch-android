@@ -1,6 +1,11 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
+import android.app.Activity
 import android.graphics.Color
+import android.view.View
+import android.widget.Toast
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -26,7 +31,13 @@ import java.net.URISyntaxException
 *
 *
 * */
-class MapController(val targetMap: MapboxMap) {
+class MapController(val targetMap: MapboxMap, val mapboxView: View) {
+
+    init {
+        //this is here stirctly while testing heatmap methods
+        initializeHeatMap()
+    }
+
 
     fun addbackgroundtomap() {
         targetMap.getStyle {
@@ -50,8 +61,29 @@ class MapController(val targetMap: MapboxMap) {
     lateinit var listOfHeatmapIntensityStops: Array<Float>
     private var index = 0
 
-/*
+
     fun initializeHeatMap() {
+        val currentAct = ApplicationLevelProvider.getApplicaationLevelProviderInstance().currentActivity
+        if (currentAct is MainActivity) {
+            (currentAct as MainActivity).setFabOnclick {
+                Toast.makeText(currentAct.applicationContext, "the Jank succeeded!", Toast.LENGTH_LONG ).show()
+                index++
+                /*  if (index == listOfHeatmapColors.size - 1) {
+                      index = 0
+                  }
+                  val heatmapLayer = style . getLayer (HEATMAP_LAYER_ID)
+                  if (heatmapLayer != null) {
+                      heatmapLayer.setProperties(
+                          heatmapColor(listOfHeatmapColors[index]),
+                          heatmapRadius(listOfHeatmapRadiusStops[index]),
+                          heatmapIntensity(listOfHeatmapIntensityStops[index])
+                      );
+                  }*/
+            }
+        }
+        else {
+            Toast.makeText(currentAct.applicationContext, "didn't work yo", Toast.LENGTH_LONG ).show()
+        }
         targetMap.setStyle(Style.LIGHT, object : Style.OnStyleLoaded {
 
             override fun onStyleLoaded(style: Style) {
@@ -80,14 +112,18 @@ class MapController(val targetMap: MapboxMap) {
                 initHeatmapRadiusStops();
                 initHeatmapIntensityStops();
                 addHeatmapLayer(style);
-                findViewById(R.id.switch_heatmap_style_fab).setOnClickListener(new View . OnClickListener () {
-                    @Override
-                    public void onClick(View view) {
-                        index++;
-                        if (index == listOfHeatmapColors.length - 1) {
-                            index = 0;
+
+                //lol some goofy nonsense for funz, please to be remove or replace with less janky
+                val currentAct = ApplicationLevelProvider.getApplicaationLevelProviderInstance().currentActivity
+
+                if (currentAct is MainActivity) {
+                    (currentAct as MainActivity).setFabOnclick {
+                        Toast.makeText(currentAct.applicationContext, "the Jank succeeded!", Toast.LENGTH_LONG ).show()
+                        index++
+                        if (index == listOfHeatmapColors.size - 1) {
+                            index = 0
                         }
-                        Layer heatmapLayer = style . getLayer (HEATMAP_LAYER_ID);
+                        val heatmapLayer = style . getLayer (HEATMAP_LAYER_ID)
                         if (heatmapLayer != null) {
                             heatmapLayer.setProperties(
                                 heatmapColor(listOfHeatmapColors[index]),
@@ -96,37 +132,65 @@ class MapController(val targetMap: MapboxMap) {
                             );
                         }
                     }
-                });
+                }
+                else {
+                    Toast.makeText(currentAct.applicationContext, "didn't work yo", Toast.LENGTH_LONG ).show()
+                }
+
+                /*findViewById(R.id.switch_heatmap_style_fab).setOnClickListener(new View . OnClickListener () {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });*/
             }
         })
-*/
+    }
 
-        fun addHeatmapLayer(loadedMapStyle: Style) {
-            // Create the heatmap layer
-            val layer: HeatmapLayer = HeatmapLayer(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
 
-            // Heatmap layer disappears at whatever zoom level is set as the maximum
-            layer.setMaxZoom(18f)
 
-            layer.setProperties(
-                // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-                // Begin color ramp at 0-stop with a 0-transparency color to create a blur-like effect.
-                heatmapColor(listOfHeatmapColors[index]),
 
-                // Increase the heatmap color weight weight by zoom level
-                // heatmap-intensity is a multiplier on top of heatmap-weight
-                heatmapIntensity(listOfHeatmapIntensityStops[index]),
+            fun initHeatmapColors() {
+                TODO()
+            }
+
+            fun initHeatmapRadiusStops() {
+                TODO()
+            }
+
+            fun initHeatmapIntensityStops() {
+                TODO()
+            }
+
+            fun addHeatmapLayer(loadedMapStyle: Style) {
+                // Create the heatmap layer
+                val layer: HeatmapLayer = HeatmapLayer(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
+
+                // Heatmap layer disappears at whatever zoom level is set as the maximum
+                layer.setMaxZoom(18f)
+
+                layer.setProperties(
+                    // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
+                    // Begin color ramp at 0-stop with a 0-transparency color to create a blur-like effect.
+                    heatmapColor(listOfHeatmapColors[index]),
+
+                    // Increase the heatmap color weight weight by zoom level
+                    // heatmap-intensity is a multiplier on top of heatmap-weight
+                    heatmapIntensity(listOfHeatmapIntensityStops[index]),
 
 // Adjust the heatmap radius by zoom level
-                heatmapRadius(
-                    listOfHeatmapRadiusStops[index]
-                ),
+                    heatmapRadius(
+                        listOfHeatmapRadiusStops[index]
+                    ),
 
-                heatmapOpacity(1f)
-            )
+                    heatmapOpacity(1f)
+                )
 // Add the heatmap layer to the map and above the "water-label" layer
-            loadedMapStyle.addLayerAbove(layer, "waterway-label");
-        }
+                loadedMapStyle.addLayerAbove(layer, "waterway-label");
+            }
+
 
 
     }
+
+
