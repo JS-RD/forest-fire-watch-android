@@ -46,7 +46,6 @@ class MapFragment : Fragment() {
             MapViewModel::class.java)
 
 
-
          Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
@@ -54,9 +53,12 @@ class MapFragment : Fragment() {
         mapView = root.findViewById(R.id.mapview_main)
         mapView.onCreate(savedInstanceState)
          mapView.getMapAsync { myMapboxMap ->
-
+             //set the applicationLevelProvider properties to reflect the loaded map
+             applicationLevelProvider.mapboxMap = myMapboxMap
              mapboxMap = myMapboxMap
-             mapController= MapController(myMapboxMap,mapView)
+             applicationLevelProvider.mapboxView = mapView
+
+             mapController= MapController()
 
             myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
 
