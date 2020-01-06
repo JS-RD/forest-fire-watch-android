@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 
@@ -38,7 +40,8 @@ class ApplicationLevelProvider : Application() {
     val mapViewModelFactory = MapViewModelFactory()
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
-    lateinit var someString: String
+    lateinit var mapController: MapController
+    lateinit var heatMapController: HeatMapController
 
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View

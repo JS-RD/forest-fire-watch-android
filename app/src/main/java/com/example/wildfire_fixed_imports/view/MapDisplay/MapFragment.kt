@@ -59,6 +59,7 @@ class MapFragment : Fragment() {
              applicationLevelProvider.mapboxView = mapView
 
              mapController= MapController()
+             applicationLevelProvider.mapController=mapController
 
             myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
 
