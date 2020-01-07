@@ -12,15 +12,41 @@ import com.example.wildfire_fixed_imports.model.UserLogin
 import com.example.wildfire_fixed_imports.model.UserResponse
 
 interface ApiBuilder {
-@GET("api/users")
+/*@GET("api/users")
 
-fun getAllUsers(): Call<List<User>>
+fun getAllUsers(): Call<List<User>>*/
 
-@POST("api/users/login")
+    //Auth Routes
+    @POST("/api/auth/register")
+
+    @POST("/api/auth/login")
+
+    //User Routes
+    @GET("/api/users/session")
+
+    @PUT("/api/users/")
+
+    @DELETE	("/api/users/")
+
+    @PUT ("/api/users/update/:id")
+
+    @GET( "/api/users/ip-address")
+
+
+    //Location Routes
+
+    @GET ("/api/locations/")
+
+    @POST("/api/locations/")
+
+    @PUT( "/api/locations/:id")
+
+    @DELETE	("/api/locations/:id")
+
 
 fun login(@Body user: UserLogin): Call<UserResponse>
 
-@POST("api/users")
+@PUT("api/users")
 
 fun createUser(@Body user: User): Call<UserResponse>
 

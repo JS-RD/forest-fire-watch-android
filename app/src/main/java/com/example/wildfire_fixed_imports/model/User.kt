@@ -5,7 +5,7 @@ import java.util.*
 
 data class User(
     var id: UUID,
-    var irst_name: String,
+    var first_name: String,
     var last_name: String,
     var email: String,
     var cell_number: Int,
@@ -30,7 +30,7 @@ data class FireLocations(
     var address: String,
     var address_label: String,
     var radius: Int,
-    var last_altert: Int,
+    var last_alert: Int,
     var notification_timer: Int,
     var notifications: Boolean
 ) {
