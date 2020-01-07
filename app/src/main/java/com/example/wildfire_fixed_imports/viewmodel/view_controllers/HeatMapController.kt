@@ -61,7 +61,7 @@ class HeatMapController () {
             override fun onStyleLoaded(style: Style) {
 
 
-                addHeatMapSource(style)
+                    addHeatMapSource(style)
                 /*      addHeatmapLayer_fixed(style)
                       addCircleLayer(style)*/
                 if (!heatmapHasBeennitialized) {
@@ -383,6 +383,8 @@ class HeatMapController () {
 
 
     //heat map alt show
+    // everything that follows is a similar model, less abstracted and not used in the current implementation, it remains until we can finalize our needs.
+
     private val EARTHQUAKE_SOURCE_ID = "earthquakes"
     private val HEATMAP_LAYER_ID_alt = "earthquakes-heat"
     private val HEATMAP_LAYER_SOURCE = "earthquakes"
