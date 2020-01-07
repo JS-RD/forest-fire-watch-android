@@ -18,8 +18,10 @@ fun getAllUsers(): Call<List<User>>*/
 
     //Auth Routes
     @POST("/api/auth/register")
+    fun createUser(@Body user: User): Call<UserResponse>
 
     @POST("/api/auth/login")
+    fun login(@Body user: UserLogin): Call<UserResponse>
 
     //User Routes
     @GET("/api/users/session")
@@ -44,16 +46,8 @@ fun getAllUsers(): Call<List<User>>*/
     @DELETE	("/api/locations/:id")
 
 
-fun login(@Body user: UserLogin): Call<UserResponse>
-
-@PUT("api/users")
-
-fun createUser(@Body user: User): Call<UserResponse>
-
-
-
 companion object {
-    const val BASE_URL = "https://herokuapp.com/"
+    const val BASE_URL = "https://wildfire-watch.herokuapp.com/"
 
     fun create(): ApiBuilder {
         val logger = HttpLoggingInterceptor()
