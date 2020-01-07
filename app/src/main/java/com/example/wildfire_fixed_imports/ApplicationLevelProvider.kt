@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 
@@ -37,7 +38,13 @@ class ApplicationLevelProvider : Application() {
     *
     *
     * */
-    val mapViewModelFactory = MapViewModelFactory()
+    val mapViewModelFactory by lazy {
+        MapViewModelFactory()
+    }
+    val MarkerController by lazy {
+        MarkerController()
+    }
+
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
     lateinit var mapController: MapController
