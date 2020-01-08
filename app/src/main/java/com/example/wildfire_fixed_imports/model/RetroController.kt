@@ -30,6 +30,8 @@ class RetroController (){
 
     val retrofitService = appLevelProvider.retrofitService
 
+    val mapViewModel = appLevelProvider.mapViewModel
+
     var isFiresServiceRunning = AtomicBoolean()
 
     var runningFireServiceJob = Job()
@@ -42,11 +44,11 @@ class RetroController (){
 
         val results = retrofitService.getLocations()
 
-        results.await()
+        mapViewModel.handleFireData(results.await())
 
     }
 
-    suspend fun startFireService(Target: ViewModel){
+    suspend fun startFireService(){
         isFiresServiceRunning.set(true)
 
         while(isFiresServiceRunning.get()) {
@@ -55,6 +57,10 @@ class RetroController (){
         }
 
     }
+
+    //Write method to send and receive data from login
+
+    //Write method to send and receive data from register
 
     suspend fun stopFireService(){
         //Potential issue if job running?

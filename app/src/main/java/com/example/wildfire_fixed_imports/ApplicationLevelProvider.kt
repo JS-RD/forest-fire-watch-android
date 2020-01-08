@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import retrofit2.Retrofit
@@ -48,6 +49,8 @@ class ApplicationLevelProvider : Application() {
 
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
+
+    lateinit var mapViewModel: MapViewModel
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
