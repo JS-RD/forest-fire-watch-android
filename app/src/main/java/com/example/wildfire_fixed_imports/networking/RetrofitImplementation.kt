@@ -16,6 +16,7 @@ package com.example.wildfire_fixed_imports.networking
 * */
 
 
+import com.example.wildfire_fixed_imports.model.FireLocations
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit
 import com.example.wildfire_fixed_imports.model.User
 import com.example.wildfire_fixed_imports.model.UserLogin
 import com.example.wildfire_fixed_imports.model.UserResponse
+import kotlinx.coroutines.Deferred
 
 interface ApiBuilder {
 /*@GET("api/users")
@@ -34,32 +36,36 @@ fun getAllUsers(): Call<List<User>>*/
 
     //Auth Routes
     @POST("/api/auth/register")
-    fun createUser(@Body user: User): Call<UserResponse>
+   suspend fun createUser(@Body user: User): UserResponse
 
     @POST("/api/auth/login")
-    fun login(@Body user: UserLogin): Call<UserResponse>
+   suspend fun login(@Body user: UserLogin): UserResponse
 
-    //User Routes
+   /* //User Routes
     @GET("/api/users/session")
+    suspend fun
 
     @PUT("/api/users/")
+
 
     @DELETE	("/api/users/")
 
     @PUT ("/api/users/update/:id")
 
-    @GET( "/api/users/ip-address")
+    @GET( "/api/users/ip-address")*/
 
 
     //Location Routes
 
     @GET ("/api/locations/")
 
-    @POST("/api/locations/")
+   fun getLocations(): Deferred<List<FireLocations>>
+
+   /* @POST("/api/locations/")
 
     @PUT( "/api/locations/:id")
 
-    @DELETE	("/api/locations/:id")
+    @DELETE	("/api/locations/:id")*/
 
 
     companion object {
