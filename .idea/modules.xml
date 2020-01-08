@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/.idea/modules/Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/.idea/modules/Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" group="wildfire_fixed-imports" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/forest-fire-watch-android-wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/forest-fire-watch-android-wildfire_fixed-imports.iml" />
       <module fileurl="file://$PROJECT_DIR$/wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/wildfire_fixed-imports.iml" />
