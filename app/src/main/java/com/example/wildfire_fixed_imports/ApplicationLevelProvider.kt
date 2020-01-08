@@ -4,10 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
+import retrofit2.Retrofit
 
 
 class ApplicationLevelProvider : Application() {
@@ -38,6 +40,7 @@ class ApplicationLevelProvider : Application() {
     *
     * */
     val mapViewModelFactory = MapViewModelFactory()
+    val retrofitService = RetrofitImplementation.create()
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
     lateinit var mapController: MapController

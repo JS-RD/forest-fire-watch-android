@@ -29,7 +29,7 @@ import com.example.wildfire_fixed_imports.model.UserLogin
 import com.example.wildfire_fixed_imports.model.UserResponse
 import kotlinx.coroutines.Deferred
 
-interface ApiBuilder {
+interface RetrofitImplementation {
 /*@GET("api/users")
 
 fun getAllUsers(): Call<List<User>>*/
@@ -71,7 +71,7 @@ fun getAllUsers(): Call<List<User>>*/
     companion object {
         const val BASE_URL = "https://wildfire-watch.herokuapp.com/"
 
-        fun create(): ApiBuilder {
+        fun create(): RetrofitImplementation {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
             logger.level = HttpLoggingInterceptor.Level.BODY
@@ -89,7 +89,7 @@ fun getAllUsers(): Call<List<User>>*/
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            return retrofit.create(ApiBuilder::class.java)
+            return retrofit.create(RetrofitImplementation::class.java)
         }
     }
 
