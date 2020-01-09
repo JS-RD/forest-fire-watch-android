@@ -45,7 +45,6 @@ class MapFragment : Fragment() {
         mapViewModel = ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
             MapViewModel::class.java)
 
-        applicationLevelProvider.mapViewModel = mapViewModel
 
          Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
 
