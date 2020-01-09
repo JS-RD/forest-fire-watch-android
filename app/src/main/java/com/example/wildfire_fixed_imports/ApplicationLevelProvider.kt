@@ -2,15 +2,23 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Activity
 import android.app.Application
+import android.util.Log
 import android.view.View
+import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import retrofit2.Retrofit
+
 
 
 class ApplicationLevelProvider : Application() {
@@ -40,8 +48,17 @@ class ApplicationLevelProvider : Application() {
     *
     *
     * */
+
+    val mapViewModelFactory by lazy {
+        MapViewModelFactory()
+    }
+    val MarkerController by lazy {
+        MarkerController()
+    }
+
     val mapViewModelFactory = MapViewModelFactory()
     val retrofitService = RetrofitImplementation.create()
+
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
     lateinit var mapController: MapController
@@ -50,7 +67,12 @@ class ApplicationLevelProvider : Application() {
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
 
+
+    var fineLocationPermission:Boolean =false
+    var internetPermission:Boolean =false
+
     lateinit var mapViewModel: MapViewModel
+
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
@@ -66,9 +88,37 @@ class ApplicationLevelProvider : Application() {
         super.onCreate()
         instance = this
         //viewModelFactory = HomeViewModelFactory()
+
+        //hash tag team smoke trees
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        } else {
+            Timber.plant(CrashReportingTree())
+        }
+
     }
 
-
+    /** A tree which logs important information for crash reporting. */
+    /* switch to firebase asap */
+    private class CrashReportingTree : Timber.Tree() {
+        override fun log(
+            priority: Int,
+            tag: String?, @NonNull message: String,
+            t: Throwable?
+        ) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return
+            }
+         /*   FakeCrashLibrary.log(priority, tag, message)
+            if (t != null) {
+                if (priority == Log.ERROR) {
+                    FakeCrashLibrary.logError(t)
+                } else if (priority == Log.WARN) {
+                    FakeCrashLibrary.logWarning(t)
+                }
+            }*/
+        }
+    }
 
 }
 

@@ -6,22 +6,33 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="alrea" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f535ac1c-0b43-4c6b-8c60-1a66060f6169" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/Consts.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ExtensionFunctions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/build/classes/" />
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/app/build/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_XL_API_26" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -36,14 +47,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/RetroController.kt">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="62" column="57" selection-start-line="62" selection-start-column="57" selection-end-line="62" selection-end-column="57" />
+            <state relative-caret-position="387">
+              <caret line="60" column="26" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="26" />
               <folding>
-                <element signature="e#50#201#0" expanded="true" />
+                <element signature="e#44#665#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/Consts.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/BackendDataClasses.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="14" column="20" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/login_register/LoginRegisterFragment.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -51,58 +89,48 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/MapViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+            <state relative-caret-position="476">
+              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="52" column="43" selection-start-line="52" selection-start-column="43" selection-end-line="52" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/MapDisplay/MapFragment.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="47" column="60" lean-forward="true" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/RetrofitImplementation.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="854">
-              <caret line="91" column="57" selection-start-line="91" selection-start-column="57" selection-end-line="91" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+            <state relative-caret-position="361">
+              <caret line="176" column="51" selection-start-line="176" selection-start-column="51" selection-end-line="176" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/User.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-              <folding>
-                <element signature="e#50#112#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="272">
+              <caret line="16" column="33" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="33" />
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ExtensionFunctions.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="5" selection-end-column="107" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-manifest" />
         </entry>
       </file>
     </leaf>
@@ -114,43 +142,68 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>water</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="HeatmapMarkerMethod" />
       </map>
     </option>
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/User.kt" />
-        <option value="$PROJECT_DIR$/app/app.iml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/ApiBuilder.kt" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ui/home/HomeFragment.kt" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/login_register/LoginRegisterViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/navigation/mobile_navigation.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/tools/DebugFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/DebugViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/LoginRegisterViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/SettingsViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/HomeViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/Retro.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/RetrofitImplementation.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/RetrofitImplementation.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/MapViewModel.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/MapDisplay/MapFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/RetroController.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/home/HomeFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/home/MapFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/MapViewModel.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/MapDisplay/MapFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/MapController.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/BackendDataClasses.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/MarkerController.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/HeatMapController.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/Consts.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ExtensionFunctions.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1359" />
-    <option name="width" value="1368" />
-    <option name="height" value="728" />
-  </component>
-  <component name="ProjectId" id="1VEND6AT4hLbQ5oc05OB0E5iEm3" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+    <option name="x" value="949" />
+    <option name="width" value="745" />
+    <option name="height" value="1017" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -181,7 +234,7 @@
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="networking" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
@@ -189,6 +242,7 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="login_register" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
@@ -197,6 +251,22 @@
               <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
               <item name="MapDisplay" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="settings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
@@ -221,35 +291,67 @@
               <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
               <item name="vmclasses" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java (generated)" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java (generated)" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="wildfire_fixed_imports" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="wildfire_fixed-imports" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
-    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/BuildWeek-RV-camping-Airbnb" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="settings.editor.selected.configurable" value="application.passwordSafe" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking" />
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.example.wildfire_fixed_imports.viewmodel.vmclasses" />
+      <recent name="com.example.wildfire_fixed_imports.viewmodel" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -326,18 +428,6 @@
       </method>
     </configuration>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -349,161 +439,447 @@
       <option name="presentableId" value="Default" />
       <updated>1576686396473</updated>
     </task>
-    <task id="LOCAL-00001" summary="Model added">
-      <created>1578429480739</created>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1577476901796</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1578429480739</updated>
+      <updated>1577476901796</updated>
     </task>
-    <task id="LOCAL-00002" summary="Added endpoints">
-      <created>1578430909499</created>
+    <task id="LOCAL-00002" summary="in process: alterin app linkages between actual ifferent screns, namely:&#10;Settomgs.&#10;&#10;home/map&#10;login/register&#10;&#10;additional link to testing console">
+      <created>1577571214701</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1578430909499</updated>
+      <updated>1577571214701</updated>
     </task>
-    <task id="LOCAL-00003" summary="Added endpoint fun">
-      <created>1578433668747</created>
+    <task id="LOCAL-00003" summary="in process: alterin app linkages between actual ifferent screns, namely:&#10;Settomgs.&#10;&#10;home/map&#10;login/register&#10;&#10;additional link to testing console">
+      <created>1577572074099</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1578433668747</updated>
+      <updated>1577572074099</updated>
     </task>
-    <task id="LOCAL-00004" summary="Merge branches 'master' and 'Retrofit' of https://github.com/Lambda-School-Labs/forest-fire-watch-android into Retrofit&#10;&#10;# Conflicts:&#10;#&#9;.gradle/5.4.1/executionHistory/executionHistory.bin&#10;#&#9;.gradle/5.4.1/executionHistory/executionHistory.lock&#10;#&#9;.gradle/5.4.1/fileHashes/fileHashes.bin&#10;#&#9;.gradle/5.4.1/fileHashes/fileHashes.lock&#10;#&#9;.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;.gradle/buildOutputCleanup/outputFiles.bin&#10;#&#9;.idea/caches/build_file_checksums.ser&#10;#&#9;.idea/libraries/Gradle__androidx_navigation_navigation_ui_2_1_0_aar.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;app/app.iml&#10;#&#9;local.properties">
-      <created>1578435993906</created>
+    <task id="LOCAL-00004" summary="final initial package layout proposal -- no repositories, subsumed into viewmodels">
+      <created>1577577445338</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1578435993906</updated>
+      <updated>1577577445604</updated>
     </task>
-    <task id="LOCAL-00005" summary="Completed retrofit implementation">
-      <created>1578507271193</created>
+    <task id="LOCAL-00005" summary="Navigation makes it really annoying to get a hold of afragment instance, may have to rethink structure of things. still got this working so thats nice.">
+      <created>1577750048019</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1578507271194</updated>
+      <updated>1577750048019</updated>
     </task>
-    <task id="LOCAL-00006" summary="basic retrofit controller with methods, thanks Jack">
-      <created>1578510077548</created>
+    <task id="LOCAL-00006" summary="Navigation makes it really annoying to get a hold of afragment instance, may have to rethink structure of things. still got this working so thats nice. --v2">
+      <created>1578070091487</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1578510077548</updated>
+      <updated>1578070091487</updated>
     </task>
-    <task id="LOCAL-00007" summary="Application level mapviewmodel">
-      <created>1578510931641</created>
+    <task id="LOCAL-00007" summary="Application level class added as provider of singleton and shared objects">
+      <created>1578072155513</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1578510931641</updated>
+      <updated>1578072155513</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added brief documentation for ApplicationLevelProvider class&#10;&#10;Changed a bit of how applicationLevelProvider functions by building in a call to getInstance to make me feel a little more sure we won't end up with multiple copies of ApplicationLevelProvider getting spawned.&#10;&#10;Work on converting the heatmap sample code to kotlin continues.">
+      <created>1578261047009</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1578261047009</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added storage for references to current activity and map fragment to application level provider -- quite likely to end up useless, but interesting to consider we can access both of these classes at will from anywhere without explicit depedencies.">
+      <created>1578266169552</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1578266169552</updated>
+    </task>
+    <task id="LOCAL-00010" summary="functional for now, needs more work on heatmap codery but that is for later or tomorrow.">
+      <created>1578267123429</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1578267123429</updated>
+    </task>
+    <task id="LOCAL-00011" summary="simple heatmap method implementation functional,&#10;current goals: Right generalizable and configurable class for heatmap creation based on parameters.">
+      <created>1578340653255</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1578340653255</updated>
+    </task>
+    <task id="LOCAL-00012" summary="simple heatmap method implementation functional,&#10;current goals: Right generalizable and configurable class for heatmap creation based on parameters.">
+      <created>1578341577708</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1578341577708</updated>
+    </task>
+    <task id="LOCAL-00013" summary="heatmap methods and properties split off into a new sub controller for additional readability and extra isolation of concerns, initial method sets work to display from geojson objects -- will need additional massaging of how methods take in data once backend is available, additionally will require some graphical tweeking to make it appear in a desirable way.">
+      <created>1578345768830</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1578345768830</updated>
+    </task>
+    <task id="LOCAL-00014" summary="final commit before merge to main on 1/7/2019">
+      <created>1578416996023</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1578416996023</updated>
+    </task>
+    <task id="LOCAL-00015" summary="initial markercontroller implementation.">
+      <created>1578434063966</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1578434063966</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Timber added">
+      <created>1578434825920</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1578434825920</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1359" y="0" width="1368" height="728" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32930514" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32986537" />
       <window_info id="Structure" order="2" side_tool="true" />
-      <window_info id="Build Variants" order="3" side_tool="true" />
-      <window_info id="Image Layers" order="4" />
-      <window_info id="Designer" order="5" />
-      <window_info id="Resources Explorer" order="6" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info id="Favorites" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="0" weight="0.32996634" />
-      <window_info anchor="bottom" id="Logcat" order="1" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.3297062" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="1" visible="true" weight="0.3297062" />
       <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Android Profiler" order="3" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="6" visible="true" weight="0.32996634" />
+      <window_info anchor="bottom" id="Version Control" order="6" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3297062" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Find" order="9" weight="0.3297062" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Preview" order="4" weight="0.32986537" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Assistant" order="6" weight="0.47584188" />
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Base Retrofit Added" />
-    <MESSAGE value="Model added" />
-    <MESSAGE value="Added endpoints" />
-    <MESSAGE value="Added endpoint fun" />
-    <MESSAGE value="Merge branches 'master' and 'Retrofit' of https://github.com/Lambda-School-Labs/forest-fire-watch-android into Retrofit&#10;&#10;# Conflicts:&#10;#&#9;.gradle/5.4.1/executionHistory/executionHistory.bin&#10;#&#9;.gradle/5.4.1/executionHistory/executionHistory.lock&#10;#&#9;.gradle/5.4.1/fileHashes/fileHashes.bin&#10;#&#9;.gradle/5.4.1/fileHashes/fileHashes.lock&#10;#&#9;.gradle/buildOutputCleanup/buildOutputCleanup.lock&#10;#&#9;.gradle/buildOutputCleanup/outputFiles.bin&#10;#&#9;.idea/caches/build_file_checksums.ser&#10;#&#9;.idea/libraries/Gradle__androidx_navigation_navigation_ui_2_1_0_aar.xml&#10;#&#9;.idea/workspace.xml&#10;#&#9;app/app.iml&#10;#&#9;local.properties" />
-    <MESSAGE value="Completed retrofit implementation" />
-    <MESSAGE value="basic retrofit controller with methods, thanks Jack" />
-    <MESSAGE value="Application level mapviewmodel" />
-    <option name="LAST_COMMIT_MESSAGE" value="Application level mapviewmodel" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1530" y="21" width="972" height="548" key="CommitChangelistDialog2" timestamp="1577573778439">
-      <screen x="1360" y="0" width="1366" height="768" />
-    </state>
-    <state x="1530" y="21" width="972" height="548" key="CommitChangelistDialog2/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1577573778439" />
-    <state x="1821" y="113" width="426" height="494" key="FileChooserDialogImpl" timestamp="1577572523428">
-      <screen x="1360" y="0" width="1366" height="768" />
-    </state>
-    <state x="1821" y="113" width="426" height="494" key="FileChooserDialogImpl/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1577572523428" />
-    <state x="1821" y="113" key="FileChooserDialogImpl/1366.768/1360.768" timestamp="1577572254702" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="in process: alterin app linkages between actual ifferent screns, namely:&#10;Settomgs.&#10;&#10;home/map&#10;login/register&#10;&#10;additional link to testing console" />
+    <MESSAGE value="final initial package layout proposal -- no repositories, subsumed into viewmodels" />
+    <MESSAGE value="Navigation makes it really annoying to get a hold of afragment instance, may have to rethink structure of things. still got this working so thats nice." />
+    <MESSAGE value="Navigation makes it really annoying to get a hold of afragment instance, may have to rethink structure of things. still got this working so thats nice. --v2" />
+    <MESSAGE value="Application level class added as provider of singleton and shared objects" />
+    <MESSAGE value="added brief documentation for ApplicationLevelProvider class&#10;&#10;Changed a bit of how applicationLevelProvider functions by building in a call to getInstance to make me feel a little more sure we won't end up with multiple copies of ApplicationLevelProvider getting spawned.&#10;&#10;Work on converting the heatmap sample code to kotlin continues." />
+    <MESSAGE value="added storage for references to current activity and map fragment to application level provider -- quite likely to end up useless, but interesting to consider we can access both of these classes at will from anywhere without explicit depedencies." />
+    <MESSAGE value="functional for now, needs more work on heatmap codery but that is for later or tomorrow." />
+    <MESSAGE value="simple heatmap method implementation functional,&#10;current goals: Right generalizable and configurable class for heatmap creation based on parameters." />
+    <MESSAGE value="heatmap methods and properties split off into a new sub controller for additional readability and extra isolation of concerns, initial method sets work to display from geojson objects -- will need additional massaging of how methods take in data once backend is available, additionally will require some graphical tweeking to make it appear in a desirable way." />
+    <MESSAGE value="final commit before merge to main on 1/7/2019" />
+    <MESSAGE value="initial markercontroller implementation." />
+    <MESSAGE value="Timber added" />
+    <MESSAGE value="Permission checks added to mainactivity, could be moved out of acitivty class to dedicated permission class or similar -- but this seems fine for the moment.&#10;&#10;booleans indicating prescence of internet and fine location are created in application level provider to avoid having to use the system level permissions checkers everytime one wants to check gps etc.&#10;&#10;TODO: likely should quit out of app if internet is denied or otherwise insist to user that this app is useless without internet. Addtional fiddling with snackbars on permission checking would be a good look to improve user experience." />
+    <option name="LAST_COMMIT_MESSAGE" value="Permission checks added to mainactivity, could be moved out of acitivty class to dedicated permission class or similar -- but this seems fine for the moment.&#10;&#10;booleans indicating prescence of internet and fine location are created in application level provider to avoid having to use the system level permissions checkers everytime one wants to check gps etc.&#10;&#10;TODO: likely should quit out of app if internet is denied or otherwise insist to user that this app is useless without internet. Addtional fiddling with snackbars on permission checking would be a good look to improve user experience." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/ApiBuilder.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt">
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/view/LayoutInflater.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        <state relative-caret-position="9945">
+          <caret line="644" selection-start-line="644" selection-end-line="644" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/User.kt">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
-          <folding>
-            <element signature="e#50#112#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="357">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/example/wildfire_fixed_imports/BuildConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="75" column="74" selection-start-line="75" selection-start-column="74" selection-end-line="75" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ui/send/SendFragment.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ui/send/SendViewModel.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_send.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/ApiBuilder.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_send.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/repositories/FireRepo.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/repositories/AirRepo.kt" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/settings/SettingsFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/tools/DebugFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_share.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_login_register.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/navigation/mobile_navigation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider editor-type-id="nav-designer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="28" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="28" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_main.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/DebugViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.mapboxsdk/mapbox-android-sdk/8.5.0/c6ea1acf5cd93c79101a9eb425db4a99b6a12d47/mapbox-android-sdk-8.5.0-sources.jar!/com/mapbox/mapboxsdk/maps/Style.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-109">
+          <caret line="1117" column="29" selection-start-line="1117" selection-start-column="29" selection-end-line="1117" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/MapDisplay/MapFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="47" column="60" lean-forward="true" selection-start-line="47" selection-start-column="60" selection-end-line="47" selection-end-column="60" />
+        <state relative-caret-position="799">
+          <caret line="61" column="65" selection-start-line="61" selection-start-column="65" selection-end-line="61" selection-end-column="65" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/MapViewModel.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="32" column="20" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+        <state relative-caret-position="272">
+          <caret line="16" column="117" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="136" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/networking/RetrofitImplementation.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/SettingsViewModel.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="854">
-          <caret line="91" column="57" selection-start-line="91" selection-start-column="57" selection-end-line="91" selection-end-column="57" />
+        <state relative-caret-position="170">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/LoginRegisterViewModel.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="52" column="43" selection-start-line="52" selection-start-column="43" selection-end-line="52" selection-end-column="43" />
+        <state relative-caret-position="170">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.61/fe3b9d48f4c3947639b6b1760213c1b79281383e/kotlin-stdlib-common-1.3.61-sources.jar!/kotlin/collections/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1462">
+          <caret line="89" column="42" selection-start-line="89" selection-start-column="42" selection-end-line="89" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.61/72876c4e34feff9bf8d93d0b100e71ce6f5f8244/kotlin-stdlib-1.3.61-sources.jar!/kotlin/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2975">
+          <caret line="189" column="17" selection-start-line="189" selection-start-column="17" selection-end-line="189" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mapbox.mapboxsdk/mapbox-android-sdk/8.5.0/c6ea1acf5cd93c79101a9eb425db4a99b6a12d47/mapbox-android-sdk-8.5.0-sources.jar!/com/mapbox/mapboxsdk/style/sources/GeoJsonSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2159">
+          <caret line="142" column="9" selection-start-line="142" selection-start-column="9" selection-end-line="142" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/MapController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+          <folding>
+            <element signature="e#71#457#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/MarkerController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/RetroController.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="62" column="57" selection-start-line="62" selection-start-column="57" selection-end-line="62" selection-end-column="57" />
+        <state relative-caret-position="238">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/RetrofitImplementation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="92" selection-start-line="13" selection-start-column="92" selection-end-line="13" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/view_controllers/HeatMapController.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/model/BackendDataClasses.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/view/login_register/LoginRegisterFragment.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/viewmodel/vmclasses/MapViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="5" selection-end-column="107" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="33" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="33" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.core/core/1.1.0/4ae37fad1fe95b42aa47a720908df37ba5d3c85e/core-1.1.0-sources.jar!/androidx/core/app/ActivityCompat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="488" column="23" selection-start-line="488" selection-start-column="23" selection-end-line="488" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ApplicationLevelProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="60" column="26" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="26" />
           <folding>
-            <element signature="e#50#201#0" expanded="true" />
+            <element signature="e#44#665#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/Consts.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/ExtensionFunctions.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="38" column="22" selection-start-line="38" selection-start-column="22" selection-end-line="38" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/wildfire_fixed_imports/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="176" column="51" selection-start-line="176" selection-start-column="51" selection-end-line="176" selection-end-column="51" />
         </state>
       </provider>
     </entry>
