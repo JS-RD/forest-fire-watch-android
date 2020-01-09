@@ -17,4 +17,8 @@
     <string name="mapbox_access_token">pk.eyJ1Ijoid2lsZGZpcmV3YXRjaCIsImEiOiJjazRibDZ3aTIwZXByM2VxcmUyZm8yZHA4In0.IfXJHi6nw0aB-IwB3G5flA</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">Email</string>
 </resources>

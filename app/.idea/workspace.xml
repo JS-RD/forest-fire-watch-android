@@ -130,17 +130,17 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1895" y="179" width="287" height="379" key="AndroidCreateXmlResourceDialog" timestamp="1578533120775">
+    <state x="1895" y="179" width="287" height="379" key="AndroidCreateXmlResourceDialog" timestamp="1578533473046">
       <screen x="1360" y="0" width="1366" height="768" />
     </state>
-    <state x="1895" y="179" width="287" height="379" key="AndroidCreateXmlResourceDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578533120775" />
+    <state x="1895" y="179" width="287" height="379" key="AndroidCreateXmlResourceDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578533473046" />
     <state x="1826" y="122" width="426" height="494" key="FileChooserDialogImpl" timestamp="1578365947912">
       <screen x="1360" y="0" width="1366" height="768" />
     </state>
     <state x="1826" y="122" width="426" height="494" key="FileChooserDialogImpl/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578365947912" />
-    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1578411634345">
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1578533956652">
       <screen x="1360" y="0" width="1366" height="768" />
     </state>
-    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578411634345" />
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578533956652" />
   </component>
 </project>
