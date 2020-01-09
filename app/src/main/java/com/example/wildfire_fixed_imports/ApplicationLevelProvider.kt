@@ -57,6 +57,9 @@ class ApplicationLevelProvider : Application() {
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
 
+    var fineLocationPermission:Boolean =false
+    var internetPermission:Boolean =false
+
     companion object {
         private lateinit var instance: ApplicationLevelProvider
         fun getApplicaationLevelProviderInstance(): ApplicationLevelProvider {
