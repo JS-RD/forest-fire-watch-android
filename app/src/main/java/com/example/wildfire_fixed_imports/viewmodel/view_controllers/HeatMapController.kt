@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
+import com.mapbox.mapboxsdk.annotations.MarkerOptions
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
@@ -26,15 +28,15 @@ import java.net.URISyntaxException
 
 class HeatMapController () {
     //set correct mapbox map and the view containing the mapbox map via dependency injection
-    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    val targetMap: MapboxMap by lazy {
+    private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private val targetMap: MapboxMap by lazy {
         applicationLevelProvider.mapboxMap
     }
-    val mapboxView: View by lazy {
+    private val mapboxView: View by lazy {
         applicationLevelProvider.mapboxView
     }
     //additional dependency injection
-    val currentActivity : Activity = applicationLevelProvider.currentActivity
+    private val currentActivity : Activity = applicationLevelProvider.currentActivity
 
     //EARTH QUAKE DATA FROM SDK EXAMPLE
     private val HEATMAP_SOURCE_URL =
@@ -50,7 +52,7 @@ class HeatMapController () {
     lateinit var listOfHeatmapRadiusStops: Array<Expression>
     lateinit var listOfHeatmapIntensityStops: Array<Float>
     private var index = 0
-    var lastSource: GeoJsonSource = GeoJsonSource("sauce")
+    private var lastSource: GeoJsonSource = GeoJsonSource("sauce")
     private var heatmapHasBeennitialized = false
 
 

@@ -17,6 +17,7 @@ import com.example.wildfire_fixed_imports.view.MapDisplay.MapFragment.OnFabHomeP
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity(), OnFabHomePress {
@@ -52,6 +53,10 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
         setUpNav()
 
+
+        //set up tinder logging
+        Timber.tag("LifeCycles");
+        Timber.d("Activity Created");
 
     }
 
