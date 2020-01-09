@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="04cb8f90-a4fd-4206-b245-47a2e10124c0" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +42,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/res/layout" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/layout" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -129,9 +139,14 @@
       <screen x="1360" y="0" width="1366" height="768" />
     </state>
     <state x="1826" y="122" width="426" height="494" key="FileChooserDialogImpl/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578365947912" />
-    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1578411634345">
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1578610495802">
       <screen x="1360" y="0" width="1366" height="768" />
     </state>
+    <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1360.0.1366.768/0.0.1360.727/0.0.1360.727@1360.0.1366.768" timestamp="1578610495802" />
     <state x="1713" y="191" key="com.intellij.ide.util.TipDialog/1360.0.1366.768/0.0.1360.727@1360.0.1366.768" timestamp="1578411634345" />
+    <state x="1648" y="158" width="781" height="422" key="git4idea.merge.GitPullDialog" timestamp="1578611147786">
+      <screen x="1360" y="0" width="1366" height="768" />
+    </state>
+    <state x="1648" y="158" width="781" height="422" key="git4idea.merge.GitPullDialog/1360.0.1366.768/0.0.1360.727/0.0.1360.727@1360.0.1366.768" timestamp="1578611147786" />
   </component>
 </project>
