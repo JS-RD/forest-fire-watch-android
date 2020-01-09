@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.wildfire_fixed_imports.model.FireLocations
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import timber.log.Timber
 
 class MapViewModel : ViewModel() {
 
@@ -24,6 +26,11 @@ class MapViewModel : ViewModel() {
     public fun mapIT(){
         print("oit got to fragment")
         targetMap.addbackgroundtomap()
+    }
+
+    fun handleFireData(fireList: List<FireLocations>){
+
+       Timber.i(fireList.toString())
     }
 
 
