@@ -8,9 +8,11 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
+    <string name="menu_login_register">Login</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_debug">Debug</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
+    <string name="mapbox_access_token">pk.eyJ1Ijoid2lsZGZpcmV3YXRjaCIsImEiOiJjazRibDZ3aTIwZXByM2VxcmUyZm8yZHA4In0.IfXJHi6nw0aB-IwB3G5flA</string>
 </resources>
