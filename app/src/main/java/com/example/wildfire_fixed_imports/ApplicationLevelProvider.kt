@@ -10,15 +10,12 @@ import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
-import com.mapbox.mapboxsdk.maps.MapboxMap
+
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
-import retrofit2.Retrofit
-
 
 
 class ApplicationLevelProvider : Application() {
@@ -56,7 +53,6 @@ class ApplicationLevelProvider : Application() {
         MarkerController()
     }
 
-    val mapViewModelFactory = MapViewModelFactory()
     val retrofitService = RetrofitImplementation.create()
 
     lateinit var currentActivity: Activity
