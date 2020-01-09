@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
@@ -13,6 +14,11 @@ import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactor
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import timber.log.Timber
 import timber.log.Timber.DebugTree
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
+import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.mapbox.mapboxsdk.maps.MapboxMap
+import retrofit2.Retrofit
+
 
 
 class ApplicationLevelProvider : Application() {
@@ -42,12 +48,16 @@ class ApplicationLevelProvider : Application() {
     *
     *
     * */
+
     val mapViewModelFactory by lazy {
         MapViewModelFactory()
     }
     val MarkerController by lazy {
         MarkerController()
     }
+
+    val mapViewModelFactory = MapViewModelFactory()
+    val retrofitService = RetrofitImplementation.create()
 
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
@@ -57,8 +67,12 @@ class ApplicationLevelProvider : Application() {
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
 
+
     var fineLocationPermission:Boolean =false
     var internetPermission:Boolean =false
+
+    lateinit var mapViewModel: MapViewModel
+
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
