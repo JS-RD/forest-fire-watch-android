@@ -35,7 +35,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
+    //mapbox an mapbox annotation extension
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.5.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v8:0.3.0'
+
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
 

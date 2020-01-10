@@ -3,13 +3,16 @@ package com.example.wildfire_fixed_imports
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
@@ -27,7 +30,12 @@ import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.mapbox.android.core.permissions.PermissionsListener
+import com.mapbox.android.core.permissions.PermissionsManager
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
+import com.mapbox.mapboxsdk.location.LocationComponentOptions
+import com.mapbox.mapboxsdk.location.modes.CameraMode
+import com.mapbox.mapboxsdk.location.modes.RenderMode
+import com.mapbox.mapboxsdk.maps.Style
 import timber.log.Timber
 
 
@@ -38,9 +46,52 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
     private lateinit var fab: FloatingActionButton
     private lateinit var layout: View
 
+    private var locationManager : LocationManager? = null
+
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            Timber.i("location log" + location.longitude + ":" + location.latitude)
+            applicationLevelProvider.userLocation=location
+        }
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+    fun enableLocationComponent(loadedMapStyle: Style) {
+// Check if permissions are enabled and if not request
+        if (applicationLevelProvider.fineLocationPermission) {
 
+// Create and customize the LocationComponent's options
+            val customLocationComponentOptions = LocationComponentOptions.builder(this)
+                .trackingGesturesManagement(true)
+                .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .build()
 
+            val locationComponentActivationOptions =
+                LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                    .locationComponentOptions(customLocationComponentOptions)
+                    .build()
+
+// Get an instance of the LocationComponent and then adjust its settings
+            applicationLevelProvider.mapboxMap.locationComponent.apply {
+
+                // Activate the LocationComponent with options
+                activateLocationComponent(locationComponentActivationOptions)
+
+// Enable to make the LocationComponent visible
+                isLocationComponentEnabled = true
+
+// Set the LocationComponent's camera mode
+                cameraMode = CameraMode.TRACKING
+
+// Set the LocationComponent's render mode
+                renderMode = RenderMode.COMPASS
+            }
+        } else {
+            Toast.makeText(this,"Fine Location not enabled",Toast.LENGTH_SHORT).show()
+        }
+    }
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +111,10 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
                 MapViewModel::class.java
             )
 
-
+        applicationLevelProvider.appMapViewModel=mapViewModel
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
-        val lambda = { mapViewModel.mapIT() }
+        val lambda = {  }
         setFabOnclick(lambda)
 
 
@@ -76,6 +127,13 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
         //check permissions
         initPermissions()
+
+        try {
+            // Request location updates
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+        } catch(ex: SecurityException) {
+            Timber.i("Security Exception, no location available")
+        }
     }
 
     fun setFabOnclick(lambda: () -> Unit) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
@@ -15,6 +16,7 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import timber.log.Timber
 
 
 class MapFragment : Fragment() {
@@ -45,7 +47,7 @@ class MapFragment : Fragment() {
         mapViewModel = ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
             MapViewModel::class.java)
 
-        applicationLevelProvider.mapViewModel = mapViewModel
+
 
          Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
 
@@ -55,18 +57,22 @@ class MapFragment : Fragment() {
         mapView.onCreate(savedInstanceState)
          mapView.getMapAsync { myMapboxMap ->
              //set the applicationLevelProvider properties to reflect the loaded map
+             Timber.i("map loaded async ${System.currentTimeMillis()}")
              applicationLevelProvider.mapboxMap = myMapboxMap
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
+
 
              mapController= MapController()
              applicationLevelProvider.mapController=mapController
 
             myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
-
+                (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
             }
 
              mapViewModel.setMyTargetMap(mapController)
+
+
 
         }
 
