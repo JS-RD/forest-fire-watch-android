@@ -2,9 +2,11 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Activity
 import android.app.Application
+import android.location.Location
 import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
@@ -15,6 +17,8 @@ import timber.log.Timber
 import timber.log.Timber.DebugTree
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.mapbox.mapboxsdk.annotations.Icon
+import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 
 
@@ -49,25 +53,36 @@ class ApplicationLevelProvider : Application() {
     val mapViewModelFactory by lazy {
         MapViewModelFactory()
     }
-    val MarkerController by lazy {
+    val markerController by lazy {
         MarkerController()
     }
+    val heatMapController by lazy {
+        HeatMapController()
+    }
 
-    val retrofitService = RetrofitImplementation.create()
+  // icons for markers
+
+
+
+    val retrofitWebService = RetrofitImplementation.createWEB()
+    val retrofitDSService = RetrofitImplementation.createDS()
+
 
     lateinit var currentActivity: Activity
     lateinit var mapFragment: Fragment
     lateinit var mapController: MapController
-    lateinit var heatMapController: HeatMapController
 
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
 
-
     var fineLocationPermission:Boolean =false
     var internetPermission:Boolean =false
 
-    lateinit var mapViewModel: MapViewModel
+    lateinit var appMapViewModel: MapViewModel
+
+    lateinit var fireIcon:Icon
+
+    lateinit var userLocation: Location
 
 
     companion object {
@@ -91,6 +106,10 @@ class ApplicationLevelProvider : Application() {
         } else {
             Timber.plant(CrashReportingTree())
         }
+        val iconFactory by lazy { IconFactory.getInstance(this) }
+        val fireBitmap=getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50,50)
+        fireIcon =
+            iconFactory.fromBitmap(fireBitmap)
 
     }
 

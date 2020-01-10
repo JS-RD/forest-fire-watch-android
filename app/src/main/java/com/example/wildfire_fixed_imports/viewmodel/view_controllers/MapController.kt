@@ -3,11 +3,17 @@ package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
+import com.example.wildfire_fixed_imports.model.DSFires
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -36,8 +42,16 @@ class MapController() {
     private val currentActivity : Activity = applicationLevelProvider.currentActivity
 
     //create heatmapcontroller scoped to class
-    private var heatMapController: HeatMapController
+    private val heatMapController = applicationLevelProvider.heatMapController
 
+    //grab the viewmodel
+    private val mapViewModel = applicationLevelProvider.appMapViewModel
+
+    //markercontroller ref
+    private val markerController = applicationLevelProvider.markerController
+
+
+    var initialized=false
 
     fun traceResult() {
 
@@ -46,18 +60,71 @@ class MapController() {
     init {
 
        Timber.i("loggo init")
+        // Create the observer which updates the UI.
+        val fireObserver = Observer<List<DSFires>> { list ->
+            // Update the UI, in this case, a TextView.
+            Timber.i("loggo init in observer")
+            if (!initialized) {
+                Timber.i("new list reached observer ${list.toString()}")
+                removeAllFires()
+                addAllFires(list)
+            }
+            else {
 
+                addAllFires(list)
+            }
 
-        //create heatmapcontroller and assign reg to applicationlevelprovider
-        heatMapController= HeatMapController()
-        applicationLevelProvider.heatMapController=heatMapController
-
-
-        if (currentActivity is MainActivity) {
-            currentActivity.setFabOnclick { heatMapController.initializeHeatMapExtended() }
         }
+        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
+        mapViewModel.fireData.observe(currentActivity as LifecycleOwner, fireObserver)
+
+        // start the fire service immediately to start retrieving fires
+
+        CoroutineScope(Dispatchers.IO).launch {
+            mapViewModel.startFireRetrieval()
+        }
+
+
+
+
+
+
+      //  val retrofitDSService =applicationLevelProvider.retrofitDSService
+        if (currentActivity is MainActivity) {
+            currentActivity.setFabOnclick {
+
+
+
+                /*CoroutineScope(Dispatchers.IO).launch {
+                    val result =retrofitDSService.getDSFireLocations()
+                    Timber.i(result.toString())
+                    for (i in result.indices) {
+                        Timber.i(result[i].name)
+                        Timber.i(result[i].location[0].toString())
+                        Timber.i(result[i].location[1].toString())
+                        Timber.i(result[i].latlng().toString())
+                        Timber.i(result[i].type)
+                    }
+                }*/
+                    heatMapController.initializeHeatMapExtended()
+                }
+                }
+
+
+        }
+
+    fun addAllFires(DSFires:List<DSFires>) {
+        for (i in DSFires.indices) {
+            val current = DSFires[i]
+            Timber.i("$i and ${current.toString()}")
+            markerController.addMarker(current.latlng(),current.name,current.type)
+        }
+
     }
 
+    fun removeAllFires() {
+        targetMap.markers.removeAll(targetMap.markers)
+    }
 
     fun addbackgroundtomap() {
         targetMap.getStyle {

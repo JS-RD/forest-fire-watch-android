@@ -1,29 +1,44 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
+import android.hardware.camera2.params.InputConfiguration
+import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.graphics.drawable.toBitmap
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.R
+import com.mapbox.mapboxsdk.annotations.Icon
+import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.style.layers.Property
 
 class MarkerController () {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    private val targetMap: MapboxMap by lazy {
-        applicationLevelProvider.mapboxMap
-    }
+
+
     private val mapboxView: View by lazy {
         applicationLevelProvider.mapboxView
     }
 
     private val addedMarkers = mutableListOf<Marker>()
+    // Create an Icon object for the marker to use
+    val fireIcon = applicationLevelProvider.fireIcon
 
-    fun addMarker(targetLatLng: LatLng,title:String?) :Int {
+
+// Add the marker to the map
+    fun addMarker(targetLatLng: LatLng,title:String?,snippet:String?) :Int {
 
         //add the marker to map and set the newly created marker object to newMarkers
-        val newMarker: Marker = targetMap.addMarker(MarkerOptions()
+
+        val newMarker: Marker = applicationLevelProvider.mapboxMap.addMarker(MarkerOptions()
             .position(targetLatLng)
             .title (title)
+            .snippet(snippet)
+            .icon(fireIcon)
+
+
         )
         //add newly added marker to list of markers in case of later need to remove or edit
         addedMarkers.add(newMarker)
@@ -37,7 +52,7 @@ class MarkerController () {
         // and then remove that makrker from this list
         val markerToRemove = addedMarkers[indexLocation]
 
-        targetMap.removeMarker(markerToRemove)
+        applicationLevelProvider.mapboxMap.removeMarker(markerToRemove)
 
         addedMarkers.removeAt(indexLocation)
     }

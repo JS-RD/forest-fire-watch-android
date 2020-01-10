@@ -1,6 +1,5 @@
 package com.example.wildfire_fixed_imports.model
 
-import androidx.lifecycle.ViewModel
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,9 +27,9 @@ class RetroController (){
 
     val appLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-    val retrofitService = appLevelProvider.retrofitService
+    val retrofitService = appLevelProvider.retrofitWebService
 
-    val mapViewModel = appLevelProvider.mapViewModel
+    val mapViewModel = appLevelProvider.appMapViewModel
 
     var isFiresServiceRunning = AtomicBoolean()
 
@@ -44,7 +43,7 @@ class RetroController (){
 
         val results = retrofitService.getLocations()
 
-        mapViewModel.handleFireData(results.await())
+       // mapViewModel.handleFireData(results.await())
 
     }
 

@@ -39,6 +39,18 @@ data class FireLocations(
     }
 }
 
+data class DSFires(
+    val location: List<Double> = listOf<Double>(0.0,0.0),
+    val name: String = "",
+    val type: String = ""
+)
+{
+    fun latlng() :LatLng {
+        return LatLng(location[1],location[0])
+
+    }
+}
+
 data class BackendNotifications(
     var type:String,
     var subscription: String
