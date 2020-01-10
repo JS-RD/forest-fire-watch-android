@@ -8,6 +8,7 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
@@ -108,7 +109,7 @@ class ApplicationLevelProvider : Application() {
         } else {
             Timber.plant(CrashReportingTree())
         }
-        }
+
         val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap=getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50,50)
         fireIcon =

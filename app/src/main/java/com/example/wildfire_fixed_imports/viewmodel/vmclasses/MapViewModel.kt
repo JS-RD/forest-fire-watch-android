@@ -6,7 +6,6 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.FireLocations
 import com.example.wildfire_fixed_imports.model.RetroDSController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
