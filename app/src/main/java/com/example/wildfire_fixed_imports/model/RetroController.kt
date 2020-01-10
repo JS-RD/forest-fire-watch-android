@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.model
 
+
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

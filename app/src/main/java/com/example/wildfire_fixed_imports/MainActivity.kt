@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -128,13 +129,17 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
         //check permissions
         initPermissions()
 
+
         try {
             // Request location updates
             locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
         } catch(ex: SecurityException) {
             Timber.i("Security Exception, no location available")
         }
+
     }
+
+
 
     fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
@@ -144,6 +149,8 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(

@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.viewmodel.vmclasses
 
+
 import androidx.lifecycle.*
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.DSFires
@@ -11,6 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.security.interfaces.DSAKey
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+
 
 class MapViewModel : ViewModel() {
 
@@ -42,6 +50,7 @@ class MapViewModel : ViewModel() {
         }
     }
 
+
     fun stopFireRetrieval() {
         viewModelScope.launch {
             retroDSController.stopFireService()
@@ -66,7 +75,6 @@ class MapViewModel : ViewModel() {
         Timber.i("firedata live data after diff ${fireData.value}")
         Timber.i("_firedata live data after diff ${fireData.value}")
     }
-
 
 
 }

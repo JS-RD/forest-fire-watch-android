@@ -8,18 +8,19 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 
 import timber.log.Timber
 import timber.log.Timber.DebugTree
+
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
+
 
 
 class ApplicationLevelProvider : Application() {
@@ -85,6 +86,7 @@ class ApplicationLevelProvider : Application() {
     lateinit var userLocation: Location
 
 
+
     companion object {
         private lateinit var instance: ApplicationLevelProvider
         fun getApplicaationLevelProviderInstance(): ApplicationLevelProvider {
@@ -105,6 +107,7 @@ class ApplicationLevelProvider : Application() {
             Timber.plant(DebugTree())
         } else {
             Timber.plant(CrashReportingTree())
+        }
         }
         val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap=getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50,50)

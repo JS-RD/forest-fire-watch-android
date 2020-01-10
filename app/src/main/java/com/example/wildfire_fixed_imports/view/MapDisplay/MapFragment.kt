@@ -48,7 +48,6 @@ class MapFragment : Fragment() {
             MapViewModel::class.java)
 
 
-
          Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
