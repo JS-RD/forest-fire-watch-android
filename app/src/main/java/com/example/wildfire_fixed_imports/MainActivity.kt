@@ -9,8 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -27,7 +25,6 @@ import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.mapbox.android.core.permissions.PermissionsListener
 import timber.log.Timber
 
 
@@ -76,7 +73,11 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
         //check permissions
         initPermissions()
+
+
     }
+
+
 
     fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
@@ -86,7 +87,8 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
-        fab.hide()
+
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(

@@ -26,18 +26,25 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
 
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         return inflater.inflate(R.layout.fragment_login, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
+
+
+
 
         val usernameEditText = view.findViewById<EditText>(R.id.says_username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
@@ -110,6 +117,10 @@ class LoginFragment : Fragment() {
 
     }
 
+    private fun hideFab(){
+        fab.hide()
+    }
+
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
         // TODO : initiate successful logged in experience
@@ -121,4 +132,6 @@ class LoginFragment : Fragment() {
         val appContext = context?.applicationContext ?: return
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
+
+
 }
