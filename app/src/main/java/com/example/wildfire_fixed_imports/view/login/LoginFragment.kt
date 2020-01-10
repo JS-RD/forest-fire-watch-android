@@ -15,6 +15,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 
 import com.example.wildfire_fixed_imports.R
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -41,6 +43,7 @@ class LoginFragment : Fragment() {
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.btn_login)
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
+
 
         loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
@@ -104,7 +107,7 @@ class LoginFragment : Fragment() {
             )
         }
 
-      //  fab.hide()
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
