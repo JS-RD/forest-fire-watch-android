@@ -1,13 +1,16 @@
 package com.example.wildfire_fixed_imports.model
 
+import com.mapbox.mapboxsdk.geometry.LatLng
+import java.util.*
+
 data class User(
-    var id: UUID,
-    var first_name: String,
-    var last_name: String,
-    var email: String,
-    var cell_number: Int,
-    var recieve_sms: Boolean,
-    var recieve_push: Boolean
+        var id: UUID,
+        var first_name: String,
+        var last_name: String,
+        var email: String,
+        var cell_number: Int,
+        var recieve_sms: Boolean,
+        var recieve_push: Boolean
 )
 
 data class UserLogin(
@@ -39,5 +42,10 @@ data class FireLocations(
 data class BackendNotifications(
     var type:String,
     var subscription: String
+)
+
+data class LoggedInUser(
+    val userId: String,
+    val displayName: String
 )
 
