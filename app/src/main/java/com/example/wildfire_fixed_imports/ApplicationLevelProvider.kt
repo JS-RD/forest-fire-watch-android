@@ -12,16 +12,14 @@ import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
-
-import timber.log.Timber
-import timber.log.Timber.DebugTree
-
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
-
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 
 class ApplicationLevelProvider : Application() {
@@ -52,6 +50,11 @@ class ApplicationLevelProvider : Application() {
     *
     * */
 
+
+
+    val mFirebaseAnalytics by lazy {
+        FirebaseAnalytics.getInstance(this)
+    }
     val mapViewModelFactory by lazy {
         MapViewModelFactory()
     }
@@ -114,6 +117,7 @@ class ApplicationLevelProvider : Application() {
         val fireBitmap=getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50,50)
         fireIcon =
             iconFactory.fromBitmap(fireBitmap)
+
 
     }
 
