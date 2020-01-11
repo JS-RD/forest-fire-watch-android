@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
     private var locationManager : LocationManager? = null
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    val firebaseAnalytics =applicationLevelProvider.mFirebaseAnalytics
-
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             Timber.i("location log" + location.longitude + ":" + location.latitude)
@@ -139,8 +137,6 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
             Timber.i("Security Exception, no location available")
         }
 
-
-        firebaseAnalytics.sendSelect("MainActivity","onCreate","Initialization completed successfully")
     }
 
 

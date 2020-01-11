@@ -15,6 +15,8 @@ import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerContr
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -51,10 +53,20 @@ class ApplicationLevelProvider : Application() {
     * */
 
 
+    // Initialize Firebase analytics, Auth
 
     val mFirebaseAnalytics by lazy {
         FirebaseAnalytics.getInstance(this)
     }
+     val firebaseAuth  by lazy {
+        FirebaseAuth.getInstance()
+    }
+
+    var firebaseUser: FirebaseUser? = null
+
+// ...
+
+
     val mapViewModelFactory by lazy {
         MapViewModelFactory()
     }
@@ -103,6 +115,7 @@ class ApplicationLevelProvider : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         instance = this
         //viewModelFactory = HomeViewModelFactory()
 
