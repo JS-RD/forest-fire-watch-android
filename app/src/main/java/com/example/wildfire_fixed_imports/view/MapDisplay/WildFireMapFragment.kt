@@ -19,7 +19,7 @@ import com.mapbox.mapboxsdk.maps.Style
 import timber.log.Timber
 
 
-class MapFragment : Fragment() {
+class WildFireMapFragment : Fragment() {
     // get the correct instance of application level provider
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 

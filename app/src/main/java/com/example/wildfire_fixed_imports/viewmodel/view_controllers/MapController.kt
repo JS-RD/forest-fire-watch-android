@@ -3,6 +3,7 @@ package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
@@ -11,10 +12,9 @@ import com.example.wildfire_fixed_imports.model.DSFires
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.function.ToDoubleBiFunction
 
 
 /*
@@ -113,14 +113,47 @@ class MapController() {
 
         }
 
+
     fun addAllFires(DSFires:List<DSFires>) {
         for (i in DSFires.indices) {
             val current = DSFires[i]
             Timber.i("$i and ${current.toString()}")
-            markerController.addMarker(current.latlng(),current.name,current.type)
+
+            CoroutineScope(Dispatchers.Main).launch {
+
+                markerController.addMarker(current.latlng(), current.name, current.type)
+
+            }
+
         }
 
     }
+
+/*
+    suspend fun popit(){
+
+        TODO("this is an async example that requires you to later .await() ")
+        val result = CoroutineScope(Dispatchers.IO).async {
+            applicationLevelProvider.retrofitDSService.getDSFireLocations()
+
+        }
+
+
+            Timber.i(System.currentTimeMillis().toString())
+
+
+        TODO("this is how you would get out of a coroutine scope and back to a regular nonthread pattern ")
+        CoroutineScope(Dispatchers.IO).launch {
+            Timber.i(System.currentTimeMillis().toString())
+            Toast.makeText(applicationLevelProvider.applicationContext, result.await().toString(), Toast.LENGTH_SHORT).show()
+            delay(2000)
+       popit2()
+        }
+    }
+    fun popit2() {
+        Toast.makeText(applicationLevelProvider.applicationContext, "this was not suspended", Toast.LENGTH_SHORT).show()
+
+    }*/
 
     fun removeAllFires() {
         targetMap.markers.removeAll(targetMap.markers)
