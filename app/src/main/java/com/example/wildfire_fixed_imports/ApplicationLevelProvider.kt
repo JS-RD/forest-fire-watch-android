@@ -8,7 +8,11 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import com.example.wildfire_fixed_imports.networking.AuthenticationState
+import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
+import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
+import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
@@ -19,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
+import com.mapbox.mapboxsdk.maps.MapFragment
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -64,6 +69,10 @@ class ApplicationLevelProvider : Application() {
 
     var firebaseUser: FirebaseUser? = null
 
+    val authenticationState by lazy {
+        AuthenticationState()
+    }
+
 // ...
 
 
@@ -81,12 +90,20 @@ class ApplicationLevelProvider : Application() {
 
 
 
-    val retrofitWebService = RetrofitImplementation.createWEB()
-    val retrofitDSService = RetrofitImplementation.createDS()
+    val retrofitWebService by lazy {
+        RetrofitImplementation.createWEB()
+    }
+    val retrofitDSService by lazy {
+        RetrofitImplementation.createDS()
+    }
+    val firebaseAuthImpl by lazy {
+        FirebaseAuthImpl()
+    }
 
 
     lateinit var currentActivity: Activity
-    lateinit var mapFragment: Fragment
+    lateinit var mapFragment: WildFireMapFragment
+    lateinit var debugFragment: DebugFragment
     lateinit var mapController: MapController
 
     lateinit var mapboxMap: MapboxMap

@@ -1,7 +1,18 @@
 package com.example.wildfire_fixed_imports
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.android.gms.tasks.Task
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.suspendCancellableCoroutine
+import timber.log.Timber
+import java.util.concurrent.CancellationException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 /*
 Bundle bundle = new Bundle();
@@ -18,4 +29,31 @@ fun FirebaseAnalytics.sendSelect(id:String,name:String,contentType:String) {
     bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
     this.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
+}
+ suspend fun <T> Task<T>.await(): T? {
+    // fast path
+    if (isComplete) {
+        val e = exception
+        return if (e == null) {
+            if (isCanceled) {
+                throw CancellationException(
+                        "Task $this was cancelled normally.")
+            } else {
+                result
+            }
+        } else {
+            throw e
+        }
+    }
+
+    return suspendCancellableCoroutine { cont ->
+        addOnCompleteListener {
+            val e = exception
+            if (e == null) {
+                if (isCanceled) cont.cancel() else cont.resume(result)
+            } else {
+                cont.resumeWithException(e)
+            }
+        }
+    }
 }

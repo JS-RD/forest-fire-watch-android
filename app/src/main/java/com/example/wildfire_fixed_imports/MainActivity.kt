@@ -3,7 +3,6 @@ package com.example.wildfire_fixed_imports
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -26,12 +25,11 @@ import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.che
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.requestPermissionsCompat
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.shouldShowRequestPermissionRationaleCompat
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
-import com.example.wildfire_fixed_imports.view.MapDisplay.MapFragment.OnFabHomePress
+import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment.OnFabHomePress
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode

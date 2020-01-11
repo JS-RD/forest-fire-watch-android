@@ -44,6 +44,7 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
 
     //mapbox an mapbox annotation extension
