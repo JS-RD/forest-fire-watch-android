@@ -2,7 +2,9 @@
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 # Wildfire Watch
 
-You can find the deployed project at [wildfirewatchapp.com](https://wildfirewatchapp.com/).
+You can find the deployed web project at [wildfirewatchapp.com](https://wildfirewatchapp.com/).
+
+Android app will be available on the play store after Release canvas 2 (roughly end of Janurary 2020)
 
 ## Contributors
 
