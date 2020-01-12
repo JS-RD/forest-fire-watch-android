@@ -10,6 +10,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
@@ -50,6 +51,7 @@ class MapController() {
     //markercontroller ref
     private val markerController = applicationLevelProvider.markerController
 
+    private val TAG = "MapController"
 
     var initialized=false
 
@@ -59,13 +61,13 @@ class MapController() {
 
     init {
 
-       Timber.i("loggo init")
+       Timber.i("$TAG init")
         // Create the observer which updates the UI.
         val fireObserver = Observer<List<DSFires>> { list ->
             // Update the UI, in this case, a TextView.
-            Timber.i("loggo init in observer")
+            Timber.i("$TAG init create fire observer")
             if (!initialized) {
-                Timber.i("new list reached observer ${list.toString()}")
+                Timber.i("$TAG new list reached observer ${list.toString()}")
                 removeAllFires()
                 addAllFires(list)
             }
@@ -86,27 +88,32 @@ class MapController() {
 
 
 
+        var iterator = 0
+        val arrayOfStyles:ArrayList<String> = arrayListOf(
+                Style.DARK,
+                Style.MAPBOX_STREETS,
+                Style.OUTDOORS,
+                Style.LIGHT,
+                Style.SATELLITE,
+                Style.SATELLITE_STREETS,
+                Style.TRAFFIC_DAY,
+                Style.TRAFFIC_NIGHT)
 
 
-
-      //  val retrofitDSService =applicationLevelProvider.retrofitDSService
         if (currentActivity is MainActivity) {
             currentActivity.setFabOnclick {
-
-
-
-                /*CoroutineScope(Dispatchers.IO).launch {
-                    val result =retrofitDSService.getDSFireLocations()
-                    Timber.i(result.toString())
-                    for (i in result.indices) {
-                        Timber.i(result[i].name)
-                        Timber.i(result[i].location[0].toString())
-                        Timber.i(result[i].location[1].toString())
-                        Timber.i(result[i].latlng().toString())
-                        Timber.i(result[i].type)
+                Timber.i("$TAG iterator = ${iterator} \n size = ${arrayOfStyles.size}")
+                    if(iterator>=arrayOfStyles.size-1) {
+                        Timber.i("$TAG iterator>=arrayOfStyles.siz")
+                        iterator=0
                     }
-                }*/
-                    heatMapController.initializeHeatMapExtended()
+                else {
+                        iterator++
+                        Timber.i("$TAG iterator++ = $iterator")
+                    }
+                Timber.i("$TAG setting map style to ${arrayOfStyles[iterator]}")
+                targetMap.setStyle(arrayOfStyles[iterator])
+                   // heatMapController.initializeHeatMapExtended()
                 }
                 }
 

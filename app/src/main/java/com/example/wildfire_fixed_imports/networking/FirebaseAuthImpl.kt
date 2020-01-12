@@ -33,11 +33,11 @@ import kotlin.coroutines.resumeWithException
 
 class FirebaseAuthImpl () {
 
-        val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+        private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-        val firebaseAnalytics = applicationLevelProvider.mFirebaseAnalytics
+        private val firebaseAnalytics = applicationLevelProvider.mFirebaseAnalytics
 
-        val firebaseAuth =applicationLevelProvider.firebaseAuth
+        private  val firebaseAuth =applicationLevelProvider.firebaseAuth
 
         private val autheticationRepo = AuthenticationDataRepository(firebaseAuth)
 
@@ -61,55 +61,7 @@ class FirebaseAuthImpl () {
                 return null
         }
 
-        fun registerNewUserAccount(email:String,password:String) {
 
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(applicationLevelProvider.currentActivity) { task ->
-                                if (task.isSuccessful) {
-                                        // register success, update applicationlevelprovider with the current user
-                                        Timber.d( "$TAG, createUserWithEmail:success")
-                                        val user = firebaseAuth.currentUser
-                                        if (user != null) {
-                                                Timber.d( "$TAG, ${user.toString()}")
-                                                applicationLevelProvider.firebaseUser =user
-                                        }
-
-                                } else {
-                                        // If register fails, display a message to the user.
-                                        Timber.d( "$TAG, createUserWithEmail:failed")
-                                        Toast.makeText(applicationLevelProvider.currentActivity, "register failed.",
-                                                Toast.LENGTH_SHORT).show()
-
-                                }
-
-                                // ...
-                        }
-
-        }
-
-        fun signinUser(email:String,password:String)  {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(applicationLevelProvider.currentActivity) { task ->
-                                if (task.isSuccessful) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Timber.d( "$TAG,  signInWithEmail:success")
-                                        val user = firebaseAuth.currentUser
-                                        if (user != null) {
-                                                applicationLevelProvider.firebaseUser =user
-                                        }
-
-                                } else {
-                                        // If sign in fails, display a message to the user.
-                                        Timber.d( "$TAG,  signInWithEmail:failure ${task.exception}")
-                                        Toast.makeText(applicationLevelProvider.currentActivity, "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show()
-
-                                }
-
-                                // ...
-                        }
-
-        }
         suspend fun registerCoroutine(email:String,password:String): FirebaseUser? {
                 var result:FirebaseUser? = null
                 try {
@@ -171,7 +123,8 @@ class FirebaseAuthImpl () {
 
 
         fun signoutUser():Boolean {
-                if (applicationLevelProvider.firebaseUser != null) {
+                if (firebaseAuth.currentUser != null) {
+                        Timber.d( "$TAG,  user not null ${firebaseAuth.currentUser}\n running firebaseauth.signOut()")
                 firebaseAuth.signOut()
                         Timber.d( "$TAG,  user signed out, current status ${firebaseAuth.currentUser}")
                         applicationLevelProvider.firebaseUser = null
@@ -188,6 +141,60 @@ class FirebaseAuthImpl () {
                 }
         }
 
+
+
+
+        @Deprecated("these are the traditional call back style implementations, deprecated")
+        fun registerNewUserAccount(email:String,password:String) {
+
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(applicationLevelProvider.currentActivity) { task ->
+                                if (task.isSuccessful) {
+                                        // register success, update applicationlevelprovider with the current user
+                                        Timber.d( "$TAG, createUserWithEmail:success")
+                                        val user = firebaseAuth.currentUser
+                                        if (user != null) {
+                                                Timber.d( "$TAG, ${user.toString()}")
+                                                applicationLevelProvider.firebaseUser =user
+                                        }
+
+                                } else {
+                                        // If register fails, display a message to the user.
+                                        Timber.d( "$TAG, createUserWithEmail:failed")
+                                        Toast.makeText(applicationLevelProvider.currentActivity, "register failed.",
+                                                Toast.LENGTH_SHORT).show()
+
+                                }
+
+                                // ...
+                        }
+
+        }
+
+        @Deprecated("these are the traditional call back style implementations, deprecated")
+        fun signinUser(email:String,password:String)  {
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(applicationLevelProvider.currentActivity) { task ->
+                                if (task.isSuccessful) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Timber.d( "$TAG,  signInWithEmail:success")
+                                        val user = firebaseAuth.currentUser
+                                        if (user != null) {
+                                                applicationLevelProvider.firebaseUser =user
+                                        }
+
+                                } else {
+                                        // If sign in fails, display a message to the user.
+                                        Timber.d( "$TAG,  signInWithEmail:failure ${task.exception}")
+                                        Toast.makeText(applicationLevelProvider.currentActivity, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show()
+
+                                }
+
+                                // ...
+                        }
+
+        }
 
 }
 

@@ -25,6 +25,9 @@ class DebugViewModel : ViewModel() {
     private val debugFragment by lazy {
         applicationLevelProvider.debugFragment
     }
+    private val firebaseAuth by lazy {
+        applicationLevelProvider.firebaseAuth
+    }
     private val TAG = "DebugViewModel"
 
     private val authenticationState  by lazy {
@@ -119,6 +122,25 @@ class DebugViewModel : ViewModel() {
      debugFragment.changeBtnFunction("btn4", btn4Lambda)
      _btn4.postValue("register alt coroutine")
 
+     val btn5Lambda = {
+/*         val job = viewModelScope.launch {
+             val randNumber =Math.random().toString()*/
+        if (firebaseAuth.currentUser!=null) {
+            val result = firebaseAuthImpl.signoutUser()
+
+            Timber.i("$TAG, Success signed out: ${result}\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
+
+        }
+             else {
+            Timber.i("$TAG, didn't run sign out\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
+        }
+
+
+     }
+     debugFragment.changeBtnFunction("btn5", btn5Lambda)
+     _btn5.postValue("sign out")
+
+
  }
 /*
 
@@ -155,6 +177,11 @@ class DebugViewModel : ViewModel() {
         value = "debug btn 4"
     }
     val btn4: LiveData<String> = _btn4
+
+    private val _btn5 = MutableLiveData<String>().apply {
+        value = "debug btn 5"
+    }
+    val btn5: LiveData<String> = _btn5
 
     private val _btnSetup1 = MutableLiveData<String>().apply {
         value = "auth debug"

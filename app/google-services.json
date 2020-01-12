@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "568880742365",
+    "firebase_url": "https://wildfire-watch.firebaseio.com",
+    "project_id": "wildfire-watch",
+    "storage_bucket": "wildfire-watch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568880742365:android:a91fb3e848aa7d02744034",
+        "android_client_info": {
+          "package_name": "com.example.wildfire_fixed_imports"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568880742365-i9vfoauusvvna4r4bq6nn2a8vj6ka58o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wildfire_fixed_imports",
+            "certificate_hash": "061a470deb3fc8b3eef0a6d3d3df933671d35fa1"
+          }
+        },
+        {
+          "client_id": "568880742365-l5hd2rsp98a5lmub5cfosdqllfofm77t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9JQm4Cy6zh9zIL-H7MX6LhwjT16nEe6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568880742365-l5hd2rsp98a5lmub5cfosdqllfofm77t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -25,6 +25,7 @@ class DebugFragment : Fragment() {
     private lateinit var btn2: Button
     private  lateinit var btn3: Button
     private  lateinit var btn4: Button
+    private  lateinit var btn5: Button
     private lateinit var btnSetup1: Button
     private lateinit var btnSetup2: Button
 
@@ -50,6 +51,7 @@ class DebugFragment : Fragment() {
                 "btn2" to btn2,
                 "btn3" to btn3,
                 "btn4" to btn4,
+                "btn5" to btn5,
                 "btnSetup1" to btnSetup1,
                 "btnSetup2" to btnSetup2
         )
@@ -62,6 +64,7 @@ class DebugFragment : Fragment() {
         btn2 = root.findViewById(R.id.debug_btn_2)
         btn3 = root.findViewById(R.id.debug_btn_3)
         btn4 = root.findViewById(R.id.debug_btn_4)
+        btn5 = root.findViewById(R.id.debug_btn_5)
         btnSetup1 = root.findViewById(R.id.debug_btn_setup_1)
         btnSetup2 = root.findViewById(R.id.debug_btn_setup_2)
         debugViewModel.text.observe(this, Observer {
@@ -78,6 +81,9 @@ class DebugFragment : Fragment() {
         })
         debugViewModel.btn4.observe(this, Observer {
             btn4.text = it
+        })
+        debugViewModel.btn5.observe(this, Observer {
+            btn5.text = it
         })
         debugViewModel.btnSetup1.observe(this, Observer {
             btnSetup1.text = it

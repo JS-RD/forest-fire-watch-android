@@ -25,8 +25,8 @@ import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.che
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.requestPermissionsCompat
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.shouldShowRequestPermissionRationaleCompat
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
-import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment.OnFabHomePress
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -38,39 +38,137 @@ import com.mapbox.mapboxsdk.maps.Style
 import timber.log.Timber
 
 
-class MainActivity : AppCompatActivity(), OnFabHomePress {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var mapViewModel: MapViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var fab: FloatingActionButton
+    lateinit var fab: FloatingActionButton
     private lateinit var layout: View
 
-    private var locationManager : LocationManager? = null
+    private var locationManager: LocationManager? = null
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+
+
+    @SuppressLint("NewApi")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        layout = findViewById(R.id.nav_view)
+        //set this activity as the current activity in application level provider
+        applicationLevelProvider.currentActivity = this
+
+        //set up toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+
+
+        mapViewModel =
+                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                        MapViewModel::class.java
+                )
+
+        applicationLevelProvider.appMapViewModel = mapViewModel
+        //floating action button, can be removed.
+        fab = findViewById(R.id.fab)
+        val lambda = { }
+        setFabOnclick(lambda)
+
+
+        setUpNav()
+
+
+        //set up tinder logging
+        Timber.tag("LifeCycles");
+        Timber.d("Activity Created");
+
+        //check permissions
+        initPermissions()
+
+
+        try {
+            // Request location updates
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+        } catch (ex: SecurityException) {
+            Timber.i("Security Exception, no location available")
+        }
+
+
+
+    }
+
+
+
+    //navigation and interface methods
+
+    fun setFabOnclick(lambda: () -> Unit) {
+        fab.setOnClickListener { lambda.invoke() }
+    }
+
+    private fun setUpNav() {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+
+
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+                setOf(
+                        R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                        R.id.nav_debug, R.id.nav_share, R.id.nav_send
+                ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+
+
+
+
+
+
+
+    //for location component
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             Timber.i("location log" + location.longitude + ":" + location.latitude)
-            applicationLevelProvider.userLocation=location
+            applicationLevelProvider.userLocation = location
         }
+
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
     }
+
+
     fun enableLocationComponent(loadedMapStyle: Style) {
-// Check if permissions are enabled and if not request
+// Check if permissions are enabled and if not let user known
         if (applicationLevelProvider.fineLocationPermission) {
 
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
-                .trackingGesturesManagement(true)
-                .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .build()
+                    .trackingGesturesManagement(true)
+                    .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                    .build()
 
             val locationComponentActivationOptions =
-                LocationComponentActivationOptions.builder(this, loadedMapStyle)
-                    .locationComponentOptions(customLocationComponentOptions)
-                    .build()
+                    LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                            .locationComponentOptions(customLocationComponentOptions)
+                            .build()
 
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
@@ -88,95 +186,11 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
                 renderMode = RenderMode.COMPASS
             }
         } else {
-            Toast.makeText(this,"Fine Location not enabled",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Fine Location not enabled", Toast.LENGTH_SHORT).show()
         }
     }
-    @SuppressLint("NewApi")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        layout=findViewById(R.id.nav_view)
-        //set this activity as the current activity in application level provider
-        applicationLevelProvider.currentActivity = this
 
-        //set up toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-
-
-        mapViewModel =
-            ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                MapViewModel::class.java
-            )
-
-        applicationLevelProvider.appMapViewModel=mapViewModel
-        //floating action button, can be removed.
-        fab = findViewById(R.id.fab)
-        val lambda = {  }
-        setFabOnclick(lambda)
-
-
-        setUpNav()
-
-
-        //set up tinder logging
-        Timber.tag("LifeCycles");
-        Timber.d("Activity Created");
-
-        //check permissions
-        initPermissions()
-
-
-        try {
-            // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-        } catch(ex: SecurityException) {
-            Timber.i("Security Exception, no location available")
-        }
-
-    }
-
-
-
-    fun setFabOnclick(lambda: () -> Unit) {
-        fab.setOnClickListener { lambda.invoke() }
-    }
-
-    private fun setUpNav() {
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-
-
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
-                R.id.nav_debug, R.id.nav_share, R.id.nav_send
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onFabPRess() {
-        Toast.makeText(this, "yup", Toast.LENGTH_LONG).show()
-    }
-
-
+    //permissions methods
     private fun initPermissions() {
         if (!applicationLevelProvider.internetPermission) {
             checkFineLocationPermission()
@@ -184,14 +198,15 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
             Timber.i("init - initpermissions")
         }
     }
+
     private fun checkInternetPermission() {
-        Timber.i("init - check internet" )
+        Timber.i("init - check internet")
         // Check if the INTERNET permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
-            PackageManager.PERMISSION_GRANTED) {
-            Timber.i("init - internet already available" )
+                PackageManager.PERMISSION_GRANTED) {
+            Timber.i("init - internet already available")
             // Permission is already available, set boolean in ApplicationLevelProvider
-            applicationLevelProvider.internetPermission=true
+            applicationLevelProvider.internetPermission = true
             //pop snackbar to notify of permissions
             layout.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
                     "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
@@ -204,19 +219,19 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
     }
 
     private fun requestInternetPermission() {
-        Timber.i("init - request internet" )
+        Timber.i("init - request internet")
         // Permission has not been granted and must be requested.
         if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.INTERNET)) {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             layout.showSnackbar(
-                "INTERNET acess is required for this app to function at all.",
-                Snackbar.LENGTH_INDEFINITE, "OK"
+                    "INTERNET acess is required for this app to function at all.",
+                    Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                    arrayOf(Manifest.permission.INTERNET),
-                    MY_PERMISSIONS_REQUEST_INTERNET
+                        arrayOf(Manifest.permission.INTERNET),
+                        MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
 
@@ -230,13 +245,13 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
 
     private fun checkFineLocationPermission() {
-        Timber.i("init - check fine location" )
+        Timber.i("init - check fine location")
         // Check if the Camera permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED) {
-            Timber.i("init -  fine location already granted" )
+                PackageManager.PERMISSION_GRANTED) {
+            Timber.i("init -  fine location already granted")
             // Permission is already available, set boolean in ApplicationLevelProvider
-            applicationLevelProvider.fineLocationPermission=true
+            applicationLevelProvider.fineLocationPermission = true
             //pop snackbar to notify of permissions
             layout.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
                     "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
@@ -249,19 +264,19 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
 
     private fun requestFineLocationPermission() {
-        Timber.i("init - request fine location" )
+        Timber.i("init - request fine location")
         // Permission has not been granted and must be requested.
         if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.ACCESS_FINE_LOCATION)) {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             layout.showSnackbar(
-                "GPS location data is needed to provide accurate local results",
-                Snackbar.LENGTH_INDEFINITE, "OK"
+                    "GPS location data is needed to provide accurate local results",
+                    Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
 
@@ -274,35 +289,34 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
     }
 
 
-
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
+            requestCode: Int,
+            permissions: Array<String>, grantResults: IntArray
     ) {
         Timber.i("on request == before while loop permission: ${permissions.toString()} requestcode: $requestCode grantresults: ${grantResults.toString()} ")
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_FINE_LOCATION -> {
-                Timber.i("on request == after while loop fine location" )
+                Timber.i("on request == after while loop fine location")
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                   applicationLevelProvider.fineLocationPermission=true
+                    applicationLevelProvider.fineLocationPermission = true
                     layout.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
                 } else {
-                    applicationLevelProvider.fineLocationPermission=false
+                    applicationLevelProvider.fineLocationPermission = false
                     layout.showSnackbar("Fine Location not granted", Snackbar.LENGTH_SHORT)
                 }
                 return
             }
-            MY_PERMISSIONS_REQUEST_INTERNET ->{
-                Timber.i("on request == after while loop internet" )
+            MY_PERMISSIONS_REQUEST_INTERNET -> {
+                Timber.i("on request == after while loop internet")
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    applicationLevelProvider.internetPermission=true
+                    applicationLevelProvider.internetPermission = true
                     layout.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
                 } else {
-                    applicationLevelProvider.internetPermission=false
+                    applicationLevelProvider.internetPermission = false
                     layout.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
-                        //
+                    //
                     TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
                 return
@@ -310,7 +324,7 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
             // Add other 'when' lines to check for other
             // permissions this app might request.
             else -> {
-                Timber.i("on request == after while loop else" )
+                Timber.i("on request == after while loop else")
                 // Ignore all other requests.
             }
         }
@@ -401,7 +415,6 @@ class MainActivity : AppCompatActivity(), OnFabHomePress {
 
 }
 * */
-
 
 
 /*

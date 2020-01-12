@@ -54,7 +54,8 @@ class HeatMapController () {
     private var index = 0
     private var lastSource: GeoJsonSource = GeoJsonSource("sauce")
     private var heatmapHasBeennitialized = false
-
+    //style of underlying map, Style.DARK, Style.LIGHT, or Style.SATELLITE are suggested values.
+    private val HEATMAP_STYLE = Style.DARK
 
 
     fun initializeHeatMapExtended() {
@@ -392,8 +393,7 @@ class HeatMapController () {
     private val HEATMAP_LAYER_SOURCE = "earthquakes"
     private val CIRCLE_LAYER_ID = "earthquakes-circle"
 
-    //style of underlying map, Style.DARK, Style.LIGHT, or Style.SATELLITE are suggested values.
-    private val HEATMAP_STYLE = Style.DARK
+
 
 
 

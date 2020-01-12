@@ -35,7 +35,7 @@ class ApplicationLevelProvider : Application() {
     *
     *  ApplicationLevelProvider will allow us to access singleton services and shared data between otherwise disjunct classes,
     *
-    * anywhere you can get a hold of the application class, i.e. within acitivties, fragments or anywhere you have context,
+    * anywhere you can get a hold of the application class, i.e. within acitivties, fragments or anywhere else within the application,
     * you simply need to:
     *
     * #1: get a hold of the proper instance of ApplicationLevelProvider via something like:
@@ -86,7 +86,7 @@ class ApplicationLevelProvider : Application() {
         HeatMapController()
     }
 
-  // icons for markers
+
 
 
 
