@@ -183,6 +183,11 @@ class DebugViewModel : ViewModel() {
     }
     val btn5: LiveData<String> = _btn5
 
+    private val _btnCrash = MutableLiveData<String>().apply {
+        value = "crash btn!"
+    }
+    val btnCrash: LiveData<String> = _btnCrash
+
     private val _btnSetup1 = MutableLiveData<String>().apply {
         value = "auth debug"
     }
