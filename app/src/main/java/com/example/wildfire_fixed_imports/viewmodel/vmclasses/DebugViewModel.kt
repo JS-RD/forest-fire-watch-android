@@ -33,115 +33,8 @@ class DebugViewModel : ViewModel() {
     private val authenticationState  by lazy {
         applicationLevelProvider.authenticationState
     }
-    fun resetBtnDisplayValues() {
-
-    }
-
-    val autheticationRepo = AuthenticationDataRepository(applicationLevelProvider.firebaseAuth)
-
- fun setUpAuthTesting() {
-     _btnSetup1.postValue("Auth Testing (current)")
-     val btn1Lambda = {
-
-         val randNumber =Math.random().toString()
-
-         val result =firebaseAuthImpl.registerNewUserAccount("mygosh$randNumber@sauce.com","apasswordhere")
-         Timber.i("$TAG email: mygosh$randNumber@sauce.com")
-         Timber.i("$TAG password: apasswordhere")
-         Timber.i("$TAG registerNewUserAccount = ${applicationLevelProvider.firebaseUser.toString()}")
-         _text.value ="$TAG registerNewUserAccount = ${applicationLevelProvider.firebaseUser.toString()}"
-
-         Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
-                 "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
-                 "${applicationLevelProvider.firebaseUser?.displayName}")
-
-     }
-     debugFragment.changeBtnFunction("btn1", btn1Lambda)
-     _btn1.postValue("register new account")
-
-     val btn2Lambda = {
-
-         val result = firebaseAuthImpl.signinUser("saucefanone@gmail.com", "apassword")
-         Timber.i("$TAG saucefanone@gmail.com")
-         Timber.i("$TAG password: apassword")
-         Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
-         _text.value = "$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}"
-         Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
-                 "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
-                 "${applicationLevelProvider.firebaseUser?.displayName}")
-     }
-     debugFragment.changeBtnFunction("btn2", btn2Lambda)
-     _btn2.postValue("login")
-
-     val btn3Lambda = {
-         val job = viewModelScope.launch {
-
-              val result = firebaseAuthImpl.signinCoroutine("saucefanone@gmail.com","apassword")
-
-             Timber.i("$TAG, Success ${result.toString()}")
-        /*     try {
-                 Timber.i("$TAG saucefanone@gmail.com")
-                 Timber.i("$TAG password: apassword")
-           autheticationRepo.authenticate("saucefanone@gmail.com", "apassword")?.let {
-                     authenticationState.postValue(
-                             true
-                     )
-               applicationLevelProvider.firebaseUser=it
-               Timber.i("$TAG.vmscope ${it.toString()} and $it")
-               Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
-               _text.value = "$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}"
-               Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
-                       "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
-                       "${applicationLevelProvider.firebaseUser?.displayName}")
-                 } ?: run {
-                     authenticationState.postValue(
-                             false)
-
-                 }
-             } catch (e: FirebaseAuthException) {
-                 authenticationState.postValue(
-                         false)
-                 Timber.i("$TAG.vmscope exception: $e")
-             }*/
-         }
-
-     }
-     debugFragment.changeBtnFunction("btn3", btn3Lambda)
-     _btn3.postValue("login alt coroutine")
-
-     val btn4Lambda = {
-         val job = viewModelScope.launch {
-             val randNumber =Math.random().toString()
-
-             val result = firebaseAuthImpl.registerCoroutine( "mygosh$randNumber@sauce.com","apasswordhere")
-
-             Timber.i("$TAG, Success ${result.toString()} \n result email: ${result?.email} \n applevel email: ${applicationLevelProvider.firebaseUser?.email}")
-         }
-
-     }
-     debugFragment.changeBtnFunction("btn4", btn4Lambda)
-     _btn4.postValue("register alt coroutine")
-
-     val btn5Lambda = {
-/*         val job = viewModelScope.launch {
-             val randNumber =Math.random().toString()*/
-        if (firebaseAuth.currentUser!=null) {
-            val result = firebaseAuthImpl.signoutUser()
-
-            Timber.i("$TAG, Success signed out: ${result}\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
-
-        }
-             else {
-            Timber.i("$TAG, didn't run sign out\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
-        }
 
 
-     }
-     debugFragment.changeBtnFunction("btn5", btn5Lambda)
-     _btn5.postValue("sign out")
-
-
- }
 /*
 
     init {
@@ -157,6 +50,7 @@ class DebugViewModel : ViewModel() {
         value = "This is debug Fragment"
     }
     val text: LiveData<String> = _text
+
 
     private val _btn1 = MutableLiveData<String>().apply {
         value = "debug btn 1"
@@ -197,4 +91,120 @@ class DebugViewModel : ViewModel() {
         value = "setup btn 2"
     }
     val btnSetup2: LiveData<String> = _btnSetup2
+
+
+    private val listOfLiveBtnStrings = mutableListOf<MutableLiveData<String>>(_btn1,_btn2,_btn3,_btn4,_btn5)
+
+    fun resetBtnDisplayValues() {
+        debugFragment.changeFocusedSetupgButton("blank")
+        for (i in listOfLiveBtnStrings.indices){
+            val current = listOfLiveBtnStrings[i]
+            current.postValue("btn $i")
+        }
+    }
+
+
+    fun setUpAuthTesting() {
+        debugFragment.changeFocusedSetupgButton("auth")
+        val btn1Lambda = {
+
+            val randNumber =Math.random().toString()
+
+            val result =firebaseAuthImpl.registerNewUserAccount("mygosh$randNumber@sauce.com","apasswordhere")
+            Timber.i("$TAG email: mygosh$randNumber@sauce.com")
+            Timber.i("$TAG password: apasswordhere")
+            Timber.i("$TAG registerNewUserAccount = ${applicationLevelProvider.firebaseUser.toString()}")
+            _text.value ="$TAG registerNewUserAccount = ${applicationLevelProvider.firebaseUser.toString()}"
+
+            Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
+                    "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
+                    "${applicationLevelProvider.firebaseUser?.displayName}")
+
+        }
+        debugFragment.changeBtnFunction("btn1", btn1Lambda)
+        _btn1.postValue("register new account")
+
+        val btn2Lambda = {
+
+            val result = firebaseAuthImpl.signinUser("saucefanone@gmail.com", "apassword")
+            Timber.i("$TAG saucefanone@gmail.com")
+            Timber.i("$TAG password: apassword")
+            Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
+            _text.value = "$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}"
+            Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
+                    "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
+                    "${applicationLevelProvider.firebaseUser?.displayName}")
+        }
+        debugFragment.changeBtnFunction("btn2", btn2Lambda)
+        _btn2.postValue("login")
+
+        val btn3Lambda = {
+            val job = viewModelScope.launch {
+
+                val result = firebaseAuthImpl.signinCoroutine("saucefanone@gmail.com","apassword")
+
+                Timber.i("$TAG, Success ${result.toString()}")
+                /*     try {
+                         Timber.i("$TAG saucefanone@gmail.com")
+                         Timber.i("$TAG password: apassword")
+                   autheticationRepo.authenticate("saucefanone@gmail.com", "apassword")?.let {
+                             authenticationState.postValue(
+                                     true
+                             )
+                       applicationLevelProvider.firebaseUser=it
+                       Timber.i("$TAG.vmscope ${it.toString()} and $it")
+                       Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
+                       _text.value = "$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}"
+                       Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}" +
+                               "${applicationLevelProvider.firebaseUser?.describeContents().toString()} " +
+                               "${applicationLevelProvider.firebaseUser?.displayName}")
+                         } ?: run {
+                             authenticationState.postValue(
+                                     false)
+
+                         }
+                     } catch (e: FirebaseAuthException) {
+                         authenticationState.postValue(
+                                 false)
+                         Timber.i("$TAG.vmscope exception: $e")
+                     }*/
+            }
+
+        }
+        debugFragment.changeBtnFunction("btn3", btn3Lambda)
+        _btn3.postValue("login alt coroutine")
+
+        val btn4Lambda = {
+            val job = viewModelScope.launch {
+                val randNumber =Math.random().toString()
+
+                val result = firebaseAuthImpl.registerCoroutine( "mygosh$randNumber@sauce.com","apasswordhere")
+
+                Timber.i("$TAG, Success ${result.toString()} \n result email: ${result?.email} \n applevel email: ${applicationLevelProvider.firebaseUser?.email}")
+            }
+
+        }
+        debugFragment.changeBtnFunction("btn4", btn4Lambda)
+        _btn4.postValue("register alt coroutine")
+
+        val btn5Lambda = {
+            /*         val job = viewModelScope.launch {
+                         val randNumber =Math.random().toString()*/
+            if (firebaseAuth.currentUser!=null) {
+                val result = firebaseAuthImpl.signoutUser()
+
+                Timber.i("$TAG, Success signed out: ${result}\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
+
+            }
+            else {
+                Timber.i("$TAG, didn't run sign out\n fb user:${firebaseAuth.currentUser}\n appplicationlevel user: ${applicationLevelProvider.firebaseUser}")
+            }
+
+
+        }
+        debugFragment.changeBtnFunction("btn5", btn5Lambda)
+        _btn5.postValue("sign out")
+
+
+    }
 }

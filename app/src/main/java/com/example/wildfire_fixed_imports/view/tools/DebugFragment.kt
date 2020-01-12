@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.tools
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,10 @@ class DebugFragment : Fragment() {
     private lateinit var rootLayout: View
 
     private lateinit var btnMap: Map<String, Button>
+    private lateinit var setupBtnMap: Map<String, Button>
+    private var selectedModeBtn:Button? =null
+
+
 
     init {
         applicationLevelProvider.debugFragment = this
@@ -57,6 +62,11 @@ class DebugFragment : Fragment() {
                 "btncrash" to btnCrash,
                 "btnSetup1" to btnSetup1,
                 "btnSetup2" to btnSetup2
+        )
+        setupBtnMap = mapOf(
+                "btnSetup1" to btnSetup1,
+                "btnSetup2" to btnSetup2,
+                "auth" to btnSetup1
         )
         rootLayout=root
         return root
@@ -100,6 +110,9 @@ class DebugFragment : Fragment() {
         btnSetup1.setOnClickListener {
             debugViewModel.setUpAuthTesting()
         }
+        btnSetup2.setOnClickListener {
+            debugViewModel.resetBtnDisplayValues()
+        }
 
 
         //set crash button to a default crash value
@@ -114,6 +127,19 @@ class DebugFragment : Fragment() {
 
     }
 
+    fun changeFocusedSetupgButton(btn: String) {
+        selectedModeBtn = setupBtnMap[btn]
+        selectedModeBtn?.setBackgroundColor(Color.RED)
+        for (i in setupBtnMap) {
+            val current = i.value
+            if (current!=selectedModeBtn) {
+                current.setBackgroundColor(resources.getColor(R.color.lb_control_button_color))
+            }
+
+        }
+
+
+    }
     fun changeBtnFunction(btn: String, lambda: () -> Unit) {
         btnMap[btn]?.setOnClickListener {
             lambda.invoke()
