@@ -45,3 +45,4 @@ Thumbs.db
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
 
+google-services.json
