@@ -6,3 +6,5 @@ system for handling/replacing/editing fires when they change.
 NEED ERROR HANDLING FOR HTTP AND PROBABLY OTHER AREAS
 
 FIX BUG THAT CAUSES ICONS TO LOSE COLOR
+ -->> likely due to icons being deprecated, https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation
+   --> switch to symbols from icons, shouldn't be tremendously hard and symbols appear to offer other options.
