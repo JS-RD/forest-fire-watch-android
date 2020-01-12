@@ -8,6 +8,7 @@ import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
+import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.networking.AuthenticationState
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
@@ -35,6 +36,12 @@ class ApplicationLevelProvider : Application() {
     *
     *  ApplicationLevelProvider will allow us to access singleton services and shared data between otherwise disjunct classes,
     *
+    *
+    *  This is a service locator more than dependency injection, I think, to be honest the distinction is somewhat confusing to me but the
+    * bottom line is: using ApplicationLevelProvider, we can minimize objects being needlessly replicated and can further allow classes to painlessly
+    * find and communicate with each other.
+    *
+    * Instuctions for usee:
     * anywhere you can get a hold of the application class, i.e. within acitivties, fragments or anywhere else within the application,
     * you simply need to:
     *
@@ -63,7 +70,7 @@ class ApplicationLevelProvider : Application() {
     val mFirebaseAnalytics by lazy {
         FirebaseAnalytics.getInstance(this)
     }
-     val firebaseAuth  by lazy {
+    val firebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
 
@@ -87,9 +94,6 @@ class ApplicationLevelProvider : Application() {
     }
 
 
-
-
-
     val retrofitWebService by lazy {
         RetrofitImplementation.createWEB()
     }
@@ -109,15 +113,14 @@ class ApplicationLevelProvider : Application() {
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: View
 
-    var fineLocationPermission:Boolean =false
-    var internetPermission:Boolean =false
+    var fineLocationPermission: Boolean = false
+    var internetPermission: Boolean = false
 
     lateinit var appMapViewModel: MapViewModel
 
-    lateinit var fireIcon:Icon
+    lateinit var fireIcon: Icon
 
     lateinit var userLocation: Location
-
 
 
     companion object {
@@ -127,7 +130,6 @@ class ApplicationLevelProvider : Application() {
         }
 
     }
-
 
 
     override fun onCreate() {
@@ -144,34 +146,37 @@ class ApplicationLevelProvider : Application() {
         }
 
         val iconFactory by lazy { IconFactory.getInstance(this) }
-        val fireBitmap=getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50,50)
+        val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)
         fireIcon =
-            iconFactory.fromBitmap(fireBitmap)
+                iconFactory.fromBitmap(fireBitmap)
 
 
     }
 
-    /** A tree which logs important information for crash reporting. */
-    /* switch to firebase asap */
+    /** A tree which logs important information for crash reporting.
+     * as per king Jake W's timber example app.
+     * addtional testing of this needed, but should be functional... probably*/
     private class CrashReportingTree : Timber.Tree() {
         override fun log(
-            priority: Int,
-            tag: String?, @NonNull message: String,
-            t: Throwable?
+                priority: Int,
+                tag: String?, @NonNull message: String,
+                t: Throwable?
         ) {
             if (priority == Log.VERBOSE || priority == Log.DEBUG) {
                 return
             }
-         /*   FakeCrashLibrary.log(priority, tag, message)
+            Crashlytics.setUserIdentifier(getApplicaationLevelProviderInstance().firebaseUser.toString())
+            Crashlytics.log(priority,tag,message)
             if (t != null) {
                 if (priority == Log.ERROR) {
-                    FakeCrashLibrary.logError(t)
+                    Crashlytics.logException(t)
                 } else if (priority == Log.WARN) {
-                    FakeCrashLibrary.logWarning(t)
+                    Crashlytics.log("warning: ${t.toString()}")
                 }
-            }*/
+
+            }
+
         }
     }
-
 }
 
