@@ -38,3 +38,7 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
