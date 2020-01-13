@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_login_register"
-        android:name="com.example.wildfire_fixed_imports.view.login.LoginFragment"
+        android:name="com.example.wildfire_fixed_imports.view.loginRegistration.LoginFragment"
         android:label="@string/menu_login_register"
         tools:layout="@layout/fragment_login" />
 
@@ -26,6 +26,12 @@
     <fragment
         android:id="@+id/nav_debug"
         android:name="com.example.wildfire_fixed_imports.view.tools.DebugFragment"
+        android:label="@string/menu_debug"
+        tools:layout="@layout/fragment_debug" />
+
+    <fragment
+        android:id="@+id/nav_reg"
+        android:name="com.example.wildfire_fixed_imports.view.loginRegistration.RegistrationFragment"
         android:label="@string/menu_debug"
         tools:layout="@layout/fragment_debug" />
 

@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.login
+package com.example.wildfire_fixed_imports.view.loginRegistration
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,13 +15,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import androidx.navigation.Navigation
 
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.RegistrationFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
@@ -118,12 +115,7 @@ class LoginFragment : Fragment() {
         }
 
         button_reg.setOnClickListener {
-            val fragment = RegistrationFragment()
-            val fragmentManager = activity!!.supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.login_container, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            Navigation.findNavController(it).navigate(R.id.nav_reg)
 
 
         }

@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.login
+package com.example.wildfire_fixed_imports.view.loginRegistration
 
 /**
  * User details post authentication that is exposed to the UI
