@@ -19,7 +19,9 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.RegistrationFragment
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
@@ -48,8 +50,9 @@ class LoginFragment : Fragment() {
 
         val usernameEditText = view.findViewById<EditText>(R.id.says_username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
-        val loginButton = view.findViewById<Button>(R.id.btn_login)
+        val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
+        val button_reg = view.findViewById<View>(R.id.button_register) as Button
 
 
         loginViewModel.loginFormState.observe(this,
@@ -112,6 +115,17 @@ class LoginFragment : Fragment() {
                     usernameEditText.text.toString(),
                     passwordEditText.text.toString()
             )
+        }
+
+        button_reg.setOnClickListener {
+            val fragment = RegistrationFragment()
+            val fragmentManager = activity!!.supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.login_container, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+
+
         }
 
 

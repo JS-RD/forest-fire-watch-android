@@ -52,14 +52,12 @@ class RegistrationFragment : Fragment() {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
 
-    fun createUser(){
-        val call: Call<UserResponse> = RetrofitImplementation.createWEB().createUser(User())
-    }
+    /*fun createUser(){
+        val call: UserResponse = RetrofitImplementation.createWEB().createUser(User())
+    }*/
 
     override fun onDetach() {
         super.onDetach()
