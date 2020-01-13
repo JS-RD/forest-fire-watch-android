@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/forest-fire-watch-android-app.iml" filepath="$PROJECT_DIR$/app/forest-fire-watch-android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/forest-fire-watch-android-wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/forest-fire-watch-android-wildfire_fixed-imports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/ronnie-Desktop-forest-fire-watch-android-app.iml" filepath="$PROJECT_DIR$/app/ronnie-Desktop-forest-fire-watch-android-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ronnie-Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/ronnie-Desktop-forest-fire-watch-android-wildfire_fixed-imports.iml" />
       <module fileurl="file://$PROJECT_DIR$/wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/wildfire_fixed-imports.iml" />
     </modules>
