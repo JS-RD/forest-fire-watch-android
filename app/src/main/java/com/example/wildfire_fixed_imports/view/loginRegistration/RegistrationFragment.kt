@@ -1,21 +1,61 @@
 package com.example.wildfire_fixed_imports.view.loginRegistration
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.model.User
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
+import kotlinx.android.synthetic.main.fragment_registration.*
 
 class RegistrationFragment : Fragment() {
     lateinit var email: String
     lateinit var password: String
+    val button_reg = view?.findViewById<View>(R.id.button_register) as Button
+
+
+
     // TODO: Rename and change types of parameters
     private var listener: OnFragmentInteractionListener? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        button_reg.setOnClickListener {
+            email = et_EmailAddress.text.toString().trim()
+            password = et_input_password.text.toString().trim()
+
+
+            if(email.isEmpty()){
+                et_EmailAddress.error = "Email required"
+                et_EmailAddress.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(password.isEmpty()){
+                et_input_password.error = "password required"
+                et_input_password.requestFocus()
+                return@setOnClickListener
+            }
+
+            RetrofitImplementation.createWEB().userCreate(User(email, password))
+
+
+
+
+
+
+
+
+
+
+
+        }
     }
+
+
 
 
     override fun onCreateView(
@@ -24,17 +64,14 @@ class RegistrationFragment : Fragment() {
     ):View?{
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false)
+
+
     }
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        }
-    }
+
     /*fun createUser(){
         val call: UserResponse = RetrofitImplementation.createWEB().createUser(User())
     }*/

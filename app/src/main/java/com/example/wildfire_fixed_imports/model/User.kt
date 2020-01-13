@@ -4,13 +4,14 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import java.util.*
 
 data class User(
-        var id: UUID,
+       /* var id: UUID,
         var first_name: String,
         var last_name: String,
-        var email: String,
         var cell_number: Int,
         var recieve_sms: Boolean,
-        var recieve_push: Boolean
+        var recieve_push: Boolean,*/
+        var email: String,
+        var password: String
 )
 
 data class UserLogin(

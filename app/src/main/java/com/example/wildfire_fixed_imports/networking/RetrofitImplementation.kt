@@ -26,6 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Deferred
+import retrofit2.Response
 
 interface RetrofitImplementation {
 /*@GET("api/users")
@@ -33,11 +34,14 @@ interface RetrofitImplementation {
 fun getAllUsers(): Call<List<User>>*/
 
     //Auth Routes
+    @FormUrlEncoded
     @POST("/api/auth/register")
-   suspend fun createUser(@Body user: User): UserResponse
+   suspend fun userCreate(@Field("email") email: String,
+                          @Field("password") password: String): Response<UserResponse>
 
     @POST("/api/auth/login")
-   suspend fun login(@Body user: UserLogin): UserResponse
+   suspend fun login(@Field("email") email: String,
+                     @Field("password") password: String): Response<UserResponse>
 
    /* //User Routes
     @GET("/api/users/session")
