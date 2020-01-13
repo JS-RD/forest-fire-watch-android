@@ -27,7 +27,7 @@ import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.Deferred
 
-interface RetrofitImplementation {
+interface RetroImplForDataScienceBackEnd {
 /*@GET("api/users")
 
 fun getAllUsers(): Call<List<User>>*/
@@ -92,12 +92,16 @@ fun getAllUsers(): Call<List<User>>*/
         {"message": "You shall not pass"}
     * */
     @PUT("/api/users/")
-    suspend fun updateUser(@Body user: UserWebBE): UserWebBE
+    suspend fun updateUser(@Body user: UserWebSafeUpdate): UserWebBE
 
 
-    @GET("/api/users/session")
+    //update the web backend user object by
+    /*
+        as of 1/13/2020 this does not appear functional
 
-    @PUT ("/api/users/update/:id")
+    @PUT ("/api/users/update/{user_id}")
+    suspend fun updateUserByID(@Path("id") id:String, @Body user: UserWebSafeUpdate)
+ * */
 
 
     /*
@@ -109,7 +113,6 @@ fun getAllUsers(): Call<List<User>>*/
     //Location Routes
 
     @GET("/api/locations/")
-
     suspend fun getLocations(): Deferred<List<FireLocations>>
 
     /* @POST("/api/locations/")
@@ -124,7 +127,7 @@ fun getAllUsers(): Call<List<User>>*/
     companion object {
 
 
-        fun createWEB(): RetrofitImplementation {
+        fun createWEB(): RetroImplForDataScienceBackEnd {
             val logger = HttpLoggingInterceptor()
             //      logger.level = HttpLoggingInterceptor.Level.BASIC
             logger.level = HttpLoggingInterceptor.Level.BODY
@@ -142,10 +145,10 @@ fun getAllUsers(): Call<List<User>>*/
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-            return retrofit.create(RetrofitImplementation::class.java)
+            return retrofit.create(RetroImplForDataScienceBackEnd::class.java)
         }
 
-        fun createDS(): RetrofitImplementation {
+        fun createDS(): RetroImplForDataScienceBackEnd {
             val logger = HttpLoggingInterceptor()
             //      logger.level = HttpLoggingInterceptor.Level.BASIC
             logger.level = HttpLoggingInterceptor.Level.BODY
@@ -163,7 +166,7 @@ fun getAllUsers(): Call<List<User>>*/
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-            return retrofit.create(RetrofitImplementation::class.java)
+            return retrofit.create(RetroImplForDataScienceBackEnd::class.java)
         }
 
     }

@@ -7,11 +7,10 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
-import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.networking.AuthenticationState
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
+import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBackEnd
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
@@ -24,7 +23,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
-import com.mapbox.mapboxsdk.maps.MapFragment
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -95,10 +93,10 @@ class ApplicationLevelProvider : Application() {
 
 
     val retrofitWebService by lazy {
-        RetrofitImplementation.createWEB()
+        RetroImplForDataScienceBackEnd.createWEB()
     }
     val retrofitDSService by lazy {
-        RetrofitImplementation.createDS()
+        RetroImplForDataScienceBackEnd.createDS()
     }
     val firebaseAuthImpl by lazy {
         FirebaseAuthImpl()
