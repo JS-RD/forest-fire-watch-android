@@ -15,6 +15,12 @@ local.properties
 # Signing files
 .signing/
 # User-specific configurations
+/.idea
+/.idea/
+.idea/
+.idea
+/.idea/libraries
+.idea/libraries
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
@@ -35,3 +41,8 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Crashlytics configuations
+com_crashlytics_export_strings.xml
+
+google-services.json

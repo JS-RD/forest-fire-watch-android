@@ -39,6 +39,7 @@ class MarkerController () {
             .icon(fireIcon)
 
 
+
         )
         //add newly added marker to list of markers in case of later need to remove or edit
         addedMarkers.add(newMarker)
