@@ -9,8 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.model.User
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
+
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,9 +51,6 @@ class RegistrationFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                val result = firebaseAuthImpl.registerCoroutine(email,password)
 
-                if (result==null){
-                    Toast.makeText(applicationLevelProvider.applicationContext)
-                }
             }
 
 
