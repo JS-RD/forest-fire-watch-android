@@ -14,9 +14,8 @@ import java.util.concurrent.TimeUnit
 interface RetrofitImplementationForWebBackend {
 
     //Auth Routes
-    //likely not going to be used in final spec, here for completeness
     @POST("/api/auth/register")
-    suspend fun createUser(@Body uid: UID): String
+    suspend fun createUser(@Body webBEUserRegister: WebBEUserRegister): WebBELoginResponse
 
     @POST("/api/auth/login")
     suspend fun login(@Body userUID: UID): WebBELoginResponse
@@ -73,6 +72,30 @@ interface RetrofitImplementationForWebBackend {
     }
 }
 
+
+//method :  login(@Body user: UserLogin): LoginResponse
+//used to get token for Web backend,
+/*
+          example of well composed body to send:
+
+       {
+	"first_name": "sauce",
+"last_name":"sauce",
+"email":"sauce@saucestar.com",
+"UID":"J8Lx45n6ZTSUEJG7H5XmnSBbjhi1"
+
+}
+
+        example of succesful response:
+
+{
+    "message": "Welcome sauce!",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMzAsImVtYWlsIjoic2F1Y2VAc2F1Y2VzdGFyLmNvbSIsImlhdCI6MTU3OTAzMTk0OCwiZXhwIjoxNTc5MTE4MzQ4fQ.j5PQ2iZ9PoBAL2t7y2TJahGD3LuP-pSPsN0DxOXS5Wk"
+}
+           example of error
+
+ {  "error": "User does not exist"}
+*/
 //method :  login(@Body user: UserLogin): LoginResponse
 //used to get token for Web backend,
 /*

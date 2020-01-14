@@ -3,11 +3,13 @@ package com.example.wildfire_fixed_imports
 import android.app.Activity
 import android.app.Application
 import android.location.Location
+import android.media.session.MediaSession
 import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
 import com.crashlytics.android.Crashlytics
+import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.networking.AuthenticationState
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBackEnd
@@ -75,6 +77,9 @@ class ApplicationLevelProvider : Application() {
     }
 
     var firebaseUser: FirebaseUser? = null
+
+    var webUser:WebBEUser? = null
+
 
 /*    val authenticationState by lazy {
         AuthenticationState()
