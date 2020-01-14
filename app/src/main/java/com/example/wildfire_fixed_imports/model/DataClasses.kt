@@ -13,9 +13,9 @@ data class WebBEUser(
         var last_name: String,
         var email: String,
         val UID: String,
-        var cell_number: Int? =null,
-        var recieve_sms: Boolean =false,
-        var recieve_push: Boolean = false,
+        var cell_number: String? =null,
+        var receive_sms: Boolean =false,
+        var receive_push: Boolean = false,
         var token: String? =null,
         //for error handling
         val error:String? =null,
@@ -23,7 +23,7 @@ data class WebBEUser(
 )
 {
     fun makeSafeUpdate() :SafeWebUser {
-        return SafeWebUser(this.first_name,this.last_name,this.email,this.cell_number,this.recieve_sms,this.recieve_push)
+        return SafeWebUser(this.first_name,this.last_name,this.email,this.cell_number,this.receive_sms,this.receive_push)
     }
     fun toWebBEUserRegister() :WebBEUserRegister {
         return WebBEUserRegister(this.first_name,this.last_name,this.email,this.UID)
@@ -51,9 +51,9 @@ data class SafeWebUser(
         var last_name: String,
         var email: String,
       //  val UID: String,
-        var cell_number: Int? =null,
-        var recieve_sms: Boolean,
-        var recieve_push: Boolean,
+        var cell_number: String? =null,
+        var receive_sms: Boolean,
+        var receive_push: Boolean,
 
         //for error handling
         val error:String? = null,

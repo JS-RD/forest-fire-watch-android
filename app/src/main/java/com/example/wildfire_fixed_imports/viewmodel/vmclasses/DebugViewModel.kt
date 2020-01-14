@@ -189,9 +189,11 @@ class DebugViewModel : ViewModel() {
         _tv1.postValue("email")
         _tv2.postValue("first name")
         _tv3.postValue("last name")
+        _tv4.postValue("phone number")
         _et1.postValue("email")
         _et2.postValue("first name")
         _et3.postValue("last name")
+        _et4.postValue("#######")
 
         debugFragment.changeBtnFunction("btn1", btn1Lambda)
         _btn1.postValue("signin web be")
@@ -224,9 +226,43 @@ class DebugViewModel : ViewModel() {
 
         val btn3Lambda = {
 
+            var sauce = "sacue"
+            viewModelScope.launch {
+
+               val target = applicationLevelProvider.webUser
+            if (target!=null) {
+                with(target) {
+                    email = publicStringHolder1
+                    first_name = publicStringHolder2
+                    last_name = publicStringHolder3
+                    cell_number = publicStringHolder4
+                }
+                val result = userWebBEController.updateUserObject(
+                        target
+                )
+
+                when (result) {
+                    is SuccessFailWrapper.Success -> Timber.i("success")
+                    is SuccessFailWrapper.Fail -> Timber.i(result.message, result.javaClass)
+                    is SuccessFailWrapper.Throwable -> Timber.i("throwable")
+                    else -> Timber.i("else")
+
+
+                }
+                _text.postValue("$TAG registerNewUserAccount = ${result}")
+            }
+                else {
+                _text.postValue("web user is null")
+            }
+
+
+
+            }
+            sauce += sauce
+
         }
         debugFragment.changeBtnFunction("btn3", btn3Lambda)
-        _btn3.postValue("null")
+        _btn3.postValue("update user")
 
         val btn4Lambda = {
             val job = viewModelScope.launch {

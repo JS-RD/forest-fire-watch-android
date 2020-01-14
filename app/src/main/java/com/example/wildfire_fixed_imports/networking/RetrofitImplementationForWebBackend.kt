@@ -24,7 +24,7 @@ interface RetrofitImplementationForWebBackend {
     suspend fun getUserInfoFromBE(@Header("Authorization") token: String): WebBEUser
 
     @PUT("/api/users/")
-    suspend fun updateUser(@Body user: SafeWebUser): WebBEUser
+    suspend fun updateUser(@Header("Authorization") token: String, @Body user: SafeWebUser): List<WebBEUser>
 
     @Deprecated("DO NOT USE NOT FUNCTIONAL AS OF 1/13/2020")
     @PUT ("/api/users/update/{user_id}")
