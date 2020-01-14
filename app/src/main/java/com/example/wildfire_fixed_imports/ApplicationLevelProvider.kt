@@ -11,8 +11,10 @@ import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.networking.AuthenticationState
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBackEnd
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
+import com.example.wildfire_fixed_imports.viewmodel.UserControllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
@@ -74,26 +76,16 @@ class ApplicationLevelProvider : Application() {
 
     var firebaseUser: FirebaseUser? = null
 
-    val authenticationState by lazy {
+/*    val authenticationState by lazy {
         AuthenticationState()
-    }
-
-// ...
+    }*/
 
 
-    val mapViewModelFactory by lazy {
-        MapViewModelFactory()
-    }
-    val markerController by lazy {
-        MarkerController()
-    }
-    val heatMapController by lazy {
-        HeatMapController()
-    }
+
 
 
     val retrofitWebService by lazy {
-        RetroImplForDataScienceBackEnd.createWEB()
+        RetrofitImplementationForWebBackend.createWEB()
     }
     val retrofitDSService by lazy {
         RetroImplForDataScienceBackEnd.createDS()
@@ -102,6 +94,22 @@ class ApplicationLevelProvider : Application() {
         FirebaseAuthImpl()
     }
 
+    val userWebBEController by lazy{
+        UserWebBEController()
+    }
+
+// ...
+
+
+val mapViewModelFactory by lazy {
+    MapViewModelFactory()
+}
+val markerController by lazy {
+    MarkerController()
+}
+val heatMapController by lazy {
+    HeatMapController()
+}
 
     lateinit var currentActivity: Activity
     lateinit var mapFragment: WildFireMapFragment
@@ -142,6 +150,7 @@ class ApplicationLevelProvider : Application() {
         } else {
             Timber.plant(CrashReportingTree())
         }
+
 
         val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)

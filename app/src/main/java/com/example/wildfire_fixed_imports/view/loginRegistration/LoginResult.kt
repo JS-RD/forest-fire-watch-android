@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.login
+package com.example.wildfire_fixed_imports.view.loginRegistration
 
 /**
  * Authentication result : success (user details) or error message.

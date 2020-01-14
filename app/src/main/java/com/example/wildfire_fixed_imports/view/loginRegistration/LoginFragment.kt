@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.login
+package com.example.wildfire_fixed_imports.view.loginRegistration
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,8 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
+import androidx.navigation.Navigation
 
 import com.example.wildfire_fixed_imports.R
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -48,8 +47,9 @@ class LoginFragment : Fragment() {
 
         val usernameEditText = view.findViewById<EditText>(R.id.says_username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
-        val loginButton = view.findViewById<Button>(R.id.btn_login)
+        val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
+        val button_reg = view.findViewById<View>(R.id.button_register) as Button
 
 
         loginViewModel.loginFormState.observe(this,
@@ -112,6 +112,12 @@ class LoginFragment : Fragment() {
                     usernameEditText.text.toString(),
                     passwordEditText.text.toString()
             )
+        }
+
+        button_reg.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.nav_reg)
+
+
         }
 
 

@@ -3,11 +3,12 @@ package com.example.wildfire_fixed_imports.viewmodel.vmclasses
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.wildfire_fixed_imports.repository.UserRepository
 
-class LoginRegisterViewModel : ViewModel() {
+class LoginRegisterViewModel(private val repository: UserRepository): ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is login Fragment"
-    }
-    val text: LiveData<String> = _text
+    var email: String? = null
+    var password: String? = null
+
+    var authListener: AuthListener? = null
 }

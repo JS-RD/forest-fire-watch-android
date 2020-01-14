@@ -1,9 +1,14 @@
 package com.example.wildfire_fixed_imports.model
 
 import com.mapbox.mapboxsdk.geometry.LatLng
-import java.util.*
+import java.lang.Exception
 
-data class UserWebBE(
+data class ErrorClass(
+        val error:String? = null,
+        val message: String? = null
+)
+
+data class WebBEUser(
         var id: Int,
         var first_name: String,
         var last_name: String,
@@ -18,13 +23,13 @@ data class UserWebBE(
         val message: String?
 )
 {
-    fun makeSafeUpdate() :UserWebSafeUpdate {
-        return UserWebSafeUpdate(this.first_name,this.last_name,this.email,this.cell_number,this.recieve_sms,this.recieve_push)
+    fun makeSafeUpdate() :SafeWebUser {
+        return SafeWebUser(this.first_name,this.last_name,this.email,this.cell_number,this.recieve_sms,this.recieve_push)
     }
 }
 
 
-data class UserWebSafeUpdate(
+data class SafeWebUser(
 
       //  var id: Int,
         var first_name: String,
@@ -46,7 +51,7 @@ data class UserLogin(
     val password: String
 )
 
-data class LoginResponse(
+data class WebBELoginResponse(
     val message: String?,
     val token: String,
     //should only populate if error is returned
@@ -110,3 +115,43 @@ data class dataFromIP(
         val timezone: String,
         val zip: String
 )
+
+data class WebBELocation(
+        val address: String,
+        val address_label: String,
+        val id: Int,
+        val last_alert: Long,
+        val latitude: Double,
+        val longitude: Double,
+        val notification_timer: Int,
+        val notifications: Boolean,
+        val radius: Int,
+        val user_id: Int
+) {
+    fun toSafeWebBELocation() :SafeWebBELocation {
+        return SafeWebBELocation(this.address,this.address_label,this.last_alert,this.latitude,this.longitude,this.notification_timer,
+                this.notifications,this.radius)
+    }
+}
+
+
+data class SafeWebBELocation(
+        val address: String,
+        val address_label: String,
+       // val id: Int,
+        val last_alert: Long,
+        val latitude: Double,
+        val longitude: Double,
+        val notification_timer: Int,
+        val notifications: Boolean,
+        val radius: Int
+       // val user_id: Int
+)
+
+sealed class SuccessFailWrapper<out T>  {
+    data class SuccessWrapper<out T>(val message: String? = null, val value: T? = null): SuccessFailWrapper<T>()
+    data class FailWrapper<out T>(val message: String? = null) : SuccessFailWrapper<T>()
+    data class ThrowableWrapper<out T>(val message: String? = null,val t:Throwable? = null) : SuccessFailWrapper<T>()
+    data class Exception<out T>(val message: String? = null,val e:java.lang.Exception? = null) : SuccessFailWrapper<T>()
+        object NetworkError: SuccessFailWrapper<Nothing>()
+    }

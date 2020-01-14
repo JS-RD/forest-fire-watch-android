@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.login
+package com.example.wildfire_fixed_imports.view.loginRegistration
 
 /**
  * Data validation state of the login form.

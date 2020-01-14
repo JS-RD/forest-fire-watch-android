@@ -66,7 +66,8 @@ class DebugFragment : Fragment() {
         setupBtnMap = mapOf(
                 "btnSetup1" to btnSetup1,
                 "btnSetup2" to btnSetup2,
-                "auth" to btnSetup1
+                "auth" to btnSetup1,
+                "webAuth" to btnSetup2
         )
         rootLayout=root
         return root
@@ -111,17 +112,19 @@ class DebugFragment : Fragment() {
             debugViewModel.setUpAuthTesting()
         }
         btnSetup2.setOnClickListener {
-            debugViewModel.resetBtnDisplayValues()
+            debugViewModel.setUpWebBEAuthTesting()
+
         }
 
 
         //set crash button to a default crash value
 
         debugViewModel.btnCrash.observe(this, Observer {
-            btnCrash.text = it
+            btnCrash.text = "reset btn values"//it
         })
         btnCrash.setOnClickListener {
-            Crashlytics.getInstance().crash() // Force a crash
+            debugViewModel.resetBtnDisplayValues()
+          //  Crashlytics.getInstance().crash() // Force a crash
         }
 
 

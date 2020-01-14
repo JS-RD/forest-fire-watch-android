@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.toUID
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 
 import com.example.wildfire_fixed_imports.networking.AuthenticationDataRepository
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
@@ -28,11 +30,18 @@ class DebugViewModel : ViewModel() {
     private val firebaseAuth by lazy {
         applicationLevelProvider.firebaseAuth
     }
+    private val retroImplWeb by lazy {
+        applicationLevelProvider.retrofitWebService
+    }
+    private val userWebBEController by lazy {
+        applicationLevelProvider.userWebBEController
+    }
+
     private val TAG = "DebugViewModel"
 
-    private val authenticationState  by lazy {
+   /* private val authenticationState  by lazy {
         applicationLevelProvider.authenticationState
-    }
+    }*/
 
 
 /*
@@ -103,7 +112,59 @@ class DebugViewModel : ViewModel() {
         }
     }
 
+    fun setUpWebBEAuthTesting() {
+        debugFragment.changeFocusedSetupgButton("webAuth")
 
+        val btn1Lambda = {
+            var sauce = "sacue"
+            viewModelScope.launch {
+
+             val result = userWebBEController.signin()
+                when (result) {
+                    is SuccessFailWrapper.SuccessWrapper -> Timber.i("success")
+                    is SuccessFailWrapper.FailWrapper -> Timber.i("fail")
+                    is SuccessFailWrapper.ThrowableWrapper -> Timber.i("throwable")
+                    else -> Timber.i("else")
+
+
+                }
+                _text.postValue("$TAG registerNewUserAccount = ${result}")
+            }
+            sauce += sauce
+
+
+        }
+        debugFragment.changeBtnFunction("btn1", btn1Lambda)
+        _btn1.postValue("signin web be")
+
+        val btn2Lambda = {
+
+        }
+        debugFragment.changeBtnFunction("btn2", btn2Lambda)
+        _btn2.postValue("null")
+
+        val btn3Lambda = {
+
+        }
+        debugFragment.changeBtnFunction("btn3", btn3Lambda)
+        _btn3.postValue("null")
+
+        val btn4Lambda = {
+            val job = viewModelScope.launch {
+                      }
+
+        }
+        debugFragment.changeBtnFunction("btn4", btn4Lambda)
+        _btn4.postValue("null")
+
+        val btn5Lambda = {
+
+
+        }
+        debugFragment.changeBtnFunction("btn5", btn5Lambda)
+        _btn5.postValue("null")
+
+    }
     fun setUpAuthTesting() {
         debugFragment.changeFocusedSetupgButton("auth")
         val btn1Lambda = {

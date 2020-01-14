@@ -53,7 +53,7 @@ fun getAllUsers(): Call<List<User>>*/
  {  "error": "User does not exist"}
 * */
     @POST("/api/auth/login")
-    suspend fun login(@Body user: UserLogin): LoginResponse
+    suspend fun login(@Body user: UserLogin): WebBELoginResponse
 
     //get the full backend user object from the web backend
     /*
@@ -72,7 +72,7 @@ fun getAllUsers(): Call<List<User>>*/
         {"message": "You shall not pass"}
     * */
     @GET("/api/users/user")
-    suspend fun getUserInfoFromBE(@Header("Authorization") token: String): UserWebBE
+    suspend fun getUserInfoFromBE(@Header("Authorization") token: String): WebBEUser
 
 
     //update the web backend user object
@@ -92,7 +92,7 @@ fun getAllUsers(): Call<List<User>>*/
         {"message": "You shall not pass"}
     * */
     @PUT("/api/users/")
-    suspend fun updateUser(@Body user: UserWebSafeUpdate): UserWebBE
+    suspend fun updateUser(@Body user: SafeWebUser): WebBEUser
 
 
     //update the web backend user object by

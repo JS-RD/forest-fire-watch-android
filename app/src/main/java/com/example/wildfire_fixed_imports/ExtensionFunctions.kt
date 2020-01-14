@@ -3,6 +3,7 @@ package com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.wildfire_fixed_imports.model.UID
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -50,4 +51,8 @@ fun AppCompatActivity.shouldShowRequestPermissionRationaleCompat(permission: Str
 fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
                                                requestCode: Int) {
     ActivityCompat.requestPermissions(this, permissionsArray, requestCode)
+}
+
+fun String.toUID() : UID {
+    return UID(this)
 }
