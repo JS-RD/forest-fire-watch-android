@@ -189,4 +189,13 @@
         app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_1"
         android:text="setup btn 2"
         />
+    <Button
+        android:id="@+id/debug_btn_setup_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_2"
+        android:text="setup btn 3"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

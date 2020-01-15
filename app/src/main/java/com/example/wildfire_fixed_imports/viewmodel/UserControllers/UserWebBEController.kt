@@ -6,6 +6,12 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 
+
+/*
+*
+* This class handles CRUD functionality for the user objects used by the web backend
+* */
+
 class UserWebBEController () {
 
     private  val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()

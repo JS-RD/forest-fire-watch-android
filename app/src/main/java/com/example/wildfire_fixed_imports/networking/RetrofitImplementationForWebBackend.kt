@@ -23,6 +23,8 @@ interface RetrofitImplementationForWebBackend {
     @GET("/api/users/user")
     suspend fun getUserInfoFromBE(@Header("Authorization") token: String): WebBEUser
 
+    //AS OF 1/142020 incorrectly returns a list of webBEUsers instead of the single altered object,
+    //when web fixes the implementation, should be easy enough to simple drop List<> and result[0]
     @PUT("/api/users/")
     suspend fun updateUser(@Header("Authorization") token: String, @Body user: SafeWebUser): List<WebBEUser>
 
@@ -30,20 +32,24 @@ interface RetrofitImplementationForWebBackend {
     @PUT ("/api/users/update/{user_id}")
     suspend fun updateUserByID(@Path("id") id:String, @Body user: SafeWebUser)
 
+    //not implemented as of 1/14/2020
     @GET("/api/users/ip-address")
     suspend fun dataFromIP(): dataFromIP
 
+
+
     @GET("/api/locations/")
-    suspend fun getWebBELocations(): List<WebBELocation>
+    suspend fun getWebBELocations(@Header("Authorization") token: String): List<WebBELocation>
 
     @PUT( "/api/locations/{id}")
-    suspend fun updateWebBELocation(@Path("id") id:String, @Body user: SafeWebBELocation)
+    suspend fun updateWebBELocation(@Header("Authorization") token: String,@Path("id") id:String,
+                                    @Body user: SafeWebBELocation):WebMessage
 
     @POST("/api/locations/")
-    suspend fun postWebBELocation(@Body address: String,radius:Int): WebBELocation
+    suspend fun postWebBELocation(@Header("Authorization") token: String, @Body webBELocationSubmit: WebBELocationSubmit): WebBELocation
 
     @DELETE	("/api/locations/:id")
-    suspend fun deleteWebBELocation(@Path("id") id:String)
+    suspend fun deleteWebBELocation(@Header("Authorization") token: String,@Path("id") id:String)
 
 
     companion object {

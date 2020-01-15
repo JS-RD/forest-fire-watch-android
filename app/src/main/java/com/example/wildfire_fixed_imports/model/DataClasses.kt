@@ -2,7 +2,7 @@ package com.example.wildfire_fixed_imports.model
 
 import com.mapbox.mapboxsdk.geometry.LatLng
 
-data class ErrorClass(
+data class WebMessage(
         val error:String? = null,
         val message: String? = null
 )
@@ -130,6 +130,13 @@ data class dataFromIP(
         val timezone: String,
         val zip: String
 )
+
+
+data class WebBELocationSubmit(
+        val address: String,
+        val radius: Int
+)
+
 
 data class WebBELocation(
         val address: String,

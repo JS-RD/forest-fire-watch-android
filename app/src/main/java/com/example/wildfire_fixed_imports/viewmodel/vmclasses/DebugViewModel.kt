@@ -41,7 +41,9 @@ class DebugViewModel : ViewModel() {
     private val userWebBEController by lazy {
         applicationLevelProvider.userWebBEController
     }
-
+    private val userLocationWebBEController by lazy {
+        applicationLevelProvider.userLocationWebBEController
+    }
     private val TAG = "DebugViewModel"
 
 
@@ -163,7 +165,129 @@ class DebugViewModel : ViewModel() {
             current.postValue("btn $i")
         }
     }
+/*
+    deleteWebBELocation
+    getWebBELocations
+    updateWebBELocation
+    postWebBELocation
+*/
 
+    fun setUpWebLocationTesting() {
+        debugFragment.changeFocusedSetupgButton("webloc")
+
+        val btn1Lambda = {
+            var sauce = "sacue"
+            viewModelScope.launch {
+
+                val result = userLocationWebBEController.postWebBELocation(publicStringHolder2,publicStringHolder1.toInt())
+
+                when (result) {
+                    is SuccessFailWrapper.Success -> Timber.i("success ${result.value}")
+                    is SuccessFailWrapper.Fail -> Timber.i("fail $result")
+                    is SuccessFailWrapper.Throwable -> Timber.i("throwable $result")
+                    else -> Timber.i("else $result")
+
+
+                }
+                _text.postValue("$TAG registerNewUserAccount = ${result}")
+            }
+            sauce += sauce
+
+
+        }
+        _tv1.postValue("radius")
+        _tv2.postValue("address")
+        _tv3.postValue("lat")
+        _tv4.postValue("lng")
+        _et1.postValue("radius")
+        _et2.postValue("address")
+        _et3.postValue("lat")
+        _et4.postValue("lng")
+
+        debugFragment.changeBtnFunction("btn1", btn1Lambda)
+        _btn1.postValue("post addy plus radius")
+
+        val btn2Lambda = {
+            var sauce = "sacue"
+            viewModelScope.launch {
+
+
+                val result = userLocationWebBEController.getWebBELocations()
+
+                when (result) {
+                    is SuccessFailWrapper.Success -> Timber.i("success ${result.value}")
+                    is SuccessFailWrapper.Fail -> Timber.i("fail $result")
+                    is SuccessFailWrapper.Throwable -> Timber.i("throwable $result")
+                    else -> Timber.i("else $result")
+
+
+                }
+                _text.postValue("$TAG registerNewUserAccount = ${result}")
+            }
+            sauce += sauce
+
+        }
+        debugFragment.changeBtnFunction("btn2", btn2Lambda)
+        _btn2.postValue("get locations")
+
+        val btn3Lambda = {
+
+            var sauce = "sacue"
+            viewModelScope.launch {
+
+                val target = applicationLevelProvider.webUser
+                if (target!=null) {
+                    with(target) {
+                        email = publicStringHolder1
+                        first_name = publicStringHolder2
+                        last_name = publicStringHolder3
+                        cell_number = publicStringHolder4
+                    }
+                    val result = userWebBEController.updateUserObject(
+                            target
+                    )
+
+                    when (result) {
+                        is SuccessFailWrapper.Success -> Timber.i("success")
+                        is SuccessFailWrapper.Fail -> Timber.i(result.message, result.javaClass)
+                        is SuccessFailWrapper.Throwable -> Timber.i("throwable")
+                        else -> Timber.i("else")
+
+
+                    }
+                    _text.postValue("$TAG registerNewUserAccount = ${result}")
+                }
+                else {
+                    _text.postValue("web user is null")
+                }
+
+
+
+            }
+            sauce += sauce
+
+        }
+
+
+        debugFragment.changeBtnFunction("btn3", btn3Lambda)
+        _btn3.postValue("null")
+
+        val btn4Lambda = {
+            val job = viewModelScope.launch {
+            }
+
+        }
+        debugFragment.changeBtnFunction("btn4", btn4Lambda)
+        _btn4.postValue("null")
+
+        val btn5Lambda = {
+
+
+        }
+        debugFragment.changeBtnFunction("btn5", btn5Lambda)
+        _btn5.postValue("null")
+
+    }
     fun setUpWebBEAuthTesting() {
         debugFragment.changeFocusedSetupgButton("webAuth")
 
@@ -261,6 +385,8 @@ class DebugViewModel : ViewModel() {
             sauce += sauce
 
         }
+
+
         debugFragment.changeBtnFunction("btn3", btn3Lambda)
         _btn3.postValue("update user")
 

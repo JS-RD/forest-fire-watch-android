@@ -16,6 +16,7 @@ import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBack
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
+import com.example.wildfire_fixed_imports.viewmodel.UserControllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.UserControllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
@@ -101,6 +102,10 @@ class ApplicationLevelProvider : Application() {
 
     val userWebBEController by lazy{
         UserWebBEController()
+    }
+
+    val userLocationWebBEController by lazy {
+        UserLocationWebBEController()
     }
 
 // ...

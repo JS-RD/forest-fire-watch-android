@@ -24,3 +24,10 @@ FIX BUG THAT CAUSES ICONS TO LOSE COLOR
  -->> likely due to icons being deprecated, https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation
    --> switch to symbols from icons, shouldn't be tremendously hard and symbols appear to offer other options.
 
+LOW PRIORITY:
+
+/api/users/ RETURNING LIST INSTEAD OF SINGLE OBJECT
+   //AS OF 1/142020 incorrectly returns a list of webBEUsers instead of the single altered object,
+    //when web fixes the implementation, should be easy enough to simple drop List<> and result[0\
+    @PUT("/api/users/")
+    suspend fun updateUser(@Header("Authorization") token: String, @Body user: SafeWebUser): List<WebBEUser>

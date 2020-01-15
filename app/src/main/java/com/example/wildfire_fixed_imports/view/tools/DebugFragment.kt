@@ -41,6 +41,7 @@ class DebugFragment : Fragment() {
     private lateinit var btnCrash: Button
     private lateinit var btnSetup1: Button
     private lateinit var btnSetup2: Button
+    private lateinit var btnSetup3: Button
     private lateinit var rootLayout: View
 
     private lateinit var tvMap: Map<String, TextView>
@@ -74,7 +75,8 @@ class DebugFragment : Fragment() {
                 "btn5" to btn5,
                 "btncrash" to btnCrash,
                 "btnSetup1" to btnSetup1,
-                "btnSetup2" to btnSetup2
+                "btnSetup2" to btnSetup2,
+                "btnSetup3" to btnSetup3
         )
         tvMap = mapOf(
                 "tv1" to tv1,
@@ -92,7 +94,8 @@ class DebugFragment : Fragment() {
                 "btnSetup1" to btnSetup1,
                 "btnSetup2" to btnSetup2,
                 "auth" to btnSetup1,
-                "webAuth" to btnSetup2
+                "webAuth" to btnSetup2,
+                "webloc" to btnSetup3
         )
         rootLayout=root
         return root
@@ -116,6 +119,7 @@ class DebugFragment : Fragment() {
         btnCrash = root.findViewById(R.id.debug_btn_crash)
         btnSetup1 = root.findViewById(R.id.debug_btn_setup_1)
         btnSetup2 = root.findViewById(R.id.debug_btn_setup_2)
+        btnSetup3 = root.findViewById(R.id.debug_btn_setup_3)
         et1.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
@@ -221,6 +225,10 @@ class DebugFragment : Fragment() {
         }
         btnSetup2.setOnClickListener {
             debugViewModel.setUpWebBEAuthTesting()
+
+        }
+        btnSetup3.setOnClickListener {
+            debugViewModel.setUpWebLocationTesting()
 
         }
 
