@@ -1,18 +1,13 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
-import android.hardware.camera2.params.InputConfiguration
-import android.provider.MediaStore.Images.Media.getBitmap
 import android.view.View
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.graphics.drawable.toBitmap
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.R
-import com.mapbox.mapboxsdk.annotations.Icon
-import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.style.layers.Property
+import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer
+
 
 class MarkerController () {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()

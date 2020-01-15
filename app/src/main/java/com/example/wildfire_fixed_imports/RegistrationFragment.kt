@@ -1,20 +1,7 @@
+
 package com.example.wildfire_fixed_imports
 
-import android.content.Context
-import android.net.Uri
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.wildfire_fixed_imports.model.RetroController
-import com.example.wildfire_fixed_imports.model.User
-import com.example.wildfire_fixed_imports.model.UserResponse
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
-import io.reactivex.internal.util.NotificationLite.isComplete
-import kotlinx.coroutines.*
-import retrofit2.Call
-
+/*
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -37,13 +24,15 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+*/
 /*    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_registration, container, false)
-    }*/
+    }*//*
+
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
@@ -59,6 +48,7 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+*/
 /*
 
     fun createUser(){
@@ -71,9 +61,10 @@ class RegistrationFragment : Fragment() {
         }
         call= newjob as CompletableJob
     }
-*/
+*//*
 
-    fun userCreated(response:UserResponse) {
+
+    fun userCreated(response:Use) {
         //do you stuff with the created user resposnse like save the token or whatever
 
     }
@@ -100,3 +91,4 @@ class RegistrationFragment : Fragment() {
             }
     }
 }
+*/

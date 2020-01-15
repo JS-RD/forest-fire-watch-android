@@ -3,17 +3,21 @@ package com.example.wildfire_fixed_imports
 import android.app.Activity
 import android.app.Application
 import android.location.Location
+import android.media.session.MediaSession
 import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
 import androidx.core.graphics.drawable.toBitmap
-import androidx.fragment.app.Fragment
 import com.crashlytics.android.Crashlytics
+import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.networking.AuthenticationState
 import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
+import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBackEnd
+import com.example.wildfire_fixed_imports.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
+import com.example.wildfire_fixed_imports.viewmodel.UserControllers.UserLocationWebBEController
+import com.example.wildfire_fixed_imports.viewmodel.UserControllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
@@ -24,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
-import com.mapbox.mapboxsdk.maps.MapFragment
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -76,34 +79,47 @@ class ApplicationLevelProvider : Application() {
 
     var firebaseUser: FirebaseUser? = null
 
-    val authenticationState by lazy {
+    var webUser:WebBEUser? = null
+
+
+/*    val authenticationState by lazy {
         AuthenticationState()
-    }
-
-// ...
+    }*/
 
 
-    val mapViewModelFactory by lazy {
-        MapViewModelFactory()
-    }
-    val markerController by lazy {
-        MarkerController()
-    }
-    val heatMapController by lazy {
-        HeatMapController()
-    }
+
 
 
     val retrofitWebService by lazy {
-        RetrofitImplementation.createWEB()
+        RetrofitImplementationForWebBackend.createWEB()
     }
     val retrofitDSService by lazy {
-        RetrofitImplementation.createDS()
+        RetroImplForDataScienceBackEnd.createDS()
     }
     val firebaseAuthImpl by lazy {
         FirebaseAuthImpl()
     }
 
+    val userWebBEController by lazy{
+        UserWebBEController()
+    }
+
+    val userLocationWebBEController by lazy {
+        UserLocationWebBEController()
+    }
+
+// ...
+
+
+val mapViewModelFactory by lazy {
+    MapViewModelFactory()
+}
+val markerController by lazy {
+    MarkerController()
+}
+val heatMapController by lazy {
+    HeatMapController()
+}
 
     lateinit var currentActivity: Activity
     lateinit var mapFragment: WildFireMapFragment
@@ -144,6 +160,7 @@ class ApplicationLevelProvider : Application() {
         } else {
             Timber.plant(CrashReportingTree())
         }
+
 
         val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)

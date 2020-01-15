@@ -39,7 +39,8 @@ fun FirebaseAnalytics.sendSelect(id:String,name:String,contentType:String) {
                 throw CancellationException(
                         "Task $this was cancelled normally.")
             } else {
-                result
+                result.also { Timber.i("task (${this}) complete and result is $result \n ${result.toString()} \n ") }
+
             }
         } else {
             throw e

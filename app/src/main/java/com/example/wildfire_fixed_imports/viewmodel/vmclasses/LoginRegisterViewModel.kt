@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class LoginRegisterViewModel : ViewModel() {
+class LoginRegisterViewModel(): ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is login Fragment"
-    }
-    val text: LiveData<String> = _text
+    var email: String? = null
+    var password: String? = null
 }

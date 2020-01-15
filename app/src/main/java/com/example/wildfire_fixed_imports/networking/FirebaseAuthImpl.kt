@@ -1,21 +1,12 @@
 package com.example.wildfire_fixed_imports.networking
 
-import android.hardware.biometrics.BiometricPrompt
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.await
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.suspendCancellableCoroutine
+import com.google.firebase.auth.*
 import timber.log.Timber
-import java.util.concurrent.CancellationException
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 
 /*
@@ -44,7 +35,28 @@ class FirebaseAuthImpl () {
         private val authenticationState = AuthenticationState()
         private val TAG = "firebaseauthimpl"
 
+        val methodName = object : Any() {
 
+        }.javaClass.enclosingMethod?.name
+
+
+        fun cleanupUser():Boolean? {
+                val result =signoutUser()
+                if (result) {
+                        Timber.i("$TAG $methodName succesfully signed out")
+                        Timber.i("$TAG $methodName \n APL: ${applicationLevelProvider.firebaseUser} \n firebaseauth : ${firebaseAuth.currentUser}")
+                return true
+                }
+                else if (applicationLevelProvider.firebaseUser == null && firebaseAuth.currentUser == null) {
+                        Timber.i("$TAG $methodName user signed out but not by signoutUser()")
+                        Timber.i("$TAG $methodName \n APL: ${applicationLevelProvider.firebaseUser} \n firebaseauth : ${firebaseAuth.currentUser}")
+                        return true
+                }
+                else {
+                        Timber.i("$TAG $methodName not signed out")
+                        return false
+                }
+        }
 
         fun checkUserSignedIn() : FirebaseUser? {
                 // Check if user is signed in (non-null) and update UI accordingly.
@@ -118,6 +130,51 @@ class FirebaseAuthImpl () {
 
                 return result
         }
+
+         suspend fun deleteUser(email:String,password:String): Boolean?{
+
+                //returns null if no user logged on and hence no user deleted,
+                //returns true if user was successfully deleted
+                //returns false if something went wrong
+
+                val currentUser =applicationLevelProvider.firebaseUser
+                if (currentUser == null || firebaseAuth.currentUser == null ) {
+                        //no user is currently logged in, pop a toast letting the user know
+                        Toast.makeText(applicationLevelProvider.applicationContext,
+                                "You are not currently logged in, please log in and try again",
+                                Toast.LENGTH_SHORT).show()
+                        Timber.e("$TAG user not logged out as currentuser = $currentUser and ALP.firebaseuser =${applicationLevelProvider.firebaseUser}")
+
+                        //run clean up method to make sure we gucci going forward
+                        if (cleanupUser() == true) {
+                        return null
+                                }
+                        else {
+                                Toast.makeText(applicationLevelProvider.applicationContext,
+                                        "something is very wrong, please restart application",
+                                        Toast.LENGTH_SHORT).show()
+                                return false
+                        }
+                }
+                val userToDeleteEmail = firebaseAuth.currentUser?.email
+                // run the delete command
+                firebaseAuth.currentUser?.delete()?.await()
+                //check to make sure no user is logged in and hence, the user is deleted
+                if (firebaseAuth.currentUser ==null) {
+                        applicationLevelProvider.firebaseUser= null
+                        Toast.makeText(applicationLevelProvider.applicationContext,
+                                "User ($userToDeleteEmail) successfully deleted",
+                                Toast.LENGTH_SHORT).show()
+                        return true
+                }
+                else {
+                        Toast.makeText(applicationLevelProvider.applicationContext,
+                                "something is very wrong, please restart application",
+                                Toast.LENGTH_SHORT).show()
+                        return null
+                }
+        }
+
 
 
 

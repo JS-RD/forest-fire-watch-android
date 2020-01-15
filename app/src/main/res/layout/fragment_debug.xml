@@ -70,6 +70,94 @@
         android:text="default button 5"
         />
 
+    <TextView
+        android:id="@+id/debug_tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_1"
+        android:text="debug tv 1"
+        />
+
+    <TextView
+        android:id="@+id/debug_tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_2"
+        android:text="debug tv 2"
+        />
+    <TextView
+        android:id="@+id/debug_tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_3"
+        android:text="debug tv 3"
+        />
+
+    <TextView
+        android:id="@+id/debug_tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_4"
+        android:text="debug tv 4"
+        />
+
+
+    <EditText
+        android:id="@+id/debug_et_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_5"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_1"
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 1"
+        />
+    <EditText
+        android:id="@+id/debug_et_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_1"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_2"
+
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+    <EditText
+        android:id="@+id/debug_et_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_2"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_3"
+
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+    <EditText
+        android:id="@+id/debug_et_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_3"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_4"
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+
+
 
     <Button
         android:id="@+id/debug_btn_crash"
@@ -100,5 +188,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_1"
         android:text="setup btn 2"
+        />
+    <Button
+        android:id="@+id/debug_btn_setup_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_2"
+        android:text="setup btn 3"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
