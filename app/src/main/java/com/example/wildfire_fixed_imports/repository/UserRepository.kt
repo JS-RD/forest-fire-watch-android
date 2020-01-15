@@ -1,9 +1,8 @@
 package com.example.wildfire_fixed_imports.repository
 
-import com.example.wildfire_fixed_imports.model.User
 import com.example.wildfire_fixed_imports.model.UserResponse
 import com.example.wildfire_fixed_imports.networking.RetrofitImplementation
-import com.example.wildfire_fixed_imports.responses.SafeApiRequest
+import com.example.wildfire_fixed_imports.response.SafeApiRequest
 
 class UserRepository(
     private val retrofitImplementation:RetrofitImplementation

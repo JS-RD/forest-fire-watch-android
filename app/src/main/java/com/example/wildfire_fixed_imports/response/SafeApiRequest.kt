@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.responses
+package com.example.wildfire_fixed_imports.response
 
 import com.example.wildfire_fixed_imports.util.ApiException
 import org.json.JSONException
