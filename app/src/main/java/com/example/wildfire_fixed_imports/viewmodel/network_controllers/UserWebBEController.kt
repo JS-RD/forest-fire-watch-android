@@ -21,8 +21,6 @@ class UserWebBEController () {
 
     private  var firebaseUser = applicationLevelProvider.firebaseUser
 
-    private var webBEUser = applicationLevelProvider.webUser
-
     private val TAG = "UserWebBEController"
 
     suspend fun getUserObject(token:String):SuccessFailWrapper<WebBEUser> =
