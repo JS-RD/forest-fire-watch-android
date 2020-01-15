@@ -3,8 +3,11 @@ package com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.UID
 import com.google.android.material.snackbar.Snackbar
+import retrofit2.HttpException
+import java.io.IOException
 
 
 fun View.showSnackbar(msgId: Int, length: Int) {
@@ -55,4 +58,20 @@ fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
 
 fun String.toUID() : UID {
     return UID(this)
+}
+
+fun <T>RetrofitErrorHandler(throwable:Throwable): SuccessFailWrapper<T> {
+    when (throwable) {
+        is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
+        is HttpException -> {
+            val code = throwable.code()
+            val errorResponse = throwable.toString()
+            return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
+        }
+        else -> {
+            val errorResponse = throwable.toString()
+            return SuccessFailWrapper.Fail("unknown error \n" +
+                    " throwable: $errorResponse")
+        }
+    }
 }

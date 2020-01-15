@@ -3,9 +3,10 @@ package com.example.wildfire_fixed_imports.networking
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.example.wildfire_fixed_imports.util.NoInternetException
+
 import okhttp3.Interceptor
 import okhttp3.Response
+import java.io.IOException
 
 //ensures that there is an active network connection
 class NetworkConnectionInterceptor (context: Context) : Interceptor{
@@ -35,3 +36,5 @@ class NetworkConnectionInterceptor (context: Context) : Interceptor{
         return result
     }
 }
+class ApiException(message: String) : IOException(message)
+class NoInternetException(message: String) : IOException(message)

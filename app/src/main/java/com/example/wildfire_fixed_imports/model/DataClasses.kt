@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.model
 
+import com.google.gson.annotations.SerializedName
 import com.mapbox.mapboxsdk.geometry.LatLng
 
 data class WebMessage(
@@ -157,6 +158,14 @@ data class WebBELocation(
 }
 
 
+
+data class requestAQI(
+        val latitude: Double,
+        val lng:Double,
+        val distance: Int
+
+)
+
 data class SafeWebBELocation(
         val address: String,
         val address_label: String,
@@ -169,6 +178,127 @@ data class SafeWebBELocation(
         val radius: Int
        // val user_id: Int
 )
+
+data class DSStationsResponse(
+        val `data`: List<AQIStations>,
+        val status: String
+) {}
+
+
+data class AQIStations(
+        val aqi: String,
+        val lat: Double,
+        val lon: Double,
+        val station: Name,
+        val uid: Int
+) {
+
+    data class Name(
+            val name: String,
+            val time: String
+    )
+
+}
+
+
+class AQIdata(
+        @SerializedName("aqi")
+        val aqi: Int,
+        @SerializedName("co")
+        val co: Co,
+        @SerializedName("no2")
+        val no2: No2,
+        @SerializedName("o3")
+        val o3: O3,
+        @SerializedName("p")
+        val p: P,
+        @SerializedName("pm10")
+        val pm10: Pm10,
+        @SerializedName("pm25")
+        val pm25: Pm25,
+        @SerializedName("so2")
+        val so2: So2,
+        @SerializedName("t")
+        val t: T,
+        @SerializedName("w")
+        val w: W,
+        @SerializedName("wg")
+        val wg: Wg
+) {
+    data class Co(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class No2(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class O3(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class P(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class Pm10(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class Pm25(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class So2(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class T(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class W(
+            @SerializedName("v")
+            val v: Double
+    )
+    data class Wg(
+            @SerializedName("v")
+            val v: Double
+    )
+    fun co(): Double? { return this.co.v }
+    fun no2(): Double? { return this.no2.v }
+    fun o3(): Double? { return this.o3.v }
+    fun p(): Double? { return this.p.v }
+    fun pm10(): Double? { return this.pm10.v }
+    fun pm25(): Double? { return this.pm25.v }
+    fun so2(): Double? { return this.so2.v }
+    fun t(): Double? { return this.t.v }
+    fun wg(): Double? { return this.wg.v }
+    fun w(): Double? { return this.w.v }
+}
+
+data class DSRRSSFireContainer(
+        @SerializedName("nearby_fires")
+        val nearbyFires: List<DSRSSFire>,
+        @SerializedName("other_fires")
+        val otherFires: List<DSRSSFire>
+) {
+    data class DSRSSFire(
+            @SerializedName("location")
+            val location: List<Double>,
+            @SerializedName("name")
+            val name: String
+    )
+}
+
+data class DSRSSFireSubmit(
+        @SerializedName("position")
+        // lat, lng
+        val position: List<Double>,
+        @SerializedName("radius")
+        val radius: Int
+)
+
 
 sealed class SuccessFailWrapper<out T>  {
     data class Success<out T>(val message: String? = null, val value: T? = null): SuccessFailWrapper<T>()
