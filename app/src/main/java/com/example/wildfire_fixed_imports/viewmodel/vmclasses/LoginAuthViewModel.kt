@@ -132,6 +132,7 @@ class LoginAuthViewModel(
         return password.length > 5
     }
 
+    fun signin():Boolean? { return false}
 
 
 
