@@ -19,6 +19,8 @@ CURRENT NUMBER ONE BUG:
 system for handling/replacing/editing fires when they change.
 
 NEED ERROR HANDLING FOR HTTP AND PROBABLY OTHER AREAS
+-->>mostly done, SuccessFail wrapper and network_controllers infrastrcture supports both handling at the controller level as well as passing errors, throwables
+and exceptions up the chain.
 
 FIX BUG THAT CAUSES ICONS TO LOSE COLOR
  -->> likely due to icons being deprecated, https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation

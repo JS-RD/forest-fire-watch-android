@@ -1,9 +1,8 @@
-package com.example.wildfire_fixed_imports.viewmodel.view_controllers
+package com.example.wildfire_fixed_imports.viewmodel
 
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
@@ -15,17 +14,19 @@ import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
 import timber.log.Timber
-import java.util.function.ToDoubleBiFunction
 
 
 /*
-*           Map Controller
-*   Map controller is repsonsible for recieving instructions on what to draw to the map and then draing those instructions.  i.e the
-*  view model will let map controll know there is fire at x,y and map controller will then determine how best to display that fire, then draw that fire to the map
+*           master Controller
+*   master controller is repsonsible for recieving instructions on what lens are to be drawn to the map and then gathering data from network controller
+*  consoloidating and managing that data and then sending  instructions to the view controllers on what to draw
+*
+*  Master controller is the central joining point of the controllers, the viewmodel and the view
+* this is perhaps a violation of MVVM as stated but it really seems to be the best choice from what we can recken for this app.
 *
 *
 * */
-class MapController() {
+class MasterController() {
 
     //set correct mapbox map and the view containing the mapbox map via dependency injection
 
@@ -37,7 +38,6 @@ class MapController() {
     private val mapboxView: View by lazy {
         applicationLevelProvider.mapboxView
     }
-
 
     //additional dependency injection
     private val currentActivity : Activity = applicationLevelProvider.currentActivity
@@ -60,6 +60,7 @@ class MapController() {
     }
 
     init {
+        /* temp testing remove*/
 
        Timber.i("$TAG init")
         // Create the observer which updates the UI.

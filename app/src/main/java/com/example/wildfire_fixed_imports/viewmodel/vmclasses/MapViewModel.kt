@@ -12,7 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.MasterController
 
 
 class MapViewModel : ViewModel() {
@@ -22,7 +22,7 @@ class MapViewModel : ViewModel() {
         FireDSController(this)
     }
 
-    lateinit var targetMap: MapController
+    lateinit var targetMaster: MasterController
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -34,9 +34,9 @@ class MapViewModel : ViewModel() {
     }
     val fireData: LiveData<List<DSFires>> = _fireData
 
-    fun setMyTargetMap(mapController: MapController)
+    fun setMyTargetMap(masterController: MasterController)
     {
-        targetMap = mapController
+        targetMaster = masterController
     }
 
     fun startFireRetrieval() {

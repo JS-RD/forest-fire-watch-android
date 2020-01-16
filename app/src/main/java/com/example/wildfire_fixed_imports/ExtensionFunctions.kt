@@ -1,12 +1,21 @@
 package com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.UID
 import com.google.android.material.snackbar.Snackbar
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 
 
@@ -74,4 +83,40 @@ fun <T>RetrofitErrorHandler(throwable:Throwable): SuccessFailWrapper<T> {
                     " throwable: $errorResponse")
         }
     }
+}
+
+fun getBitmap(vectorDrawable: VectorDrawable): Bitmap {
+    val bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+            vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888)
+    val canvas =  Canvas(bitmap)
+    vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
+    vectorDrawable.draw(canvas)
+    Timber.e( "Main Activity getBitmap: 1 $methodName")
+    return bitmap;
+}
+
+fun getBitmap(context: Context, drawableId:Int): Bitmap {
+    Timber.e( "Main Activity getbitmap2 $methodName")
+    var drawable = ContextCompat.getDrawable(context, drawableId)
+    if (drawable is BitmapDrawable) {
+        return BitmapFactory.decodeResource(context.getResources(), drawableId)
+    } else if (drawable is VectorDrawable) {
+        return getBitmap( drawable)
+    } else {
+        throw  IllegalArgumentException("unsupported drawable type")
+    }
+}
+fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
+    val drawable = ContextCompat.getDrawable(context, drawableId)
+    /*  if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+          drawable = (DrawableCompat.wrap(drawable as Drawable)).mutate();
+      }
+  */
+    val bitmap = Bitmap.createBitmap(drawable!!.getIntrinsicWidth(),
+            drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+    val canvas =  Canvas(bitmap);
+    drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+    drawable.draw(canvas);
+
+    return bitmap
 }

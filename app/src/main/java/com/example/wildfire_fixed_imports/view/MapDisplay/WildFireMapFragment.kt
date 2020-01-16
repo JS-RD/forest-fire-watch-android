@@ -1,6 +1,5 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
@@ -33,7 +32,7 @@ class WildFireMapFragment : Fragment() {
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
     private lateinit var mapView: MapView
-    private lateinit var mapController:MapController
+    private lateinit var masterController: MasterController
 
 
     override fun onCreateView(
@@ -60,16 +59,24 @@ class WildFireMapFragment : Fragment() {
              applicationLevelProvider.mapboxMap = myMapboxMap
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
+            val style =Style.MAPBOX_STREETS
+              myMapboxMap.setStyle(Style.SATELLITE) {
+                 (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
+                  applicationLevelProvider.mapboxStyle=it
+                  masterController= MasterController()
+                  applicationLevelProvider.masterController=masterController
 
 
-             mapController= MapController()
-             applicationLevelProvider.mapController=mapController
+                  mapViewModel.setMyTargetMap(masterController)
 
-            myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
-                (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
-            }
+             }
 
-             mapViewModel.setMyTargetMap(mapController)
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.networking
+package com.example.wildfire_fixed_imports.model.networking
 
 import com.example.wildfire_fixed_imports.WEB_BASE_URL
 import com.example.wildfire_fixed_imports.model.*

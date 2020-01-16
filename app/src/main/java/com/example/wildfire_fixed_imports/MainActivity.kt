@@ -2,7 +2,14 @@ package com.example.wildfire_fixed_imports
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.AnimatedVectorDrawable
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -93,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         } catch (ex: SecurityException) {
             Timber.i("Security Exception, no location available")
         }
+
+
+
 
 
 
