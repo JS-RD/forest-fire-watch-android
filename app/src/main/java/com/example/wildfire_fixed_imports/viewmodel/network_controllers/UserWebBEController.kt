@@ -1,6 +1,7 @@
-package com.example.wildfire_fixed_imports.viewmodel.UserControllers
+package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.*
 import retrofit2.HttpException
 import timber.log.Timber
@@ -20,11 +21,9 @@ class UserWebBEController () {
 
     private  var firebaseUser = applicationLevelProvider.firebaseUser
 
-    private var webBEUser = applicationLevelProvider.webUser
-
     private val TAG = "UserWebBEController"
 
-    suspend fun getUserObject(token:String):SuccessFailWrapper<WebBEUser> {
+    suspend fun getUserObject(token:String):SuccessFailWrapper<WebBEUser> =
 
         try {
             Timber.i("$TAG try triggered")
@@ -32,26 +31,14 @@ class UserWebBEController () {
 
             applicationLevelProvider.webUser=userObjectCompleteFromBackend
             Timber.i("$TAG success\n tokenstore = $token \n returned user = $userObjectCompleteFromBackend \n APL user = ${applicationLevelProvider.webUser}" )
-            return SuccessFailWrapper.Success("Success",userObjectCompleteFromBackend)
+            SuccessFailWrapper.Success("Success",userObjectCompleteFromBackend)
         }
         catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in getUSerOBject()")
             Timber.i("$TAG does webuser exist? ${applicationLevelProvider.webUser.toString()}")
-            when (throwable) {
-                is IOException -> return SuccessFailWrapper.Throwable("IO Exception error",throwable)
-                is HttpException -> {
-                    val code = throwable.code()
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                }
-                else -> {
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Fail("unknown error \n" +
-                            " throwable: $errorResponse")
-                }
-            }
+            RetrofitErrorHandler(throwable)
         }
-    }
+
 
     suspend fun register(firstName:String,lastName:String,email:String): SuccessFailWrapper<WebBELoginResponse>? {
         firebaseUser= applicationLevelProvider.firebaseUser
@@ -93,32 +80,21 @@ class UserWebBEController () {
         catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
             Timber.i("$TAG does webuser exist ${applicationLevelProvider.webUser.toString()}")
-            when (throwable) {
-                is IOException -> return SuccessFailWrapper.Throwable("IO Exception error",throwable)
-                is HttpException -> {
-                    val code = throwable.code()
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                }
-                else -> {
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Fail("unknown error \n" +
-                            " throwable: $errorResponse")
-                }
-            }
+            return RetrofitErrorHandler<WebBELoginResponse>(throwable)
         }
 
     }
     suspend fun signin(): SuccessFailWrapper<WebBELoginResponse>? {
-        firebaseUser= applicationLevelProvider.firebaseUser
+        firebaseUser = applicationLevelProvider.firebaseUser
         //if firebase isn't logged in, fail
-        if (firebaseUser==null) {
+        if (firebaseUser == null) {
             Timber.i("$TAG fire base user null")
             return SuccessFailWrapper.Fail("user is not logged in to firebase")
         }
         try {
             Timber.i("$TAG try triggered")
-            val result = retroImpl.login(UID(firebaseUser?.uid ?: "send a bad string if somehow firebase is providing null"))
+            val result = retroImpl.login(UID(firebaseUser?.uid
+                    ?: "send a bad string if somehow firebase is providing null"))
 
             //if we don't fall over to catch here, we are successful and can finish out
 
@@ -139,24 +115,11 @@ class UserWebBEController () {
             Timber.i("$TAG full user log in completed\n ${applicationLevelProvider.webUser}")
 
             return SuccessFailWrapper.Success("$result", result)
-        }
-        catch (throwable: Throwable) {
+        } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
-            when (throwable) {
-                is IOException -> return SuccessFailWrapper.Throwable("IO Exception error",throwable)
-                is HttpException -> {
-                    val code = throwable.code()
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                }
-                else -> {
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Fail("unknown error \n" +
-                            " throwable: $errorResponse")
-                }
-            }
-        }
+            return RetrofitErrorHandler<WebBELoginResponse>(throwable)
 
+        }
     }
 
 
@@ -187,19 +150,7 @@ class UserWebBEController () {
             return SuccessFailWrapper.Success("$result", result)
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
-            when (throwable) {
-                is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
-                is HttpException -> {
-                    val code = throwable.code()
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                }
-                else -> {
-                    val errorResponse = throwable.toString()
-                    return SuccessFailWrapper.Fail("unknown error \n" +
-                            " throwable: $errorResponse")
-                }
-            }
+            return RetrofitErrorHandler(throwable)
         }
     }
     }

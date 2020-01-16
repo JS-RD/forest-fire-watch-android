@@ -4,13 +4,9 @@ package com.example.wildfire_fixed_imports.viewmodel.vmclasses
 import androidx.lifecycle.*
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.DSFires
-import com.example.wildfire_fixed_imports.model.FireLocations
-import com.example.wildfire_fixed_imports.model.RetroDSController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.security.interfaces.DSAKey
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +19,7 @@ class MapViewModel : ViewModel() {
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     val retroDSController by lazy {
-        RetroDSController(this)
+        FireDSController(this)
     }
 
     lateinit var targetMap: MapController

@@ -1,6 +1,7 @@
-package com.example.wildfire_fixed_imports.viewmodel.UserControllers
+package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.SafeWebBELocation
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.WebBELocation
@@ -22,8 +23,6 @@ class UserLocationWebBEController () {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
     private val retroImpl = applicationLevelProvider.retrofitWebService
-
-    private var firebaseUser = applicationLevelProvider.firebaseUser
 
     private var webBEUser = applicationLevelProvider.webUser
 
@@ -54,19 +53,7 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                when (throwable) {
-                    is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
-                    is HttpException -> {
-                        val code = throwable.code()
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                    }
-                    else -> {
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Fail("unknown error \n" +
-                                " throwable: $errorResponse")
-                    }
-                }
+                return RetrofitErrorHandler(throwable)
             }
         }
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
@@ -84,19 +71,7 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                when (throwable) {
-                    is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
-                    is HttpException -> {
-                        val code = throwable.code()
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                    }
-                    else -> {
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Fail("unknown error \n" +
-                                " throwable: $errorResponse")
-                    }
-                }
+                return RetrofitErrorHandler(throwable)
             }
         }
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
@@ -115,19 +90,7 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                when (throwable) {
-                    is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
-                    is HttpException -> {
-                        val code = throwable.code()
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                    }
-                    else -> {
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Fail("unknown error \n" +
-                                " throwable: $errorResponse")
-                    }
-                }
+                return RetrofitErrorHandler(throwable)
             }
 
         }
@@ -148,19 +111,7 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                when (throwable) {
-                    is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
-                    is HttpException -> {
-                        val code = throwable.code()
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
-                    }
-                    else -> {
-                        val errorResponse = throwable.toString()
-                        return SuccessFailWrapper.Fail("unknown error \n" +
-                                " throwable: $errorResponse")
-                    }
-                }
+                return RetrofitErrorHandler(throwable)
             }
 
         }

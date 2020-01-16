@@ -18,3 +18,7 @@ const val AUTH_ERROR_STRING_WEB_BE = "You shall not pass"
 
 //this is another error string occasionally provided
 const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
+
+val methodName = object : Any() {
+
+}.javaClass.enclosingMethod?.name
