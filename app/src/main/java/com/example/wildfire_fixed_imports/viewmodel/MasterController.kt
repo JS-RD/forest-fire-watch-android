@@ -4,9 +4,12 @@ import android.app.Activity
 import android.graphics.Color
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
+import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -55,6 +58,18 @@ class MasterController() {
 
     var initialized=false
 
+    //create live data
+    private val _fireData = MutableLiveData<List<DSFires>>().apply {
+        value= listOf<DSFires>()
+    }
+    val fireData: LiveData<List<DSFires>> = _fireData
+    var fireObserver:Observer<List<DSFires>>
+    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
+        value= listOf<AQIdata>()
+    }
+    val AQIData: LiveData<List<AQIdata>> = _AQIData
+    var AQIObserver:Observer<List<AQIdata>>
+
     fun traceResult() {
 
     }
@@ -63,23 +78,41 @@ class MasterController() {
         /* temp testing remove*/
 
        Timber.i("$TAG init")
-        // Create the observer which updates the UI.
-        val fireObserver = Observer<List<DSFires>> { list ->
+
+
+        // Create the fire observer which updates the UI.
+        fireObserver = Observer{ list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
             if (!initialized) {
-                Timber.i("$TAG new list reached observer ${list.toString()}")
+                Timber.i("$TAG init fire list reached observer ${list.toString()}")
                 removeAllFires()
                 addAllFires(list)
             }
             else {
-
+                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
                 addAllFires(list)
+            }
+        }
+        AQIObserver = Observer{ list ->
+            // Update the UI, in this case, a TextView.
+            Timber.i("$TAG init create aqi observer")
+            if (!initialized) {
+                Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
+
+            }
+            else {
+                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+
             }
 
         }
+
+
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mapViewModel.fireData.observe(currentActivity as LifecycleOwner, fireObserver)
+        fireData.observe(currentActivity as LifecycleOwner, fireObserver)
+        AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)
+
 
         // start the fire service immediately to start retrieving fires
 
@@ -136,6 +169,28 @@ class MasterController() {
         }
 
     }
+
+
+    fun handleFireData(fireList: List<DSFires>){
+
+        Timber.i(fireList.toString())
+        diffFireData(fireList)
+    }
+
+    fun diffFireData(fireList: List<DSFires>) {
+        //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
+        if (fireList !=_fireData.value) {
+            _fireData.postValue(fireList)
+            fireData.value
+            Timber.i("firedata live data after diff ${fireData.value}")
+            Timber.i("_firedata live data after diff ${fireData.value}")
+        }
+        _fireData.postValue(fireList)
+        fireData.value
+        Timber.i("firedata live data after diff ${fireData.value}")
+        Timber.i("_firedata live data after diff ${fireData.value}")
+    }
+
 
 /*
     suspend fun popit(){

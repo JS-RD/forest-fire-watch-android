@@ -29,10 +29,7 @@ class MapViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _fireData = MutableLiveData<List<DSFires>>().apply {
-       value= listOf<DSFires>()
-    }
-    val fireData: LiveData<List<DSFires>> = _fireData
+
 
     fun setMyTargetMap(masterController: MasterController)
     {
@@ -45,30 +42,10 @@ class MapViewModel : ViewModel() {
         }
     }
 
-
     fun stopFireRetrieval() {
         viewModelScope.launch {
             retroDSController.stopFireService()
         }
-    }
-    fun handleFireData(fireList: List<DSFires>){
-
-       Timber.i(fireList.toString())
-        diffFireData(fireList)
-    }
-
-    fun diffFireData(fireList: List<DSFires>) {
-        //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
-        if (fireList !=_fireData.value) {
-            _fireData.postValue(fireList)
-            fireData.value
-            Timber.i("firedata live data after diff ${fireData.value}")
-            Timber.i("_firedata live data after diff ${fireData.value}")
-        }
-        _fireData.postValue(fireList)
-        fireData.value
-        Timber.i("firedata live data after diff ${fireData.value}")
-        Timber.i("_firedata live data after diff ${fireData.value}")
     }
 
 

@@ -79,7 +79,7 @@ class FireDSController (val mapViewModel: MapViewModel) {
         //TODO handle errors
 
         val results = retrofitDSService.getDSFireLocations()
-        mapViewModel.handleFireData(results)
+        appLevelProvider.masterController.handleFireData(results)
 
     }
 
