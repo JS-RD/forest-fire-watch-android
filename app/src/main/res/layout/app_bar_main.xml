@@ -30,4 +30,13 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <View
+        android:id="@+id/legend_holder"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
 </androidx.constraintlayout.motion.widget.MotionLayout>
