@@ -6,7 +6,7 @@
         motion:constraintSetEnd="@id/dial"
         motion:duration="3000">
         <OnSwipe
-            motion:dragDirection="dragUp"
+            motion:dragDirection="dragDown"
             motion:touchAnchorId="@id/legend_holder"
             motion:touchAnchorSide="top" />
     </Transition>
