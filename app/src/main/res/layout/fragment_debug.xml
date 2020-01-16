@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +14,188 @@
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:text="default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.motion.widget.MotionLayout>
+
+    <Button
+        android:id="@+id/debug_btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/text_tools"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="default button 1"
+        />
+    <Button
+        android:id="@+id/debug_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="default button 2"
+        />
+    <Button
+        android:id="@+id/debug_btn_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="default button 3"
+        />
+    <Button
+        android:id="@+id/debug_btn_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="default button 4"
+        />
+    <Button
+        android:id="@+id/debug_btn_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="default button 5"
+        />
+
+    <TextView
+        android:id="@+id/debug_tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_1"
+        android:text="debug tv 1"
+        />
+
+    <TextView
+        android:id="@+id/debug_tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_2"
+        android:text="debug tv 2"
+        />
+    <TextView
+        android:id="@+id/debug_tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_3"
+        android:text="debug tv 3"
+        />
+
+    <TextView
+        android:id="@+id/debug_tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="@id/debug_et_4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/debug_et_4"
+        android:text="debug tv 4"
+        />
+
+
+    <EditText
+        android:id="@+id/debug_et_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_btn_5"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_1"
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 1"
+        />
+    <EditText
+        android:id="@+id/debug_et_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_1"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_2"
+
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+    <EditText
+        android:id="@+id/debug_et_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_2"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_3"
+
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+    <EditText
+        android:id="@+id/debug_et_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/debug_et_3"
+        app:layout_constraintLeft_toRightOf="@id/debug_tv_4"
+        android:layout_marginLeft="30dp"
+        android:hint="debug edit text 2"
+        />
+
+
+
+    <Button
+        android:id="@+id/debug_btn_crash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+       app:layout_constraintBottom_toTopOf="@id/debug_btn_setup_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="crash btn 1"
+        />
+
+
+    <Button
+        android:id="@+id/debug_btn_setup_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="setup btn 1"
+        />
+    <Button
+        android:id="@+id/debug_btn_setup_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_1"
+        android:text="setup btn 2"
+        />
+    <Button
+        android:id="@+id/debug_btn_setup_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/debug_btn_setup_2"
+        android:text="setup btn 3"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

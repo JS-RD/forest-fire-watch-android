@@ -5,25 +5,36 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer
+
 
 class MarkerController () {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    private val targetMap: MapboxMap by lazy {
-        applicationLevelProvider.mapboxMap
-    }
+
+
     private val mapboxView: View by lazy {
         applicationLevelProvider.mapboxView
     }
 
     private val addedMarkers = mutableListOf<Marker>()
+    // Create an Icon object for the marker to use
+    val fireIcon = applicationLevelProvider.fireIcon
 
-    fun addMarker(targetLatLng: LatLng,title:String?) :Int {
+
+// Add the marker to the map
+    fun addMarker(targetLatLng: LatLng,title:String?,snippet:String?) :Int {
 
         //add the marker to map and set the newly created marker object to newMarkers
-        val newMarker: Marker = targetMap.addMarker(MarkerOptions()
+
+        val newMarker: Marker = applicationLevelProvider.mapboxMap.addMarker(MarkerOptions()
             .position(targetLatLng)
             .title (title)
+            .snippet(snippet)
+            .icon(fireIcon)
+
+
+
         )
         //add newly added marker to list of markers in case of later need to remove or edit
         addedMarkers.add(newMarker)
@@ -37,7 +48,7 @@ class MarkerController () {
         // and then remove that makrker from this list
         val markerToRemove = addedMarkers[indexLocation]
 
-        targetMap.removeMarker(markerToRemove)
+        applicationLevelProvider.mapboxMap.removeMarker(markerToRemove)
 
         addedMarkers.removeAt(indexLocation)
     }

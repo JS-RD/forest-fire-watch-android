@@ -1,12 +1,26 @@
 package com.example.wildfire_fixed_imports.viewmodel.vmclasses
 
+
+import androidx.lifecycle.*
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.model.DSFires
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
+import kotlinx.coroutines.launch
+import timber.log.Timber
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
 
+
 class MapViewModel : ViewModel() {
+
+    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    val retroDSController by lazy {
+        FireDSController(this)
+    }
 
     lateinit var targetMap: MapController
 
@@ -15,17 +29,47 @@ class MapViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
+    private val _fireData = MutableLiveData<List<DSFires>>().apply {
+       value= listOf<DSFires>()
+    }
+    val fireData: LiveData<List<DSFires>> = _fireData
 
     fun setMyTargetMap(mapController: MapController)
     {
         targetMap = mapController
     }
 
-    public fun mapIT(){
-        print("oit got to fragment")
-        targetMap.addbackgroundtomap()
+    fun startFireRetrieval() {
+        viewModelScope.launch {
+            retroDSController.startFireService()
+        }
     }
 
+
+    fun stopFireRetrieval() {
+        viewModelScope.launch {
+            retroDSController.stopFireService()
+        }
+    }
+    fun handleFireData(fireList: List<DSFires>){
+
+       Timber.i(fireList.toString())
+        diffFireData(fireList)
+    }
+
+    fun diffFireData(fireList: List<DSFires>) {
+        //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
+        if (fireList !=_fireData.value) {
+            _fireData.postValue(fireList)
+            fireData.value
+            Timber.i("firedata live data after diff ${fireData.value}")
+            Timber.i("_firedata live data after diff ${fireData.value}")
+        }
+        _fireData.postValue(fireList)
+        fireData.value
+        Timber.i("firedata live data after diff ${fireData.value}")
+        Timber.i("_firedata live data after diff ${fireData.value}")
+    }
 
 
 }
@@ -56,3 +100,10 @@ class MapViewModelFactory() : ViewModelProvider.Factory {
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+
+
+
+/*   public fun mapIT(){
+        print("oit got to fragment")
+        targetMap.addbackgroundtomap()
+    }*/
