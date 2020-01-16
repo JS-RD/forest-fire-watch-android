@@ -167,7 +167,7 @@ val heatMapController by lazy {
         } else {
             Timber.plant(CrashReportingTree())
         }
-
+        Timber.i("$javaClass $methodName initialized")
 /*
 
         val iconFactory by lazy { IconFactory.getInstance(this) }

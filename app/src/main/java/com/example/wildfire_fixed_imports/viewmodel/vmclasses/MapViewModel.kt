@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 
 
@@ -28,6 +29,7 @@ class MapViewModel : ViewModel() {
 
 
 
+
     fun setMyMasterController(masterController: MasterController)
     {
         targetMaster = masterController
@@ -37,6 +39,7 @@ class MapViewModel : ViewModel() {
         viewModelScope.launch {
             targetMaster.startFireService()
         }
+
     }
 
     fun stopFireRetrieval() {

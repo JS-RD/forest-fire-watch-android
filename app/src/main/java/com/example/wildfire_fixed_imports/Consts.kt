@@ -21,6 +21,144 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
 const val fireIconTarget = "fire_icon_50"
 
-val methodName = object : Any() {
+val methodName
+get() = StackTraceInfo.invokingMethodName
 
-}.javaClass.enclosingMethod?.name
+//Thread.currentThread().stackTrace[2].methodName
+object MethodNameTest {
+    private var CLIENT_CODE_STACK_INDEX = 0
+    @JvmStatic
+    fun main(args: Array<String>) {
+        println("methodName() = " + methodName())
+        println("CLIENT_CODE_STACK_INDEX = $CLIENT_CODE_STACK_INDEX")
+    }
+
+    fun methodName(): String {
+        return Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX].methodName
+    }
+
+    init { // Finds out the index of "this code" in the returned stack trace - funny but it differs in JDK 1.5 and 1.6
+        var i = 0
+        for (ste in Thread.currentThread().stackTrace) {
+            i++
+            if (ste.className == MethodNameTest::class.java.name) {
+                break
+            }
+        }
+        CLIENT_CODE_STACK_INDEX = i
+    }
+}
+
+/* Utility class: Getting the name of the current executing method
+ * https://stackoverflow.com/questions/442747/getting-the-name-of-the-current-executing-method
+ *
+ * Provides:
+ *
+ *      getCurrentClassName()
+ *      getCurrentMethodName()
+ *      getCurrentFileName()
+ *
+ *      getInvokingClassName()
+ *      getInvokingMethodName()
+ *      getInvokingFileName()
+ *
+ * Nb. Using StackTrace's to get this info is expensive. There are more optimised ways to obtain
+ * method names. See other stackoverflow posts eg. https://stackoverflow.com/questions/421280/in-java-how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection/2924426#2924426
+ *
+ * 29/09/2012 (lem) - added methods to return (1) fully qualified names and (2) invoking class/method names
+ */
+
+object StackTraceInfo {
+    /* (Lifted from virgo47's stackoverflow answer) */
+    private var CLIENT_CODE_STACK_INDEX = 0
+
+    // making additional overloaded method call requires +1 offset
+    val currentMethodName: String
+        get() = getCurrentMethodName(1) // making additional overloaded method call requires +1 offset
+
+    private fun getCurrentMethodName(offset: Int): String {
+        return Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].methodName
+    }
+
+    // making additional overloaded method call requires +1 offset
+    val currentClassName: String
+        get() = getCurrentClassName(1) // making additional overloaded method call requires +1 offset
+
+    private fun getCurrentClassName(offset: Int): String {
+        return Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].className
+    }
+
+    // making additional overloaded method call requires +1 offset
+    val currentFileName: String
+        get() = getCurrentFileName(1) // making additional overloaded method call requires +1 offset
+
+    private fun getCurrentFileName(offset: Int): String {
+        val filename = Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].fileName
+        val lineNumber = Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].lineNumber
+        return "$filename:$lineNumber"
+    }
+
+    val invokingMethodName: String
+        get() = getInvokingMethodName(2)
+
+    private fun getInvokingMethodName(offset: Int): String {
+        return getCurrentMethodName(offset + 1) // re-uses getCurrentMethodName() with desired index
+    }
+
+    val invokingClassName: String
+        get() = getInvokingClassName(2)
+
+    private fun getInvokingClassName(offset: Int): String {
+        return getCurrentClassName(offset + 1) // re-uses getCurrentClassName() with desired index
+    }
+
+    val invokingFileName: String
+        get() = getInvokingFileName(2)
+
+    private fun getInvokingFileName(offset: Int): String {
+        return getCurrentFileName(offset + 1) // re-uses getCurrentFileName() with desired index
+    }
+
+    val currentMethodNameFqn: String
+        get() = getCurrentMethodNameFqn(1)
+
+    private fun getCurrentMethodNameFqn(offset: Int): String {
+        val currentClassName = getCurrentClassName(offset + 1)
+        val currentMethodName = getCurrentMethodName(offset + 1)
+        return "$currentClassName.$currentMethodName"
+    }
+
+    val currentFileNameFqn: String
+        get() {
+            val CurrentMethodNameFqn = getCurrentMethodNameFqn(1)
+            val currentFileName = getCurrentFileName(1)
+            return "$CurrentMethodNameFqn($currentFileName)"
+        }
+
+    val invokingMethodNameFqn: String
+        get() = getInvokingMethodNameFqn(2)
+
+    private fun getInvokingMethodNameFqn(offset: Int): String {
+        val invokingClassName = getInvokingClassName(offset + 1)
+        val invokingMethodName = getInvokingMethodName(offset + 1)
+        return "$invokingClassName.$invokingMethodName"
+    }
+
+    val invokingFileNameFqn: String
+        get() {
+            val invokingMethodNameFqn = getInvokingMethodNameFqn(2)
+            val invokingFileName = getInvokingFileName(2)
+            return "$invokingMethodNameFqn($invokingFileName)"
+        }
+
+    init { // Finds out the index of "this code" in the returned stack trace - funny but it differs in JDK 1.5 and 1.6
+        var i = 0
+        for (ste in Thread.currentThread().stackTrace) {
+            i++
+            if (ste.className == StackTraceInfo::class.java.name) {
+                break
+            }
+        }
+        CLIENT_CODE_STACK_INDEX = i
+    }
+}

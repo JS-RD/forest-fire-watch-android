@@ -136,6 +136,8 @@ class MasterController() {
             mapViewModel.startFireRetrieval()
         }
 
+
+        //the following can be deleted easily enough
         var iterator = 0
         val arrayOfStyles:ArrayList<String> = arrayListOf(
                 Style.DARK,
@@ -185,6 +187,7 @@ class MasterController() {
     }
 
     suspend fun startFireService(){
+        Timber.i("$javaClass $methodName initialized")
         isFiresServiceRunning.set(true)
         var countup = 0
         while(isFiresServiceRunning.get()) {
