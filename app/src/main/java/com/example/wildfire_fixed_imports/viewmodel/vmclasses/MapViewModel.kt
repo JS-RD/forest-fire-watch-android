@@ -18,9 +18,6 @@ import com.example.wildfire_fixed_imports.viewmodel.MasterController
 class MapViewModel : ViewModel() {
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    val retroDSController by lazy {
-        FireDSController(this)
-    }
 
     lateinit var targetMaster: MasterController
 
@@ -31,20 +28,20 @@ class MapViewModel : ViewModel() {
 
 
 
-    fun setMyTargetMap(masterController: MasterController)
+    fun setMyMasterController(masterController: MasterController)
     {
         targetMaster = masterController
     }
 
     fun startFireRetrieval() {
         viewModelScope.launch {
-            retroDSController.startFireService()
+            targetMaster.startFireService()
         }
     }
 
     fun stopFireRetrieval() {
         viewModelScope.launch {
-            retroDSController.stopFireService()
+            targetMaster.stopFireService()
         }
     }
 

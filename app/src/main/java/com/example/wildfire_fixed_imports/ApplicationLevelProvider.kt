@@ -17,6 +17,7 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLoca
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
@@ -103,6 +104,9 @@ class ApplicationLevelProvider : Application() {
         UserWebBEController()
     }
 
+    val fireDSController by lazy {
+        FireDSController()
+    }
     val userLocationWebBEController by lazy {
         UserLocationWebBEController()
     }
@@ -151,7 +155,7 @@ val heatMapController by lazy {
     override fun onCreate() {
         super.onCreate()
         val iconFactory by lazy { IconFactory.getInstance(this) }
-        val fireBitmap =getBitmap(this.applicationContext, R.drawable.ic_fireicon);
+        val fireBitmap =getBitmap(this.applicationContext, R.drawable.noun_fire_2355447);
         fireIcon =
                 iconFactory.fromBitmap(fireBitmap)
         instance = this

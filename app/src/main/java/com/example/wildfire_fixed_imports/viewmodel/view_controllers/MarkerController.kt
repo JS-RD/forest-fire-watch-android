@@ -1,20 +1,20 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
+import android.R.style
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.graphics.drawable.toBitmap
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
 import com.example.wildfire_fixed_imports.fireIconTarget
 import com.mapbox.mapboxsdk.annotations.Marker
-import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.mapbox.mapboxsdk.style.layers.FillLayer
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillColor
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillOpacity
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 
 
 class MarkerController () {
@@ -31,8 +31,7 @@ class MarkerController () {
 
 
 init {
-    fireBitmap = getBitmap(applicationLevelProvider.applicationContext, R.drawable.ic_fireicon)
-    applicationLevelProvider.mapboxStyle.addImageAsync("alt", fireBitmap)
+
     symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
     symbolManager.iconAllowOverlap = true
     symbolManager.textAllowOverlap = true
@@ -40,17 +39,31 @@ init {
     applicationLevelProvider.mapboxStyle
     symbolManager
 
-    val bm = BitmapFactory.decodeResource(applicationLevelProvider.resources, R.drawable.ic_fireicon)
-    applicationLevelProvider.mapboxStyle.addImage(fireIconTarget, applicationLevelProvider.getDrawable(R.drawable.ic_fireicon)!!)
+    var bm = getBitmap(applicationLevelProvider.applicationContext, R.drawable.ic_fireicon_double)
+    val bmp_Copy: Bitmap = bm.copy(Bitmap.Config.ARGB_8888, true)
+
+
+    val urbanArea = FillLayer("urban-areas-fill", "urban-areas")
+
+    urbanArea.setProperties(
+            fillColor(Color.parseColor("#ff0088")),
+            fillOpacity(0.4f)
+    )
+    applicationLevelProvider.mapboxStyle.addLayerBelow(urbanArea, "water")
+
+
+    applicationLevelProvider.mapboxStyle.addImage(fireIconTarget, bmp_Copy)
     val sauce = symbolManager.create( SymbolOptions()
             .withLatLng( LatLng(60.169091, 24.939876))
             .withIconImage(fireIconTarget)
-            .withIconSize(2.0f)
-            .withDraggable(true))
+            .withIconSize(0.1f)
+            .withDraggable(true)
+            )
+
 
     val sauce2 = symbolManager.create( SymbolOptions()
             .withLatLng( LatLng(20.169091, 24.939876))
-            .withIconImage("alt")
+            .withIconImage(fireIconTarget)
             .withIconSize(2.0f)
             .withDraggable(true)
     )

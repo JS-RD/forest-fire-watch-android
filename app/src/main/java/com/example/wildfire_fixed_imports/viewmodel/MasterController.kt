@@ -9,14 +9,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
+import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicBoolean
 
 
 /*
@@ -42,6 +45,11 @@ class MasterController() {
         applicationLevelProvider.mapboxView
     }
 
+    private val fireDSController by lazy {
+        applicationLevelProvider.fireDSController
+    }
+
+
     //additional dependency injection
     private val currentActivity : Activity = applicationLevelProvider.currentActivity
 
@@ -54,9 +62,9 @@ class MasterController() {
     //markercontroller ref
     private val markerController = applicationLevelProvider.markerController
 
-    private val TAG = "MapController"
 
-    var initialized=false
+    var fireInitialized=false
+    var AQIInitialized=false
 
     //create live data
     private val _fireData = MutableLiveData<List<DSFires>>().apply {
@@ -69,6 +77,14 @@ class MasterController() {
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
     var AQIObserver:Observer<List<AQIdata>>
+
+    //atomicbooleans to allow for properly checking if streams are functioning or not even in asyncronous code
+    var isFiresServiceRunning = AtomicBoolean()
+    var isAQIdatasServiceRunning = AtomicBoolean()
+
+    private val TAG:String
+    get() = "MasterController $className $methodName"
+    val className = object {}.javaClass.toString()
 
     fun traceResult() {
 
@@ -84,7 +100,7 @@ class MasterController() {
         fireObserver = Observer{ list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
-            if (!initialized) {
+            if (!fireInitialized) {
                 Timber.i("$TAG init fire list reached observer ${list.toString()}")
                 removeAllFires()
                 addAllFires(list)
@@ -97,7 +113,7 @@ class MasterController() {
         AQIObserver = Observer{ list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
-            if (!initialized) {
+            if (!fireInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
 
             }
@@ -119,8 +135,6 @@ class MasterController() {
         CoroutineScope(Dispatchers.IO).launch {
             mapViewModel.startFireRetrieval()
         }
-
-
 
         var iterator = 0
         val arrayOfStyles:ArrayList<String> = arrayListOf(
@@ -170,9 +184,38 @@ class MasterController() {
 
     }
 
+    suspend fun startFireService(){
+        isFiresServiceRunning.set(true)
+        var countup = 0
+        while(isFiresServiceRunning.get()) {
+            val systemmilli = System.currentTimeMillis()
+
+            val result=fireDSController.getDSFireLocations()
+            if (result is SuccessFailWrapper.Success){
+                handleFireData(result.value?: listOf())
+            }
+            else {
+                when(result) {
+                    is SuccessFailWrapper.Throwable ->  Timber.i(result.message)
+                    is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                    else -> Timber.i(result.toString())
+                }
+            }
+            // delay(300000)
+            delay(300000)
+            Timber.i("$TAG system milli: $systemmilli")
+            Timber.i("\"$TAG countup: ${countup++}")
+
+        }
+
+    }
+
+    suspend fun stopFireService(){
+        //Potential issue if job running?
+        isFiresServiceRunning.set(false)
+    }
 
     fun handleFireData(fireList: List<DSFires>){
-
         Timber.i(fireList.toString())
         diffFireData(fireList)
     }
@@ -190,33 +233,6 @@ class MasterController() {
         Timber.i("firedata live data after diff ${fireData.value}")
         Timber.i("_firedata live data after diff ${fireData.value}")
     }
-
-
-/*
-    suspend fun popit(){
-
-        TODO("this is an async example that requires you to later .await() ")
-        val result = CoroutineScope(Dispatchers.IO).async {
-            applicationLevelProvider.retrofitDSService.getDSFireLocations()
-
-        }
-
-
-            Timber.i(System.currentTimeMillis().toString())
-
-
-        TODO("this is how you would get out of a coroutine scope and back to a regular nonthread pattern ")
-        CoroutineScope(Dispatchers.IO).launch {
-            Timber.i(System.currentTimeMillis().toString())
-            Toast.makeText(applicationLevelProvider.applicationContext, result.await().toString(), Toast.LENGTH_SHORT).show()
-            delay(2000)
-       popit2()
-        }
-    }
-    fun popit2() {
-        Toast.makeText(applicationLevelProvider.applicationContext, "this was not suspended", Toast.LENGTH_SHORT).show()
-
-    }*/
 
     fun removeAllFires() {
         targetMap.markers.removeAll(targetMap.markers)

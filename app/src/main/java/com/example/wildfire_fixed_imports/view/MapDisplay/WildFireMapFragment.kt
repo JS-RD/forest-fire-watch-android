@@ -12,9 +12,12 @@ import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import timber.log.Timber
 
 
@@ -26,8 +29,6 @@ class WildFireMapFragment : Fragment() {
         //set this fragment as the map fragment in ApplicationLevelProvider
         applicationLevelProvider.mapFragment = this
     }
-
-
 
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
@@ -59,15 +60,30 @@ class WildFireMapFragment : Fragment() {
              applicationLevelProvider.mapboxMap = myMapboxMap
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
-            val style =Style.MAPBOX_STREETS
-              myMapboxMap.setStyle(Style.SATELLITE) {
+             val style = Style.TRAFFIC_DAY
+            /* private static final String ICON_ID = "ICON_ID";
+             private static final String LAYER_ID = "LAYER_ID";
+            val style =Style.Builder().fromUri()
+                    .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
+                    .withProperties(PropertyFactory.iconImage(ICON_ID),
+                            iconAllowOverlap(true),
+                            iconIgnorePlacement(true),
+                            iconOffset(new Float[] {0f, -9f}))*/
+              myMapboxMap.setStyle(style) {
+
+
+                  it.transition = TransitionOptions(0, 0, false)
+                  mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
+                          12.099, -79.045), 3.0))
+
                  (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
                   applicationLevelProvider.mapboxStyle=it
+
                   masterController= MasterController()
                   applicationLevelProvider.masterController=masterController
 
 
-                  mapViewModel.setMyTargetMap(masterController)
+                  mapViewModel.setMyMasterController(masterController)
 
              }
 
