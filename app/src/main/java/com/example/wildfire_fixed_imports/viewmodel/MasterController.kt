@@ -89,6 +89,7 @@ class MasterController() {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
+    private var oldAQIData= mutableListOf<AQIdata>()
      private var AQIObserver:Observer<List<AQIdata>>
     private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
         value= listOf<AQIStations>()
@@ -132,12 +133,14 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("$TAG init create aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
-
-
+                AQIDataInitialized = true
+                aqiDrawController.writeNewAqiData(list)
+                oldAQIData=list.toMutableList()
             } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-                removeAllAQIdata()
-                
+                removeAllAQIdata(oldAQIData)
+                oldAQIData=list.toMutableList()
+                aqiDrawController.writeNewAqiData(list)
             }
         }
         AQIStationObserver = Observer { list ->
@@ -261,7 +264,9 @@ CoroutineScope(Dispatchers.IO).launch {
             handleAQIData(listOfFreshNodes)
         }
     }
-
+    fun sendAQIDataToView(aqiList: List<AQIdata>){
+        aqiDrawController.writeNewAqiData(aqiList)
+    }
 
 
    fun handleAQIData(aqiList: List<AQIdata>){
@@ -282,8 +287,8 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 
 
-    fun removeAllAQIdata() {
-        _AQIData.postValue(listOf())
+    fun removeAllAQIdata(AQIlist: List<AQIdata>) {
+        aqiDrawController.eraseAqiData(AQIlist)
     }
 
     suspend fun startAQIService() {
