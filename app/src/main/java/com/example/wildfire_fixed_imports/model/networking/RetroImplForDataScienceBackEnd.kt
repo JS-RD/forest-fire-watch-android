@@ -84,7 +84,7 @@ Returns:
     suspend fun getDSRSSFireLocations(@Body dsfire:DSRSSFireSubmit): List<DSRRSSFireContainer>
 
     @GET("/get_aqi_data")
-    suspend fun getAQIData(@Query("lat") lat: Double,@Query("lng") lng: Double): List<AQIdata>
+    suspend fun getAQIData(@Query("lat") lat: Double,@Query("lng") lng: Double): AQIdata
 
     @GET("/get_aqi_stations")
     suspend fun getAQIStations(@Query("lat") lat: Double,@Query("lng") lng: Double,@Query("distance") distance: Double ): List<AQIStations>

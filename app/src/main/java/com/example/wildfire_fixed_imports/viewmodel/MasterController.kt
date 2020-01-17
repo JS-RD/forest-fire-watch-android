@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
 import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
@@ -110,15 +111,14 @@ CoroutineScope(Dispatchers.IO).launch {
 
 
         // Create the fire observer which updates the UI.
-        fireObserver = Observer{ list ->
+        fireObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized) {
                 Timber.i("$TAG init fire list reached observer ${list.toString()}")
                 removeAllFires()
                 addAllFires(list)
-            }
-            else {
+            } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
                 addAllFires(list)
             }
@@ -134,17 +134,16 @@ CoroutineScope(Dispatchers.IO).launch {
 
             }
         }
-            AQIStationObserver = Observer{ list ->
-                // Update the UI, in this case, a TextView.
-                Timber.i("$TAG init create aqi observer")
-                if (!AQIInitialized) {
-                    Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
+        AQIStationObserver = Observer { list ->
+            // Update the UI, in this case, a TextView.
+            Timber.i("$TAG init create aqi observer")
+            if (!AQIInitialized) {
+                Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
 
-                }
-                else {
-                    Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+            } else {
+                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
 
-                }
+            }
 
 
         }
@@ -153,6 +152,7 @@ CoroutineScope(Dispatchers.IO).launch {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
         AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)
+        AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
 
 
         // start the fire service immediately to start retrieving fires
@@ -196,42 +196,113 @@ CoroutineScope(Dispatchers.IO).launch {
         }
 
 
-    suspend fun getAQIstations(){
+    suspend fun getAQIstations():List<AQIStations>?{
+        //TODO this will eventually need to check user prefs and react accordingly,
+        // for now, we simply will check from the users location
+        val currentLocal= applicationLevelProvider.userLocation.LatLng()
 
+        val result=aqidsController.getAQIStations(
+                currentLocal.latitude,
+                currentLocal.longitude,
+                2.0)
+        if (result is SuccessFailWrapper.Success){
+            return result.value
+
+        }
+        else {
+            when(result) {
+                is SuccessFailWrapper.Throwable ->  Timber.i(result.message)
+                is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                else -> Timber.i(result.toString())
+            }
+        }
+        return null
     }
+
+
     //get aqi stations for each location, or for users current location if unspecified
     //get aqi data for each station
     //send that to the view controller
 
+    suspend fun getAQIdata() {
+        if(AQIStations.value.isNullOrEmpty()){
+            //if this is empty, delay 1 second to avoid any ugly loops and attempt to get the servers again
+            startAQIService()
+        }
+        else{
+            var listOfFreshNodes = mutableListOf<AQIdata>()
+            for (i in (AQIStations.value as List<AQIStations>).indices) {
+                val current =(AQIStations.value as List<AQIStations>)[i]
+                val result = aqidsController.getAQIData(current.lat,current.lon)
+                if (result is SuccessFailWrapper.Success && result.value !=null){
+                    listOfFreshNodes.add(result.value)
+                }
+                else {
+                    Timber.i("$TAG failure at \n current AQI Station: $current \n result failure: ${result}")
+                }
+            }
+            _AQIData.postValue(listOfFreshNodes)
+        }
+    }
 
-  /*  suspend fun startAQIService(){
+
+
+    fun handleAQIData(fireList: List<DSFires>){
+        Timber.i(fireList.toString())
+        diffFireData(fireList)
+    }
+
+    fun diffAQIData(fireList: List<DSFires>) {
+        //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
+        if (fireList !=_fireData.value) {
+            _fireData.postValue(fireList)
+            fireData.value
+            Timber.i("firedata live data after diff ${fireData.value}")
+            Timber.i("_firedata live data after diff ${fireData.value}")
+        }
+        _fireData.postValue(fireList)
+        fireData.value
+        Timber.i("firedata live data after diff ${fireData.value}")
+        Timber.i("_firedata live data after diff ${fireData.value}")
+    }
+
+    fun removeAllAQI() {
+
+    }
+
+    suspend fun startAQIService() {
         Timber.i("$javaClass $methodName initialized")
         isAQIdatasServiceRunning.set(true)
         var countup = 0
-        while(isAQIdatasServiceRunning.get()) {
+        while (isAQIdatasServiceRunning.get()) {
             val systemmilli = System.currentTimeMillis()
-
-           val sauce =applicationLevelProvider.userLocation
-
-            val result=getAQIstations()
-            if (result is SuccessFailWrapper.Success){
-                handleFireData(result.value?: listOf())
-            }
-            else {
-                when(result) {
-                    is SuccessFailWrapper.Throwable ->  Timber.i(result.message)
-                    is SuccessFailWrapper.Fail -> Timber.i(result.message)
-                    else -> Timber.i(result.toString())
+            //if we don't have aqistations yet, go get em
+            if (AQIStations.value.isNullOrEmpty()) {
+                val result = getAQIstations()
+                if (result != null) {
+                    //now that we got em, call the data retriever
+                    _AQIStations.postValue(result)
+                    getAQIdata()
+                } else {
+                    Timber.i("$TAG failed to load AQI Stations")
+                    break
                 }
             }
-            // delay(300000)
-            delay(300000)
-            Timber.i("$TAG system milli: $systemmilli")
-            Timber.i("\"$TAG countup: ${countup++}")
+            //if we have aqi stations then...
+            else {
+                getAQIdata()
+            }
+        // delay(300000)
+        delay(300000)
+        Timber.i("$TAG system milli: $systemmilli")
+        Timber.i("\"$TAG countup: ${countup++}")
 
-        }
+    }
 
-    }*/
+}    suspend fun stopAQIService(){
+        //Potential issue if job running?
+        isAQIdatasServiceRunning.set(false)
+    }
 
     fun addAllFires(DSFires:List<DSFires>) {
         for (i in DSFires.indices) {
