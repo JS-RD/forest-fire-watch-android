@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
+import com.example.wildfire_fixed_imports.fireIconTarget
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
@@ -17,7 +20,11 @@ import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -71,8 +78,14 @@ class WildFireMapFragment : Fragment() {
                             iconOffset(new Float[] {0f, -9f}))*/
               myMapboxMap.setStyle(style) {
 
+                  val id = R.drawable.ic_fireicon
+                  applicationLevelProvider.fireIconAlt = getBitmapFromVectorDrawable(applicationLevelProvider.applicationContext,id)
+                  it.addImage(fireIconTarget,
+                          applicationLevelProvider.fireIconAlt
+                  )
 
                   it.transition = TransitionOptions(0, 0, false)
+
                   mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
                           12.099, -79.045), 3.0))
 
@@ -84,7 +97,11 @@ class WildFireMapFragment : Fragment() {
 
 
                   mapViewModel.setMyMasterController(masterController)
-
+                  CoroutineScope(Dispatchers.Main).launch {
+                      val locale = (applicationLevelProvider.currentActivity as MainActivity).getLatestLocation()
+                      mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                              locale!!.LatLng(), 6.0), 12000);
+                  }
              }
 
 

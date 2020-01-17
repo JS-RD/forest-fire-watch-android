@@ -6,6 +6,7 @@ import android.graphics.Color
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.fireIconTarget
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -37,10 +38,12 @@ init {
     symbolManager.textAllowOverlap = true
 
     applicationLevelProvider.mapboxStyle
-    symbolManager
 
+
+/*
     var bm = getBitmap(applicationLevelProvider.applicationContext, R.drawable.ic_fireicon_double)
     val bmp_Copy: Bitmap = bm.copy(Bitmap.Config.ARGB_8888, true)
+*/
 
 
     val urbanArea = FillLayer("urban-areas-fill", "urban-areas")
@@ -52,7 +55,6 @@ init {
     applicationLevelProvider.mapboxStyle.addLayerBelow(urbanArea, "water")
 
 
-    applicationLevelProvider.mapboxStyle.addImage(fireIconTarget, bmp_Copy)
     val sauce = symbolManager.create( SymbolOptions()
             .withLatLng( LatLng(60.169091, 24.939876))
             .withIconImage(fireIconTarget)
@@ -67,7 +69,7 @@ init {
             .withIconSize(2.0f)
             .withDraggable(true)
     )
-    sauce2.setIconColor(Color.RED)
+
 }
 
 var count =0
@@ -105,7 +107,6 @@ var count =0
     val saucefam =symbolManager.create(sauce)
     //symbolManager.delete(saucefam)
 
-saucefam.setIconColor(Color.BLUE)
 
         //finally return a reference to index of the newly created marker so the calling method can retain a reference for themselves
         return count++

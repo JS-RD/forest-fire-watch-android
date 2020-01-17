@@ -28,20 +28,23 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.checkSelfPermissionCompat
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.requestPermissionsCompat
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.shouldShowRequestPermissionRationaleCompat
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -51,9 +54,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var fab: FloatingActionButton
     private lateinit var layout: View
+    private val TAG:String
+        get() = "$javaClass $methodName"
+
 
     private var locationManager: LocationManager? = null
-
+    private lateinit var fusedLocationClient:FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
 
@@ -64,10 +70,12 @@ class MainActivity : AppCompatActivity() {
         layout = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
         applicationLevelProvider.currentActivity = this
-
+        fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+
 
 
 
@@ -86,17 +94,18 @@ class MainActivity : AppCompatActivity() {
         setUpNav()
 
 
-        //set up tinder logging
-        Timber.tag("LifeCycles");
-        Timber.d("Activity Created");
-
         //check permissions
         initPermissions()
-
 
         try {
             // Request location updates
             locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+            Timber.i(" $TAG requesting location")
+            val sauce =locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+            CoroutineScope(Dispatchers.IO).launch {
+                getLatestLocation()
+
+            }
         } catch (ex: SecurityException) {
             Timber.i("Security Exception, no location available")
         }
@@ -147,7 +156,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+//for grabing location
+    suspend fun getLatestLocation ():Location? {
 
+        val locale = fusedLocationClient.lastLocation.await()
+        applicationLevelProvider.userLocation = locale ?: Location("empty")
+        return locale
+    }
 
 
 

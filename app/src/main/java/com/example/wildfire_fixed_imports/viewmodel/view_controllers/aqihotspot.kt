@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.fireIconTarget
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -53,11 +54,7 @@ class CircleLayerClusteringActivity : AppCompatActivity() {
                 mapboxMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
                         12.099, -79.045), 3.0))
                 addClusteredGeoJsonSource(style)
-                style.addImage(
-                        "cross-icon-id",
-                        BitmapUtils.getBitmapFromDrawable(resources.getDrawable(R.drawable.noun_fire_2355447))!!,
-                        true
-                )
+
                 Toast.makeText(this@CircleLayerClusteringActivity, "zoom map instructions",
                         Toast.LENGTH_SHORT).show()
             }

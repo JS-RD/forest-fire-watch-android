@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
+import android.location.Location
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +15,7 @@ import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.UID
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.mapboxsdk.geometry.LatLng
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
@@ -65,8 +67,9 @@ fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
     ActivityCompat.requestPermissions(this, permissionsArray, requestCode)
 }
 
-fun String.toUID() : UID {
-    return UID(this)
+
+fun Location.LatLng() : LatLng {
+    return LatLng(this.latitude,this.longitude)
 }
 
 fun <T>RetrofitErrorHandler(throwable:Throwable): SuccessFailWrapper<T> {

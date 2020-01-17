@@ -10,9 +10,11 @@ import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.methodName
+import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
@@ -49,6 +51,10 @@ class MasterController() {
         applicationLevelProvider.fireDSController
     }
 
+    private val aqidsController by lazy {
+        applicationLevelProvider.aqidsController
+    }
+
 
     //additional dependency injection
     private val currentActivity : Activity = applicationLevelProvider.currentActivity
@@ -63,36 +69,43 @@ class MasterController() {
     private val markerController = applicationLevelProvider.markerController
 
 
-    var fireInitialized=false
-    var AQIInitialized=false
+    private var fireInitialized=false
+    private var AQIInitialized=false
+    private var AQIDataInitialized=false
 
-    //create live data
+    //create live data, mutables amd observers
     private val _fireData = MutableLiveData<List<DSFires>>().apply {
         value= listOf<DSFires>()
     }
     val fireData: LiveData<List<DSFires>> = _fireData
-    var fireObserver:Observer<List<DSFires>>
+    private  var fireObserver:Observer<List<DSFires>>
     private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
-    var AQIObserver:Observer<List<AQIdata>>
+     private var AQIObserver:Observer<List<AQIdata>>
+    private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
+        value= listOf<AQIStations>()
+    }
+    val AQIStations: LiveData<List<AQIStations>> = _AQIStations
+    private var AQIStationObserver:Observer<List<AQIStations>>
 
     //atomicbooleans to allow for properly checking if streams are functioning or not even in asyncronous code
     var isFiresServiceRunning = AtomicBoolean()
     var isAQIdatasServiceRunning = AtomicBoolean()
 
     private val TAG:String
-    get() = "MasterController $className $methodName"
-    val className = object {}.javaClass.toString()
+    get() = "$javaClass $methodName"
 
-    fun traceResult() {
-
+   /*
+CoroutineScope(Dispatchers.IO).launch {
+                    currentActivity.getLatestLocation()
     }
+*/
+
+
 
     init {
-        /* temp testing remove*/
-
        Timber.i("$TAG init")
 
 
@@ -110,17 +123,29 @@ class MasterController() {
                 addAllFires(list)
             }
         }
-        AQIObserver = Observer{ list ->
+        AQIObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
-            if (!fireInitialized) {
+            if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
 
-            }
-            else {
+            } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
 
             }
+        }
+            AQIStationObserver = Observer{ list ->
+                // Update the UI, in this case, a TextView.
+                Timber.i("$TAG init create aqi observer")
+                if (!AQIInitialized) {
+                    Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
+
+                }
+                else {
+                    Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+
+                }
+
 
         }
 
@@ -170,6 +195,43 @@ class MasterController() {
 
         }
 
+
+    suspend fun getAQIstations(){
+
+    }
+    //get aqi stations for each location, or for users current location if unspecified
+    //get aqi data for each station
+    //send that to the view controller
+
+
+  /*  suspend fun startAQIService(){
+        Timber.i("$javaClass $methodName initialized")
+        isAQIdatasServiceRunning.set(true)
+        var countup = 0
+        while(isAQIdatasServiceRunning.get()) {
+            val systemmilli = System.currentTimeMillis()
+
+           val sauce =applicationLevelProvider.userLocation
+
+            val result=getAQIstations()
+            if (result is SuccessFailWrapper.Success){
+                handleFireData(result.value?: listOf())
+            }
+            else {
+                when(result) {
+                    is SuccessFailWrapper.Throwable ->  Timber.i(result.message)
+                    is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                    else -> Timber.i(result.toString())
+                }
+            }
+            // delay(300000)
+            delay(300000)
+            Timber.i("$TAG system milli: $systemmilli")
+            Timber.i("\"$TAG countup: ${countup++}")
+
+        }
+
+    }*/
 
     fun addAllFires(DSFires:List<DSFires>) {
         for (i in DSFires.indices) {

@@ -24,6 +24,8 @@ const val fireIconTarget = "fire_icon_50"
 val methodName
 get() = StackTraceInfo.invokingMethodName
 
+
+
 //Thread.currentThread().stackTrace[2].methodName
 object MethodNameTest {
     private var CLIENT_CODE_STACK_INDEX = 0

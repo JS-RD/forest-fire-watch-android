@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Activity
 import android.app.Application
+import android.graphics.Bitmap
 import android.location.Location
 import android.util.Log
 import androidx.annotation.NonNull
@@ -17,6 +18,7 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLoca
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
@@ -107,6 +109,11 @@ class ApplicationLevelProvider : Application() {
     val fireDSController by lazy {
         FireDSController()
     }
+
+    val aqidsController by lazy {
+        AQIDSController()
+    }
+
     val userLocationWebBEController by lazy {
         UserLocationWebBEController()
     }
@@ -139,6 +146,7 @@ val heatMapController by lazy {
     lateinit var appMapViewModel: MapViewModel
 
     lateinit var fireIcon: Icon
+    lateinit var fireIconAlt: Bitmap
 
     lateinit var userLocation: Location
 
