@@ -33,7 +33,7 @@ class AQIDSController() {
             val result =retrofitDSService.getAQIStations(lat,lng,distance)
 
             Timber.i("$TAG success\n list of aqi stations for lat:$lat lng$lng distance:$distance  = \n$result ")
-            SuccessFailWrapper.Success("Success", result)
+            SuccessFailWrapper.Success("Success", result.data)
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")

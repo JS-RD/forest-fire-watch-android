@@ -7,15 +7,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.MainActivity
+import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
-import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
@@ -23,6 +22,7 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.coroutines.CoroutineContext
 
 
 /*
@@ -55,6 +55,11 @@ class MasterController() {
     private val aqidsController by lazy {
         applicationLevelProvider.aqidsController
     }
+
+    private val aqiDrawController by lazy {
+        AQIDrawController().also { applicationLevelProvider.aqiDrawController=it }
+    }
+
 
 
     //additional dependency injection
@@ -95,8 +100,8 @@ class MasterController() {
     var isFiresServiceRunning = AtomicBoolean()
     var isAQIdatasServiceRunning = AtomicBoolean()
 
-    private val TAG:String
-    get() = "$javaClass $methodName"
+    val TAG:String
+        get() =  "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
    /*
 CoroutineScope(Dispatchers.IO).launch {
@@ -108,7 +113,6 @@ CoroutineScope(Dispatchers.IO).launch {
 
     init {
        Timber.i("$TAG init")
-
 
         // Create the fire observer which updates the UI.
         fireObserver = Observer { list ->
@@ -128,10 +132,12 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("$TAG init create aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
-                handleAQIData(list)
+
+
             } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-                handleAQIData(list
+                removeAllAQIdata()
+                
             }
         }
         AQIStationObserver = Observer { list ->
@@ -139,7 +145,11 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
+
+
                 CoroutineScope(Dispatchers.IO).launch {
+                    // at this point we have the option to use the aqi provided at the station level  as rough data,
+                    // should likely do this
                     getAQIdata()
                 }
 
@@ -212,6 +222,7 @@ CoroutineScope(Dispatchers.IO).launch {
                 currentLocal.longitude,
                 2.0)
         if (result is SuccessFailWrapper.Success){
+            Timber.i("$TAG result: ${result.value}")
             return result.value
 
         }
@@ -247,7 +258,7 @@ CoroutineScope(Dispatchers.IO).launch {
                     Timber.i("$TAG failure at \n current AQI Station: $current \n result failure: ${result}")
                 }
             }
-            _AQIData.postValue(listOfFreshNodes)
+            handleAQIData(listOfFreshNodes)
         }
     }
 
@@ -258,22 +269,21 @@ CoroutineScope(Dispatchers.IO).launch {
         diffAQIData(aqiList)
     }
 
-   fun diffAQIData(fireList: List<AQIdata>) {
+   fun diffAQIData(AQIlist: List<AQIdata>) {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
-        if (fireList !=_fireData.value) {
-            _AQIData.postValue(fireList)
-            fireData.value
-            Timber.i("firedata live data after diff ${fireData.value}")
-            Timber.i("_firedata live data after diff ${fireData.value}")
+        if (AQIlist !=_AQIData.value) {
+            _AQIData.postValue(AQIlist)
+            Timber.i("firedata live data after diff ${_AQIData.value}")
+            Timber.i("_firedata live data after diff ${_AQIData.value}")
         }
-        _AQIData(fireList)
-        fireData.value
-        Timber.i("firedata live data after diff ${fireData.value}")
-        Timber.i("_firedata live data after diff ${fireData.value}")
+       _AQIData.postValue(AQIlist)
+        Timber.i("firedata live data after diff ${_AQIData.value}")
+        Timber.i("_firedata live data after diff ${_AQIData.value}")
     }
 
-    fun removeAllAQI() {
 
+    fun removeAllAQIdata() {
+        _AQIData.postValue(listOf())
     }
 
     suspend fun startAQIService() {
@@ -380,6 +390,7 @@ CoroutineScope(Dispatchers.IO).launch {
         targetMap.markers.removeAll(targetMap.markers)
     }
 
+    @Deprecated("not used at this time")
     fun addbackgroundtomap() {
         targetMap.getStyle {
             val backgroundLayer = BackgroundLayer("background-layer")

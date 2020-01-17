@@ -24,6 +24,12 @@ const val fireIconTarget = "fire_icon_50"
 val methodName
 get() = StackTraceInfo.invokingMethodName
 
+val className
+    get() = StackTraceInfo.invokingClassName
+
+val fileName
+    get() = StackTraceInfo.invokingFileName
+
 
 
 //Thread.currentThread().stackTrace[2].methodName

@@ -87,7 +87,7 @@ Returns:
     suspend fun getAQIData(@Query("lat") lat: Double,@Query("lng") lng: Double): AQIdata
 
     @GET("/get_aqi_stations")
-    suspend fun getAQIStations(@Query("lat") lat: Double,@Query("lng") lng: Double,@Query("distance") distance: Double ): List<AQIStations>
+    suspend fun getAQIStations(@Query("lat") lat: Double,@Query("lng") lng: Double,@Query("distance") distance: Double ): DSStationsResponse
 
 
 

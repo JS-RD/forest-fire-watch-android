@@ -20,6 +20,7 @@ import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapCont
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
+import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
@@ -130,6 +131,7 @@ val markerController by lazy {
 val heatMapController by lazy {
     HeatMapController()
 }
+    lateinit var aqiDrawController:AQIDrawController
 
     lateinit var currentActivity: Activity
     lateinit var mapFragment: WildFireMapFragment

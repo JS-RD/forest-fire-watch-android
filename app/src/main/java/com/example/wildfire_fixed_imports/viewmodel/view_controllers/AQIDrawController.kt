@@ -2,14 +2,14 @@ package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
 import android.app.Activity
 import android.view.View
-import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.sendSelect
+import com.example.wildfire_fixed_imports.*
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import timber.log.Timber
 
 
 /*
@@ -28,7 +28,8 @@ class AQIDrawController() {
     }
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
-
+    val TAG:String
+        get() =  "\n class: $className -- file name: $fileName -- method: $methodName \n"
 
     //heat map functions experimental:
 
@@ -44,8 +45,10 @@ class AQIDrawController() {
     //style of underlying map, Style.DARK, Style.LIGHT, or Style.SATELLITE are suggested values.
     private val HEATMAP_STYLE = Style.DARK
 
-    fun rec(){
-
+    fun writeNewAqiData(){
+        Timber.i(TAG)
 
     }
+
+
 }
