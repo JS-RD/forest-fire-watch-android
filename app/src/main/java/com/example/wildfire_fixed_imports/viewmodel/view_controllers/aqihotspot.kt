@@ -32,6 +32,7 @@ import java.net.URISyntaxException
 /**
  * Use GeoJSON and circle layers to visualize point data as circle clusters.
  */
+
 class CircleLayerClusteringActivity : AppCompatActivity() {
     private var mapboxMap: MapboxMap? = null
     private var applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()

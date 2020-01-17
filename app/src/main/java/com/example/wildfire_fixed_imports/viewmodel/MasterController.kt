@@ -130,7 +130,7 @@ CoroutineScope(Dispatchers.IO).launch {
         }
         AQIObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
-            Timber.i("$TAG init create aqi observer")
+            Timber.i("$TAG aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
                 AQIDataInitialized = true
@@ -149,7 +149,7 @@ CoroutineScope(Dispatchers.IO).launch {
             if (!AQIInitialized) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
 
-
+                AQIInitialized=true
                 CoroutineScope(Dispatchers.IO).launch {
                     // at this point we have the option to use the aqi provided at the station level  as rough data,
                     // should likely do this
@@ -278,12 +278,11 @@ CoroutineScope(Dispatchers.IO).launch {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
         if (AQIlist !=_AQIData.value) {
             _AQIData.postValue(AQIlist)
-            Timber.i("firedata live data after diff ${_AQIData.value}")
-            Timber.i("_firedata live data after diff ${_AQIData.value}")
+            Timber.i("aqi live data after diff ${_AQIData.value}")
+
         }
-       _AQIData.postValue(AQIlist)
-        Timber.i("firedata live data after diff ${_AQIData.value}")
-        Timber.i("_firedata live data after diff ${_AQIData.value}")
+        Timber.i("aqi live data after diff ${_AQIData.value}")
+
     }
 
 
@@ -381,14 +380,11 @@ CoroutineScope(Dispatchers.IO).launch {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
         if (fireList !=_fireData.value) {
             _fireData.postValue(fireList)
-            fireData.value
             Timber.i("firedata live data after diff ${fireData.value}")
-            Timber.i("_firedata live data after diff ${fireData.value}")
         }
-        _fireData.postValue(fireList)
-        fireData.value
+
         Timber.i("firedata live data after diff ${fireData.value}")
-        Timber.i("_firedata live data after diff ${fireData.value}")
+
     }
 
     fun removeAllFires() {

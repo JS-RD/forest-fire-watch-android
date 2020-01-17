@@ -22,6 +22,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import com.mapbox.mapboxsdk.utils.BitmapUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -95,7 +96,11 @@ class WildFireMapFragment : Fragment() {
                   masterController= MasterController()
                   applicationLevelProvider.masterController=masterController
 
-
+                  it.addImage(
+                          "cross-icon-id",
+                          BitmapUtils.getBitmapFromDrawable(resources.getDrawable(R.drawable.ic_cross))!!,
+                          true
+                  )
                   mapViewModel.setMyMasterController(masterController)
                   CoroutineScope(Dispatchers.Main).launch {
                       val locale = (applicationLevelProvider.currentActivity as MainActivity).getLatestLocation()

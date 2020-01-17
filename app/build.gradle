@@ -147,6 +147,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0'
     implementation 'com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0'
 
+    //kotlin reflection for memberProperties
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
 }
 
