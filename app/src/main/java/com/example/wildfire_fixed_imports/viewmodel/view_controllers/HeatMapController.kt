@@ -1,13 +1,13 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_controllers
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
-import com.mapbox.mapboxsdk.annotations.MarkerOptions
-import com.mapbox.mapboxsdk.geometry.LatLng
+import com.example.wildfire_fixed_imports.R
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
@@ -95,6 +95,8 @@ class HeatMapController () {
                     else {
                         Toast.makeText(currentActivity.applicationContext, "didn't work yo", Toast.LENGTH_LONG ).show()
                     }
+
+
 
                     heatmapHasBeennitialized=true
                 }

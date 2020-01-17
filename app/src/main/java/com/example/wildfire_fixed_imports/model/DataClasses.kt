@@ -46,12 +46,13 @@ data class WebBEUserRegister(
 }
 
 data class SafeWebUser(
-
+        //can't change primary keys (or we shouldn't anyway...)
+        //  val UID: String,
       //  var id: Int,
         var first_name: String,
         var last_name: String,
         var email: String,
-      //  val UID: String,
+
         var cell_number: String? =null,
         var receive_sms: Boolean,
         var receive_push: Boolean,

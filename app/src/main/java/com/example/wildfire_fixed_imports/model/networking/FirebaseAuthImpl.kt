@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.networking
+package com.example.wildfire_fixed_imports.model.networking
 
 import android.widget.Toast
 import androidx.lifecycle.LiveData

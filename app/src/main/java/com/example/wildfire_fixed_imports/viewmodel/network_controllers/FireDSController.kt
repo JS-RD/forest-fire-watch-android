@@ -26,14 +26,14 @@ import java.util.concurrent.atomic.AtomicBoolean
 * */
 
 
-class FireDSController (val mapViewModel: MapViewModel) {
+class FireDSController () {
 
 
     private val appLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
     private val retrofitDSService = appLevelProvider.retrofitDSService
 
-    private  var isFiresServiceRunning = AtomicBoolean()
+
 
     private val TAG = "FireDSController"
 
@@ -79,34 +79,10 @@ class FireDSController (val mapViewModel: MapViewModel) {
         //TODO handle errors
 
         val results = retrofitDSService.getDSFireLocations()
-        mapViewModel.handleFireData(results)
+        appLevelProvider.masterController.handleFireData(results)
 
     }
 
 
-    @Deprecated("please use new methods in same class")
-    suspend fun startFireService(){
-        isFiresServiceRunning.set(true)
-        var countup = 0
-        while(isFiresServiceRunning.get()) {
-            var systemmilli = System.currentTimeMillis()
 
-            getFireLocations()
-           // delay(300000)
-            delay(300000)
-            Timber.i("system milli: $systemmilli")
-            Timber.i("countup: ${countup++}")
-
-        }
-
-    }
-
-    //Write method to send and receive data from login
-
-    //Write method to send and receive data from register
-    @Deprecated("please use new methods in same class")
-    suspend fun stopFireService(){
-        //Potential issue if job running?
-        isFiresServiceRunning.set(false)
-    }
 }

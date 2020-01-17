@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.networking
+package com.example.wildfire_fixed_imports.model.networking
 
 
 /*
@@ -16,7 +16,6 @@ package com.example.wildfire_fixed_imports.networking
 * */
 
 
-import com.example.wildfire_fixed_imports.WEB_BASE_URL
 import com.example.wildfire_fixed_imports.DS_BASE_URL
 import com.example.wildfire_fixed_imports.model.*
 import okhttp3.OkHttpClient
@@ -25,7 +24,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.util.concurrent.TimeUnit
-import kotlinx.coroutines.Deferred
 
 interface RetroImplForDataScienceBackEnd {
     /*
@@ -86,7 +84,7 @@ Returns:
     suspend fun getDSRSSFireLocations(@Body dsfire:DSRSSFireSubmit): List<DSRRSSFireContainer>
 
     @GET("/get_aqi_data")
-    suspend fun getAQIData(@Query("lat") lat: Double,@Query("lng") lng: Double): List<AQIdata>
+    suspend fun getAQIData(@Query("lat") lat: Double,@Query("lng") lng: Double): AQIdata
 
     @GET("/get_aqi_stations")
     suspend fun getAQIStations(@Query("lat") lat: Double,@Query("lng") lng: Double,@Query("distance") distance: Double ): List<AQIStations>

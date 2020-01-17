@@ -12,63 +12,53 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.methodName
+import com.example.wildfire_fixed_imports.viewmodel.MasterController
 
 
 class MapViewModel : ViewModel() {
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    val retroDSController by lazy {
-        FireDSController(this)
-    }
 
-    lateinit var targetMap: MapController
+    lateinit var targetMaster: MasterController
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
     val text: LiveData<String> = _text
 
-    private val _fireData = MutableLiveData<List<DSFires>>().apply {
-       value= listOf<DSFires>()
-    }
-    val fireData: LiveData<List<DSFires>> = _fireData
 
-    fun setMyTargetMap(mapController: MapController)
+
+
+    fun setMyMasterController(masterController: MasterController)
     {
-        targetMap = mapController
+        targetMaster = masterController
     }
 
     fun startFireRetrieval() {
         viewModelScope.launch {
-            retroDSController.startFireService()
+            targetMaster.startFireService()
         }
-    }
 
+    }
 
     fun stopFireRetrieval() {
         viewModelScope.launch {
-            retroDSController.stopFireService()
+            targetMaster.stopFireService()
         }
     }
-    fun handleFireData(fireList: List<DSFires>){
 
-       Timber.i(fireList.toString())
-        diffFireData(fireList)
+    fun startAQIRetrieval() {
+        viewModelScope.launch {
+            targetMaster.startAQIService()
+        }
+
     }
 
-    fun diffFireData(fireList: List<DSFires>) {
-        //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
-        if (fireList !=_fireData.value) {
-            _fireData.postValue(fireList)
-            fireData.value
-            Timber.i("firedata live data after diff ${fireData.value}")
-            Timber.i("_firedata live data after diff ${fireData.value}")
+    fun stopAQIRetrieval() {
+        viewModelScope.launch {
+            targetMaster.stopAQIService()
         }
-        _fireData.postValue(fireList)
-        fireData.value
-        Timber.i("firedata live data after diff ${fireData.value}")
-        Timber.i("_firedata live data after diff ${fireData.value}")
     }
 
 

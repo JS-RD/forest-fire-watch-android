@@ -43,7 +43,7 @@ class AQIDSController() {
 
     }
 
-    suspend fun getAQIData(lat: Double,lng:Double): SuccessFailWrapper<List<AQIdata>> {
+    suspend fun getAQIData(lat: Double,lng:Double): SuccessFailWrapper<AQIdata> {
 
         return try {
             Timber.i("$TAG try postWebBELocation triggered")

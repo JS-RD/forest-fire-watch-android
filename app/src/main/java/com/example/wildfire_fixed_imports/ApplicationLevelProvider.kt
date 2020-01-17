@@ -2,22 +2,24 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Activity
 import android.app.Application
+import android.graphics.Bitmap
 import android.location.Location
 import android.util.Log
-import android.view.View
 import androidx.annotation.NonNull
-import androidx.core.graphics.drawable.toBitmap
 import com.crashlytics.android.Crashlytics
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
 import com.example.wildfire_fixed_imports.model.WebBEUser
-import com.example.wildfire_fixed_imports.networking.FirebaseAuthImpl
-import com.example.wildfire_fixed_imports.networking.RetroImplForDataScienceBackEnd
-import com.example.wildfire_fixed_imports.networking.RetrofitImplementationForWebBackend
+import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
+import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
+import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
+import com.example.wildfire_fixed_imports.viewmodel.MasterController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
@@ -26,7 +28,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.annotations.IconFactory
+import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
+import com.mapbox.mapboxsdk.maps.Style
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -102,6 +106,14 @@ class ApplicationLevelProvider : Application() {
         UserWebBEController()
     }
 
+    val fireDSController by lazy {
+        FireDSController()
+    }
+
+    val aqidsController by lazy {
+        AQIDSController()
+    }
+
     val userLocationWebBEController by lazy {
         UserLocationWebBEController()
     }
@@ -122,10 +134,11 @@ val heatMapController by lazy {
     lateinit var currentActivity: Activity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
-    lateinit var mapController: MapController
+    lateinit var masterController: MasterController
 
     lateinit var mapboxMap: MapboxMap
-    lateinit var mapboxView: View
+    lateinit var mapboxView: MapView
+    lateinit var mapboxStyle:Style
 
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
@@ -133,6 +146,7 @@ val heatMapController by lazy {
     lateinit var appMapViewModel: MapViewModel
 
     lateinit var fireIcon: Icon
+    lateinit var fireIconAlt: Bitmap
 
     lateinit var userLocation: Location
 
@@ -148,7 +162,10 @@ val heatMapController by lazy {
 
     override fun onCreate() {
         super.onCreate()
-
+        val iconFactory by lazy { IconFactory.getInstance(this) }
+        val fireBitmap =getBitmap(this.applicationContext, R.drawable.noun_fire_2355447);
+        fireIcon =
+                iconFactory.fromBitmap(fireBitmap)
         instance = this
         //viewModelFactory = HomeViewModelFactory()
 
@@ -158,12 +175,14 @@ val heatMapController by lazy {
         } else {
             Timber.plant(CrashReportingTree())
         }
-
+        Timber.i("$javaClass $methodName initialized")
+/*
 
         val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)
         fireIcon =
                 iconFactory.fromBitmap(fireBitmap)
+*/
 
 
     }
