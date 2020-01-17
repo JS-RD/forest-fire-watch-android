@@ -36,5 +36,6 @@ class NetworkConnectionInterceptor (context: Context) : Interceptor{
         return result
     }
 }
+
 class ApiException(message: String) : IOException(message)
 class NoInternetException(message: String) : IOException(message)
