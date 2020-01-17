@@ -101,7 +101,7 @@ var count =0
             .withTextHaloWidth(5.0f)
             .withTextAnchor("top")
             .withTextOffset(arrayOf(0f, 1.5f))
-            .withTextSize(2f)
+            .withTextSize(12f)
             .withDraggable(true)
 
 

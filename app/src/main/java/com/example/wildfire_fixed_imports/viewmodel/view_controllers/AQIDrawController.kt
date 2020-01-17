@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
 import com.mapbox.geojson.GeoJson
@@ -200,7 +201,7 @@ class AQIDrawController() {
       mapboxStyle.addLayer(count)
   }
 
-    fun writeNewAqiData(aqiList: List<AQIdata>){
+    fun writeNewAqiData(aqiMap: MutableMap<AQIStations,AQIdata>){
         Timber.i(TAG)
 
        /* for (i in aqiList.indices) {
@@ -216,7 +217,7 @@ class AQIDrawController() {
 
 
 
-    fun eraseAqiData(listToDelete: List<AQIdata>){
+    fun eraseAqiData(listToDelete: MutableMap<AQIStations,AQIdata>){
         Timber.i(TAG)
 
     }

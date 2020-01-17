@@ -89,13 +89,22 @@ class MasterController() {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
-    private var oldAQIData= mutableListOf<AQIdata>()
+
      private var AQIObserver:Observer<List<AQIdata>>
     private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
         value= listOf<AQIStations>()
     }
     val AQIStations: LiveData<List<AQIStations>> = _AQIStations
     private var AQIStationObserver:Observer<List<AQIStations>>
+
+    private val _AQImap = MutableLiveData<MutableMap<AQIStations,AQIdata>>().apply {
+        value= mutableMapOf()
+    }
+    val AQImap: LiveData<MutableMap<AQIStations,AQIdata>> = _AQImap
+    private var AQImapObserver:Observer<MutableMap<AQIStations,AQIdata>>
+
+    private var mapAQIStationToAQIData = mutableMapOf<AQIStations,AQIdata>()
+    private var oldAQIData= mutableMapOf<AQIStations,AQIdata>()
 
     //atomicbooleans to allow for properly checking if streams are functioning or not even in asyncronous code
     var isFiresServiceRunning = AtomicBoolean()
@@ -130,7 +139,7 @@ CoroutineScope(Dispatchers.IO).launch {
         }
         AQIObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
-            Timber.i("$TAG aqi observer")
+      /*      Timber.i("$TAG aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
                 AQIDataInitialized = true
@@ -141,7 +150,7 @@ CoroutineScope(Dispatchers.IO).launch {
                 removeAllAQIdata(oldAQIData)
                 oldAQIData=list.toMutableList()
                 aqiDrawController.writeNewAqiData(list)
-            }
+            }*/
         }
         AQIStationObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
@@ -166,13 +175,26 @@ CoroutineScope(Dispatchers.IO).launch {
 
 
         }
-
+        AQImapObserver =Observer { map:MutableMap<AQIStations,AQIdata> ->
+            Timber.i("$TAG aqi observer")
+            if (!AQIDataInitialized) {
+                Timber.i("$TAG  init aqi list reached observer ${map.toString()}")
+                AQIDataInitialized = true
+                aqiDrawController.writeNewAqiData(map)
+                oldAQIData=map
+            } else {
+                Timber.i("$TAG new aqi list reached observer ${map.toString()}")
+                removeAllAQIdata(oldAQIData)
+                oldAQIData=map
+                aqiDrawController.writeNewAqiData(map)
+            }
+        }
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
         AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)
         AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
-
+        AQImap.observe(currentActivity as LifecycleOwner, AQImapObserver)
 
         // start the fire service immediately to start retrieving fires
 
@@ -250,34 +272,38 @@ CoroutineScope(Dispatchers.IO).launch {
             startAQIService()
         }
         else{
-            var listOfFreshNodes = mutableListOf<AQIdata>()
+          /*  var listOfFreshNodes = mutableListOf<AQIdata>()*/
+            val mapStationToData = mutableMapOf<AQIStations,AQIdata>()
             for (i in (AQIStations.value as List<AQIStations>).indices) {
                 val current =(AQIStations.value as List<AQIStations>)[i]
                 val result = aqidsController.getAQIData(current.lat,current.lon)
+
                 if (result is SuccessFailWrapper.Success && result.value !=null){
-                    listOfFreshNodes.add(result.value)
+                  /*  listOfFreshNodes.add(result.value)*/
+                    mapStationToData.plus(Pair(current,result.value))
                 }
                 else {
                     Timber.i("$TAG failure at \n current AQI Station: $current \n result failure: ${result}")
                 }
             }
-            handleAQIData(listOfFreshNodes)
+           handleAQIData(mapStationToData)
+
         }
     }
-    fun sendAQIDataToView(aqiList: List<AQIdata>){
+    fun sendAQIDataToView(aqiList: MutableMap<AQIStations,AQIdata>){
         aqiDrawController.writeNewAqiData(aqiList)
     }
 
 
-   fun handleAQIData(aqiList: List<AQIdata>){
+   fun handleAQIData(aqiList: MutableMap<AQIStations,AQIdata>){
         Timber.i("$TAG ${aqiList}")
         diffAQIData(aqiList)
     }
 
-   fun diffAQIData(AQIlist: List<AQIdata>) {
+   fun diffAQIData(AQIlist: MutableMap<AQIStations,AQIdata>) {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
         if (AQIlist !=_AQIData.value) {
-            _AQIData.postValue(AQIlist)
+            _AQImap.postValue(AQIlist)
             Timber.i("aqi live data after diff ${_AQIData.value}")
 
         }
@@ -286,7 +312,7 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 
 
-    fun removeAllAQIdata(AQIlist: List<AQIdata>) {
+    fun removeAllAQIdata(AQIlist: MutableMap<AQIStations,AQIdata>) {
         aqiDrawController.eraseAqiData(AQIlist)
     }
 
@@ -302,7 +328,6 @@ CoroutineScope(Dispatchers.IO).launch {
                 if (result != null) {
                     //now that we got em, call the data retriever
                     _AQIStations.postValue(result)
-                    getAQIdata()
                 } else {
                     Timber.i("$TAG failed to load AQI Stations")
                     break
@@ -312,14 +337,16 @@ CoroutineScope(Dispatchers.IO).launch {
             else {
                 getAQIdata()
             }
-        // delay(300000)
-        delay(300000)
-        Timber.i("$TAG system milli: $systemmilli")
-        Timber.i("\"$TAG countup: ${countup++}")
+            // delay a pretty long time, unlikely to be updated terribly quickly
+            delay(6000000)
+            Timber.i("$TAG system milli: $systemmilli")
+            Timber.i("\"$TAG countup: ${countup++}")
+
+        }
 
     }
 
-}    suspend fun stopAQIService(){
+    suspend fun stopAQIService(){
         //Potential issue if job running?
         isAQIdatasServiceRunning.set(false)
     }
