@@ -48,6 +48,7 @@ class RegistrationFragment : Fragment() {
                 return@setOnClickListener
             }
 
+
             CoroutineScope(Dispatchers.IO).launch {
                val result = firebaseAuthImpl.registerCoroutine(email,password)
 
