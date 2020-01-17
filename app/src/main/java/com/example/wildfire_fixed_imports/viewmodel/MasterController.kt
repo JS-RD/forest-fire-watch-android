@@ -128,21 +128,27 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("$TAG init create aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
-
+                handleAQIData(list)
             } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-
+                handleAQIData(list
             }
         }
         AQIStationObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized) {
-                Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
+                Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
+                CoroutineScope(Dispatchers.IO).launch {
+                    getAQIdata()
+                }
+
 
             } else {
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-
+                CoroutineScope(Dispatchers.IO).launch {
+                    getAQIdata()
+                }
             }
 
 
@@ -247,20 +253,20 @@ CoroutineScope(Dispatchers.IO).launch {
 
 
 
-    fun handleAQIData(fireList: List<DSFires>){
-        Timber.i(fireList.toString())
-        diffFireData(fireList)
+   fun handleAQIData(aqiList: List<AQIdata>){
+        Timber.i("$TAG ${aqiList}")
+        diffAQIData(aqiList)
     }
 
-    fun diffAQIData(fireList: List<DSFires>) {
+   fun diffAQIData(fireList: List<AQIdata>) {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
         if (fireList !=_fireData.value) {
-            _fireData.postValue(fireList)
+            _AQIData.postValue(fireList)
             fireData.value
             Timber.i("firedata live data after diff ${fireData.value}")
             Timber.i("_firedata live data after diff ${fireData.value}")
         }
-        _fireData.postValue(fireList)
+        _AQIData(fireList)
         fireData.value
         Timber.i("firedata live data after diff ${fireData.value}")
         Timber.i("_firedata live data after diff ${fireData.value}")
@@ -320,7 +326,7 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 
     suspend fun startFireService(){
-        Timber.i("$javaClass $methodName initialized")
+        Timber.i("$TAG initialized")
         isFiresServiceRunning.set(true)
         var countup = 0
         while(isFiresServiceRunning.get()) {

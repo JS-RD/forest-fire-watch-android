@@ -48,6 +48,19 @@ class MapViewModel : ViewModel() {
         }
     }
 
+    fun startAQIRetrieval() {
+        viewModelScope.launch {
+            targetMaster.startAQIService()
+        }
+
+    }
+
+    fun stopAQIRetrieval() {
+        viewModelScope.launch {
+            targetMaster.stopAQIService()
+        }
+    }
+
 
 }
 
