@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wildfire_fixed_imports.repository.UserRepository
+import com.example.wildfire_fixed_imports.view.auth.AuthListener
 
 class LoginRegisterViewModel(private val repository: UserRepository): ViewModel() {
 

@@ -41,13 +41,8 @@ class LoginAuthViewModel(
 
         Coroutines.main {
             try {
-                val authResponse = repository.userLogin(email!!, password!!)
-                authResponse.user?.let {
-                    authListener?.onSuccess(it)
-                    repository.userSignup(it)
-                    return@main
-                }
-                authListener?.onFailure(authResponse.message!!)
+                val authResponse = ""
+                authListener?.onFailure(authResponse)
             }catch(e: ApiException){
                 authListener?.onFailure(e.message!!)
             }catch (e: NoInternetException){
@@ -79,19 +74,8 @@ class LoginAuthViewModel(
 
 
         Coroutines.main {
-            try {
-                val authResponse = repository.userSignup( email!!, password!!)
-                authResponse.user?.let {
-                    authListener?.onSuccess(it)
 
-                    return@main
-                }
-                authListener?.onFailure(authResponse.message!!)
-            }catch(e: ApiException){
-                authListener?.onFailure(e.message!!)
-            }catch (e: NoInternetException){
-                authListener?.onFailure(e.message!!)
-            }
+            
         }
 
     }
@@ -99,13 +83,13 @@ class LoginAuthViewModel(
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
-        val result = repository.userLogin(username, password)
+/*        val result = repository.userLogin(username, password)*/
 
-        if (result is Result.Success) {
+  /*      if (result is Result.Success) {
             _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
+        }*/
     }
 
     fun loginDataChanged(username: String, password: String) {
