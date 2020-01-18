@@ -85,12 +85,14 @@ class MasterController() {
     }
     val fireData: LiveData<List<DSFires>> = _fireData
     private  var fireObserver:Observer<List<DSFires>>
-    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
+
+/*    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
 
-     private var AQIObserver:Observer<List<AQIdata>>
+     private var AQIObserver:Observer<List<AQIdata>>*/
+
     private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
         value= listOf<AQIStations>()
     }
@@ -137,9 +139,9 @@ CoroutineScope(Dispatchers.IO).launch {
                 addAllFires(list)
             }
         }
-        AQIObserver = Observer { list ->
+    /*    AQIObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
-      /*      Timber.i("$TAG aqi observer")
+            Timber.i("$TAG aqi observer")
             if (!AQIDataInitialized) {
                 Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
                 AQIDataInitialized = true
@@ -150,8 +152,8 @@ CoroutineScope(Dispatchers.IO).launch {
                 removeAllAQIdata(oldAQIData)
                 oldAQIData=list.toMutableList()
                 aqiDrawController.writeNewAqiData(list)
-            }*/
-        }
+            }
+        }*/
         AQIStationObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
@@ -192,7 +194,7 @@ CoroutineScope(Dispatchers.IO).launch {
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
-        AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)
+       /* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*/
         AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
         AQImap.observe(currentActivity as LifecycleOwner, AQImapObserver)
 
@@ -245,7 +247,7 @@ CoroutineScope(Dispatchers.IO).launch {
         val result=aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,
-                2.0)
+                0.5)
         if (result is SuccessFailWrapper.Success){
             Timber.i("$TAG result: ${result.value}")
             return result.value
@@ -280,7 +282,7 @@ CoroutineScope(Dispatchers.IO).launch {
 
                 if (result is SuccessFailWrapper.Success && result.value !=null){
                   /*  listOfFreshNodes.add(result.value)*/
-                    mapStationToData.plus(Pair(current,result.value))
+                    mapStationToData.put(current,result.value)
                 }
                 else {
                     Timber.i("$TAG failure at \n current AQI Station: $current \n result failure: ${result}")
@@ -302,12 +304,12 @@ CoroutineScope(Dispatchers.IO).launch {
 
    fun diffAQIData(AQIlist: MutableMap<AQIStations,AQIdata>) {
         //TODO("implement quality diffing, for now we will just check the whole list and replace if needed")
-        if (AQIlist !=_AQIData.value) {
+        if (AQIlist !=_AQImap.value) {
             _AQImap.postValue(AQIlist)
-            Timber.i("aqi live data after diff ${_AQIData.value}")
+            Timber.i("aqi live data after diff ${_AQImap.value}")
 
         }
-        Timber.i("aqi live data after diff ${_AQIData.value}")
+        Timber.i("aqi live data after diff ${_AQImap.value}")
 
     }
 

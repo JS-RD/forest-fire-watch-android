@@ -69,17 +69,12 @@ class WildFireMapFragment : Fragment() {
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
              val style = Style.TRAFFIC_DAY
-            /* private static final String ICON_ID = "ICON_ID";
-             private static final String LAYER_ID = "LAYER_ID";
-            val style =Style.Builder().fromUri()
-                    .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
-                    .withProperties(PropertyFactory.iconImage(ICON_ID),
-                            iconAllowOverlap(true),
-                            iconIgnorePlacement(true),
-                            iconOffset(new Float[] {0f, -9f}))*/
+
               myMapboxMap.setStyle(style) {
 
+
                   val id = R.drawable.ic_fireicon
+
                   applicationLevelProvider.fireIconAlt = getBitmapFromVectorDrawable(applicationLevelProvider.applicationContext,id)
                   it.addImage(fireIconTarget,
                           applicationLevelProvider.fireIconAlt
@@ -87,8 +82,6 @@ class WildFireMapFragment : Fragment() {
 
                   it.transition = TransitionOptions(0, 0, false)
 
-                  mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
-                          12.099, -79.045), 3.0))
 
                  (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
                   applicationLevelProvider.mapboxStyle=it
@@ -96,17 +89,13 @@ class WildFireMapFragment : Fragment() {
                   masterController= MasterController()
                   applicationLevelProvider.masterController=masterController
 
-                  it.addImage(
-                          "cross-icon-id",
-                          BitmapUtils.getBitmapFromDrawable(resources.getDrawable(R.drawable.ic_cross))!!,
-                          true
-                  )
+
                   mapViewModel.setMyMasterController(masterController)
-                  CoroutineScope(Dispatchers.Main).launch {
+              /*    CoroutineScope(Dispatchers.Main).launch {
                       val locale = (applicationLevelProvider.currentActivity as MainActivity).getLatestLocation()
                       mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                               locale!!.LatLng(), 6.0), 12000);
-                  }
+                  }*/
              }
 
 
