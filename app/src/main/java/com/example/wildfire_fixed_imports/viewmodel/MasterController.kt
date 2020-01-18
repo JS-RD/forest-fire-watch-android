@@ -3,18 +3,22 @@ package com.example.wildfire_fixed_imports.viewmodel
 import android.app.Activity
 import android.graphics.Color
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
+import com.google.android.material.snackbar.Snackbar
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
@@ -86,13 +90,6 @@ class MasterController() {
     val fireData: LiveData<List<DSFires>> = _fireData
     private  var fireObserver:Observer<List<DSFires>>
 
-/*    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
-        value= listOf<AQIdata>()
-    }
-    val AQIData: LiveData<List<AQIdata>> = _AQIData
-
-     private var AQIObserver:Observer<List<AQIdata>>*/
-
     private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
         value= listOf<AQIStations>()
     }
@@ -125,7 +122,14 @@ CoroutineScope(Dispatchers.IO).launch {
 
     init {
        Timber.i("$TAG init")
-
+        CoroutineScope(Dispatchers.Main).launch {
+            val currentActivity:MainActivity = applicationLevelProvider.currentActivity as MainActivity
+            val res =currentActivity.getLatestLocation()?.LatLng()
+            res?.let {
+                applicationLevelProvider.mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        it, 6.0), 12000)
+            }
+        }
         // Create the fire observer which updates the UI.
         fireObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
@@ -139,21 +143,7 @@ CoroutineScope(Dispatchers.IO).launch {
                 addAllFires(list)
             }
         }
-    /*    AQIObserver = Observer { list ->
-            // Update the UI, in this case, a TextView.
-            Timber.i("$TAG aqi observer")
-            if (!AQIDataInitialized) {
-                Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
-                AQIDataInitialized = true
-                aqiDrawController.writeNewAqiData(list)
-                oldAQIData=list.toMutableList()
-            } else {
-                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-                removeAllAQIdata(oldAQIData)
-                oldAQIData=list.toMutableList()
-                aqiDrawController.writeNewAqiData(list)
-            }
-        }*/
+
         AQIStationObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
@@ -199,7 +189,6 @@ CoroutineScope(Dispatchers.IO).launch {
         AQImap.observe(currentActivity as LifecycleOwner, AQImapObserver)
 
         // start the fire service immediately to start retrieving fires
-
         CoroutineScope(Dispatchers.IO).launch {
             mapViewModel.startFireRetrieval()
         }
@@ -247,7 +236,7 @@ CoroutineScope(Dispatchers.IO).launch {
         val result=aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,
-                0.5)
+                1.5)
         if (result is SuccessFailWrapper.Success){
             Timber.i("$TAG result: ${result.value}")
             return result.value
@@ -256,7 +245,13 @@ CoroutineScope(Dispatchers.IO).launch {
         else {
             when(result) {
                 is SuccessFailWrapper.Throwable ->  Timber.i(result.message)
-                is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                is SuccessFailWrapper.Fail -> Timber.i(result.message).also { isAQIdatasServiceRunning.set(false) }.also {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(applicationLevelProvider.applicationContext,
+                                result.message, Toast.LENGTH_LONG).show()
+                        applicationLevelProvider.showSnackbar("AQI service quitting", Snackbar.LENGTH_INDEFINITE)
+                    }
+                }
                 else -> Timber.i(result.toString())
             }
         }
@@ -436,3 +431,25 @@ CoroutineScope(Dispatchers.IO).launch {
     }
 
 
+
+/*    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
+        value= listOf<AQIdata>()
+    }
+    val AQIData: LiveData<List<AQIdata>> = _AQIData
+
+     private var AQIObserver:Observer<List<AQIdata>>*/
+/*    AQIObserver = Observer { list ->
+           // Update the UI, in this case, a TextView.
+           Timber.i("$TAG aqi observer")
+           if (!AQIDataInitialized) {
+               Timber.i("$TAG  init aqi list reached observer ${list.toString()}")
+               AQIDataInitialized = true
+               aqiDrawController.writeNewAqiData(list)
+               oldAQIData=list.toMutableList()
+           } else {
+               Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+               removeAllAQIdata(oldAQIData)
+               oldAQIData=list.toMutableList()
+               aqiDrawController.writeNewAqiData(list)
+           }
+       }*/

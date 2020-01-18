@@ -23,11 +23,8 @@ class MarkerController () {
 
 
     private val addedMarkers = mutableListOf<Marker>()
-    // Create an Icon object for the marker to use
-    val fireIcon = applicationLevelProvider.fireIcon
 
 
-    lateinit var fireBitmap: Bitmap
     var symbolManager:SymbolManager
 
 

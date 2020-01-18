@@ -11,6 +11,7 @@ import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
 import com.example.wildfire_fixed_imports.fireIconTarget
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
@@ -73,16 +74,10 @@ class WildFireMapFragment : Fragment() {
               myMapboxMap.setStyle(style) {
 
 
-                  val id = R.drawable.ic_fireicon
-
-                  applicationLevelProvider.fireIconAlt = getBitmapFromVectorDrawable(applicationLevelProvider.applicationContext,id)
-                  it.addImage(fireIconTarget,
-                          applicationLevelProvider.fireIconAlt
-                  )
 
                   it.transition = TransitionOptions(0, 0, false)
 
-
+                    it.resetIconsForNewStyle()
                  (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
                   applicationLevelProvider.mapboxStyle=it
 
@@ -91,11 +86,7 @@ class WildFireMapFragment : Fragment() {
 
 
                   mapViewModel.setMyMasterController(masterController)
-              /*    CoroutineScope(Dispatchers.Main).launch {
-                      val locale = (applicationLevelProvider.currentActivity as MainActivity).getLatestLocation()
-                      mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                              locale!!.LatLng(), 6.0), 12000);
-                  }*/
+
              }
 
 

@@ -11,49 +11,63 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.wildfire_fixed_imports.methodName
+import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.UID
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.geometry.LatLng
+import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.style.layers.Layer
+import com.mapbox.mapboxsdk.style.sources.Source
+import com.mapbox.mapboxsdk.utils.BitmapUtils
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 
 
-fun View.showSnackbar(msgId: Int, length: Int) {
-    showSnackbar(context.getString(msgId), length)
+fun ApplicationLevelProvider.showSnackbar(msgId: Int, length: Int) {
+    showSnackbar(applicationContext.getString(msgId), length)
 }
 
-fun View.showSnackbar(msg: String, length: Int) {
+fun ApplicationLevelProvider.showSnackbar(msg: String, length: Int) {
     showSnackbar(msg, length, null, {})
 }
 
-fun View.showSnackbar(
+fun ApplicationLevelProvider.showSnackbar(
     msgId: Int,
     length: Int,
     actionMessageId: Int,
     action: (View) -> Unit
 ) {
-    showSnackbar(context.getString(msgId), length, context.getString(actionMessageId), action)
+    showSnackbar(applicationContext.getString(msgId), length, applicationContext.getString(actionMessageId), action)
 }
 
-fun View.showSnackbar(
+fun ApplicationLevelProvider.showSnackbar(
     msg: String,
     length: Int,
     actionMessage: CharSequence?,
     action: (View) -> Unit
 ) {
-    val snackbar = Snackbar.make(this, msg, length)
+    val snackbar = Snackbar.make(nav_view, msg, length)
+
    if (actionMessage != null) {
         snackbar.setAction(actionMessage) {
-            action(this)
+            action(nav_view)
         }.show()
     }
     else {
        snackbar.show()
 
-   }}
+   }
+    if (length==Snackbar.LENGTH_INDEFINITE){
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(8000)
+            snackbar.dismiss()
+        }
+    }
+}
 
 
 fun AppCompatActivity.checkSelfPermissionCompat(permission: String) =
@@ -65,6 +79,43 @@ fun AppCompatActivity.shouldShowRequestPermissionRationaleCompat(permission: Str
 fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
                                                requestCode: Int) {
     ActivityCompat.requestPermissions(this, permissionsArray, requestCode)
+}
+
+
+
+fun Style.resetIconsForNewStyle() {
+    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    val id = R.drawable.ic_fireicon
+
+    this.removeImage(crossIconTarget)
+    this.removeImage(fireIconTarget)
+    this.addImage(
+            crossIconTarget,
+            BitmapUtils.getBitmapFromDrawable(applicationLevelProvider.resources.getDrawable(R.drawable.ic_cross))!!,
+            true
+    )
+    this.addImage(fireIconTarget,
+            applicationLevelProvider.fireIconAlt
+    )
+}
+
+data class LayersAndSources(val layers:List<Layer>? =null, val sources:List<Source>?=null )
+fun Style.logLayersAndSources():LayersAndSources {
+
+    val layers = mutableListOf<Layer>()
+    val sources = mutableListOf<Source>()
+    this.layers.forEach {
+        print("\n")
+        Timber.i(it.id)
+        layers.add(it)
+    }
+    this.sources.forEach {
+        print("\n")
+        Timber.i(it.id)
+        sources.add(it)
+    }
+
+    return LayersAndSources(layers,sources)
 }
 
 
