@@ -84,9 +84,10 @@ val divisor = for (i in feature.indicies) { if (feature[i].aqi!=null) divisor++}
  
  //this is where i'm lost, so i more or less get whats going on here, point_count is a property  
  // of the feature collection and then we what color to set based 
- //on that point count -- but how would // we agregate the total value 
+ //on that point count -- but how would we agregate the total value 
  //of one of the propertis of the features and then average that sum
- // by point count?  val pointCount = Expression.toNumber(Expression.get("point_count"))  
+ // by point count?  
+ 
   // Add a filter to the cluster layer that hides the circles based on "point_count"  
   circles.setFilter(  
   if (i == 0) Expression.all(Expression.has("point_count"),  
