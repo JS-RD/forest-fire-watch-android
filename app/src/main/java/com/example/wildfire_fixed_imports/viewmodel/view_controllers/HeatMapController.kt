@@ -60,48 +60,43 @@ class HeatMapController () {
 
     fun initializeHeatMapExtended() {
 
-        targetMap.setStyle(HEATMAP_STYLE, object : Style.OnStyleLoaded {
-            override fun onStyleLoaded(style: Style) {
-
-
-                    addHeatMapSource(style)
-                /*      addHeatmapLayer_fixed(style)
+        targetMap.setStyle(HEATMAP_STYLE) { style ->
+            addHeatMapSource(style)
+            /*      addHeatmapLayer_fixed(style)
                       addCircleLayer(style)*/
-                if (!heatmapHasBeennitialized) {
-                    initHeatmapColors()
-                    initHeatmapRadiusStops()
-                    initHeatmapIntensityStops()
+            if (!heatmapHasBeennitialized) {
+                initHeatmapColors()
+                initHeatmapRadiusStops()
+                initHeatmapIntensityStops()
 
-                    //this may need to be moved out of initialize block
-                    addHeatmapLayer(style)
+                //this may need to be moved out of initialize block
+                addHeatmapLayer(style)
 
-                    if (currentActivity is MainActivity) {
-                        (currentActivity as MainActivity).setFabOnclick {
-                            Toast.makeText(currentActivity.applicationContext, "initialize fab successful", Toast.LENGTH_SHORT ).show()
-                            index++
-                            if (index == listOfHeatmapColors.size - 1) {
-                                index = 0
-                            }
-                            val heatmapLayer = style . getLayer (HEATMAP_LAYER_ID)
-                            if (heatmapLayer != null) {
-                                heatmapLayer.setProperties(
+                if (currentActivity is MainActivity) {
+                    (currentActivity as MainActivity).setFabOnclick {
+                        Toast.makeText(currentActivity.applicationContext, "initialize fab successful", Toast.LENGTH_SHORT ).show()
+                        index++
+                        if (index == listOfHeatmapColors.size - 1) {
+                            index = 0
+                        }
+                        val heatmapLayer = style . getLayer (HEATMAP_LAYER_ID)
+                        if (heatmapLayer != null) {
+                            heatmapLayer.setProperties(
                                     PropertyFactory.heatmapColor(listOfHeatmapColors[index]),
                                     PropertyFactory.heatmapRadius(listOfHeatmapRadiusStops[index]),
                                     PropertyFactory.heatmapIntensity(listOfHeatmapIntensityStops[index])
-                                );
-                            }
+                            );
                         }
                     }
-                    else {
-                        Toast.makeText(currentActivity.applicationContext, "didn't work yo", Toast.LENGTH_LONG ).show()
-                    }
-
-
-
-                    heatmapHasBeennitialized=true
+                } else {
+                    Toast.makeText(currentActivity.applicationContext, "didn't work yo", Toast.LENGTH_LONG ).show()
                 }
+
+
+
+                heatmapHasBeennitialized=true
             }
-        })
+        }
 
 
     }

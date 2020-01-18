@@ -21,6 +21,8 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
 const val fireIconTarget = "fire_icon_50"
 
+const val crossIconTarget ="cross-icon-id"
+
 val methodName
 get() = StackTraceInfo.invokingMethodName
 

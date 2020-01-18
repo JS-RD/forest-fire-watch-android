@@ -29,7 +29,7 @@ class SymbolController () {
         symbolManager.textAllowOverlap = true
 
 // Add symbol at specified lat/lon
-        mapStyle.addImage(FIRE_ICON, applicationLevelProvider.fireIconAlt)
+      //  mapStyle.addImage(FIRE_ICON, applicationLevelProvider.fireIconAlt)
         val symbol = symbolManager.create(SymbolOptions()
                 .withLatLng(applicationLevelProvider.userLocation.LatLng())
                 .withIconImage(FIRE_ICON)

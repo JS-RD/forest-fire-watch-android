@@ -7,6 +7,10 @@ maps are definitely part of the solutions, flows seem to fit perfectly,
 something like -- livedata that map, whenever it gets updated a method is called that reads in the data at the map key,
 transforms it as necessary, writes it to the maps style and deletes the original key/value pair
 
+Additonally,
+it will make sense to do maps and start implementing some amount of reactive or flow style code
+this is likely gonna be a big part of the next release
+
 
 current model
 

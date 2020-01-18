@@ -11,6 +11,7 @@ import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
 import com.example.wildfire_fixed_imports.fireIconTarget
 import com.example.wildfire_fixed_imports.viewmodel.MasterController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
@@ -22,6 +23,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import com.mapbox.mapboxsdk.utils.BitmapUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,27 +70,14 @@ class WildFireMapFragment : Fragment() {
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
              val style = Style.TRAFFIC_DAY
-            /* private static final String ICON_ID = "ICON_ID";
-             private static final String LAYER_ID = "LAYER_ID";
-            val style =Style.Builder().fromUri()
-                    .withLayer(new SymbolLayer(LAYER_ID, SOURCE_ID)
-                    .withProperties(PropertyFactory.iconImage(ICON_ID),
-                            iconAllowOverlap(true),
-                            iconIgnorePlacement(true),
-                            iconOffset(new Float[] {0f, -9f}))*/
+
               myMapboxMap.setStyle(style) {
 
-                  val id = R.drawable.ic_fireicon
-                  applicationLevelProvider.fireIconAlt = getBitmapFromVectorDrawable(applicationLevelProvider.applicationContext,id)
-                  it.addImage(fireIconTarget,
-                          applicationLevelProvider.fireIconAlt
-                  )
+
 
                   it.transition = TransitionOptions(0, 0, false)
 
-                  mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(
-                          12.099, -79.045), 3.0))
-
+                    it.resetIconsForNewStyle()
                  (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
                   applicationLevelProvider.mapboxStyle=it
 
@@ -97,11 +86,7 @@ class WildFireMapFragment : Fragment() {
 
 
                   mapViewModel.setMyMasterController(masterController)
-                  CoroutineScope(Dispatchers.Main).launch {
-                      val locale = (applicationLevelProvider.currentActivity as MainActivity).getLatestLocation()
-                      mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                              locale!!.LatLng(), 6.0), 12000);
-                  }
+
              }
 
 

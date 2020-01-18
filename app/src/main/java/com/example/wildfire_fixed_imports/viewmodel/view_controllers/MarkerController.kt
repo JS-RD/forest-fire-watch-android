@@ -23,21 +23,18 @@ class MarkerController () {
 
 
     private val addedMarkers = mutableListOf<Marker>()
-    // Create an Icon object for the marker to use
-    val fireIcon = applicationLevelProvider.fireIcon
 
 
-    lateinit var fireBitmap: Bitmap
-     var symbolManager:SymbolManager
+    var symbolManager:SymbolManager
 
 
 init {
 
-    symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
+   symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
     symbolManager.iconAllowOverlap = true
     symbolManager.textAllowOverlap = true
 
-    applicationLevelProvider.mapboxStyle
+
 
 
 /*
@@ -45,15 +42,15 @@ init {
     val bmp_Copy: Bitmap = bm.copy(Bitmap.Config.ARGB_8888, true)
 */
 
-
+/*
     val urbanArea = FillLayer("urban-areas-fill", "urban-areas")
 
     urbanArea.setProperties(
             fillColor(Color.parseColor("#ff0088")),
             fillOpacity(0.4f)
     )
-    applicationLevelProvider.mapboxStyle.addLayerBelow(urbanArea, "water")
-
+    applicationLevelProvider.mapboxStyle.addLayerBelow(urbanArea, "water")*/
+/*
 
     val sauce = symbolManager.create( SymbolOptions()
             .withLatLng( LatLng(60.169091, 24.939876))
@@ -68,7 +65,7 @@ init {
             .withIconImage(fireIconTarget)
             .withIconSize(2.0f)
             .withDraggable(true)
-    )
+    )*/
 
 }
 
@@ -78,18 +75,8 @@ var count =0
 
     //add the marker to map and set the newly created marker object to newMarkers
 
-/*    val newMarker: Marker = applicationLevelProvider.mapboxMap.addMarker(MarkerOptions()
-            .position(LatLng(50.0, 50.0))
-            .title(title)
-            .snippet(snippet)
-            .icon(fireIcon)
-
-
-
-    )
 
     //add newly added marker to list of markers in case of later need to remove or edit
-    addedMarkers.add(newMarker)*/
 
     val sauce = SymbolOptions()
             .withLatLng(targetLatLng)
@@ -101,6 +88,7 @@ var count =0
             .withTextHaloWidth(5.0f)
             .withTextAnchor("top")
             .withTextOffset(arrayOf(0f, 1.5f))
+            .withTextSize(12f)
             .withDraggable(true)
 
 

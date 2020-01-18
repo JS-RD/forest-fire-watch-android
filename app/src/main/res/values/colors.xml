@@ -3,5 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+	<color name="aqiColorBegin">#FF0000</color>
+    <color name="aqiColorMiddle">#00FF00</color>
+    <color name="aqiColorEnd">#0000FF</color>
+	<color name="aqiColorOne">#99CC00</color>
+    <color name="aqiColorTwo">#00CC99</color>
+    <color name="aqiColorThree">#992299</color>
     <color name="design_default_color_background">#FFFFFF</color>
 </resources>

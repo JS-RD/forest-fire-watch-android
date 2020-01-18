@@ -204,78 +204,99 @@ data class AQIStations(
 
 class AQIdata(
         @SerializedName("aqi")
-        val aqi: Int,
+        val aqi: Int?,
         @SerializedName("co")
-        val co: Co,
+        val co: Co?,
+        @SerializedName("dew")
+        val dew: Dew?,
+        @SerializedName("h")
+        val h: H?,
         @SerializedName("no2")
-        val no2: No2,
+        val no2: No2?,
         @SerializedName("o3")
-        val o3: O3,
+        val o3: O3?,
         @SerializedName("p")
-        val p: P,
+        val p: P?,
         @SerializedName("pm10")
-        val pm10: Pm10,
+        val pm10: Pm10?,
         @SerializedName("pm25")
-        val pm25: Pm25,
+        val pm25: Pm25?,
+        @SerializedName("r")
+        val r: R?,
         @SerializedName("so2")
-        val so2: So2,
+        val so2: So2?,
         @SerializedName("t")
-        val t: T,
+        val t: T?,
         @SerializedName("w")
-        val w: W,
+        val w: W?,
         @SerializedName("wg")
-        val wg: Wg
+        val wg: Wg?
 ) {
     data class Co(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
+    )
+    data class Dew(
+            @SerializedName("v")
+            val v: Double?
+    )
+    data class H(
+            @SerializedName("v")
+            val v: Double?
     )
     data class No2(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class O3(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class P(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Pm10(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Pm25(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
+    )
+    data class R(
+            @SerializedName("v")
+            val v: Double?
     )
     data class So2(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class T(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class W(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Wg(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
-    fun co(): Double? { return this.co.v }
-    fun no2(): Double? { return this.no2.v }
-    fun o3(): Double? { return this.o3.v }
-    fun p(): Double? { return this.p.v }
-    fun pm10(): Double? { return this.pm10.v }
-    fun pm25(): Double? { return this.pm25.v }
-    fun so2(): Double? { return this.so2.v }
-    fun t(): Double? { return this.t.v }
-    fun wg(): Double? { return this.wg.v }
-    fun w(): Double? { return this.w.v }
+    fun co(): Double? { return this.co?.v }
+    fun dew(): Double? { return this.dew?.v }
+    fun h():Double? {return this.h?.v}
+    fun no2(): Double? { return this.no2?.v }
+    fun o3(): Double? { return this.o3?.v }
+    fun p(): Double? { return this.p?.v }
+    fun pm10(): Double? { return this.pm10?.v }
+    fun pm25(): Double? { return this.pm25?.v }
+    fun r(): Double? { return this.r?.v }
+    fun so2(): Double? { return this.so2?.v }
+    fun t(): Double? { return this.t?.v }
+    fun wg(): Double? { return this.wg?.v }
+    fun w(): Double? { return this.w?.v }
 }
 
 data class DSRRSSFireContainer(

@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
@@ -24,6 +25,7 @@ import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawCont
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -138,10 +140,11 @@ val heatMapController by lazy {
     lateinit var debugFragment: DebugFragment
     lateinit var masterController: MasterController
 
+
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: MapView
     lateinit var mapboxStyle:Style
-
+    lateinit var nav_view:NavigationView
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
 
@@ -164,12 +167,12 @@ val heatMapController by lazy {
 
     override fun onCreate() {
         super.onCreate()
-        val iconFactory by lazy { IconFactory.getInstance(this) }
-        val fireBitmap =getBitmap(this.applicationContext, R.drawable.noun_fire_2355447);
-        fireIcon =
-                iconFactory.fromBitmap(fireBitmap)
+
+        fireIconAlt = getBitmapFromVectorDrawable(this
+                ,R.drawable.ic_fireicon)
+
         instance = this
-        //viewModelFactory = HomeViewModelFactory()
+
 
         //hash tag team smoke trees
         if (BuildConfig.DEBUG) {
@@ -178,14 +181,6 @@ val heatMapController by lazy {
             Timber.plant(CrashReportingTree())
         }
         Timber.i("$javaClass $methodName initialized")
-/*
-
-        val iconFactory by lazy { IconFactory.getInstance(this) }
-        val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)
-        fireIcon =
-                iconFactory.fromBitmap(fireBitmap)
-*/
-
 
     }
 
@@ -215,4 +210,13 @@ val heatMapController by lazy {
         }
     }
 }
+/*   val iconFactory by lazy { IconFactory.getInstance(this) }
+        val fireBitmap =getBitmap(this.applicationContext, R.drawable.noun_fire_2355447);
+*/
+/*
 
+        val iconFactory by lazy { IconFactory.getInstance(this) }
+        val fireBitmap = getDrawable(R.drawable.ic_fireicon)!!.toBitmap(50, 50)
+        fireIcon =
+                iconFactory.fromBitmap(fireBitmap)
+*/
