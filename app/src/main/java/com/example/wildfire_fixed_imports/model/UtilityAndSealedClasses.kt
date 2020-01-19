@@ -1,10 +1,17 @@
-package com.example.wildfire_fixed_imports.response
-
+package com.example.wildfire_fixed_imports.model
 
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.IOException
+
+sealed class SuccessFailWrapper<out T>  {
+    data class Success<out T>(val message: String? = null, val value: T? = null): SuccessFailWrapper<T>()
+    data class Fail<out T>(val message: String? = null) : SuccessFailWrapper<T>()
+    data class Throwable<out T>(val message: String? = null, val t: kotlin.Throwable? = null) : SuccessFailWrapper<T>()
+    data class Exception<out T>(val message: String? = null,val e:java.lang.Exception? = null) : SuccessFailWrapper<T>()
+    object NetworkError: SuccessFailWrapper<Nothing>()
+}
 
 abstract class SafeApiRequest {
 
@@ -26,6 +33,7 @@ abstract class SafeApiRequest {
             throw ApiException(message.toString())
         }
     }
-    class ApiException(message: String) : IOException(message)
-    class NoInternetException(message: String) : IOException(message)
+
 }
+data class ApiException(override val message: String) : IOException(message)
+data class NoInternetException(override val  message: String) : IOException(message)

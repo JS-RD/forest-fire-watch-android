@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.viewmodel.vmclasses
+package com.example.wildfire_fixed_imports.viewmodel.view_model_classes
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

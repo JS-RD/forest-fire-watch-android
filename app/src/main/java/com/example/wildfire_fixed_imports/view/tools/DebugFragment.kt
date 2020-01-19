@@ -13,10 +13,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.DebugViewModel
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.DebugViewModel
 
 class DebugFragment : Fragment() {
 

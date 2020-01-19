@@ -31,16 +31,16 @@ import kotlin.coroutines.CoroutineContext
 
 
 /*
-*           master Controller
-*   master controller is repsonsible for recieving instructions on what lens are to be drawn to the map and then gathering data from network controller
+*           MasterCoordinator
+*   MasterCoordinator is repsonsible for recieving instructions on what lens are to be drawn to the map and then gathering data from network controller
 *  consoloidating and managing that data and then sending  instructions to the view controllers on what to draw
 *
-*  Master controller is the central joining point of the controllers, the viewmodel and the view
-* this is perhaps a violation of MVVM as stated but it really seems to be the best choice from what we can recken for this app.
+*  MasterCoordinator is the central joining point of the controllers, the viewmodel and the view
+* this is perhaps a violation of MVVM as stated but it really seems to be the best choice from what we can reckon for this app.
 *
 *
 * */
-class MasterController() {
+class MasterCoordinator() {
 
     //set correct mapbox map and the view containing the mapbox map via dependency injection
 

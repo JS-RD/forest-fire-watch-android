@@ -1,26 +1,22 @@
-package com.example.wildfire_fixed_imports.viewmodel.vmclasses
+package com.example.wildfire_fixed_imports.viewmodel.view_model_classes
 
 
 import androidx.lifecycle.*
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.model.DSFires
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.wildfire_fixed_imports.methodName
-import com.example.wildfire_fixed_imports.viewmodel.MasterController
+import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 
 
 class MapViewModel : ViewModel() {
 
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-    lateinit var targetMaster: MasterController
+    lateinit var targetMaster: MasterCoordinator
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
@@ -30,9 +26,9 @@ class MapViewModel : ViewModel() {
 
 
 
-    fun setMyMasterController(masterController: MasterController)
+    fun setMyMasterController(masterCoordinator: MasterCoordinator)
     {
-        targetMaster = masterController
+        targetMaster = masterCoordinator
     }
 
     fun startFireRetrieval() {

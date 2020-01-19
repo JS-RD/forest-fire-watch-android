@@ -1,13 +1,11 @@
 package com.example.wildfire_fixed_imports
 
-import android.app.Activity
 import android.app.Application
 import android.graphics.Bitmap
 import android.location.Location
 import android.util.Log
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
@@ -18,19 +16,18 @@ import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
-import com.example.wildfire_fixed_imports.viewmodel.MasterController
+import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
 import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModelFactory
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.mapbox.mapboxsdk.annotations.Icon
-import com.mapbox.mapboxsdk.annotations.IconFactory
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -138,7 +135,7 @@ val heatMapController by lazy {
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
-    lateinit var masterController: MasterController
+    lateinit var masterCoordinator: MasterCoordinator
 
 
     lateinit var mapboxMap: MapboxMap

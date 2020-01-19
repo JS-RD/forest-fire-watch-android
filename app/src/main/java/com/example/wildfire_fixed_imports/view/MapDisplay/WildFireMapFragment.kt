@@ -9,24 +9,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
-import com.example.wildfire_fixed_imports.fireIconTarget
-import com.example.wildfire_fixed_imports.viewmodel.MasterController
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
+import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
-import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
-import com.mapbox.mapboxsdk.utils.BitmapUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -42,7 +32,7 @@ class WildFireMapFragment : Fragment() {
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
     private lateinit var mapView: MapView
-    private lateinit var masterController: MasterController
+    private lateinit var masterCoordinator: MasterCoordinator
 
 
     override fun onCreateView(
@@ -81,11 +71,11 @@ class WildFireMapFragment : Fragment() {
                  (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
                   applicationLevelProvider.mapboxStyle=it
 
-                  masterController= MasterController()
-                  applicationLevelProvider.masterController=masterController
+                  masterCoordinator= MasterCoordinator()
+                  applicationLevelProvider.masterCoordinator=masterCoordinator
 
 
-                  mapViewModel.setMyMasterController(masterController)
+                  mapViewModel.setMyMasterController(masterCoordinator)
 
              }
 

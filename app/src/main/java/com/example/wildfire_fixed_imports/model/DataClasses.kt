@@ -322,10 +322,3 @@ data class DSRSSFireSubmit(
 )
 
 
-sealed class SuccessFailWrapper<out T>  {
-    data class Success<out T>(val message: String? = null, val value: T? = null): SuccessFailWrapper<T>()
-    data class Fail<out T>(val message: String? = null) : SuccessFailWrapper<T>()
-    data class Throwable<out T>(val message: String? = null, val t: kotlin.Throwable? = null) : SuccessFailWrapper<T>()
-    data class Exception<out T>(val message: String? = null,val e:java.lang.Exception? = null) : SuccessFailWrapper<T>()
-        object NetworkError: SuccessFailWrapper<Nothing>()
-    }

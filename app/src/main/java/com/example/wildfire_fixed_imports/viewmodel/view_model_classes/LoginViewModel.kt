@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.loginRegistration
+package com.example.wildfire_fixed_imports.viewmodel.view_model_classes
 
 
 import android.util.Patterns
@@ -7,7 +7,9 @@ import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.R
 
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
-import com.google.firebase.auth.FirebaseUser
+import com.example.wildfire_fixed_imports.view.loginRegistration.LoginFormState
+import com.example.wildfire_fixed_imports.view.loginRegistration.LoginResult
+import com.example.wildfire_fixed_imports.view.loginRegistration.RegistrationResult
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

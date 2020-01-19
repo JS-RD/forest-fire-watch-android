@@ -22,8 +22,9 @@ import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.hideFab
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showFab
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
