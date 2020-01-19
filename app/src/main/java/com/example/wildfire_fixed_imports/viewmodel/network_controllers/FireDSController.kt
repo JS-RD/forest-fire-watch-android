@@ -4,18 +4,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.methodName
 import com.example.wildfire_fixed_imports.model.*
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import retrofit2.HttpException
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Query
 import timber.log.Timber
-import java.io.IOException
-import java.util.concurrent.atomic.AtomicBoolean
 
 
 /*
@@ -79,7 +68,7 @@ class FireDSController () {
         //TODO handle errors
 
         val results = retrofitDSService.getDSFireLocations()
-        appLevelProvider.masterController.handleFireData(results)
+        appLevelProvider.masterCoordinator.handleFireData(results)
 
     }
 

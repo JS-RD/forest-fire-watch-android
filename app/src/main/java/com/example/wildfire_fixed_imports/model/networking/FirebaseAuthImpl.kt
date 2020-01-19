@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.await
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.google.firebase.auth.*
 import timber.log.Timber
 
@@ -74,7 +75,7 @@ class FirebaseAuthImpl () {
         }
 
 
-        suspend fun registerCoroutine(email:String,password:String): FirebaseUser? {
+        suspend fun registerCoroutine(email:String,password:String): SuccessFailWrapper<FirebaseUser?> {
                 var result:FirebaseUser? = null
                 try {
                         autheticationRepo.register(email, password)?.let {
@@ -88,9 +89,11 @@ class FirebaseAuthImpl () {
                                 Timber.i("$TAG ${it.toString()} and $it")
                                 Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
                                 Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}")
+                                return SuccessFailWrapper.Success("Success",result)
                         } ?: run {
                                 authenticationState.postValue(
                                         false)
+                                return SuccessFailWrapper.Success("Failure",result)
                         }
 
 
@@ -99,11 +102,12 @@ class FirebaseAuthImpl () {
                         authenticationState.postValue(
                                 false)
                         Timber.i("$TAG.vmscope exception: $e")
+                        return SuccessFailWrapper.Exception("Exception -- ${e.localizedMessage}",e)
                 }
 
-                return result
+
         }
-        suspend fun signinCoroutine(email:String,password:String): FirebaseUser? {
+        suspend fun signinCoroutine(email:String,password:String): SuccessFailWrapper<FirebaseUser?> {
                 var result:FirebaseUser? = null
                 try {
                 autheticationRepo.authenticate(email, password)?.let {
@@ -115,20 +119,22 @@ class FirebaseAuthImpl () {
                         Timber.i("$TAG ${it.toString()} and $it")
                         Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
                         Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email} \n ${applicationLevelProvider.firebaseUser?.describeContents().toString()} \n ${applicationLevelProvider.firebaseUser?.displayName}")
-                } ?: run {
+                        return SuccessFailWrapper.Success("Success",result)
+                }
+                        ?: run {
                         authenticationState.postValue(
                                 false)
+                                return SuccessFailWrapper.Success("Failure",result)
                 }
-
-
 
                 } catch (e: FirebaseAuthException) {
                         authenticationState.postValue(
                                 false)
                         Timber.i("$TAG.vmscope exception: $e")
+                        return SuccessFailWrapper.Exception("Exception -- ${e.localizedMessage}",e)
                 }
 
-                return result
+
         }
 
          suspend fun deleteUser(email:String,password:String): Boolean?{
