@@ -1,10 +1,7 @@
-package com.example.wildfire_fixed_imports.viewmodel.view_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
-import android.graphics.BitmapFactory
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 

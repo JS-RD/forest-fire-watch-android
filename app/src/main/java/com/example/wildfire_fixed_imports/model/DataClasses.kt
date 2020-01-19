@@ -202,35 +202,35 @@ data class AQIStations(
 }
 
 
-class AQIdata(
+data class AQIdata(
         @SerializedName("aqi")
         val aqi: Int?,
         @SerializedName("co")
-        val co: Co?,
+        val co:Co? =null,
         @SerializedName("dew")
-        val dew: Dew?,
+        val dew: Dew? =null,
         @SerializedName("h")
-        val h: H?,
+        val h: H? =null,
         @SerializedName("no2")
-        val no2: No2?,
+        val no2: No2? =null,
         @SerializedName("o3")
-        val o3: O3?,
+        val o3: O3? =null,
         @SerializedName("p")
-        val p: P?,
+        val p: P? =null,
         @SerializedName("pm10")
-        val pm10: Pm10?,
+        val pm10: Pm10? =null,
         @SerializedName("pm25")
-        val pm25: Pm25?,
+        val pm25: Pm25? =null,
         @SerializedName("r")
-        val r: R?,
+        val r: R? =null,
         @SerializedName("so2")
-        val so2: So2?,
+        val so2: So2? =null,
         @SerializedName("t")
-        val t: T?,
+        val t: T? =null,
         @SerializedName("w")
-        val w: W?,
+        val w: W? =null,
         @SerializedName("wg")
-        val wg: Wg?
+        val wg: Wg? =null
 ) {
     data class Co(
             @SerializedName("v")
@@ -297,6 +297,7 @@ class AQIdata(
     fun t(): Double? { return this.t?.v }
     fun wg(): Double? { return this.wg?.v }
     fun w(): Double? { return this.w?.v }
+
 }
 
 data class DSRRSSFireContainer(
