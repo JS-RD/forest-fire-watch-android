@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.viewmodel.view_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import android.app.Activity
 import android.graphics.Color
@@ -10,7 +10,6 @@ import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.mapbox.geojson.GeoJson
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -20,15 +19,12 @@ import com.mapbox.mapboxsdk.style.expressions.Expression.get
 import com.mapbox.mapboxsdk.style.expressions.Expression.literal
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import com.mapbox.mapboxsdk.style.layers.PropertyValue
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import com.mapbox.mapboxsdk.style.sources.Source
-import com.mapbox.mapboxsdk.utils.BitmapUtils
 import kotlinx.coroutines.*
 import timber.log.Timber
-import java.lang.Exception
-import java.net.URI
 import java.net.URISyntaxException
 
 
@@ -80,7 +76,10 @@ class AQIDrawController() {
                             "pm25" to v.pm25(),
                             "r" to v.r(),
                             "so2" to v.so2(),
-                            "t" to v.t()
+                            "t" to v.t(),
+                            "p" to v.p(),
+                            "w" to v.w(),
+                            "wg" to v.wg()
                     )
                     id = k.uid.toString()
                 })
@@ -108,14 +107,16 @@ class AQIDrawController() {
                                         .withCluster(true)
                                         .withClusterMaxZoom(14)
                                         .withClusterRadius(50)
-                                        .withClusterProperty("sum", literal("+"), get("aqi"))
+                                        .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))
                         )
                 )
 
                 //Creating a marker layer for single data points
                 // this mostly works as i want, i.e. it displays the AQI of each feature using Expression.get("aqi")
                 val unclustered = SymbolLayer("unclustered-points", "aqiID")
+
                 unclustered.setProperties(
+
                         PropertyFactory.textField(Expression.get("aqi")),
                         PropertyFactory.textSize(40f),
                         PropertyFactory.iconImage("cross-icon-id"),
@@ -177,8 +178,14 @@ class AQIDrawController() {
                 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
                 val count = SymbolLayer("count", "aqiID")
                 count.setProperties(
-
-                        PropertyFactory.textField(Expression.toString(Expression.get("sum"))), //Expression.toString(Expression.get("point_count"))
+            /*
+            *this esoteric horror show breaks down as follows:
+            *Expression.division(get("sum"),get("point_count"))
+            * gets the sum of the contained features aqi property, divide that by the number of features counted
+            * */
+                        PropertyFactory.textField(Expression.toString(
+                                Expression.ceil(Expression.division(get("sum"),get("point_count"))))
+                        ), //Expression.toString(Expression.get("point_count"))
                         PropertyFactory.textSize(12f),
                         PropertyFactory.textColor(Color.WHITE),
                         PropertyFactory.textIgnorePlacement(true),

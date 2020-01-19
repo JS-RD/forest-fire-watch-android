@@ -1,21 +1,11 @@
-package com.example.wildfire_fixed_imports.viewmodel.view_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
-import android.R.style
-import android.graphics.Bitmap
-import android.graphics.Color
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmap
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.fireIconTarget
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.mapboxsdk.style.layers.FillLayer
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillColor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.fillOpacity
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 
 
 class MarkerController () {

@@ -1,13 +1,11 @@
-package com.example.wildfire_fixed_imports.viewmodel.view_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import android.app.Activity
-import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
-import com.example.wildfire_fixed_imports.R
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
@@ -73,7 +71,7 @@ class HeatMapController () {
                 addHeatmapLayer(style)
 
                 if (currentActivity is MainActivity) {
-                    (currentActivity as MainActivity).setFabOnclick {
+                    currentActivity.setFabOnclick {
                         Toast.makeText(currentActivity.applicationContext, "initialize fab successful", Toast.LENGTH_SHORT ).show()
                         index++
                         if (index == listOfHeatmapColors.size - 1) {

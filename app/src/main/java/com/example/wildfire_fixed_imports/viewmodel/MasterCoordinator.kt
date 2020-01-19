@@ -16,10 +16,8 @@ import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
 import com.google.android.material.snackbar.Snackbar
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
@@ -27,7 +25,6 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.coroutines.CoroutineContext
 
 
 /*
@@ -40,7 +37,7 @@ import kotlin.coroutines.CoroutineContext
 *
 *
 * */
-class MasterCoordinator() {
+ class MasterCoordinator() {
 
     //set correct mapbox map and the view containing the mapbox map via dependency injection
 
@@ -143,9 +140,12 @@ CoroutineScope(Dispatchers.IO).launch {
         AQIStationObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
-            if (!AQIInitialized) {
+            if (!AQIInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
-
+                //while we load the exact AQI data using the next function ,lets load the data we have now
+                CoroutineScope(Dispatchers.Main).launch {
+                    assembleInterimData()
+                }
                 AQIInitialized=true
                 CoroutineScope(Dispatchers.IO).launch {
                     // at this point we have the option to use the aqi provided at the station level  as rough data,
@@ -154,7 +154,7 @@ CoroutineScope(Dispatchers.IO).launch {
                 }
 
 
-            } else {
+            } else if (!list.isNullOrEmpty()){
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
                 CoroutineScope(Dispatchers.IO).launch {
                     getAQIdata()
@@ -187,6 +187,7 @@ CoroutineScope(Dispatchers.IO).launch {
         // start the fire service immediately to start retrieving fires
         CoroutineScope(Dispatchers.IO).launch {
             mapViewModel.startFireRetrieval()
+            mapViewModel.startAQIRetrieval()
         }
 
 
@@ -258,7 +259,28 @@ CoroutineScope(Dispatchers.IO).launch {
     //get aqi stations for each location, or for users current location if unspecified
     //get aqi data for each station
     //send that to the view controller
+    suspend fun assembleInterimData() {
+        if(AQIStations.value.isNullOrEmpty()){
+            //if this is empty, delay 1 second to avoid any ugly loops and attempt to get the servers again
+            startAQIService()
+            Timber.i("$TAG aqi stations is empty or null")
+        }
+        else{
 
+
+            /*  var listOfFreshNodes = mutableListOf<AQIdata>()*/
+            val mapStationToData = mutableMapOf<AQIStations,AQIdata>()
+            for (i in (AQIStations.value as List<AQIStations>).indices) {
+                val current =(AQIStations.value as List<AQIStations>)[i]
+                    /*  listOfFreshNodes.add(result.value)*/
+                    mapStationToData[current] = AQIdata(current.aqi.toInt())
+                    Timber.i("$TAG map entry $i \n ${mapStationToData[current]}\n ${current} $mapStationToData")
+            }
+            Timber.i("$TAG final map $mapStationToData")
+            handleAQIData(mapStationToData)
+
+        }
+    }
     suspend fun getAQIdata() {
         if(AQIStations.value.isNullOrEmpty()){
             //if this is empty, delay 1 second to avoid any ugly loops and attempt to get the servers again

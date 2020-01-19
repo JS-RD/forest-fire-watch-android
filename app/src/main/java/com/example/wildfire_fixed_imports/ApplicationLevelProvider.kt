@@ -9,18 +9,19 @@ import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
+import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.HeatMapController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.AQIDrawController
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MarkerController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MarkerController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -152,6 +153,7 @@ val heatMapController by lazy {
 
     lateinit var userLocation: Location
 
+    lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 
     companion object {
         private lateinit var instance: ApplicationLevelProvider
@@ -164,6 +166,10 @@ val heatMapController by lazy {
 
     override fun onCreate() {
         super.onCreate()
+
+        networkConnectionInterceptor=NetworkConnectionInterceptor(this)
+
+
 
         fireIconAlt = getBitmapFromVectorDrawable(this
                 ,R.drawable.ic_fireicon)
