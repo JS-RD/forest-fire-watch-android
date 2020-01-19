@@ -1,6 +1,15 @@
 ---
-
-
+<h1>
+ISSSUE RESOLVED</H1>
+<p> here's the answer if anyone's curious</p>
+<p>
+  <code>
+    .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))
+              &&
+PropertyFactory.textField(Expression.toString(
+        Expression.ceil(Expression.division(get("sum"),get("point_count"))))
+  </code>
+</p>
 ---
 
 <h1 id="aqi-data-visualization-blocker">AQI Data Visualization Blocker</h1>
