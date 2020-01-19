@@ -10,6 +10,7 @@ PropertyFactory.textField(Expression.toString(
         Expression.ceil(Expression.division(get("sum"),get("point_count"))))
   </code>
 </p>
+<img src="https://i.imgur.com/V3p0EYg.png">
 ---
 
 <h1 id="aqi-data-visualization-blocker">AQI Data Visualization Blocker</h1>
