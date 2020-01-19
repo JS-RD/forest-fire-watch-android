@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.zoomCameraToUser
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
@@ -122,14 +123,9 @@ CoroutineScope(Dispatchers.IO).launch {
 
     init {
        Timber.i("$TAG init")
-        CoroutineScope(Dispatchers.Main).launch {
-            val currentActivity:MainActivity = applicationLevelProvider.currentActivity as MainActivity
-            val res =currentActivity.getLatestLocation()?.LatLng()
-            res?.let {
-                applicationLevelProvider.mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        it, 6.0), 12000)
-            }
-        }
+
+        applicationLevelProvider.zoomCameraToUser()
+
         // Create the fire observer which updates the UI.
         fireObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
@@ -277,7 +273,7 @@ CoroutineScope(Dispatchers.IO).launch {
 
                 if (result is SuccessFailWrapper.Success && result.value !=null){
                   /*  listOfFreshNodes.add(result.value)*/
-                    mapStationToData.put(current,result.value)
+                    mapStationToData[current] = result.value
                 }
                 else {
                     Timber.i("$TAG failure at \n current AQI Station: $current \n result failure: ${result}")

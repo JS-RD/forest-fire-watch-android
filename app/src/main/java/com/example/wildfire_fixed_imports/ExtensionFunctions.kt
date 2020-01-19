@@ -16,11 +16,13 @@ import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.UID
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.sources.Source
 import com.mapbox.mapboxsdk.utils.BitmapUtils
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import timber.log.Timber
@@ -128,8 +130,8 @@ fun <T>RetrofitErrorHandler(throwable:Throwable): SuccessFailWrapper<T> {
         is IOException -> return SuccessFailWrapper.Throwable("IO Exception error", throwable)
         is HttpException -> {
             val code = throwable.code()
-            val errorResponse = throwable.toString()
-            return SuccessFailWrapper.Throwable(" HTTP EXCEPTION \n code: $code \n throwable: $errorResponse", throwable)
+            val errorResponse = throwable.response().toString()
+            return SuccessFailWrapper.Throwable("${throwable.message()} $errorResponse \n HTTP EXCEPTION code: $code/ " , throwable)
         }
         else -> {
             val errorResponse = throwable.toString()
@@ -173,4 +175,23 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
     drawable.draw(canvas);
 
     return bitmap
+}
+
+ fun ApplicationLevelProvider.hideFab(){
+    currentActivity.fab.hide()
+}
+ fun ApplicationLevelProvider.showFab(){
+    currentActivity.fab.show()
+}
+
+fun ApplicationLevelProvider.zoomCameraToUser() {
+    CoroutineScope(Dispatchers.Main).launch {
+        val res = currentActivity.getLatestLocation()?.LatLng()
+        res?.let {
+            mapboxMap?.let {
+                it.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                        res, 6.0), 12000)
+            }
+        }
+    }
 }

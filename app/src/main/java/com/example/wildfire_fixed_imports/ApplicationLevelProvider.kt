@@ -135,7 +135,7 @@ val heatMapController by lazy {
 }
     lateinit var aqiDrawController:AQIDrawController
 
-    lateinit var currentActivity: Activity
+    lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
     lateinit var masterController: MasterController

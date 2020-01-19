@@ -16,22 +16,28 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.navigation.Navigation
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.hideFab
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showFab
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
-
+    private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
+        applicationLevelProvider.hideFab()
         return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
@@ -51,7 +57,6 @@ class LoginFragment : Fragment() {
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
 
-
         loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
@@ -68,14 +73,17 @@ class LoginFragment : Fragment() {
 
         loginViewModel.loginResult.observe(this,
                 Observer { loginResult ->
-                    loginResult ?: return@Observer
-                    loadingProgressBar.visibility = View.GONE
-                    loginResult.error?.let {
-                        showLoginFailed(it)
-                    }
-                    loginResult.success?.let {
-                        updateUiWithUser(it)
-                    }
+               if (loginResult.fail){
+                   applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
+               }
+                    else if (loginResult.webBE && loginResult.firebase){
+                   applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
+                   Navigation.findNavController(btn_login).navigate(R.id.nav_home)
+               }
+                    else if (loginResult.firebase) {
+                   applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
+                   loginViewModel.loginWeb()
+               }
                 })
 
         val afterTextChangedListener = object : TextWatcher {
@@ -123,9 +131,6 @@ class LoginFragment : Fragment() {
 
     }
 
-    private fun hideFab(){
-        fab.hide()
-    }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
@@ -139,5 +144,12 @@ class LoginFragment : Fragment() {
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 
-
+    override fun onPause() {
+        super.onPause()
+        applicationLevelProvider.showFab()
+    }
+    override fun onDetach() {
+        super.onDetach()
+        applicationLevelProvider.showFab()
+    }
 }

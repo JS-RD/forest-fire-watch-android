@@ -54,7 +54,7 @@ class AQIDrawController() {
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
     val TAG: String
-        get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
     //heat map functions experimental:
 

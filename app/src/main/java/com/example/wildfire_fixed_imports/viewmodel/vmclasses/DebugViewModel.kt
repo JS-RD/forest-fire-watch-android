@@ -327,7 +327,6 @@ class DebugViewModel : ViewModel() {
             viewModelScope.launch {
 
                 val result = userWebBEController.register(
-                        email = publicStringHolder1,
                         firstName =  publicStringHolder2,
                         lastName = publicStringHolder3
                 )
@@ -482,7 +481,7 @@ class DebugViewModel : ViewModel() {
 
                 val result = firebaseAuthImpl.registerCoroutine( "mygosh$randNumber@sauce.com","apasswordhere")
 
-                Timber.i("$TAG, Success ${result.toString()} \n result email: ${result?.email} \n applevel email: ${applicationLevelProvider.firebaseUser?.email}")
+                Timber.i("$TAG, Success ${result.toString()} \n result email: ${result} \n applevel email: ${applicationLevelProvider.firebaseUser?.email}")
             }
 
         }

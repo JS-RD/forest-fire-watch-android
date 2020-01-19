@@ -1,9 +1,10 @@
 package com.example.wildfire_fixed_imports.response
 
-import com.example.wildfire_fixed_imports.util.ApiException
+
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
+import java.io.IOException
 
 abstract class SafeApiRequest {
 
@@ -25,5 +26,6 @@ abstract class SafeApiRequest {
             throw ApiException(message.toString())
         }
     }
-
+    class ApiException(message: String) : IOException(message)
+    class NoInternetException(message: String) : IOException(message)
 }
