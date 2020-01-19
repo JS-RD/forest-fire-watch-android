@@ -6,6 +6,10 @@ You can find the deployed web project at [wildfirewatchapp.com](https://wildfire
 
 Android app will be available on the play store after Release canvas 2 (roughly end of Janurary 2020)
 
+Additional technical Documentation can be found here at
+[https://github.com/Lambda-School-Labs/forest-fire-watch-android/blob/master/app_documentation.md](https://github.com/Lambda-School-Labs/forest-fire-watch-android/blob/master/app_documentation.md)
+ as well as through the app
+
 ## Contributors
 
 |                                      [Jack Seymour](https://github.com/stilljack)                                      |                                         [Ronnie Dipple](https://github.com/RonnieDipple)                                         | 
