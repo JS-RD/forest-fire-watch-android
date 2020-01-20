@@ -40,7 +40,7 @@ class UserWebBEController () {
         }
 
 
-    suspend fun register(firstName:String,lastName:String,email:String): SuccessFailWrapper<WebBELoginResponse>? {
+    suspend fun register(firstName:String,lastName:String): SuccessFailWrapper<WebBELoginResponse>? {
         firebaseUser= applicationLevelProvider.firebaseUser
         //if firebase isn't logged in, fail
         if (firebaseUser==null) {
@@ -52,7 +52,7 @@ class UserWebBEController () {
 
             val userToCreate = WebBEUser(first_name = firstName,
                     last_name = lastName,
-                    email = email,
+                    email = firebaseUser?.email ?: "this will never be null",
                     UID = firebaseUser!!.uid)
 
             //create the new user object on the web backend
@@ -117,6 +117,11 @@ class UserWebBEController () {
             return SuccessFailWrapper.Success("$result", result)
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
+            if (throwable is HttpException) {
+                if (throwable.code() ==403) {
+                    return SuccessFailWrapper.Fail("User Could not be authenticated, try again")
+                }
+            }
             return RetrofitErrorHandler<WebBELoginResponse>(throwable)
 
         }

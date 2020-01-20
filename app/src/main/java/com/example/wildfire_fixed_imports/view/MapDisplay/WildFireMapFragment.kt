@@ -1,6 +1,5 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,15 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.viewmodel.view_controllers.MapController
-import com.example.wildfire_fixed_imports.viewmodel.vmclasses.MapViewModel
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.app_bar_main.*
+import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import timber.log.Timber
 
 
@@ -29,12 +30,10 @@ class WildFireMapFragment : Fragment() {
         applicationLevelProvider.mapFragment = this
     }
 
-
-
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
     private lateinit var mapView: MapView
-    private lateinit var mapController:MapController
+    private lateinit var masterCoordinator: MasterCoordinator
 
 
     override fun onCreateView(
@@ -61,16 +60,32 @@ class WildFireMapFragment : Fragment() {
              applicationLevelProvider.mapboxMap = myMapboxMap
              mapboxMap = myMapboxMap
              applicationLevelProvider.mapboxView = mapView
+             val style = Style.TRAFFIC_DAY
+
+              myMapboxMap.setStyle(style) {
 
 
-             mapController= MapController()
-             applicationLevelProvider.mapController=mapController
 
-            myMapboxMap.setStyle(Style.MAPBOX_STREETS) {
-                (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
-            }
+                  it.transition = TransitionOptions(0, 0, false)
 
-             mapViewModel.setMyTargetMap(mapController)
+                    it.resetIconsForNewStyle()
+                 (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
+                  applicationLevelProvider.mapboxStyle=it
+
+                  masterCoordinator= MasterCoordinator()
+                  applicationLevelProvider.masterCoordinator=masterCoordinator
+
+
+                  mapViewModel.setMyMasterController(masterCoordinator)
+
+             }
+
+
+
+
+
+
+
 
 
              /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }

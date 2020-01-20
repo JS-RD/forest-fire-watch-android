@@ -46,12 +46,13 @@ data class WebBEUserRegister(
 }
 
 data class SafeWebUser(
-
+        //can't change primary keys (or we shouldn't anyway...)
+        //  val UID: String,
       //  var id: Int,
         var first_name: String,
         var last_name: String,
         var email: String,
-      //  val UID: String,
+
         var cell_number: String? =null,
         var receive_sms: Boolean,
         var receive_push: Boolean,
@@ -201,80 +202,102 @@ data class AQIStations(
 }
 
 
-class AQIdata(
+data class AQIdata(
         @SerializedName("aqi")
-        val aqi: Int,
+        val aqi: Int?,
         @SerializedName("co")
-        val co: Co,
+        val co:Co? =null,
+        @SerializedName("dew")
+        val dew: Dew? =null,
+        @SerializedName("h")
+        val h: H? =null,
         @SerializedName("no2")
-        val no2: No2,
+        val no2: No2? =null,
         @SerializedName("o3")
-        val o3: O3,
+        val o3: O3? =null,
         @SerializedName("p")
-        val p: P,
+        val p: P? =null,
         @SerializedName("pm10")
-        val pm10: Pm10,
+        val pm10: Pm10? =null,
         @SerializedName("pm25")
-        val pm25: Pm25,
+        val pm25: Pm25? =null,
+        @SerializedName("r")
+        val r: R? =null,
         @SerializedName("so2")
-        val so2: So2,
+        val so2: So2? =null,
         @SerializedName("t")
-        val t: T,
+        val t: T? =null,
         @SerializedName("w")
-        val w: W,
+        val w: W? =null,
         @SerializedName("wg")
-        val wg: Wg
+        val wg: Wg? =null
 ) {
     data class Co(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
+    )
+    data class Dew(
+            @SerializedName("v")
+            val v: Double?
+    )
+    data class H(
+            @SerializedName("v")
+            val v: Double?
     )
     data class No2(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class O3(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class P(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Pm10(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Pm25(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
+    )
+    data class R(
+            @SerializedName("v")
+            val v: Double?
     )
     data class So2(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class T(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class W(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
     data class Wg(
             @SerializedName("v")
-            val v: Double
+            val v: Double?
     )
-    fun co(): Double? { return this.co.v }
-    fun no2(): Double? { return this.no2.v }
-    fun o3(): Double? { return this.o3.v }
-    fun p(): Double? { return this.p.v }
-    fun pm10(): Double? { return this.pm10.v }
-    fun pm25(): Double? { return this.pm25.v }
-    fun so2(): Double? { return this.so2.v }
-    fun t(): Double? { return this.t.v }
-    fun wg(): Double? { return this.wg.v }
-    fun w(): Double? { return this.w.v }
+    fun co(): Double? { return this.co?.v }
+    fun dew(): Double? { return this.dew?.v }
+    fun h():Double? {return this.h?.v}
+    fun no2(): Double? { return this.no2?.v }
+    fun o3(): Double? { return this.o3?.v }
+    fun p(): Double? { return this.p?.v }
+    fun pm10(): Double? { return this.pm10?.v }
+    fun pm25(): Double? { return this.pm25?.v }
+    fun r(): Double? { return this.r?.v }
+    fun so2(): Double? { return this.so2?.v }
+    fun t(): Double? { return this.t?.v }
+    fun wg(): Double? { return this.wg?.v }
+    fun w(): Double? { return this.w?.v }
+
 }
 
 data class DSRRSSFireContainer(
@@ -300,10 +323,3 @@ data class DSRSSFireSubmit(
 )
 
 
-sealed class SuccessFailWrapper<out T>  {
-    data class Success<out T>(val message: String? = null, val value: T? = null): SuccessFailWrapper<T>()
-    data class Fail<out T>(val message: String? = null) : SuccessFailWrapper<T>()
-    data class Throwable<out T>(val message: String? = null, val t: kotlin.Throwable? = null) : SuccessFailWrapper<T>()
-    data class Exception<out T>(val message: String? = null,val e:java.lang.Exception? = null) : SuccessFailWrapper<T>()
-        object NetworkError: SuccessFailWrapper<Nothing>()
-    }
