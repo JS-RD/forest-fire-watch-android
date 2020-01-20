@@ -16,6 +16,7 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.android.synthetic.main.app_bar_main.*
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import timber.log.Timber
 
@@ -87,18 +88,25 @@ class WildFireMapFragment : Fragment() {
 
 
 
-
+             /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }
+             bottomSheetLayout.setOnProgressListener { progress -> rotateArrow(progress)}*/
         }
+
 
 
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
 
 
+    }
+
+    private fun rotateArrow(progress: Float) {
+        imageViewArrow.rotation = -180 * progress
     }
 
 
