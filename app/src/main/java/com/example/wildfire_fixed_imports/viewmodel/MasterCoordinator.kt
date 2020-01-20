@@ -17,7 +17,7 @@ import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MarkerController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -72,7 +72,7 @@ import java.util.concurrent.atomic.AtomicBoolean
     private val mapViewModel = applicationLevelProvider.appMapViewModel
 
     //markercontroller ref
-    lateinit var markerController:MarkerController
+    lateinit var symbolController:SymbolController
 
 
     private var fireInitialized=false
@@ -126,8 +126,8 @@ CoroutineScope(Dispatchers.IO).launch {
         symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
         applicationLevelProvider.symbolManager=symbolManager
         //initialize markert controller
-        markerController = MarkerController()
-        applicationLevelProvider.markerController = markerController
+        symbolController = SymbolController()
+        applicationLevelProvider.symbolController = symbolController
 
 
        Timber.i("$TAG init")
@@ -420,7 +420,7 @@ CoroutineScope(Dispatchers.IO).launch {
 
             CoroutineScope(Dispatchers.Main).launch {
 
-                markerController.addSymbol(current.latlng(), current.name, current.type)
+                symbolController.addFireSymbol(current.latlng(), current.name, current.type)
 
             }
 

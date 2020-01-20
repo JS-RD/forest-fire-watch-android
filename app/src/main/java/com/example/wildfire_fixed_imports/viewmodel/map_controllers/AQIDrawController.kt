@@ -41,12 +41,6 @@ class AQIDrawController() {
     private val targetMap: MapboxMap by lazy {
         applicationLevelProvider.mapboxMap
     }
-    private val mapboxView: View by lazy {
-        applicationLevelProvider.mapboxView
-    }
-    private val mapboxStyle by lazy {
-        applicationLevelProvider.mapboxStyle
-    }
 
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
@@ -95,10 +89,14 @@ class AQIDrawController() {
     }
 
     fun createStyleFromGeoJson(geoJson: String) {
-        targetMap.setStyle(Style.LIGHT) { style ->
+        targetMap.setStyle(Style.SATELLITE) { style ->
 
             try {
-                style.resetIconsForNewStyle()
+                if (!applicationLevelProvider.initZoom) {
+                    style.resetIconsForNewStyle()
+                applicationLevelProvider.initZoom=true
+                }
+                applicationLevelProvider.mapboxStyle=style
                 Timber.i("$TAG geojson= $geoJson")
                 style.addSource(
                         GeoJsonSource("aqiID",

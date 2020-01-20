@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         mapViewModel =
                 ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
                         MapViewModel::class.java
@@ -79,6 +78,8 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.appMapViewModel = mapViewModel
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
+        fab.hide()
+
         val lambda = { }
         setFabOnclick(lambda)
 

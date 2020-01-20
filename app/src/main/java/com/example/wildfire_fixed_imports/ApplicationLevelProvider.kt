@@ -16,12 +16,11 @@ import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MarkerController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -135,7 +134,7 @@ val mapViewModelFactory by lazy {
     lateinit var debugFragment: DebugFragment
     lateinit var masterCoordinator: MasterCoordinator
     lateinit var symbolManager:SymbolManager
-    lateinit var markerController: MarkerController
+    lateinit var symbolController: SymbolController
 
 
     lateinit var mapboxMap: MapboxMap
@@ -144,6 +143,7 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
+    var initZoom:Boolean =false
 
     lateinit var appMapViewModel: MapViewModel
 
