@@ -190,7 +190,7 @@ fun ApplicationLevelProvider.zoomCameraToUser() {
         res?.let {
             mapboxMap?.let {
                 it.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        res, 6.0), 12000)
+                        res, 8.0), 18000)
             }
         }
     }
