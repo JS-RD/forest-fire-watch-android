@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.zoomCameraToUser
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
@@ -421,7 +420,7 @@ CoroutineScope(Dispatchers.IO).launch {
 
             CoroutineScope(Dispatchers.Main).launch {
 
-                markerController.addMarker(current.latlng(), current.name, current.type)
+                markerController.addSymbol(current.latlng(), current.name, current.type)
 
             }
 
