@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.zoomCameraToUser
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
@@ -58,7 +59,7 @@ class AQIDrawController() {
     fun makeGeoJson(aqiMap: MutableMap<AQIStations, AQIdata>): String {
 
         val result = FeatureCollection()
-        aqiMap.forEach { k, v ->
+        aqiMap.forEach { (k, v) ->
             println("$k = $v")
 
 
@@ -192,10 +193,13 @@ class AQIDrawController() {
                         PropertyFactory.textAllowOverlap(true)
                 )
                 style.addLayer(count)
+                applicationLevelProvider.zoomCameraToUser()
             } catch (uriSyntaxException: URISyntaxException) {
                 Timber.e("Check the URL %s", uriSyntaxException.message)
             }
         }
+
+
     }
 
     fun writeNewAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {

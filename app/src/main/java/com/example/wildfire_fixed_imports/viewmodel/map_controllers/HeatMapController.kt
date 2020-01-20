@@ -19,11 +19,17 @@ import java.net.URISyntaxException
 
 
 /*
+
+currently deprecated, unused in rest of project
+
+
+
 *  in effort to decouple as much code as possible, a helper class specifically for heatmaps is proposed in addition to mapcontroller
 *  as it allows us to simplify the map controller class and isolate heatmap related issues.
 *
 * */
 
+@Deprecated("currently unused in rest of project, remains for future adaptation")
 class HeatMapController () {
     //set correct mapbox map and the view containing the mapbox map via dependency injection
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()

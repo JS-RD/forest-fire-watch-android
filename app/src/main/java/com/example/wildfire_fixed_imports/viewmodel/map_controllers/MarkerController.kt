@@ -15,12 +15,12 @@ class MarkerController () {
     private val addedMarkers = mutableListOf<Marker>()
 
 
-    var symbolManager:SymbolManager
+    var symbolManager:SymbolManager = applicationLevelProvider.symbolManager
 
 
 init {
 
-   symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
+
     symbolManager.iconAllowOverlap = true
     symbolManager.textAllowOverlap = true
 

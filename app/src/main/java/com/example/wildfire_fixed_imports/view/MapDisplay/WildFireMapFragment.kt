@@ -17,6 +17,9 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
@@ -76,6 +79,12 @@ class WildFireMapFragment : Fragment() {
 
 
                   mapViewModel.setMyMasterController(masterCoordinator)
+
+                  // start the fire service immediately to start retrieving fires
+                  CoroutineScope(Dispatchers.IO).launch {
+                      mapViewModel.startFireRetrieval()
+                      mapViewModel.startAQIRetrieval()
+                  }
 
              }
 
