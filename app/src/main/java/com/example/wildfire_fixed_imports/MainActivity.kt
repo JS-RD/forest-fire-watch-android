@@ -9,10 +9,12 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
@@ -21,8 +23,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -34,6 +35,7 @@ import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout: View
     private val TAG:String
         get() = "$javaClass $methodName"
-
+    private lateinit var  arrow: ImageView
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -65,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        arrow=findViewById(R.id.imageViewArrow)
         setSupportActionBar(toolbar)
-
 
 
 
@@ -79,6 +81,8 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.appMapViewModel = mapViewModel
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
+        fab.hide()
+
         val lambda = { }
         setFabOnclick(lambda)
 
@@ -176,30 +180,23 @@ class MainActivity : AppCompatActivity() {
     fun enableLocationComponent(loadedMapStyle: Style) {
 // Check if permissions are enabled and if not let user known
         if (applicationLevelProvider.fineLocationPermission) {
-
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
                     .trackingGesturesManagement(true)
                     .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     .build()
-
             val locationComponentActivationOptions =
                     LocationComponentActivationOptions.builder(this, loadedMapStyle)
                             .locationComponentOptions(customLocationComponentOptions)
                             .build()
-
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
-
                 // Activate the LocationComponent with options
                 activateLocationComponent(locationComponentActivationOptions)
-
 // Enable to make the LocationComponent visible
                 isLocationComponentEnabled = true
-
 // Set the LocationComponent's camera mode
                 cameraMode = CameraMode.TRACKING
-
 // Set the LocationComponent's render mode
                 renderMode = RenderMode.COMPASS
             }
@@ -207,6 +204,16 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Fine Location not enabled", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+
+    private fun rotateArrow(progress: Float) {
+        arrow.rotation = -180 * progress
+    }
+
+
+
+
 
     //permissions methods
     private fun initPermissions() {
@@ -249,7 +256,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                         arrayOf(Manifest.permission.INTERNET),
-                        MY_PERMISSIONS_REQUEST_INTERNET
+                    MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
 
@@ -257,10 +264,11 @@ class MainActivity : AppCompatActivity() {
             applicationLevelProvider.showSnackbar("INTERNET not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET), MY_PERMISSIONS_REQUEST_INTERNET)
+            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET),
+                MY_PERMISSIONS_REQUEST_INTERNET
+            )
         }
     }
-
 
     private fun checkFineLocationPermission() {
         Timber.i("init - check fine location")
@@ -280,7 +288,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun requestFineLocationPermission() {
         Timber.i("init - request fine location")
         // Permission has not been granted and must be requested.
@@ -294,7 +301,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
 
@@ -302,7 +309,9 @@ class MainActivity : AppCompatActivity() {
             applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_FINE_LOCATION)
+            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_FINE_LOCATION
+            )
         }
     }
 

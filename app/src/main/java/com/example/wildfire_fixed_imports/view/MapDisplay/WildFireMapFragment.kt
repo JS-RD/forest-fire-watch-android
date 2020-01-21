@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.MainActivity
-import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.util.StackTraceInfo
+import com.example.wildfire_fixed_imports.util.className
+import com.example.wildfire_fixed_imports.util.fileName
+import com.example.wildfire_fixed_imports.util.resetIconsForNewStyle
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
@@ -27,6 +29,10 @@ import timber.log.Timber
 class WildFireMapFragment : Fragment() {
     // get the correct instance of application level provider
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+
+    val TAG: String
+        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+
 
     init {
         //set this fragment as the map fragment in ApplicationLevelProvider
@@ -48,47 +54,46 @@ class WildFireMapFragment : Fragment() {
 
      // Initialize Home View Model
         mapViewModel = ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-            MapViewModel::class.java)
+                MapViewModel::class.java)
 
 
-         Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
+      Mapbox.getInstance(this.context!!,  getString(R.string.mapbox_access_token))
+
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         mapView = root.findViewById(R.id.mapview_main)
         mapView.onCreate(savedInstanceState)
-         mapView.getMapAsync { myMapboxMap ->
-             //set the applicationLevelProvider properties to reflect the loaded map
-             Timber.i("map loaded async ${System.currentTimeMillis()}")
-             applicationLevelProvider.mapboxMap = myMapboxMap
-             mapboxMap = myMapboxMap
-             applicationLevelProvider.mapboxView = mapView
-             val style = Style.TRAFFIC_DAY
+        mapView.getMapAsync { myMapboxMap ->
+            //set the applicationLevelProvider properties to reflect the loaded map
+            Timber.i("map loaded async ${System.currentTimeMillis()}")
+            applicationLevelProvider.mapboxMap = myMapboxMap
+            mapboxMap = myMapboxMap
+            applicationLevelProvider.mapboxView = mapView
+            val style = Style.SATELLITE
 
-              myMapboxMap.setStyle(style) {
-
-
-
-                  it.transition = TransitionOptions(0, 0, false)
-
-                    it.resetIconsForNewStyle()
-                 (applicationLevelProvider.currentActivity as MainActivity).enableLocationComponent(it)
-                  applicationLevelProvider.mapboxStyle=it
-
-                  masterCoordinator= MasterCoordinator()
-                  applicationLevelProvider.masterCoordinator=masterCoordinator
+            myMapboxMap.setStyle(style) {
 
 
-                  mapViewModel.setMyMasterController(masterCoordinator)
 
-                  // start the fire service immediately to start retrieving fires
-                  CoroutineScope(Dispatchers.IO).launch {
-                      mapViewModel.startFireRetrieval()
-                      mapViewModel.startAQIRetrieval()
-                  }
+                it.transition = TransitionOptions(0, 0, false)
 
-             }
+                it.resetIconsForNewStyle()
 
+                applicationLevelProvider.currentActivity.enableLocationComponent(it)
+                applicationLevelProvider.mapboxStyle=it
+
+
+
+                mapViewModel.onMapLoaded()
+                Timber.w("$TAG config")
+                // start the fire service/immediately to start retrieving fires
+                CoroutineScope(Dispatchers.IO).launch {
+                    mapViewModel.startFireRetrieval()
+                    mapViewModel.startAQIRetrieval()
+                }
+
+            }
 
 
 
@@ -97,8 +102,9 @@ class WildFireMapFragment : Fragment() {
 
 
 
-             /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }
-             bottomSheetLayout.setOnProgressListener { progress -> rotateArrow(progress)}*/
+
+            /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }
+            bottomSheetLayout.setOnProgressListener { progress -> rotateArrow(progress)}*/
         }
 
 
@@ -112,10 +118,6 @@ class WildFireMapFragment : Fragment() {
 
 
 
-    }
-
-    private fun rotateArrow(progress: Float) {
-        imageViewArrow.rotation = -180 * progress
     }
 
 

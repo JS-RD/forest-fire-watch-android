@@ -5,11 +5,10 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.zoomCameraToUser
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
+import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.*
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -40,12 +39,6 @@ class AQIDrawController() {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val targetMap: MapboxMap by lazy {
         applicationLevelProvider.mapboxMap
-    }
-    private val mapboxView: View by lazy {
-        applicationLevelProvider.mapboxView
-    }
-    private val mapboxStyle by lazy {
-        applicationLevelProvider.mapboxStyle
     }
 
     //additional dependency injection
@@ -95,10 +88,14 @@ class AQIDrawController() {
     }
 
     fun createStyleFromGeoJson(geoJson: String) {
-        targetMap.setStyle(Style.LIGHT) { style ->
+        targetMap.setStyle(Style.SATELLITE) { style ->
 
             try {
-                style.resetIconsForNewStyle()
+                if (!applicationLevelProvider.initZoom) {
+                    style.resetIconsForNewStyle()
+                applicationLevelProvider.initZoom=true
+                }
+                applicationLevelProvider.mapboxStyle=style
                 Timber.i("$TAG geojson= $geoJson")
                 style.addSource(
                         GeoJsonSource("aqiID",

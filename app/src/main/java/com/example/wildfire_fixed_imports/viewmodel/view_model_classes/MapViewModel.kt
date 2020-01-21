@@ -25,6 +25,12 @@ class MapViewModel : ViewModel() {
 
 
 
+ fun onMapLoaded() {
+     targetMaster= MasterCoordinator()
+     applicationLevelProvider.masterCoordinator=targetMaster
+
+ }
+
 
     fun setMyMasterController(masterCoordinator: MasterCoordinator)
     {

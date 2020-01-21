@@ -4,9 +4,9 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.await
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.google.firebase.auth.*
+import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
 

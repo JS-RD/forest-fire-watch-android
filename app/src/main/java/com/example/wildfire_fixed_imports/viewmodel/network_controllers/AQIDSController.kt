@@ -1,13 +1,11 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
+import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
-import retrofit2.HttpException
 import timber.log.Timber
-import java.io.IOException
 
 /*
 *
@@ -48,7 +46,9 @@ class AQIDSController() {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")
-            RetrofitErrorHandler(throwable)
+            RetrofitErrorHandler(
+                throwable
+            )
 
         }
 
@@ -65,7 +65,9 @@ class AQIDSController() {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")
-            RetrofitErrorHandler(throwable)
+            RetrofitErrorHandler(
+                throwable
+            )
 
         }
     }
