@@ -14,6 +14,7 @@ import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScien
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
+import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
@@ -142,6 +143,7 @@ val mapViewModelFactory by lazy {
     lateinit var mapboxView: MapView
     lateinit var mapboxStyle:Style
     lateinit var nav_view:NavigationView
+    lateinit var bottomSheet: BottomSheetLayout
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
     var initZoom:Boolean =false

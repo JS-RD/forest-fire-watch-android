@@ -24,6 +24,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
+    private lateinit var bottomSheet: BottomSheetLayout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -68,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         arrow=findViewById(R.id.imageViewArrow)
+        bottomSheet =findViewById(R.id.bottomSheetLayout)
+        applicationLevelProvider.bottomSheet=bottomSheet
         setSupportActionBar(toolbar)
 
 
@@ -89,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpNav()
 
-
+        arrow.setOnClickListener{rotateArrow(100f)}
         //check permissions
         initPermissions()
 
@@ -209,6 +213,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun rotateArrow(progress: Float) {
         arrow.rotation = -180 * progress
+
+        bottomSheet.toggle()
+        Timber.i("arrow click")
     }
 
 
