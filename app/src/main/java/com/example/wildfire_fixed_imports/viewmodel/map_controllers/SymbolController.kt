@@ -1,6 +1,9 @@
 package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.util.StackTraceInfo
+import com.example.wildfire_fixed_imports.util.className
+import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.util.fireIconTarget
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -8,6 +11,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 import com.mapbox.mapboxsdk.style.expressions.Expression
+import timber.log.Timber
 
 
 class SymbolController () {
@@ -17,7 +21,9 @@ class SymbolController () {
     private val addedMarkers = mutableListOf<Marker>()
 
 
-    var symbolManager:SymbolManager = applicationLevelProvider.symbolManager
+    var symbolManager:SymbolManager =applicationLevelProvider.symbolManager
+
+    val TAG:String get() =  "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
 
 init {
@@ -52,7 +58,7 @@ var count =0
 
 
     //add newly added marker to list of markers in case of later need to remove or edit
-
+ Timber.i("$TAG fire $count")
     val sauce = SymbolOptions()
             .withLatLng(targetLatLng)
             .withIconImage(fireIconTarget) //set the below attributes according to your requirements

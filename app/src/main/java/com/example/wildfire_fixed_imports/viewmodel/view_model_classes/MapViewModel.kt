@@ -9,57 +9,118 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.wildfire_fixed_imports.model.DSFires
+import com.example.wildfire_fixed_imports.util.StackTraceInfo
+import com.example.wildfire_fixed_imports.util.className
+import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import timber.log.Timber
 
 
 class MapViewModel : ViewModel() {
 
-    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-
+    private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private val currentActivity =applicationLevelProvider.currentActivity
     lateinit var targetMaster: MasterCoordinator
+    val TAG:String get() =  "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+
+    private val _fireServiceRunning = MutableLiveData<Boolean>().apply { value= false }
+    val fireServiceRunning: LiveData<Boolean> = _fireServiceRunning
+    private  var fireObserver:Observer<Boolean> = Observer {
+        if (it) {
+            Timber.i("$TAG fire service logging true")
+            viewModelScope.launch {
+                targetMaster.startFireService()
+            }
+        }
+        else {
+            Timber.i("$TAG fire service logging false")
+            viewModelScope.launch {
+                targetMaster.stopFireService()
+            }
+        }
     }
-    val text: LiveData<String> = _text
+
+    private val mediator = MediatorLiveData<Boolean>()
+    private val _aqiServiceRunning = MutableLiveData<Boolean>().apply { value= false }
+    val aqiServiceRunning: LiveData<Boolean> = _aqiServiceRunning
+    private  var aqiObserver:Observer<Boolean> = Observer {
+        if (it) {
+            Timber.i("$TAG fire service logging true")
+            viewModelScope.launch {
+                targetMaster.startAQIService()
+            }
+        }
+        else {
+            Timber.i("$TAG fire service logging false")
+            viewModelScope.launch {
+                targetMaster.stopAQIService()
+            }
+        }
+    }
 
 
 
  fun onMapLoaded() {
+ if (!::targetMaster.isInitialized){
+     Timber.i("$TAG \n resume initialize check ")
+
      targetMaster= MasterCoordinator()
      applicationLevelProvider.masterCoordinator=targetMaster
+     fireServiceRunning.observe(currentActivity as LifecycleOwner, fireObserver)
+     aqiServiceRunning.observe(currentActivity as LifecycleOwner, aqiObserver)
 
+     //initialize symbol manager
+
+     //initialize markert controller
+        val symbolController =SymbolController()
+     applicationLevelProvider.symbolController=symbolController
  }
-
-
-    fun setMyMasterController(masterCoordinator: MasterCoordinator)
-    {
-        targetMaster = masterCoordinator
-    }
-
+ }
     fun startFireRetrieval() {
         viewModelScope.launch {
-            targetMaster.startFireService()
+            _fireServiceRunning.postValue(true)
         }
 
     }
 
     fun stopFireRetrieval() {
         viewModelScope.launch {
-            targetMaster.stopFireService()
+            _fireServiceRunning.postValue(false)
+        }
+
+    }
+
+    fun toggleFireRetrieval(){
+        if (fireServiceRunning.value as Boolean){
+            _fireServiceRunning.postValue(false)
+        }
+        else {
+            _fireServiceRunning.postValue(true)
+        }
+    }
+    fun toggleAQIRetrieval(){
+        if (aqiServiceRunning.value as Boolean){
+            _aqiServiceRunning.postValue(false)
+        }
+        else {
+            _aqiServiceRunning.postValue(true)
         }
     }
 
     fun startAQIRetrieval() {
         viewModelScope.launch {
-            targetMaster.startAQIService()
+            _aqiServiceRunning.postValue(true)
         }
 
     }
 
     fun stopAQIRetrieval() {
         viewModelScope.launch {
-            targetMaster.stopAQIService()
+            _aqiServiceRunning.postValue(false)
         }
     }
 

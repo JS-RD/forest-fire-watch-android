@@ -24,6 +24,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
+import kotlinx.coroutines.selects.whileSelect
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -70,8 +71,7 @@ import java.util.concurrent.atomic.AtomicBoolean
     //grab the viewmodel
     private val mapViewModel = applicationLevelProvider.appMapViewModel
 
-    //markercontroller ref
-    lateinit var symbolController:SymbolController
+
 
 
     private var fireInitialized=false
@@ -79,21 +79,15 @@ import java.util.concurrent.atomic.AtomicBoolean
     private var AQIDataInitialized=false
 
     //create live data, mutables amd observers
-    private val _fireData = MutableLiveData<List<DSFires>>().apply {
-        value= listOf<DSFires>()
-    }
+    private val _fireData = MutableLiveData<List<DSFires>>().apply { value= listOf<DSFires>() }
     val fireData: LiveData<List<DSFires>> = _fireData
     private  var fireObserver:Observer<List<DSFires>>
 
-    private val _AQIStations = MutableLiveData<List<AQIStations>>().apply {
-        value= listOf<AQIStations>()
-    }
+    private val _AQIStations = MutableLiveData<List<AQIStations>>().apply { value= listOf<AQIStations>() }
     val AQIStations: LiveData<List<AQIStations>> = _AQIStations
     private var AQIStationObserver:Observer<List<AQIStations>>
 
-    private val _AQImap = MutableLiveData<MutableMap<AQIStations,AQIdata>>().apply {
-        value= mutableMapOf()
-    }
+    private val _AQImap = MutableLiveData<MutableMap<AQIStations,AQIdata>>().apply { value= mutableMapOf() }
     val AQImap: LiveData<MutableMap<AQIStations,AQIdata>> = _AQImap
     private var AQImapObserver:Observer<MutableMap<AQIStations,AQIdata>>
 
@@ -105,11 +99,15 @@ import java.util.concurrent.atomic.AtomicBoolean
     var isAQIdatasServiceRunning = AtomicBoolean()
 
     //the symbol manager for maintaining icons
-    lateinit var symbolManager:SymbolManager
+    private val symbolManager:SymbolManager by lazy {
+        applicationLevelProvider.symbolManager
+    }
+    //symbol controller ref
+    private val symbolController:SymbolController  by lazy {
+        applicationLevelProvider.symbolController
+    }
 
-
-    val TAG:String
-        get() =  "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+    val TAG:String get() =  "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
    /*
 CoroutineScope(Dispatchers.IO).launch {
@@ -120,14 +118,6 @@ CoroutineScope(Dispatchers.IO).launch {
 
 
     init {
-
-        //initialize symbol manager
-        symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
-        applicationLevelProvider.symbolManager=symbolManager
-        //initialize markert controller
-        symbolController = SymbolController()
-        applicationLevelProvider.symbolController = symbolController
-
 
        Timber.i("$TAG init")
 
@@ -168,7 +158,7 @@ CoroutineScope(Dispatchers.IO).launch {
             } else if (!list.isNullOrEmpty()){
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
                 CoroutineScope(Dispatchers.IO).launch {
-                    getAQIdata()
+                    assembleInterimData()
                 }
             }
 
@@ -177,12 +167,12 @@ CoroutineScope(Dispatchers.IO).launch {
         AQImapObserver =Observer { map:MutableMap<AQIStations,AQIdata> ->
             Timber.i("$TAG aqi observer")
             if (!AQIDataInitialized  && !map.isNullOrEmpty()) {
-                Timber.i("$TAG  init aqi list reached observer ${map.toString()}")
+                Timber.i("$TAG sau init aqi list reached observer ")
                 AQIDataInitialized = true
                 aqiDrawController.writeNewAqiData(map)
                 oldAQIData=map
             } else if (!map.isNullOrEmpty()) {
-                Timber.i("$TAG new aqi list reached observer ${map.toString()}")
+                Timber.i("$TAG sau new aqi list reached observer ")
                 removeAllAQIdata(oldAQIData)
                 oldAQIData=map
                 aqiDrawController.writeNewAqiData(map)
@@ -272,6 +262,21 @@ CoroutineScope(Dispatchers.IO).launch {
         return null
     }
 
+    fun forceRedraw() {
+        val mapboxMap =applicationLevelProvider.mapboxMap
+        val mapboxStyle=applicationLevelProvider.mapboxStyle
+
+        CoroutineScope(Dispatchers.Main).launch{
+            aqiDrawController.writeNewAqiData(AQImap?.value ?: mutableMapOf<com.example.wildfire_fixed_imports.model.AQIStations,AQIdata>()
+            )
+            applicationLevelProvider.symbolManager.
+            removeAllFires()
+            addAllFires(fireData.value as List<DSFires>)
+        }
+
+
+    }
+
 
     //get aqi stations for each location, or for users current location if unspecified
     //get aqi data for each station
@@ -331,7 +336,7 @@ CoroutineScope(Dispatchers.IO).launch {
                 }
                 else {
                     Timber.i("$TAG broke at i=$i")
-                    break
+                    return
                 }
             }
             Timber.i("\n $TAG final full data \n size of new data ${mapStationToData.size}\n size of old data: ${mapAQIStationToAQIData.size}" +
@@ -368,6 +373,7 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("aqi live data after diff ${_AQImap.value}")
 
         }
+       _AQImap.postValue(AQIlist)
         Timber.i("aqi live data after diff ${_AQImap.value}")
 
     }
@@ -376,7 +382,7 @@ CoroutineScope(Dispatchers.IO).launch {
     fun removeAllAQIdata(AQIlist: MutableMap<AQIStations,AQIdata>) {
         aqiDrawController.eraseAqiData(AQIlist)
     }
-
+      var AQIJOBS:Job = Job()
     suspend fun startAQIService() {
         Timber.i("$javaClass $methodName initialized")
         isAQIdatasServiceRunning.set(true)
@@ -385,14 +391,17 @@ CoroutineScope(Dispatchers.IO).launch {
             val systemmilli = System.currentTimeMillis()
             //if we don't have aqistations yet, go get em
             if (AQIStations.value.isNullOrEmpty()) {
-                val result = getAQIstations()
-                if (result != null) {
-                    //now that we got em, call the data retriever
-                    _AQIStations.postValue(result)
-                } else {
-                    Timber.i("$TAG failed to load AQI Stations")
-                    break
+                AQIJOBS = CoroutineScope(Dispatchers.IO).launch {
+                    val result = getAQIstations()
+                    if (result != null) {
+                        //now that we got em, call the data retriever
+                        _AQIStations.postValue(result)
+                    } else {
+                        Timber.i("$TAG failed to load AQI Stations")
+                    }
                 }
+
+
             }
             //if we have aqi stations then...
             else {
@@ -451,6 +460,7 @@ CoroutineScope(Dispatchers.IO).launch {
             Timber.i("\"$TAG countup: ${countup++}")
 
         }
+
 
     }
 

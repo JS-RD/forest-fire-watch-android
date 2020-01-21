@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.location.Location
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
@@ -134,7 +135,7 @@ val mapViewModelFactory by lazy {
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
-    lateinit var masterCoordinator: MasterCoordinator
+     var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager:SymbolManager
     lateinit var symbolController: SymbolController
 
@@ -144,6 +145,9 @@ val mapViewModelFactory by lazy {
     lateinit var mapboxStyle:Style
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
+    lateinit var arrow:ImageView
+    lateinit var aqiCloudBSIcon:ImageView
+    lateinit var fireBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
     var initZoom:Boolean =false

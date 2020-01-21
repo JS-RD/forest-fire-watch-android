@@ -18,6 +18,7 @@ import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import kotlinx.coroutines.CoroutineScope
@@ -84,9 +85,11 @@ class WildFireMapFragment : Fragment() {
                 applicationLevelProvider.mapboxStyle=it
 
 
-
+                val  symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
+                applicationLevelProvider.symbolManager=symbolManager
                 mapViewModel.onMapLoaded()
                 Timber.w("$TAG config")
+
                 // start the fire service/immediately to start retrieving fires
                 CoroutineScope(Dispatchers.IO).launch {
                     mapViewModel.startFireRetrieval()
@@ -95,8 +98,14 @@ class WildFireMapFragment : Fragment() {
 
             }
 
-
-
+            applicationLevelProvider.fireBSIcon.setOnClickListener {
+                mapViewModel.toggleFireRetrieval()
+                Timber.i("$TAG toggle fire")
+            }
+            applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
+                mapViewModel.toggleAQIRetrieval()
+                Timber.i("$TAG toggle aqi")
+            }
 
 
 
@@ -148,6 +157,24 @@ class WildFireMapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        applicationLevelProvider.mapboxView=mapView
+      if(applicationLevelProvider.masterCoordinator !=null) {
+          Timber.i("$TAG resume control \n ${(applicationLevelProvider.masterCoordinator)?.AQIStations?.value}")
+          (applicationLevelProvider.masterCoordinator)?.forceRedraw()
+      }
+        mapView.getMapAsync { myMapboxMap ->
+
+            //set the applicationLevelProvider properties to reflect the loaded map
+            Timber.i("map loaded async ${System.currentTimeMillis()}")
+            applicationLevelProvider.mapboxMap = myMapboxMap
+            mapboxMap = myMapboxMap
+            applicationLevelProvider.mapboxView = mapView
+            if(applicationLevelProvider.initZoom) {
+                Timber.i("annotations ${applicationLevelProvider.symbolManager.annotations}")
+            }
+
+        }
+
         mapView.onResume()
     }
 

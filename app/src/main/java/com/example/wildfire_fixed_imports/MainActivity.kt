@@ -9,7 +9,9 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,6 +27,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottomSheet.GetInfoFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -52,24 +55,43 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
+    private lateinit var  aqiCloudBSIcon: ImageView
+    private lateinit var  fireBSIcon: ImageView
     private lateinit var bottomSheet: BottomSheetLayout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
+    init {
+
+    }
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        applicationLevelProvider.currentActivity = this
+        mapViewModel =
+                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                        MapViewModel::class.java
+                )
+
+        applicationLevelProvider.appMapViewModel = mapViewModel
+
+
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
-        applicationLevelProvider.currentActivity = this
+
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         arrow=findViewById(R.id.imageViewArrow)
+        aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
+        fireBSIcon=findViewById(R.id.imageViewFire)
+        applicationLevelProvider.arrow=arrow
+        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
+        applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
         setSupportActionBar(toolbar)
@@ -77,12 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        mapViewModel =
-                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                        MapViewModel::class.java
-                )
 
-        applicationLevelProvider.appMapViewModel = mapViewModel
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
         fab.hide()
@@ -94,6 +111,11 @@ class MainActivity : AppCompatActivity() {
         setUpNav()
 
         arrow.setOnClickListener{rotateArrow(100f)}
+        aqiCloudBSIcon.setOnClickListener {
+        }
+        fireBSIcon.setOnClickListener{}
+
+
         //check permissions
         initPermissions()
 
@@ -116,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 
 
@@ -213,12 +236,36 @@ class MainActivity : AppCompatActivity() {
 
     private fun rotateArrow(progress: Float) {
         arrow.rotation = -180 * progress
-
+        tempFrag()
         bottomSheet.toggle()
         Timber.i("arrow click")
     }
 
 
+    fun tempFrag() {
+        var id =findViewById<FrameLayout>(R.id.fragment_container)
+        if (id != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            /*     if (savedInstanceState != null) {
+                     return;
+                 }
+     */
+            // Create a new Fragment to be placed in the activity layout
+            val firstFragment = GetInfoFragment()
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            // firstFragment.arguments = intent.extras
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit()
+        }
+
+    }
 
 
 
