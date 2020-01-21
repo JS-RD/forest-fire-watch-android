@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports
+package com.example.wildfire_fixed_imports.util
 
 import android.os.Bundle
 import androidx.lifecycle.LiveData

@@ -5,10 +5,13 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.util.resetIconsForNewStyle
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.*
+import com.example.wildfire_fixed_imports.util.StackTraceInfo
+import com.example.wildfire_fixed_imports.util.className
+import com.example.wildfire_fixed_imports.util.fileName
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -19,7 +22,6 @@ import com.mapbox.mapboxsdk.style.expressions.Expression.get
 import com.mapbox.mapboxsdk.style.expressions.Expression.literal
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.layers.PropertyValue
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource

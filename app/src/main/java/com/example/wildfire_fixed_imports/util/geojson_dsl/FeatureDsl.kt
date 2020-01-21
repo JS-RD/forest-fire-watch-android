@@ -1,6 +1,6 @@
-package com.example.wildfire_fixed_imports.model.geojson_dsl
+package com.example.wildfire_fixed_imports.util.geojson_dsl
 
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.*
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.*
 
 fun sauce():FeatureCollection{
 

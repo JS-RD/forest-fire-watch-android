@@ -1,7 +1,7 @@
 package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
+import com.example.wildfire_fixed_imports.util.LatLng
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.util.resetIconsForNewStyle
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox

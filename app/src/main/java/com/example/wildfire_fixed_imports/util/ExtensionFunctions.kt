@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports
+package com.example.wildfire_fixed_imports.util
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,8 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
-import com.example.wildfire_fixed_imports.model.UID
-import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -22,11 +21,13 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.sources.Source
 import com.mapbox.mapboxsdk.utils.BitmapUtils
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.*
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import java.util.concurrent.CancellationException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 
 fun ApplicationLevelProvider.showSnackbar(msgId: Int, length: Int) {
@@ -92,17 +93,18 @@ fun Style.resetIconsForNewStyle() {
     this.removeImage(crossIconTarget)
     this.removeImage(fireIconTarget)
     this.addImage(
-            crossIconTarget,
+        crossIconTarget,
             BitmapUtils.getBitmapFromDrawable(applicationLevelProvider.resources.getDrawable(R.drawable.ic_cross))!!,
             true
     )
-    this.addImage(fireIconTarget,
+    this.addImage(
+        fireIconTarget,
             applicationLevelProvider.fireIconAlt
     )
 }
 
 data class LayersAndSources(val layers:List<Layer>? =null, val sources:List<Source>?=null )
-fun Style.logLayersAndSources():LayersAndSources {
+fun Style.logLayersAndSources(): LayersAndSources {
 
     val layers = mutableListOf<Layer>()
     val sources = mutableListOf<Source>()
@@ -117,7 +119,10 @@ fun Style.logLayersAndSources():LayersAndSources {
         sources.add(it)
     }
 
-    return LayersAndSources(layers,sources)
+    return LayersAndSources(
+        layers,
+        sources
+    )
 }
 
 
@@ -157,7 +162,7 @@ fun getBitmap(context: Context, drawableId:Int): Bitmap {
     if (drawable is BitmapDrawable) {
         return BitmapFactory.decodeResource(context.getResources(), drawableId)
     } else if (drawable is VectorDrawable) {
-        return getBitmap( drawable)
+        return getBitmap(drawable)
     } else {
         throw  IllegalArgumentException("unsupported drawable type")
     }
@@ -191,6 +196,61 @@ fun ApplicationLevelProvider.zoomCameraToUser() {
             mapboxMap?.let {
                 it.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         res, 6.0), 12000)
+            }
+        }
+    }
+}
+
+
+
+object Coroutines {
+
+    fun main(work: suspend (() -> Unit)) =
+        CoroutineScope(Dispatchers.Main).launch {
+            work()
+        }
+
+    fun io(work: suspend (() -> Unit)) =
+        CoroutineScope(Dispatchers.IO).launch {
+            work()
+        }
+
+    fun default(work: suspend (() -> Unit)) =
+        CoroutineScope(Dispatchers.Default).launch {
+            work()
+        }
+    fun unconfined(work: suspend (() -> Unit)) =
+        CoroutineScope(Dispatchers.Unconfined).launch {
+            work()
+        }
+
+}
+
+// this extension function provides a means for using coroutines to handle Tasks within gooogles Firebase framework
+suspend fun <T> Task<T>.await(): T? {
+    // fast path
+    if (isComplete) {
+        val e = exception
+        return if (e == null) {
+            if (isCanceled) {
+                throw CancellationException(
+                    "Task $this was cancelled normally.")
+            } else {
+                result.also { Timber.i("task (${this}) complete and result is $result \n ${result.toString()} \n ") }
+
+            }
+        } else {
+            throw e
+        }
+    }
+
+    return suspendCancellableCoroutine { cont ->
+        addOnCompleteListener {
+            val e = exception
+            if (e == null) {
+                if (isCanceled) cont.cancel() else cont.resume(result)
+            } else {
+                cont.resumeWithException(e)
             }
         }
     }

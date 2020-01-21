@@ -48,7 +48,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-    <com.example.wildfire_fixed_imports.view.BottomSheetLayout
+    <com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,13 +73,29 @@
                     android:padding="24dp"
                     android:src="@drawable/ic_arrow_upward_white_24dp"/>
 
+                <ImageView
+                    android:id="@+id/imageViewFire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:src="@drawable/ic_fireicon"/>
+
+                <ImageView
+                    android:id="@+id/imageViewCloud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:src="@drawable/ic_cloudicon_bottomsheet"/>
+
+
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="@string/bottom_sheet_title"
+                    android:text="test"
                     android:textColor="@android:color/white"
                     android:textSize="40sp"/>
 
@@ -96,7 +112,7 @@
         </LinearLayout>
 
 
-    </com.example.wildfire_fixed_imports.view.BottomSheetLayout>
+    </com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout>
 
 
 </RelativeLayout>

@@ -9,13 +9,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.LatLng
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.zoomCameraToUser
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap

@@ -1,6 +1,6 @@
 package com.example.wildfire_fixed_imports.model.networking
 
-import com.example.wildfire_fixed_imports.WEB_BASE_URL
+import com.example.wildfire_fixed_imports.util.WEB_BASE_URL
 import com.example.wildfire_fixed_imports.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -16,7 +16,7 @@ package com.example.wildfire_fixed_imports.model.networking
 * */
 
 
-import com.example.wildfire_fixed_imports.DS_BASE_URL
+import com.example.wildfire_fixed_imports.util.DS_BASE_URL
 import com.example.wildfire_fixed_imports.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
