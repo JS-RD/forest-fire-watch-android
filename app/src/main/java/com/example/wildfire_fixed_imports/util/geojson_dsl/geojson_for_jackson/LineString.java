@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson;
+package com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson;
 
 public class LineString extends MultiPoint {
 

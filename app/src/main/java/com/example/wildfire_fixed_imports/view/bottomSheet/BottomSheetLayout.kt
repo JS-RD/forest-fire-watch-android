@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view
+package com.example.wildfire_fixed_imports.view.bottomSheet
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -41,7 +41,8 @@ class BottomSheetLayout : FrameLayout {
     private val touchToDragListener = TouchToDragListener(true)
 
     fun setOnProgressListener(l: (progress: Float) -> Unit) {
-        progressListener = object : OnProgressListener {
+        progressListener = object :
+            OnProgressListener {
             override fun onProgress(progress: Float) {
                 l(progress)
             }

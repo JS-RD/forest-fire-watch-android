@@ -1,7 +1,7 @@
-package com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson;
+package com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson;
 
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.jackson.LngLatAltDeserializer;
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.jackson.LngLatAltSerializer;
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.jackson.LngLatAltDeserializer;
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.jackson.LngLatAltSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.hideFab
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showFab
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.showSnackbar
+import com.example.wildfire_fixed_imports.util.hideFab
+import com.example.wildfire_fixed_imports.util.showFab
+import com.example.wildfire_fixed_imports.util.showSnackbar
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar

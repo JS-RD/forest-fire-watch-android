@@ -6,6 +6,7 @@
     app:layoutDescription="@xml/fragment_tools_scene">
 
     <TextView
+        android:textColor="@color/colorAccent"
         android:id="@+id/text_tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

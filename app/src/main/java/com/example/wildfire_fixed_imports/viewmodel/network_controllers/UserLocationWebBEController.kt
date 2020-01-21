@@ -1,14 +1,12 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
+import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.SafeWebBELocation
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.model.WebBELocationSubmit
-import retrofit2.HttpException
 import timber.log.Timber
-import java.io.IOException
 
 
 /*
@@ -53,7 +51,9 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                return RetrofitErrorHandler(throwable)
+                return RetrofitErrorHandler(
+                    throwable
+                )
             }
         }
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
@@ -71,7 +71,9 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                return RetrofitErrorHandler(throwable)
+                return RetrofitErrorHandler(
+                    throwable
+                )
             }
         }
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
@@ -90,7 +92,9 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                return RetrofitErrorHandler(throwable)
+                return RetrofitErrorHandler(
+                    throwable
+                )
             }
 
         }
@@ -111,7 +115,9 @@ class UserLocationWebBEController () {
             } catch (throwable: Throwable) {
                 Timber.i("$TAG catch triggered in postWebBELocation")
 
-                return RetrofitErrorHandler(throwable)
+                return RetrofitErrorHandler(
+                    throwable
+                )
             }
 
         }
