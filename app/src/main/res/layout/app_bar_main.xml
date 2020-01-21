@@ -79,13 +79,14 @@
 
 
                 <TextView
+
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="24dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="test"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorAccent"
                     android:textSize="40sp"/>
 
 
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="@string/lorem_ipsum"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"/>
         </LinearLayout>
 
