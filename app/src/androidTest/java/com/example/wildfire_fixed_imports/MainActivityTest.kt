@@ -17,12 +17,10 @@ class MainActivityTest {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Rule
-    @JvmField
-    var mGrantPermissionRule =
-        GrantPermissionRule.grant(
-            "android.permission.ACCESS_FINE_LOCATION"
-        )
+    @Rule @JvmField val grantPermissions = GrantPermissionRule.grant(
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     @Test
     fun mainActivityTest() {
