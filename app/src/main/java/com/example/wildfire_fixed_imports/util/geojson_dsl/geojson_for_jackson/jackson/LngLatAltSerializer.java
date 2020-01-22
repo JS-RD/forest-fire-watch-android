@@ -1,9 +1,9 @@
-package com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.jackson;
+package com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.jackson;
 
 import java.io.IOException;
 
 
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.LngLatAlt;
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.LngLatAlt;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

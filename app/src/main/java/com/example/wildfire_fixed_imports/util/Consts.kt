@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports
+package com.example.wildfire_fixed_imports.util
 
 //File provide static constants usable across the application,
 
@@ -84,7 +84,9 @@ object StackTraceInfo {
 
     // making additional overloaded method call requires +1 offset
     val currentMethodName: String
-        get() = getCurrentMethodName(1) // making additional overloaded method call requires +1 offset
+        get() = getCurrentMethodName(
+            1
+        ) // making additional overloaded method call requires +1 offset
 
     private fun getCurrentMethodName(offset: Int): String {
         return Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].methodName
@@ -92,7 +94,9 @@ object StackTraceInfo {
 
     // making additional overloaded method call requires +1 offset
     val currentClassName: String
-        get() = getCurrentClassName(1) // making additional overloaded method call requires +1 offset
+        get() = getCurrentClassName(
+            1
+        ) // making additional overloaded method call requires +1 offset
 
     private fun getCurrentClassName(offset: Int): String {
         return Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].className
@@ -100,7 +104,9 @@ object StackTraceInfo {
 
     // making additional overloaded method call requires +1 offset
     val currentFileName: String
-        get() = getCurrentFileName(1) // making additional overloaded method call requires +1 offset
+        get() = getCurrentFileName(
+            1
+        ) // making additional overloaded method call requires +1 offset
 
     private fun getCurrentFileName(offset: Int): String {
         val filename = Thread.currentThread().stackTrace[CLIENT_CODE_STACK_INDEX + offset].fileName
@@ -109,55 +115,95 @@ object StackTraceInfo {
     }
 
     val invokingMethodName: String
-        get() = getInvokingMethodName(2)
+        get() = getInvokingMethodName(
+            2
+        )
 
     private fun getInvokingMethodName(offset: Int): String {
-        return getCurrentMethodName(offset + 1) // re-uses getCurrentMethodName() with desired index
+        return getCurrentMethodName(
+            offset + 1
+        ) // re-uses getCurrentMethodName() with desired index
     }
 
     val invokingClassName: String
-        get() = getInvokingClassName(2)
+        get() = getInvokingClassName(
+            2
+        )
 
     private fun getInvokingClassName(offset: Int): String {
-        return getCurrentClassName(offset + 1) // re-uses getCurrentClassName() with desired index
+        return getCurrentClassName(
+            offset + 1
+        ) // re-uses getCurrentClassName() with desired index
     }
 
     val invokingFileName: String
-        get() = getInvokingFileName(2)
+        get() = getInvokingFileName(
+            2
+        )
 
     private fun getInvokingFileName(offset: Int): String {
-        return getCurrentFileName(offset + 1) // re-uses getCurrentFileName() with desired index
+        return getCurrentFileName(
+            offset + 1
+        ) // re-uses getCurrentFileName() with desired index
     }
 
     val currentMethodNameFqn: String
-        get() = getCurrentMethodNameFqn(1)
+        get() = getCurrentMethodNameFqn(
+            1
+        )
 
     private fun getCurrentMethodNameFqn(offset: Int): String {
-        val currentClassName = getCurrentClassName(offset + 1)
-        val currentMethodName = getCurrentMethodName(offset + 1)
+        val currentClassName =
+            getCurrentClassName(
+                offset + 1
+            )
+        val currentMethodName =
+            getCurrentMethodName(
+                offset + 1
+            )
         return "$currentClassName.$currentMethodName"
     }
 
     val currentFileNameFqn: String
         get() {
-            val CurrentMethodNameFqn = getCurrentMethodNameFqn(1)
-            val currentFileName = getCurrentFileName(1)
+            val CurrentMethodNameFqn =
+                getCurrentMethodNameFqn(
+                    1
+                )
+            val currentFileName =
+                getCurrentFileName(
+                    1
+                )
             return "$CurrentMethodNameFqn($currentFileName)"
         }
 
     val invokingMethodNameFqn: String
-        get() = getInvokingMethodNameFqn(2)
+        get() = getInvokingMethodNameFqn(
+            2
+        )
 
     private fun getInvokingMethodNameFqn(offset: Int): String {
-        val invokingClassName = getInvokingClassName(offset + 1)
-        val invokingMethodName = getInvokingMethodName(offset + 1)
+        val invokingClassName =
+            getInvokingClassName(
+                offset + 1
+            )
+        val invokingMethodName =
+            getInvokingMethodName(
+                offset + 1
+            )
         return "$invokingClassName.$invokingMethodName"
     }
 
     val invokingFileNameFqn: String
         get() {
-            val invokingMethodNameFqn = getInvokingMethodNameFqn(2)
-            val invokingFileName = getInvokingFileName(2)
+            val invokingMethodNameFqn =
+                getInvokingMethodNameFqn(
+                    2
+                )
+            val invokingFileName =
+                getInvokingFileName(
+                    2
+                )
             return "$invokingMethodNameFqn($invokingFileName)"
         }
 

@@ -1,8 +1,8 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
-import com.example.wildfire_fixed_imports.methodName
+import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
+import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.model.*
 import timber.log.Timber
 
@@ -39,7 +39,9 @@ class FireDSController () {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in getDSFireLocations")
-            RetrofitErrorHandler(throwable)
+                RetrofitErrorHandler(
+                    throwable
+                )
 
         }
 
@@ -55,7 +57,9 @@ class FireDSController () {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in getDSRSSFireLocations")
-            RetrofitErrorHandler(throwable)
+                RetrofitErrorHandler(
+                    throwable
+                )
 
         }
 
@@ -68,7 +72,7 @@ class FireDSController () {
         //TODO handle errors
 
         val results = retrofitDSService.getDSFireLocations()
-        appLevelProvider.masterCoordinator.handleFireData(results)
+        (appLevelProvider.masterCoordinator)?.handleFireData(results)
 
     }
 

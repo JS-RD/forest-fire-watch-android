@@ -1,8 +1,8 @@
-package com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson;
+package com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson;
 
 
 
-import com.example.wildfire_fixed_imports.model.geojson_dsl.geojson_for_jackson.jackson.CrsType;
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.jackson.CrsType;
 
 import java.io.Serializable;
 import java.util.HashMap;

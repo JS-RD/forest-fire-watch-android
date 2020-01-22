@@ -9,10 +9,14 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
@@ -21,8 +25,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
+import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottomSheet.GetInfoFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -34,6 +39,7 @@ import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,42 +54,66 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout: View
     private val TAG:String
         get() = "$javaClass $methodName"
-
+    private lateinit var  arrow: ImageView
+    private lateinit var  aqiCloudBSIcon: ImageView
+    private lateinit var  fireBSIcon: ImageView
+    private lateinit var bottomSheet: BottomSheetLayout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
+    init {
+
+    }
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
-        //set this activity as the current activity in application level provider
         applicationLevelProvider.currentActivity = this
-        fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
-        //set up toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-
-
-
-
         mapViewModel =
                 ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
                         MapViewModel::class.java
                 )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
+
+
+        applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
+        //set this activity as the current activity in application level provider
+
+        fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
+        //set up toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        arrow=findViewById(R.id.imageViewArrow)
+        aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
+        fireBSIcon=findViewById(R.id.imageViewFire)
+        applicationLevelProvider.arrow=arrow
+        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
+        applicationLevelProvider.fireBSIcon=fireBSIcon
+        bottomSheet =findViewById(R.id.bottomSheetLayout)
+        applicationLevelProvider.bottomSheet=bottomSheet
+        setSupportActionBar(toolbar)
+
+
+
+
+
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
+        fab.hide()
+
         val lambda = { }
         setFabOnclick(lambda)
 
 
         setUpNav()
+
+        arrow.setOnClickListener{rotateArrow(100f)}
+        aqiCloudBSIcon.setOnClickListener {
+        }
+        fireBSIcon.setOnClickListener{}
 
 
         //check permissions
@@ -108,6 +138,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 
 
@@ -176,30 +207,23 @@ class MainActivity : AppCompatActivity() {
     fun enableLocationComponent(loadedMapStyle: Style) {
 // Check if permissions are enabled and if not let user known
         if (applicationLevelProvider.fineLocationPermission) {
-
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
                     .trackingGesturesManagement(true)
                     .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     .build()
-
             val locationComponentActivationOptions =
                     LocationComponentActivationOptions.builder(this, loadedMapStyle)
                             .locationComponentOptions(customLocationComponentOptions)
                             .build()
-
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
-
                 // Activate the LocationComponent with options
                 activateLocationComponent(locationComponentActivationOptions)
-
 // Enable to make the LocationComponent visible
                 isLocationComponentEnabled = true
-
 // Set the LocationComponent's camera mode
                 cameraMode = CameraMode.TRACKING
-
 // Set the LocationComponent's render mode
                 renderMode = RenderMode.COMPASS
             }
@@ -207,6 +231,43 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Fine Location not enabled", Toast.LENGTH_SHORT).show()
         }
     }
+
+
+
+    private fun rotateArrow(progress: Float) {
+        arrow.rotation = -180 * progress
+        tempFrag()
+        bottomSheet.toggle()
+        Timber.i("arrow click")
+    }
+
+
+    fun tempFrag() {
+        var id =findViewById<FrameLayout>(R.id.fragment_container)
+        if (id != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            /*     if (savedInstanceState != null) {
+                     return;
+                 }
+     */
+            // Create a new Fragment to be placed in the activity layout
+            val firstFragment = GetInfoFragment()
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            // firstFragment.arguments = intent.extras
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit()
+        }
+
+    }
+
+
 
     //permissions methods
     private fun initPermissions() {
@@ -249,7 +310,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                         arrayOf(Manifest.permission.INTERNET),
-                        MY_PERMISSIONS_REQUEST_INTERNET
+                    MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
 
@@ -257,10 +318,11 @@ class MainActivity : AppCompatActivity() {
             applicationLevelProvider.showSnackbar("INTERNET not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET), MY_PERMISSIONS_REQUEST_INTERNET)
+            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET),
+                MY_PERMISSIONS_REQUEST_INTERNET
+            )
         }
     }
-
 
     private fun checkFineLocationPermission() {
         Timber.i("init - check fine location")
@@ -280,7 +342,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun requestFineLocationPermission() {
         Timber.i("init - request fine location")
         // Permission has not been granted and must be requested.
@@ -294,7 +355,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 requestPermissionsCompat(
                         arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
 
@@ -302,7 +363,9 @@ class MainActivity : AppCompatActivity() {
             applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_FINE_LOCATION)
+            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MY_PERMISSIONS_REQUEST_FINE_LOCATION
+            )
         }
     }
 

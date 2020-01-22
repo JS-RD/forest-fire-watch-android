@@ -7,6 +7,9 @@ import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.R
 
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.util.StackTraceInfo
+import com.example.wildfire_fixed_imports.util.className
+import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.view.loginRegistration.LoginFormState
 import com.example.wildfire_fixed_imports.view.loginRegistration.LoginResult
 import com.example.wildfire_fixed_imports.view.loginRegistration.RegistrationResult
@@ -23,6 +26,15 @@ class LoginViewModel() : ViewModel() {
     private var firstLastPair = Pair("","")
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
+
+
+    val TAG: String
+        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+
+
+
+
+    //login and registration suit
     private val _loginResult = MutableLiveData<LoginResult>().apply {
         value = LoginResult(
                 "", firebase = false, webBE = false, fail = false)
@@ -34,11 +46,6 @@ class LoginViewModel() : ViewModel() {
                 "", firebase = false, webBE = false, fail = false)
     }
     val registrationResult: LiveData<RegistrationResult> = _registrationResult
-
-    val TAG: String
-        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
-
-
     fun login(email: String, password: String) {
         _loginResult.postValue(LoginResult(
                 "", firebase = false, webBE = false, fail = false
