@@ -33,6 +33,7 @@ import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -126,18 +127,16 @@ class ApplicationLevelProvider : Application() {
 val mapViewModelFactory by lazy {
     MapViewModelFactory()
 }
-val markerController by lazy {
-    MarkerController()
-}
-val heatMapController by lazy {
-    HeatMapController()
-}
+
+
     lateinit var aqiDrawController:AQIDrawController
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
     lateinit var masterCoordinator: MasterCoordinator
+    lateinit var symbolManager:SymbolManager
+    lateinit var markerController: MarkerController
 
 
     lateinit var mapboxMap: MapboxMap

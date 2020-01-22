@@ -5,13 +5,15 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.util.resetIconsForNewStyle
+
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
-import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.*
-import com.example.wildfire_fixed_imports.util.StackTraceInfo
-import com.example.wildfire_fixed_imports.util.className
-import com.example.wildfire_fixed_imports.util.fileName
+import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Feature
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.FeatureCollection
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.LngLatAlt
+import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Point
+
 import com.fasterxml.jackson.databind.ObjectMapper
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -22,6 +24,7 @@ import com.mapbox.mapboxsdk.style.expressions.Expression.get
 import com.mapbox.mapboxsdk.style.expressions.Expression.literal
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import com.mapbox.mapboxsdk.style.layers.PropertyValue
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
@@ -60,7 +63,7 @@ class AQIDrawController() {
     fun makeGeoJson(aqiMap: MutableMap<AQIStations, AQIdata>): String {
 
         val result = FeatureCollection()
-        aqiMap.forEach { k, v ->
+        aqiMap.forEach { (k, v) ->
             println("$k = $v")
 
 
@@ -194,10 +197,13 @@ class AQIDrawController() {
                         PropertyFactory.textAllowOverlap(true)
                 )
                 style.addLayer(count)
+                applicationLevelProvider.zoomCameraToUser()
             } catch (uriSyntaxException: URISyntaxException) {
                 Timber.e("Check the URL %s", uriSyntaxException.message)
             }
         }
+
+
     }
 
     fun writeNewAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {

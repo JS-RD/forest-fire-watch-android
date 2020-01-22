@@ -1,30 +1,29 @@
 
 Things that need doing ASAP:
 
-Testing -- full automated testing for
-
-document abstraction in github for release canvas 2
-
-user testing for canvas 2
+Testing -- full UNIT TESTING
 
 LONG TERM PRODUCT VISION FOR CANVAS 2
 
-CURRENT NUMBER ONE BUG:
-2020-01-13 08:10:52.201 5061-6385/com.example.wildfire_fixed_imports D/OkHttp: <-- HTTP FAILED: java.io.IOException: unexpected end of stream on https://wildfirewatch.herokuapp.com/...
-2020-01-13 08:10:52.209 5061-5061/com.example.wildfire_fixed_imports E/AndroidRuntime: FATAL EXCEPTION: main
-    Process: com.example.wildfire_fixed_imports, PID: 5061
 
-    no idea what's causing this but likely can be solved with better error handling within our retrofit implementation
 
 system for handling/replacing/editing fires when they change.
+-->SANE FOR AQI
+---->NEED A "FILTER CLASS" THAT GATHERS CHANGES AND PROVIDES FINISHED STYLES TO VIEWMODEL, THAT WAY COORDINATOR CAN JUST HANDLE AGREGATING CHANGES
+TO BACKEND OBJECTS/ETC
+
+
 
 NEED ERROR HANDLING FOR HTTP AND PROBABLY OTHER AREAS
 -->>mostly done, SuccessFail wrapper and network_controllers infrastrcture supports both handling at the controller level as well as passing errors, throwables
 and exceptions up the chain.
+----->> SEEMS TO BE WORKING QUITE WELL
 
 FIX BUG THAT CAUSES ICONS TO LOSE COLOR
  -->> likely due to icons being deprecated, https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation
    --> switch to symbols from icons, shouldn't be tremendously hard and symbols appear to offer other options.
+   ---->EMULATOR ISSUE, DOESN'T SEEM TO HAPPEN ON HARDWARE
+
 
 LOW PRIORITY:
 
