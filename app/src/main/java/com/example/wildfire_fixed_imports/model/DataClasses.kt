@@ -106,10 +106,10 @@ data class DSFires(
     }
 
     fun latDouble():Double {
-        return location[0]
+        return location[1]
     }
     fun lngDouble():Double {
-        return location[1]
+        return location[0]
     }
 }
 

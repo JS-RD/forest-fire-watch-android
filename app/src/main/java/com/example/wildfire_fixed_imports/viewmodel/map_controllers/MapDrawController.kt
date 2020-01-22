@@ -227,9 +227,7 @@ class MapDrawController () {
                             PropertyFactory.textField(Expression.get("name")),
                             PropertyFactory.textSize(12f),
                             PropertyFactory.iconImage(fireIconTarget),
-                            PropertyFactory.iconSize(35f
-
-                        ),
+                            PropertyFactory.iconSize(2.0f),
                       PropertyFactory.iconColor(
                                 Expression.interpolate(Expression.exponential(1), Expression.get("aqi"),
                                         Expression.stop(30.0, Expression.rgb(0, 40, 0)),

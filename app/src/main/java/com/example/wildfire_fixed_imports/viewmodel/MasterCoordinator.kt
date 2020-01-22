@@ -207,6 +207,8 @@ CoroutineScope(Dispatchers.IO).launch {
        /* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*/
         AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
         AQImap.observe(currentActivity as LifecycleOwner, AQImapObserver)
+        fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
+        AQIGeoJson.observe(currentActivity as LifecycleOwner, AQIGeoJsonObserver)
 
 
 
