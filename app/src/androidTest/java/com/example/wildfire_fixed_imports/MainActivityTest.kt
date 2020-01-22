@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports
 
 
+import android.Manifest
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
@@ -8,6 +9,7 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -16,6 +18,11 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class MainActivityTests {
+
+    @Rule @JvmField val grantPermissions = GrantPermissionRule.grant(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+        /*,Manifest.permission.WRITE_EXTERNAL_STORAGE*/)
 
     private var device : UiDevice? = null
 
@@ -44,4 +51,6 @@ class MainActivityTests {
         allowButton!!.click()
         assert(permissionAllowedMessage!!.exists())
     }
+
+
 }
