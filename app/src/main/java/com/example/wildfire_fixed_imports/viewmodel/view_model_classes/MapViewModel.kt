@@ -14,6 +14,7 @@ import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import timber.log.Timber
@@ -45,6 +46,7 @@ class MapViewModel : ViewModel() {
     }
 
     private val mediator = MediatorLiveData<Boolean>()
+    private val mapDrawController = MapDrawController()
     private val _aqiServiceRunning = MutableLiveData<Boolean>().apply { value= false }
     val aqiServiceRunning: LiveData<Boolean> = _aqiServiceRunning
     private  var aqiObserver:Observer<Boolean> = Observer {
@@ -61,6 +63,22 @@ class MapViewModel : ViewModel() {
             }
         }
     }
+
+fun triggerMapRedraw() {
+    Timber.i(TAG)
+    val aqistations =targetMaster.AQIGeoJson.value
+    val firedata = targetMaster.fireGeoJson.value
+    if(!aqistations.isNullOrEmpty() && !firedata.isNullOrEmpty()){
+        Timber.i("$TAG \naqi + fire not mull not empty")
+        mapDrawController.createStyleFromGeoJson(aqistations,firedata)
+
+    }
+
+
+}
+
+
+
 
 
 

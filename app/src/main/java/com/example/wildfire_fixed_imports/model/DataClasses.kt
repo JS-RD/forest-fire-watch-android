@@ -104,6 +104,13 @@ data class DSFires(
         return LatLng(location[1],location[0])
 
     }
+
+    fun latDouble():Double {
+        return location[0]
+    }
+    fun lngDouble():Double {
+        return location[1]
+    }
 }
 
 data class BackendNotifications(

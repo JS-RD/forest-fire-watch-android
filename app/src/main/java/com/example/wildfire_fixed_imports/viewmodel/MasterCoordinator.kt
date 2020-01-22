@@ -16,6 +16,7 @@ import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -64,6 +65,9 @@ import java.util.concurrent.atomic.AtomicBoolean
         AQIDrawController().also { applicationLevelProvider.aqiDrawController=it }
     }
 
+    private val mapDrawController by lazy {
+        MapDrawController().also { applicationLevelProvider.mapDrawController=it  }
+    }
     //additional dependency injection
     private val currentActivity : Activity = applicationLevelProvider.currentActivity
 
@@ -94,6 +98,15 @@ import java.util.concurrent.atomic.AtomicBoolean
     private var mapAQIStationToAQIData = mutableMapOf<AQIStations,AQIdata>()
     private var oldAQIData= mutableMapOf<AQIStations,AQIdata>()
 
+    private val _fireGeoJson = MutableLiveData<String>().apply { value= ""}
+    val fireGeoJson: LiveData<String> = _fireGeoJson
+    private  var fireGeoJsonObserver:Observer<String>
+
+    private val _AQIGeoJson = MutableLiveData<String>().apply { value= "" }
+    val AQIGeoJson: LiveData<String> = _AQIGeoJson
+    private var AQIGeoJsonObserver:Observer<String>
+
+
     //atomicbooleans to allow for properly checking if streams are functioning or not even in asyncronous code
     var isFiresServiceRunning = AtomicBoolean()
     var isAQIdatasServiceRunning = AtomicBoolean()
@@ -120,20 +133,16 @@ CoroutineScope(Dispatchers.IO).launch {
     init {
 
        Timber.i("$TAG init")
-
-
-
-        // Create the fire observer which updates the UI.
         fireObserver = Observer { list ->
             // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized  && !list.isNullOrEmpty()) {
                 Timber.i("$TAG init fire list reached observer ${list.toString()}")
-                removeAllFires()
-                addAllFires(list)
+               // removeAllFires()
+                _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             } else if (!list.isNullOrEmpty()){
                 Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-                addAllFires(list)
+                _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             }
         }
 
@@ -143,27 +152,41 @@ CoroutineScope(Dispatchers.IO).launch {
             if (!AQIInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
                 //while we load the exact AQI data using the next function ,lets load the data we have now
-                CoroutineScope(Dispatchers.Main).launch {
-                    assembleInterimData()
-                }
+                _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized=true
-                CoroutineScope(Dispatchers.IO).launch {
-                    // at this point we have the option to use the aqi provided at the station level  as rough data,
-                    // should likely do this
-                    getAQIdata()
-                    Timber.i("$TAG calling aqidata from aqistationobserver")
-                }
 
 
             } else if (!list.isNullOrEmpty()){
-                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
-                CoroutineScope(Dispatchers.IO).launch {
-                    assembleInterimData()
-                }
+                _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
+            }
+        }
+
+        fireGeoJsonObserver =Observer {
+            Timber.i("$TAG init create fire geojson observer")
+            if (!it.isNullOrBlank()){
+                Timber.i("$TAG force redraw from ${fireGeoJson.value}")
+                mapViewModel.triggerMapRedraw()
             }
 
+        }
+
+
+        AQIGeoJsonObserver =Observer {
+            Timber.i("$TAG init create AQI geojson observer")
+            if (!it.isNullOrBlank()){
+                Timber.i("$TAG force redraw from ${AQIGeoJson.value}")
+                mapViewModel.triggerMapRedraw()
+            }
 
         }
+
+
+
+        // Create the fire observer which updates the UI.
+
+
+
+
         AQImapObserver =Observer { map:MutableMap<AQIStations,AQIdata> ->
             Timber.i("$TAG aqi observer")
             if (!AQIDataInitialized  && !map.isNullOrEmpty()) {
@@ -267,9 +290,9 @@ CoroutineScope(Dispatchers.IO).launch {
         val mapboxStyle=applicationLevelProvider.mapboxStyle
 
         CoroutineScope(Dispatchers.Main).launch{
-            aqiDrawController.writeNewAqiData(AQImap?.value ?: mutableMapOf<com.example.wildfire_fixed_imports.model.AQIStations,AQIdata>()
+            aqiDrawController.writeNewAqiData(AQImap.value ?: mutableMapOf<com.example.wildfire_fixed_imports.model.AQIStations,AQIdata>()
             )
-            applicationLevelProvider.symbolManager.
+
             removeAllFires()
             addAllFires(fireData.value as List<DSFires>)
         }

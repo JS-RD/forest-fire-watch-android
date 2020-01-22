@@ -23,6 +23,7 @@ import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
@@ -138,6 +139,7 @@ val mapViewModelFactory by lazy {
      var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager:SymbolManager
     lateinit var symbolController: SymbolController
+    lateinit var mapDrawController:MapDrawController
 
 
     lateinit var mapboxMap: MapboxMap
