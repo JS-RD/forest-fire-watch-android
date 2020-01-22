@@ -1,5 +1,4 @@
 package com.example.wildfire_fixed_imports.view.loginRegistration
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,8 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.util.hideFab
+import com.example.wildfire_fixed_imports.util.showFab
+import com.example.wildfire_fixed_imports.util.showSnackbar
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 import kotlinx.android.synthetic.main.fragment_registration.*
 import kotlinx.coroutines.CoroutineScope
@@ -19,56 +27,73 @@ class RegistrationFragment : Fragment() {
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val firebaseAuthImpl =applicationLevelProvider.firebaseAuthImpl
-
+    private lateinit var loginViewModel: LoginViewModel
     lateinit var email: String
     lateinit var password: String
-    val button_reg = view?.findViewById<View>(R.id.button_register) as Button
+    lateinit var firstname: String
+    lateinit var lastename: String
+    lateinit var button_reg:Button
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
+                .get(LoginViewModel::class.java)
+        button_reg = view.findViewById(R.id.regfrag_btn_register)
 
-    // TODO: Rename and change types of parameters
-    private var listener: OnFragmentInteractionListener? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+        loginViewModel.registrationResult.observe(this,
+                Observer { registrationResult ->
+                    if (registrationResult.fail){
+                        Toast.makeText(this.context,
+                                "Thanks ${applicationLevelProvider.webUser?.first_name}! You've succesfully registered ${applicationLevelProvider.webUser?.email}!",
+                                Toast.LENGTH_SHORT).show()
+                        applicationLevelProvider.showSnackbar(registrationResult.message, Snackbar.LENGTH_SHORT)
+                    }
+                    else if (registrationResult.webBE && registrationResult.firebase){
+                        applicationLevelProvider.showSnackbar(registrationResult.message, Snackbar.LENGTH_SHORT)
+                        Navigation.findNavController(button_reg).navigate(R.id.nav_home)
+                    }
+                    else if (registrationResult.firebase) {
+                        applicationLevelProvider.showSnackbar(registrationResult.message, Snackbar.LENGTH_SHORT)
+                        loginViewModel.registerNewUserWeb()
+                    }
+                })
         button_reg.setOnClickListener {
-            email = et_EmailAddress.text.toString().trim()
-            password = et_input_password.text.toString().trim()
+            email = regfrag_et_EmailAddress.text.toString().trim()
+            password = regfrag_et_input_password.text.toString().trim()
+            firstname = regfrag_et_firstname.text.toString().trim()
+            lastename = regfrag_et_lastname.text.toString().trim()
 
-
-            if(email.isEmpty()){
-                et_EmailAddress.error = "Email required"
-                et_EmailAddress.requestFocus()
+            if (!loginViewModel.isUserNameValid(email)) {
+                regfrag_et_EmailAddress.error = "Email required"
+                regfrag_et_EmailAddress.requestFocus()
                 return@setOnClickListener
             }
 
-            if(password.isEmpty()){
-                et_input_password.error = "password required"
-                et_input_password.requestFocus()
+            if (!loginViewModel.isPasswordValid((password))) {
+                regfrag_et_input_password.error = "password required"
+                regfrag_et_input_password.requestFocus()
                 return@setOnClickListener
             }
 
+            if (firstname.isEmpty()) {
+                regfrag_et_firstname.error = "password required"
+                regfrag_et_firstname.requestFocus()
+                return@setOnClickListener
+            }
+            if (lastename.isEmpty()) {
+                regfrag_et_lastname.error = "password required"
+                regfrag_et_lastname.requestFocus()
+                return@setOnClickListener
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
-               val result = firebaseAuthImpl.registerCoroutine(email,password)
+                loginViewModel.registerNewUser(email,password,firstname,lastename)
 
             }
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
     }
-
 
 
 
@@ -77,24 +102,18 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ):View?{
         // Inflate the layout for this fragment
+        applicationLevelProvider.hideFab()
         return inflater.inflate(R.layout.fragment_registration, container, false)
 
 
     }
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
 
-    /*fun createUser(){
-        val call: UserResponse = RetrofitImplementation.createWEB().createUser(User())
-    }*/
+    override fun onPause() {
+        super.onPause()
+        applicationLevelProvider.showFab()
+    }
     override fun onDetach() {
         super.onDetach()
-        listener = null
-    }
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        applicationLevelProvider.showFab()
     }
 }

@@ -9,52 +9,57 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_firstname"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_et_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/first_name"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/et_lastname"
+        app:layout_constraintBottom_toTopOf="@+id/regfrag_et_lastname"
         tools:layout_editor_absoluteX="16dp" />
 
 
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_lastname"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_et_lastname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="@string/last_name"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/layout_email" />
+        app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email" />
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_email"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         app:boxBackgroundColor="@color/design_default_color_background"
         app:errorEnabled="true"
-        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/regfrag_text_input_layout_password"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/et_input_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintRight_toRightOf="parent">
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_EmailAddress"
-            android:hint="@string/email"
-            android:ems="10"
-            android:inputType="textEmailAddress"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/regfrag_et_EmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_text_input_layout_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -64,13 +69,14 @@
         app:counterEnabled="true"
         app:counterMaxLength="12"
         app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/btn_register"
+        app:layout_constraintBottom_toTopOf="@+id/regfrag_btn_register"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_input_password"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/regfrag_et_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
@@ -80,7 +86,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_register"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_btn_register"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,7 +101,8 @@
         app:layout_constraintTop_toBottomOf="@id/btn_login" />
 
     <TextView
-        android:id="@+id/text_signup"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/regfrag_text_signup"
         android:text="@string/register_here"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

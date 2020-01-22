@@ -1,13 +1,11 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
+import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
-import retrofit2.HttpException
 import timber.log.Timber
-import java.io.IOException
 
 /*
 *
@@ -33,17 +31,30 @@ class AQIDSController() {
             val result =retrofitDSService.getAQIStations(lat,lng,distance)
 
             Timber.i("$TAG success\n list of aqi stations for lat:$lat lng$lng distance:$distance  = \n$result ")
-            SuccessFailWrapper.Success("Success", result)
+            if(result.data.isNullOrEmpty()){
+                if (result.status=="ok"){
+                    SuccessFailWrapper.Fail("No Aqi stations in range, please raise your search range")
+                }
+                else {
+                    SuccessFailWrapper.Fail("Backend service appears to be malfunctioning, please try again later")
+                }
+            }
+            else {
+                SuccessFailWrapper.Success("Success", result.data)
+            }
+
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")
-            RetrofitErrorHandler(throwable)
+            RetrofitErrorHandler(
+                throwable
+            )
 
         }
 
     }
 
-    suspend fun getAQIData(lat: Double,lng:Double): SuccessFailWrapper<List<AQIdata>> {
+    suspend fun getAQIData(lat: Double,lng:Double): SuccessFailWrapper<AQIdata> {
 
         return try {
             Timber.i("$TAG try postWebBELocation triggered")
@@ -54,7 +65,9 @@ class AQIDSController() {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")
-            RetrofitErrorHandler(throwable)
+            RetrofitErrorHandler(
+                throwable
+            )
 
         }
     }

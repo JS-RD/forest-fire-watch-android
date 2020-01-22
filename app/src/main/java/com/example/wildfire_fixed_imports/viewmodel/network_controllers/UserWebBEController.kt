@@ -1,11 +1,10 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.com.example.wildfire_fixed_imports.RetrofitErrorHandler
+import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.*
 import retrofit2.HttpException
 import timber.log.Timber
-import java.io.IOException
 
 
 /*
@@ -36,11 +35,13 @@ class UserWebBEController () {
         catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in getUSerOBject()")
             Timber.i("$TAG does webuser exist? ${applicationLevelProvider.webUser.toString()}")
-            RetrofitErrorHandler(throwable)
+            RetrofitErrorHandler(
+                throwable
+            )
         }
 
 
-    suspend fun register(firstName:String,lastName:String,email:String): SuccessFailWrapper<WebBELoginResponse>? {
+    suspend fun register(firstName:String,lastName:String): SuccessFailWrapper<WebBELoginResponse>? {
         firebaseUser= applicationLevelProvider.firebaseUser
         //if firebase isn't logged in, fail
         if (firebaseUser==null) {
@@ -52,7 +53,7 @@ class UserWebBEController () {
 
             val userToCreate = WebBEUser(first_name = firstName,
                     last_name = lastName,
-                    email = email,
+                    email = firebaseUser?.email ?: "this will never be null",
                     UID = firebaseUser!!.uid)
 
             //create the new user object on the web backend
@@ -80,7 +81,9 @@ class UserWebBEController () {
         catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
             Timber.i("$TAG does webuser exist ${applicationLevelProvider.webUser.toString()}")
-            return RetrofitErrorHandler<WebBELoginResponse>(throwable)
+            return RetrofitErrorHandler<WebBELoginResponse>(
+                throwable
+            )
         }
 
     }
@@ -117,7 +120,14 @@ class UserWebBEController () {
             return SuccessFailWrapper.Success("$result", result)
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
-            return RetrofitErrorHandler<WebBELoginResponse>(throwable)
+            if (throwable is HttpException) {
+                if (throwable.code() ==403) {
+                    return SuccessFailWrapper.Fail("User Could not be authenticated, try again")
+                }
+            }
+            return RetrofitErrorHandler<WebBELoginResponse>(
+                throwable
+            )
 
         }
     }
@@ -150,7 +160,9 @@ class UserWebBEController () {
             return SuccessFailWrapper.Success("$result", result)
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered")
-            return RetrofitErrorHandler(throwable)
+            return RetrofitErrorHandler(
+                throwable
+            )
         }
     }
     }
