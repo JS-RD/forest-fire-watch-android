@@ -62,4 +62,4 @@ Remember that this project is licensed under the MIT license, and by submitting 
 ## Documentation
 
 ##ScreenShots
-<img src="https://imgur.com/X3UNmTP"/>](https://github.com/RonnieDipple)
+<img src="https://i.imgur.com/X3UNmTP.png"/>](https://github.com/RonnieDipple)
