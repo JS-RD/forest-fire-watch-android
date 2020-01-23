@@ -116,7 +116,7 @@ class MapDrawController () {
 
                 //Creating a marker layer for single data points
                 // this mostly works as i want, i.e. it displays the AQI of each feature using Expression.get("aqi")
-                val unclustered = SymbolLayer("unclustered-points", AQI_SOURCE_ID)
+                val unclustered = SymbolLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
 
                 unclustered.setProperties(
 
@@ -158,16 +158,17 @@ class MapDrawController () {
                 )
 
                 for (i in layers.indices) { //Add clusters' circles
+                    //const for these layers should be available in  AQI_CIRCLE_LAYERS<arraylist<string>>
                     val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
                     circles.setProperties(
                             PropertyFactory.circleColor(layers[i][1]),
                             PropertyFactory.circleRadius(22f),
-                            PropertyFactory.circleOpacity(((33f*(i+1).toFloat())/100f))
-
+                            PropertyFactory.circleOpacity(.45f)
+//((33f*(i+1).toFloat())/100f)
                     )
 
 
-       //original cicles
+                    //original cicles
 /*    val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
 circles.setProperties(
        PropertyFactory.circleColor(layers[i][1]),
@@ -179,19 +180,19 @@ circles.setProperties(
 //this is where i'm lost, so i more or less get whats going on here, point_count is a property
 // of the feature collection and then we what color to set based on that point count -- but how would
 // we agregate the total value of one of the propertis of the features and then average that sum by point count?
-val pointCount = Expression.toNumber(Expression.get("point_count"))
+                    val pointCount = Expression.toNumber(Expression.get("point_count"))
 // Add a filter to the cluster layer that hides the circles based on "point_count"
-circles.setFilter(
-       if (i == 0) Expression.all(Expression.has("point_count"),
-               Expression.gte(pointCount, Expression.literal(layers[i][0]))
-       ) else Expression.all(Expression.has("point_count"),
-               Expression.gte(pointCount, Expression.literal(layers[i][0])),
-               Expression.lt(pointCount, Expression.literal(layers[i - 1][0]))
-       )
-)
-circles.setFilter(Expression.has(get("air")))
-style.addLayer(circles)
-}
+                    circles.setFilter(
+                            if (i == 0) Expression.all(Expression.has("point_count"),
+                                    Expression.gte(pointCount, Expression.literal(layers[i][0]))
+                            ) else Expression.all(Expression.has("point_count"),
+                                    Expression.gte(pointCount, Expression.literal(layers[i][0])),
+                                    Expression.lt(pointCount, Expression.literal(layers[i - 1][0]))
+                            )
+                    )
+                    circles.setFilter(Expression.has(get("air")))
+                    style.addLayer(circles)
+                }
 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
 val count = SymbolLayer(AQI_COUNT_LAYER, AQI_SOURCE_ID)
 count.setProperties(

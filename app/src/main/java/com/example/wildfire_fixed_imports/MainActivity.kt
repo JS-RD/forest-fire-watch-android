@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.appMapViewModel = mapViewModel
 
 
+
+
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
 
@@ -98,7 +100,16 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        val bottomSheetObserver = Observer<Float> {
+            if (it ==1f){
+                fireBSIcon.visibility = View.INVISIBLE
+            }
+            else {
+                fireBSIcon.visibility = View.VISIBLE
+            }
 
+        }
+        bottomSheet.progress.observe(this, bottomSheetObserver)
 
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
@@ -141,7 +152,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
     //navigation and interface methods
 
     fun setFabOnclick(lambda: () -> Unit) {
@@ -181,10 +191,12 @@ class MainActivity : AppCompatActivity() {
 
 //for grabing location
     suspend fun getLatestLocation ():Location? {
-
+    if (applicationLevelProvider.fineLocationPermission) {
         val locale = fusedLocationClient.lastLocation.await()
         applicationLevelProvider.userLocation = locale ?: Location("empty")
         return locale
+    }
+    return null
     }
 
 
@@ -242,13 +254,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun rotateArrow(progress: Float) {
-        arrow.rotation = -180 * progress
-        tempFrag()
+        arrow.rotation = 180 * progress
         bottomSheet.toggle()
         Timber.i("arrow click")
     }
 
 
+/*
     fun tempFrag() {
         var id =findViewById<FrameLayout>(R.id.fragment_container)
         if (id != null) {
@@ -256,10 +268,12 @@ class MainActivity : AppCompatActivity() {
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
-            /*     if (savedInstanceState != null) {
+            */
+/*     if (savedInstanceState != null) {
                      return;
                  }
-     */
+     *//*
+
             // Create a new Fragment to be placed in the activity layout
             val firstFragment = GetInfoFragment()
 
@@ -273,6 +287,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+*/
 
 
 

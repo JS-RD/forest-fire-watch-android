@@ -109,6 +109,8 @@ class MapViewModel : ViewModel() {
         fun toggleFireRetrieval() {
             if (fireServiceRunning.value as Boolean) {
                 _fireServiceRunning.postValue(false)
+                targetMaster.FIREJOBS.cancel()
+                Timber.i("$TAG\n firejobs canceled \n firejobs.isactive=${targetMaster.FIREJOBS.isActive}")
             } else {
                 _fireServiceRunning.postValue(true)
             }
@@ -117,6 +119,8 @@ class MapViewModel : ViewModel() {
         fun toggleAQIRetrieval() {
             if (aqiServiceRunning.value as Boolean) {
                 _aqiServiceRunning.postValue(false)
+                targetMaster.AQIJOBS.cancel()
+                Timber.i("$TAG\n aqijobs canceled \n aqijobs.isactive=${targetMaster.AQIJOBS.isActive}")
             } else {
                 _aqiServiceRunning.postValue(true)
             }
