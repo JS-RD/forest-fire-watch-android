@@ -72,7 +72,7 @@ class FireDSController () {
         //TODO handle errors
 
         val results = retrofitDSService.getDSFireLocations()
-        (appLevelProvider.masterCoordinator)?.handleFireData(results)
+    /*    (appLevelProvider.masterCoordinator)?.handleFireData(results)*/
 
     }
 

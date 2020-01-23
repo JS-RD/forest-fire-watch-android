@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
@@ -23,6 +24,7 @@ import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
@@ -130,14 +132,15 @@ val mapViewModelFactory by lazy {
 }
 
 
-    lateinit var aqiDrawController:AQIDrawController
+
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
      var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager:SymbolManager
-    lateinit var symbolController: SymbolController
+
+    lateinit var mapDrawController:MapDrawController
 
 
     lateinit var mapboxMap: MapboxMap
@@ -154,7 +157,7 @@ val mapViewModelFactory by lazy {
 
     lateinit var appMapViewModel: MapViewModel
 
-    lateinit var fireIcon: Icon
+    lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
     lateinit var userLocation: Location
@@ -175,6 +178,8 @@ val mapViewModelFactory by lazy {
 
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
+        aqiIconCircle=
+                getDrawable(R.drawable.imageof_cloud) as Drawable
 
 
         fireIconAlt =

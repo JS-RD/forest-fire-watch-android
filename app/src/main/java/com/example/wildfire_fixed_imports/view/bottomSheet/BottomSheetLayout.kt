@@ -2,13 +2,16 @@ package com.example.wildfire_fixed_imports.view.bottomSheet
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.os.Build
+
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.annotation.AttrRes
+
+import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.R
 
 class BottomSheetLayout : FrameLayout {
@@ -16,7 +19,8 @@ class BottomSheetLayout : FrameLayout {
     private lateinit var valueAnimator: ValueAnimator
     private var collapsedHeight: Int = 0
 
-    private var progress = 0f
+     var progress: MutableLiveData<Float> = MutableLiveData<Float>().apply { value = 0f }
+
     private var startsCollapsed = true
 
     private var scrollTranslationY = 0f
@@ -25,6 +29,10 @@ class BottomSheetLayout : FrameLayout {
     private var isScrollingUp: Boolean = false
 
     private var clickListener: OnClickListener? = null
+
+    private var fireImageView = findViewById<ImageView>(R.id.imageViewFire)
+
+    private var cloudImageView = findViewById<ImageView>(R.id.imageViewCloud)
 
     var animationDuration: Long = 300
 
@@ -50,7 +58,7 @@ class BottomSheetLayout : FrameLayout {
     }
 
     fun isExpended(): Boolean {
-        return progress == 1f
+        return progress.value == 1f
     }
 
     constructor(context: Context) : super(context) {
@@ -76,9 +84,7 @@ class BottomSheetLayout : FrameLayout {
 
         setCollapsedHeight(collapsedHeight)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            minimumHeight = Math.max(minimumHeight, collapsedHeight)
-        }
+        minimumHeight = Math.max(minimumHeight, collapsedHeight)
 
         a.recycle()
 
@@ -100,9 +106,7 @@ class BottomSheetLayout : FrameLayout {
 
     fun setCollapsedHeight(height: Int) {
         collapsedHeight = height
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            minimumHeight = Math.max(minimumHeight, collapsedHeight)
-        }
+        minimumHeight = Math.max(minimumHeight, collapsedHeight)
     }
 
     fun toggle() {
@@ -110,12 +114,12 @@ class BottomSheetLayout : FrameLayout {
             valueAnimator.cancel()
         }
         val duration: Long
-        valueAnimator = if (progress > 0.5f) {
-            duration = (animationDuration * progress).toLong()
-            ValueAnimator.ofFloat(progress, 0f)
+        valueAnimator = if (progress.value!! > 0.5f) {
+            duration = (animationDuration * progress.value!!).toLong()
+            ValueAnimator.ofFloat(progress.value!!, 0f)
         } else {
-            duration = (animationDuration * (1 - progress)).toLong()
-            ValueAnimator.ofFloat(progress, 1f)
+            duration = (animationDuration * (1 - progress.value!!)).toLong()
+            ValueAnimator.ofFloat(progress.value!! , 1f)
         }
 
         valueAnimator.addUpdateListener { animation ->
@@ -132,14 +136,14 @@ class BottomSheetLayout : FrameLayout {
         if (valueAnimator.isRunning) {
             valueAnimator.cancel()
         }
-        valueAnimator = ValueAnimator.ofFloat(progress, 0f)
+        valueAnimator = ValueAnimator.ofFloat(progress.value!!, 0f)
 
         valueAnimator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Float
             animate(progress)
         }
 
-        valueAnimator.duration = (animationDuration * progress).toLong()
+        valueAnimator.duration = (animationDuration * progress.value!!).toLong()
 
         valueAnimator.start()
     }
@@ -148,21 +152,21 @@ class BottomSheetLayout : FrameLayout {
         if (valueAnimator.isRunning) {
             valueAnimator.cancel()
         }
-        valueAnimator = ValueAnimator.ofFloat(progress, 1f)
+        valueAnimator = ValueAnimator.ofFloat(progress.value!!, 1f)
 
         valueAnimator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Float
             animate(progress)
         }
 
-        valueAnimator.duration = (animationDuration * (1 - progress)).toLong()
+        valueAnimator.duration = (animationDuration * (1 - progress.value!!)).toLong()
 
         valueAnimator.start()
     }
 
     //1 is expanded, 0 is collapsed
     private fun animate(progress: Float) {
-        this.progress = progress
+        this.progress.value = progress
         val height = height
         val distance = height - collapsedHeight
         scrollTranslationY = distance * (1 - progress)
@@ -177,13 +181,15 @@ class BottomSheetLayout : FrameLayout {
         var progress = this.progress
         if (!startsCollapsed) {
             isScrollingUp = false
-            progress = Math.max(0f, 1 - distance / totalDistance)
+            progress.value = Math.max(0f, 1 - distance / totalDistance)
+
         } else if (startsCollapsed) {
             isScrollingUp = true
-            progress = Math.min(1f, -distance / totalDistance)
+
+            progress.value = Math.min(1f, -distance / totalDistance)
         }
-        progress = Math.max(0f, Math.min(1f, progress))
-        animate(progress)
+        progress.value = Math.max(0f, Math.min(1f, progress.value!!))
+        animate(progress.value!!)
     }
 
     private fun animateScrollEnd() {
@@ -192,18 +198,20 @@ class BottomSheetLayout : FrameLayout {
         }
         val duration: Long
         val progressLimit = if (isScrollingUp) 0.2f else 0.8f
-        valueAnimator = if (progress > progressLimit) {
-            duration = (animationDuration * (1 - progress)).toLong()
-            ValueAnimator.ofFloat(progress, 1f)
+        valueAnimator = if (progress.value!! > progressLimit) {
+
+            duration = (animationDuration * (1 - progress.value!!)).toLong()
+            ValueAnimator.ofFloat(progress.value!!, 1f)
         } else {
-            duration = (animationDuration * progress).toLong()
-            ValueAnimator.ofFloat(progress, 0f)
+            duration = (animationDuration * progress.value!!).toLong()
+            ValueAnimator.ofFloat(progress.value!!, 0f)
         }
 
         valueAnimator.addUpdateListener { animation ->
             val progress = animation.animatedValue as Float
             animate(progress)
         }
+
 
         valueAnimator.duration = duration
 
@@ -212,6 +220,7 @@ class BottomSheetLayout : FrameLayout {
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         if (ev != null) {
+
             return touchToDragListener.onTouch(this, ev)
         }
         return false
@@ -266,7 +275,7 @@ class BottomSheetLayout : FrameLayout {
                         startX = ev.rawX
                         startY = ev.rawY
                         startTime = System.currentTimeMillis().toDouble()
-                        startsCollapsed = progress < 0.5
+                        startsCollapsed = progress.value!! < 0.5
                     }
                 }
 
@@ -281,10 +290,16 @@ class BottomSheetLayout : FrameLayout {
 
                 MotionEvent.ACTION_UP -> {
 
+
+               /*     if(fireImageView != null){
+                        visibilityToggle(fireImageView)
+                    }
+*/
                     val endX = ev.rawX
                     val endY = ev.rawY
                     if (isAClick(startX, endX, startY, endY, System.currentTimeMillis())) {
                         if (performChildClick(ev.x, ev.y)) {
+
                             return true
                         }
                         if (touchToDrag && clickListener != null) {
