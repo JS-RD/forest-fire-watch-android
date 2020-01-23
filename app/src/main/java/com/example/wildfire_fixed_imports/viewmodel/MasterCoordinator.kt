@@ -1,31 +1,22 @@
 package com.example.wildfire_fixed_imports.viewmodel
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Color
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.AQIStations
-import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
-import kotlinx.coroutines.selects.whileSelect
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -175,34 +166,7 @@ var FIREJOBS:Job = Job()
         AQIGeoJson.observe(currentActivity as LifecycleOwner, AQIGeoJsonObserver)
 
 
-        //the following can be deleted easily enough
-        var iterator = 0
-        val arrayOfStyles: ArrayList<String> = arrayListOf(
-                Style.DARK,
-                Style.MAPBOX_STREETS,
-                Style.OUTDOORS,
-                Style.LIGHT,
-                Style.SATELLITE,
-                Style.SATELLITE_STREETS,
-                Style.TRAFFIC_DAY,
-                Style.TRAFFIC_NIGHT)
 
-
-        if (currentActivity is MainActivity) {
-            currentActivity.setFabOnclick {
-                Timber.i("$TAG iterator = ${iterator} \n size = ${arrayOfStyles.size}")
-                if (iterator >= arrayOfStyles.size - 1) {
-                    Timber.i("$TAG iterator>=arrayOfStyles.siz")
-                    iterator = 0
-                } else {
-                    iterator++
-                    Timber.i("$TAG iterator++ = $iterator")
-                }
-                Timber.i("$TAG setting map style to ${arrayOfStyles[iterator]}")
-                targetMap.setStyle(arrayOfStyles[iterator])
-                // heatMapController.initializeHeatMapExtended()
-            }
-        }
 
 
     }
@@ -318,6 +282,36 @@ var FIREJOBS:Job = Job()
         isAQIdatasServiceRunning.set(false)
     }
 
+}
+
+/*
+//the following can be deleted easily enough
+var iterator = 0
+val arrayOfStyles: ArrayList<String> = arrayListOf(
+        Style.DARK,
+        Style.MAPBOX_STREETS,
+        Style.OUTDOORS,
+        Style.LIGHT,
+        Style.SATELLITE,
+        Style.SATELLITE_STREETS,
+        Style.TRAFFIC_DAY,
+        Style.TRAFFIC_NIGHT)
+
+
+if (currentActivity is MainActivity) {
+    currentActivity.setFabOnclick {
+        Timber.i("$TAG iterator = ${iterator} \n size = ${arrayOfStyles.size}")
+        if (iterator >= arrayOfStyles.size - 1) {
+            Timber.i("$TAG iterator>=arrayOfStyles.siz")
+            iterator = 0
+        } else {
+            iterator++
+            Timber.i("$TAG iterator++ = $iterator")
+        }
+        Timber.i("$TAG setting map style to ${arrayOfStyles[iterator]}")
+        targetMap.setStyle(arrayOfStyles[iterator])
+        // heatMapController.initializeHeatMapExtended()
+    }
 }
     //get aqi stations for each location, or for users current location if unspecified
     //send that to the view controller
