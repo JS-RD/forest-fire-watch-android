@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,17 +18,14 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.style.layers.Layer
+import com.mapbox.mapboxsdk.style.layers.Property.NONE
+import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-
-import com.mapbox.mapboxsdk.style.layers.Property.NONE
-import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.circleColor
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.circleRadius
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 
 
 class WildFireMapFragment : Fragment() {
@@ -225,5 +223,9 @@ class WildFireMapFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
     }
 }
