@@ -8,8 +8,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.annotation.AttrRes
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.example.wildfire_fixed_imports.R
+import kotlinx.android.synthetic.main.app_bar_main.view.*
 
 class BottomSheetLayout : FrameLayout {
 
@@ -25,6 +29,10 @@ class BottomSheetLayout : FrameLayout {
     private var isScrollingUp: Boolean = false
 
     private var clickListener: OnClickListener? = null
+
+    private var fireImageView = findViewById<ImageView>(R.id.imageViewFire)
+
+    private var cloudImageView = findViewById<ImageView>(R.id.imageViewCloud)
 
     var animationDuration: Long = 300
 
@@ -76,9 +84,7 @@ class BottomSheetLayout : FrameLayout {
 
         setCollapsedHeight(collapsedHeight)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            minimumHeight = Math.max(minimumHeight, collapsedHeight)
-        }
+        minimumHeight = Math.max(minimumHeight, collapsedHeight)
 
         a.recycle()
 
@@ -100,9 +106,7 @@ class BottomSheetLayout : FrameLayout {
 
     fun setCollapsedHeight(height: Int) {
         collapsedHeight = height
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            minimumHeight = Math.max(minimumHeight, collapsedHeight)
-        }
+        minimumHeight = Math.max(minimumHeight, collapsedHeight)
     }
 
     fun toggle() {
@@ -178,8 +182,10 @@ class BottomSheetLayout : FrameLayout {
         if (!startsCollapsed) {
             isScrollingUp = false
             progress = Math.max(0f, 1 - distance / totalDistance)
+
         } else if (startsCollapsed) {
             isScrollingUp = true
+
             progress = Math.min(1f, -distance / totalDistance)
         }
         progress = Math.max(0f, Math.min(1f, progress))
@@ -193,6 +199,7 @@ class BottomSheetLayout : FrameLayout {
         val duration: Long
         val progressLimit = if (isScrollingUp) 0.2f else 0.8f
         valueAnimator = if (progress > progressLimit) {
+
             duration = (animationDuration * (1 - progress)).toLong()
             ValueAnimator.ofFloat(progress, 1f)
         } else {
@@ -205,6 +212,7 @@ class BottomSheetLayout : FrameLayout {
             animate(progress)
         }
 
+
         valueAnimator.duration = duration
 
         valueAnimator.start()
@@ -212,6 +220,7 @@ class BottomSheetLayout : FrameLayout {
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         if (ev != null) {
+
             return touchToDragListener.onTouch(this, ev)
         }
         return false
@@ -281,10 +290,16 @@ class BottomSheetLayout : FrameLayout {
 
                 MotionEvent.ACTION_UP -> {
 
+
+                    if(fireImageView != null){
+                        visibilityToggle(fireImageView)
+                    }
+
                     val endX = ev.rawX
                     val endY = ev.rawY
                     if (isAClick(startX, endX, startY, endY, System.currentTimeMillis())) {
                         if (performChildClick(ev.x, ev.y)) {
+
                             return true
                         }
                         if (touchToDrag && clickListener != null) {
@@ -313,5 +328,13 @@ class BottomSheetLayout : FrameLayout {
 
     interface OnProgressListener {
         fun onProgress(progress: Float)
+    }
+
+    private fun visibilityToggle(imageView: ImageView){
+        if (imageView.visibility == View.VISIBLE){
+           imageView.visibility = View.INVISIBLE
+        }else{
+            imageView.visibility = View.VISIBLE
+        }
     }
 }

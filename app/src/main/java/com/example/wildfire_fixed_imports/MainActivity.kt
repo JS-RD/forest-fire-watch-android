@@ -207,23 +207,30 @@ class MainActivity : AppCompatActivity() {
     fun enableLocationComponent(loadedMapStyle: Style) {
 // Check if permissions are enabled and if not let user known
         if (applicationLevelProvider.fineLocationPermission) {
+
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
                     .trackingGesturesManagement(true)
                     .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     .build()
+
             val locationComponentActivationOptions =
                     LocationComponentActivationOptions.builder(this, loadedMapStyle)
                             .locationComponentOptions(customLocationComponentOptions)
                             .build()
+
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
+
                 // Activate the LocationComponent with options
                 activateLocationComponent(locationComponentActivationOptions)
+
 // Enable to make the LocationComponent visible
                 isLocationComponentEnabled = true
+
 // Set the LocationComponent's camera mode
                 cameraMode = CameraMode.TRACKING
+
 // Set the LocationComponent's render mode
                 renderMode = RenderMode.COMPASS
             }
@@ -324,6 +331,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun checkFineLocationPermission() {
         Timber.i("init - check fine location")
         // Check if the Camera permission has been granted
@@ -341,6 +349,7 @@ class MainActivity : AppCompatActivity() {
             requestFineLocationPermission()
         }
     }
+
 
     private fun requestFineLocationPermission() {
         Timber.i("init - request fine location")

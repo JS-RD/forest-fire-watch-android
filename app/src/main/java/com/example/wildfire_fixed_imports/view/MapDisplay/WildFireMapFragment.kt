@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.*
@@ -21,6 +22,7 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.android.synthetic.main.app_bar_main.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -157,7 +159,6 @@ class WildFireMapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-      //  mapViewModel.triggerMapRedraw()
         mapView.onResume()
     }
 
