@@ -2,8 +2,10 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
@@ -14,22 +16,20 @@ import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScien
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
+import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.HeatMapController
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MarkerController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.mapbox.mapboxsdk.annotations.Icon
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -129,26 +129,32 @@ val mapViewModelFactory by lazy {
 }
 
 
-    lateinit var aqiDrawController:AQIDrawController
+
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
-    lateinit var masterCoordinator: MasterCoordinator
+     var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager:SymbolManager
-    lateinit var markerController: MarkerController
+
+    lateinit var mapDrawController:MapDrawController
 
 
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: MapView
     lateinit var mapboxStyle:Style
     lateinit var nav_view:NavigationView
+    lateinit var bottomSheet: BottomSheetLayout
+    lateinit var arrow:ImageView
+    lateinit var aqiCloudBSIcon:ImageView
+    lateinit var fireBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
+    var initZoom:Boolean =false
 
     lateinit var appMapViewModel: MapViewModel
 
-    lateinit var fireIcon: Icon
+    lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
     lateinit var userLocation: Location
@@ -169,6 +175,8 @@ val mapViewModelFactory by lazy {
 
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
+        aqiIconCircle=
+                getDrawable(R.drawable.imageof_cloud) as Drawable
 
 
         fireIconAlt =

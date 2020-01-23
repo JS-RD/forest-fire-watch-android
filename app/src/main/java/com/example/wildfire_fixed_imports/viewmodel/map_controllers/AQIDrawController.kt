@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
-
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
+import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Feature
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.FeatureCollection
@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.expressions.Expression.get
@@ -39,18 +40,11 @@ import java.net.URISyntaxException
 *  AQIDrawController is responsible for drawing
 *
 * */
+@Deprecated("unnecessary in light of current unified style")
 class AQIDrawController() {
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    private val targetMap: MapboxMap by lazy {
-        applicationLevelProvider.mapboxMap
-    }
-    private val mapboxView: View by lazy {
-        applicationLevelProvider.mapboxView
-    }
-    private val mapboxStyle by lazy {
-        applicationLevelProvider.mapboxStyle
-    }
+
 
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
@@ -99,11 +93,17 @@ class AQIDrawController() {
     }
 
     fun createStyleFromGeoJson(geoJson: String) {
-        targetMap.setStyle(Style.LIGHT) { style ->
+        applicationLevelProvider.mapboxMap.setStyle(Style.SATELLITE) { style ->
 
             try {
+                if (!applicationLevelProvider.initZoom) {
+
+                    applicationLevelProvider.initZoom = true
+                }
+                applicationLevelProvider.mapboxStyle = style
                 style.resetIconsForNewStyle()
-                Timber.i("$TAG geojson= $geoJson")
+
+                Timber.i("$TAG geojson= $geoJson[0]")
                 style.addSource(
                         GeoJsonSource("aqiID",
                                 // Point to GeoJSON data.
@@ -130,6 +130,7 @@ class AQIDrawController() {
                                         Expression.get("aqi"), Expression.literal(1.0f)
                                 )
                         ),
+                        PropertyFactory.textHaloColor(Color.WHITE),
                         PropertyFactory.iconColor(
                                 Expression.interpolate(Expression.exponential(1), Expression.get("aqi"),
                                         Expression.stop(30.0, Expression.rgb(0, 40, 0)),
@@ -183,13 +184,13 @@ class AQIDrawController() {
                 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
                 val count = SymbolLayer("count", "aqiID")
                 count.setProperties(
-            /*
+                        /*
             *this esoteric horror show breaks down as follows:
             *Expression.division(get("sum"),get("point_count"))
             * gets the sum of the contained features aqi property, divide that by the number of features counted
             * */
                         PropertyFactory.textField(Expression.toString(
-                                Expression.ceil(Expression.division(get("sum"),get("point_count"))))
+                                Expression.ceil(Expression.division(get("sum"), get("point_count"))))
                         ), //Expression.toString(Expression.get("point_count"))
                         PropertyFactory.textSize(12f),
                         PropertyFactory.textColor(Color.WHITE),
@@ -197,6 +198,11 @@ class AQIDrawController() {
                         PropertyFactory.textAllowOverlap(true)
                 )
                 style.addLayer(count)
+
+
+
+
+
                 applicationLevelProvider.zoomCameraToUser()
             } catch (uriSyntaxException: URISyntaxException) {
                 Timber.e("Check the URL %s", uriSyntaxException.message)
@@ -206,23 +212,55 @@ class AQIDrawController() {
 
     }
 
-    fun writeNewAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {
-        Timber.i(TAG)
-        createStyleFromGeoJson(makeGeoJson(aqiMap))
-        val final = CoroutineScope(Dispatchers.Default).async {
-            makeGeoJson(aqiMap)
-        }
-        CoroutineScope(Dispatchers.Main).launch {
-
-            createStyleFromGeoJson(final.await()).also { Timber.i("$TAG final output json:" + final.await()) }
-
-        }
-    }
-
-    fun eraseAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {
-        Timber.i(TAG)
-    }
 }
+
+
+
+
+
+
+/*    ///begin code for fires
+style.addSource(
+        GeoJsonSource("fireID",
+                // Point to GeoJSON data.
+                com.mapbox.geojson.FeatureCollection.fromJson(geoJson),
+                GeoJsonOptions()
+                        .withCluster(true)
+                        .withClusterMaxZoom(14)
+                        .withClusterRadius(50)
+                        .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))
+        )
+)
+val fireSymbols = SymbolLayer("fire-symbols", "fireID")
+
+fireSymbols.setProperties(
+
+        PropertyFactory.textField(Expression.get("name")),
+        PropertyFactory.textSize(12f),
+        PropertyFactory.iconImage(fireIconTarget),
+        PropertyFactory.iconSize(35f
+
+           *//*     Expression.division(
+                                        Expression.get("aqi"), Expression.literal(1.0f)
+                                )*//*
+                        )
+                   *//*     PropertyFactory.iconColor(
+                                Expression.interpolate(Expression.exponential(1), Expression.get("aqi"),
+                                        Expression.stop(30.0, Expression.rgb(0, 40, 0)),
+                                        Expression.stop(60.5, Expression.rgb(0, 80, 0)),
+                                        Expression.stop(90.0, Expression.rgb(0, 120, 0)),
+                                        Expression.stop(120.0, Expression.rgb(0, 200, 0)),
+                                        Expression.stop(150.5, Expression.rgb(40, 200, 0)),
+                                        Expression.stop(180.0, Expression.rgb(80, 200, 0)),
+                                        Expression.stop(220.0, Expression.rgb(120, 200, 0)),
+                                        Expression.stop(300.5, Expression.rgb(240, 0, 0)),
+                                        Expression.stop(600.0, Expression.rgb(240, 200, 50))
+                                )
+                        )*//*
+                )
+               // unclustered.setFilter(Expression.has("aqi"))
+                style.addLayer(fireSymbols)
+*/
 /* for (i in aqiList.indices) {
      println("i=${i} aqi class internal nanme ${aqiList[i]}")
      print("\n")

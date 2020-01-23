@@ -101,6 +101,12 @@ fun Style.resetIconsForNewStyle() {
         fireIconTarget,
             applicationLevelProvider.fireIconAlt
     )
+    this.addImage(
+            aqiCloudIcon,
+            applicationLevelProvider.aqiIconCircle
+    )
+
+
 }
 
 data class LayersAndSources(val layers:List<Layer>? =null, val sources:List<Source>?=null )

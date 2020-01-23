@@ -11,6 +11,9 @@ system for handling/replacing/editing fires when they change.
 -->SANE FOR AQI
 ---->NEED A "FILTER CLASS" THAT GATHERS CHANGES AND PROVIDES FINISHED STYLES TO VIEWMODEL, THAT WAY COORDINATOR CAN JUST HANDLE AGREGATING CHANGES
 TO BACKEND OBJECTS/ETC
+-----> this and a "force map refresh" method are probably the only way we're gonna get the map to maintain complex data through config changes,
+high on the list of priorities
+
 
 
 
