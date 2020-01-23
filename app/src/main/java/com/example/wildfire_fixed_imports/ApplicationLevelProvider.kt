@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports
 
 import android.app.Application
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
@@ -131,14 +132,14 @@ val mapViewModelFactory by lazy {
 }
 
 
-    lateinit var aqiDrawController:AQIDrawController
+
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
      var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager:SymbolManager
-    lateinit var symbolController: SymbolController
+
     lateinit var mapDrawController:MapDrawController
 
 
@@ -156,7 +157,7 @@ val mapViewModelFactory by lazy {
 
     lateinit var appMapViewModel: MapViewModel
 
-    lateinit var fireIcon: Icon
+    lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
     lateinit var userLocation: Location
@@ -177,6 +178,8 @@ val mapViewModelFactory by lazy {
 
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
+        aqiIconCircle=
+                getDrawable(R.drawable.imageof_cloud) as Drawable
 
 
         fireIconAlt =

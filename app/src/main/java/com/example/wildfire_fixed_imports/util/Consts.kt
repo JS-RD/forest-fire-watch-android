@@ -19,9 +19,31 @@ const val AUTH_ERROR_STRING_WEB_BE = "You shall not pass"
 //this is another error string occasionally provided
 const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
+//this is the source id for aqi
+const val AQI_SOURCE_ID ="aqiID"
+//aqi count layer
+const val AQI_COUNT_LAYER = "count"
+
+//CIRCLE LAYERS AQI
+val AQI_CIRCLE_LAYERS = arrayListOf<String>("cluster-0","cluster-1","cluster-2")
+
+
+const val aqiCloudIcon = "cloudicon"
+//source id for fire
+const val FIRE_SOURCE_ID ="fireID"
+
+//fire layers
+const val FIRE_SYMBOL_LAYER ="fire-symbols"
+
+
+
+
 const val fireIconTarget = "fire_icon_50"
 
 const val crossIconTarget ="cross-icon-id"
+
+
+
 
 val methodName
 get() = StackTraceInfo.invokingMethodName

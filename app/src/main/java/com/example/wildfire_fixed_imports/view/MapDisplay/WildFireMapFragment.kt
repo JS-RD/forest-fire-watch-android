@@ -157,24 +157,7 @@ class WildFireMapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        applicationLevelProvider.mapboxView=mapView
-      if(applicationLevelProvider.masterCoordinator !=null) {
-          Timber.i("$TAG resume control \n ${(applicationLevelProvider.masterCoordinator)?.AQIStations?.value}")
-          (applicationLevelProvider.masterCoordinator)?.forceRedraw()
-      }
-        mapView.getMapAsync { myMapboxMap ->
-
-            //set the applicationLevelProvider properties to reflect the loaded map
-            Timber.i("map loaded async ${System.currentTimeMillis()}")
-            applicationLevelProvider.mapboxMap = myMapboxMap
-            mapboxMap = myMapboxMap
-            applicationLevelProvider.mapboxView = mapView
-            if(applicationLevelProvider.initZoom) {
-                Timber.i("annotations ${applicationLevelProvider.symbolManager.annotations}")
-            }
-
-        }
-
+      //  mapViewModel.triggerMapRedraw()
         mapView.onResume()
     }
 

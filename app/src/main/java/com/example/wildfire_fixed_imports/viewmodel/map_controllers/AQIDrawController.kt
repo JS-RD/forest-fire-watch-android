@@ -40,6 +40,7 @@ import java.net.URISyntaxException
 *  AQIDrawController is responsible for drawing
 *
 * */
+@Deprecated("unnecessary in light of current unified style")
 class AQIDrawController() {
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
@@ -97,9 +98,9 @@ class AQIDrawController() {
             try {
                 if (!applicationLevelProvider.initZoom) {
 
-                applicationLevelProvider.initZoom=true
+                    applicationLevelProvider.initZoom = true
                 }
-                applicationLevelProvider.mapboxStyle=style
+                applicationLevelProvider.mapboxStyle = style
                 style.resetIconsForNewStyle()
 
                 Timber.i("$TAG geojson= $geoJson[0]")
@@ -183,13 +184,13 @@ class AQIDrawController() {
                 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
                 val count = SymbolLayer("count", "aqiID")
                 count.setProperties(
-            /*
+                        /*
             *this esoteric horror show breaks down as follows:
             *Expression.division(get("sum"),get("point_count"))
             * gets the sum of the contained features aqi property, divide that by the number of features counted
             * */
                         PropertyFactory.textField(Expression.toString(
-                                Expression.ceil(Expression.division(get("sum"),get("point_count"))))
+                                Expression.ceil(Expression.division(get("sum"), get("point_count"))))
                         ), //Expression.toString(Expression.get("point_count"))
                         PropertyFactory.textSize(12f),
                         PropertyFactory.textColor(Color.WHITE),
@@ -199,28 +200,47 @@ class AQIDrawController() {
                 style.addLayer(count)
 
 
-            /*    ///begin code for fires
-                style.addSource(
-                        GeoJsonSource("fireID",
-                                // Point to GeoJSON data.
-                                com.mapbox.geojson.FeatureCollection.fromJson(geoJson),
-                                GeoJsonOptions()
-                                        .withCluster(true)
-                                        .withClusterMaxZoom(14)
-                                        .withClusterRadius(50)
-                                        .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))
-                        )
-                )
-                val fireSymbols = SymbolLayer("fire-symbols", "fireID")
 
-                fireSymbols.setProperties(
 
-                        PropertyFactory.textField(Expression.get("name")),
-                        PropertyFactory.textSize(12f),
-                        PropertyFactory.iconImage(fireIconTarget),
-                        PropertyFactory.iconSize(35f
 
-                           *//*     Expression.division(
+                applicationLevelProvider.zoomCameraToUser()
+            } catch (uriSyntaxException: URISyntaxException) {
+                Timber.e("Check the URL %s", uriSyntaxException.message)
+            }
+        }
+
+
+    }
+
+}
+
+
+
+
+
+
+/*    ///begin code for fires
+style.addSource(
+        GeoJsonSource("fireID",
+                // Point to GeoJSON data.
+                com.mapbox.geojson.FeatureCollection.fromJson(geoJson),
+                GeoJsonOptions()
+                        .withCluster(true)
+                        .withClusterMaxZoom(14)
+                        .withClusterRadius(50)
+                        .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))
+        )
+)
+val fireSymbols = SymbolLayer("fire-symbols", "fireID")
+
+fireSymbols.setProperties(
+
+        PropertyFactory.textField(Expression.get("name")),
+        PropertyFactory.textSize(12f),
+        PropertyFactory.iconImage(fireIconTarget),
+        PropertyFactory.iconSize(35f
+
+           *//*     Expression.division(
                                         Expression.get("aqi"), Expression.literal(1.0f)
                                 )*//*
                         )
@@ -241,35 +261,6 @@ class AQIDrawController() {
                // unclustered.setFilter(Expression.has("aqi"))
                 style.addLayer(fireSymbols)
 */
-
-
-
-                applicationLevelProvider.zoomCameraToUser()
-            } catch (uriSyntaxException: URISyntaxException) {
-                Timber.e("Check the URL %s", uriSyntaxException.message)
-            }
-        }
-
-
-    }
-
-    fun writeNewAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {
-        Timber.i(TAG)
-        createStyleFromGeoJson(makeGeoJson(aqiMap))
-        val final = CoroutineScope(Dispatchers.Default).async {
-            makeGeoJson(aqiMap)
-        }
-        CoroutineScope(Dispatchers.Main).launch {
-
-            createStyleFromGeoJson(final.await()).also { Timber.i("$TAG final output json:" + final.await()) }
-
-        }
-    }
-
-    fun eraseAqiData(aqiMap: MutableMap<AQIStations, AQIdata>) {
-        Timber.i(TAG)
-    }
-}
 /* for (i in aqiList.indices) {
      println("i=${i} aqi class internal nanme ${aqiList[i]}")
      print("\n")

@@ -7,13 +7,13 @@ import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.util.fireIconTarget
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener
+
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.mapboxsdk.style.expressions.Expression
+
 import timber.log.Timber
 
-
+@Deprecated("symbol controller")
 class SymbolController () {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
