@@ -9,6 +9,9 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,6 +28,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottomSheet.GetInfoFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -50,40 +55,68 @@ class MainActivity : AppCompatActivity() {
     private lateinit var layout: View
     private val TAG:String
         get() = "$javaClass $methodName"
-
+    private lateinit var  arrow: ImageView
+    private lateinit var  aqiCloudBSIcon: ImageView
+    private lateinit var  fireBSIcon: ImageView
+    private lateinit var bottomSheet: BottomSheetLayout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
+    init {
+
+    }
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        applicationLevelProvider.currentActivity = this
+        mapViewModel =
+            ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                MapViewModel::class.java
+            )
+
+        applicationLevelProvider.appMapViewModel = mapViewModel
+        bottomSheet.isExpended()
+
+
+
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
-        applicationLevelProvider.currentActivity = this
+
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-
+        arrow=findViewById(R.id.imageViewArrow)
+        aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
+        fireBSIcon=findViewById(R.id.imageViewFire)
+        applicationLevelProvider.arrow=arrow
+        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
+        applicationLevelProvider.fireBSIcon=fireBSIcon
+        bottomSheet =findViewById(R.id.bottomSheetLayout)
+        applicationLevelProvider.bottomSheet=bottomSheet
         setSupportActionBar(toolbar)
 
 
-        mapViewModel =
-                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                        MapViewModel::class.java
-                )
 
-        applicationLevelProvider.appMapViewModel = mapViewModel
+
+
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
+        fab.hide()
+
         val lambda = { }
         setFabOnclick(lambda)
 
 
         setUpNav()
+
+        arrow.setOnClickListener{rotateArrow(100f)}
+        aqiCloudBSIcon.setOnClickListener {
+        }
+        fireBSIcon.setOnClickListener{}
 
 
         //check permissions
@@ -111,6 +144,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
     //navigation and interface methods
 
     fun setFabOnclick(lambda: () -> Unit) {
@@ -126,10 +160,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
-                        R.id.nav_debug, R.id.nav_share, R.id.nav_send
-                ), drawerLayout
+            setOf(
+                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                R.id.nav_debug, R.id.nav_share, R.id.nav_send
+            ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -148,12 +182,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//for grabing location
+    //for grabing location
     suspend fun getLatestLocation ():Location? {
-
-        val locale = fusedLocationClient.lastLocation.await()
-        applicationLevelProvider.userLocation = locale ?: Location("empty")
-        return locale
+        if (applicationLevelProvider.fineLocationPermission) {
+            val locale = fusedLocationClient.lastLocation.await()
+            applicationLevelProvider.userLocation = locale ?: Location("empty")
+            return locale
+        }
+        return null
     }
 
 
@@ -179,14 +215,14 @@ class MainActivity : AppCompatActivity() {
 
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
-                    .trackingGesturesManagement(true)
-                    .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    .build()
+                .trackingGesturesManagement(true)
+                .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .build()
 
             val locationComponentActivationOptions =
-                    LocationComponentActivationOptions.builder(this, loadedMapStyle)
-                            .locationComponentOptions(customLocationComponentOptions)
-                            .build()
+                LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                    .locationComponentOptions(customLocationComponentOptions)
+                    .build()
 
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
@@ -208,6 +244,43 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+    private fun rotateArrow(progress: Float) {
+        arrow.rotation = -180 * progress
+        tempFrag()
+        bottomSheet.toggle()
+        Timber.i("arrow click")
+    }
+
+
+    fun tempFrag() {
+        var id =findViewById<FrameLayout>(R.id.fragment_container)
+        if (id != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            /*     if (savedInstanceState != null) {
+                     return;
+                 }
+     */
+            // Create a new Fragment to be placed in the activity layout
+            val firstFragment = GetInfoFragment()
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            // firstFragment.arguments = intent.extras
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+            supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, firstFragment).commit()
+        }
+
+    }
+
+
+
     //permissions methods
     private fun initPermissions() {
         if (!applicationLevelProvider.internetPermission) {
@@ -221,7 +294,7 @@ class MainActivity : AppCompatActivity() {
         Timber.i("init - check internet")
         // Check if the INTERNET permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             Timber.i("init - internet already available")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.internetPermission = true
@@ -244,11 +317,11 @@ class MainActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             applicationLevelProvider.showSnackbar(
-                    "INTERNET acess is required for this app to function at all.",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "INTERNET acess is required for this app to function at all.",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                        arrayOf(Manifest.permission.INTERNET),
+                    arrayOf(Manifest.permission.INTERNET),
                     MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
@@ -268,7 +341,7 @@ class MainActivity : AppCompatActivity() {
         Timber.i("init - check fine location")
         // Check if the Camera permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             Timber.i("init -  fine location already granted")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.fineLocationPermission = true
@@ -291,11 +364,11 @@ class MainActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             applicationLevelProvider.showSnackbar(
-                    "GPS location data is needed to provide accurate local results",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "GPS location data is needed to provide accurate local results",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
@@ -312,8 +385,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>, grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
     ) {
         Timber.i("on request == before while loop permission: ${permissions.toString()} requestcode: $requestCode grantresults: ${grantResults.toString()} ")
         when (requestCode) {

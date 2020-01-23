@@ -291,9 +291,6 @@ class BottomSheetLayout : FrameLayout {
                 MotionEvent.ACTION_UP -> {
 
 
-                    if(fireImageView != null){
-                        visibilityToggle(fireImageView)
-                    }
 
                     val endX = ev.rawX
                     val endY = ev.rawY
