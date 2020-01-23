@@ -14,7 +14,6 @@ import androidx.annotation.AttrRes
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.R
 
-
 class BottomSheetLayout : FrameLayout {
 
     private lateinit var valueAnimator: ValueAnimator
@@ -292,10 +291,10 @@ class BottomSheetLayout : FrameLayout {
                 MotionEvent.ACTION_UP -> {
 
 
-                    if(fireImageView != null){
+               /*     if(fireImageView != null){
                         visibilityToggle(fireImageView)
                     }
-
+*/
                     val endX = ev.rawX
                     val endY = ev.rawY
                     if (isAClick(startX, endX, startY, endY, System.currentTimeMillis())) {
@@ -329,13 +328,5 @@ class BottomSheetLayout : FrameLayout {
 
     interface OnProgressListener {
         fun onProgress(progress: Float)
-    }
-
-    private fun visibilityToggle(imageView: ImageView){
-        if (imageView.visibility == View.VISIBLE){
-           imageView.visibility = View.INVISIBLE
-        }else{
-            imageView.visibility = View.VISIBLE
-        }
     }
 }

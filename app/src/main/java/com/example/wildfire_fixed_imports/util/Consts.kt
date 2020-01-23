@@ -23,6 +23,8 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 const val AQI_SOURCE_ID ="aqiID"
 //aqi count layer
 const val AQI_COUNT_LAYER = "count"
+//aqi unclustered layer
+const val AQI_UNCLUSTERED_LAYER ="unclustered-aqi-points"
 
 //CIRCLE LAYERS AQI
 val AQI_CIRCLE_LAYERS = arrayListOf<String>("cluster-0","cluster-1","cluster-2")

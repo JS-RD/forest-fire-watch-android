@@ -1,18 +1,15 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.wildfire_fixed_imports.*
-import com.example.wildfire_fixed_imports.util.StackTraceInfo
-import com.example.wildfire_fixed_imports.util.className
-import com.example.wildfire_fixed_imports.util.fileName
-import com.example.wildfire_fixed_imports.util.resetIconsForNewStyle
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.R
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.Mapbox
@@ -20,9 +17,11 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import kotlinx.android.synthetic.main.app_bar_main.*
+import com.mapbox.mapboxsdk.style.layers.Layer
+import com.mapbox.mapboxsdk.style.layers.Property.NONE
+import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
-import kotlinx.android.synthetic.main.app_bar_main.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -101,11 +100,50 @@ class WildFireMapFragment : Fragment() {
             }
 
             applicationLevelProvider.fireBSIcon.setOnClickListener {
+                mapboxMap.getStyle { style ->
+                    val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
+                    if (layer != null) {
+                        if (VISIBLE == layer.visibility.getValue()) {
+                            layer.setProperties(visibility(NONE))
+                        } else {
+                            layer.setProperties(visibility(VISIBLE))
+                        }
+                    }
+                }
                 mapViewModel.toggleFireRetrieval()
                 Timber.i("$TAG toggle fire")
             }
             applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
                 mapViewModel.toggleAQIRetrieval()
+                mapboxMap.getStyle { style ->
+                    val layer: Layer? = style.getLayer("count")
+                    if (layer != null) {
+                        if (VISIBLE == layer.visibility.getValue()) {
+                            layer.setProperties(visibility(NONE))
+                        } else {
+                            layer.setProperties(visibility(VISIBLE))
+                        }
+                    }
+                    val layer1: Layer? = style.getLayer("unclustered-aqi-points")
+                    if (layer1 != null) {
+                        if (VISIBLE == layer1.visibility.getValue()) {
+                            layer1.setProperties(visibility(NONE))
+                        } else {
+                            layer1.setProperties(visibility(VISIBLE))
+                        }
+                    }
+
+                    for(i in 0..2) {
+                        val layer: Layer? = style.getLayer("cluster-$i")
+                        if (layer != null) {
+                            if (VISIBLE == layer.visibility.getValue()) {
+                                layer.setProperties(visibility(NONE))
+                            } else {
+                                layer.setProperties(visibility(VISIBLE))
+                            }
+                        }
+                    }
+                }
                 Timber.i("$TAG toggle aqi")
             }
 
@@ -185,5 +223,9 @@ class WildFireMapFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
     }
 }
