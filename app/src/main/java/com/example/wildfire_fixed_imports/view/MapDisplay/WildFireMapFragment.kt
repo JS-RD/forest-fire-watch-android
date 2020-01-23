@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
@@ -18,6 +19,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.android.synthetic.main.app_bar_main.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,15 +94,9 @@ class WildFireMapFragment : Fragment() {
 
 
 
-
-
-
-
-
              /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }
              bottomSheetLayout.setOnProgressListener { progress -> rotateArrow(progress)}*/
         }
-
 
 
         return root

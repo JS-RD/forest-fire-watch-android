@@ -99,6 +99,14 @@
                 android:text="@string/lorem_ipsum"
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp"/>
+
+            <ImageView
+                android:id="@+id/imageViewFireLegend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="24dp"
+                android:src="@drawable/ic_fireicon_bottomsheet"/>
+
         </LinearLayout>
 
 
