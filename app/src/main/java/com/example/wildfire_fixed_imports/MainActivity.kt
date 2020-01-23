@@ -9,17 +9,14 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
-
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,7 +24,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
-import com.example.wildfire_fixed_imports.view.bottomSheet.GetInfoFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -39,7 +35,6 @@ import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -130,20 +125,8 @@ class MainActivity : AppCompatActivity() {
         //check permissions
         initPermissions()
 
-        try {
-            // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-            Timber.i(" $TAG requesting location")
-            val sauce =locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-            CoroutineScope(Dispatchers.IO).launch {
-                getLatestLocation()
 
-            }
-        } catch (ex: SecurityException) {
-            Timber.i("Security Exception, no location available")
-        }
-
-
+        locationInit()
 
 
 
@@ -153,6 +136,34 @@ class MainActivity : AppCompatActivity() {
 
 
     //navigation and interface methods
+
+    fun locationInit() {
+        if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            try {
+                // Request location updates
+
+                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+                Timber.i(" $TAG requesting location")
+                val sauce = locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+                CoroutineScope(Dispatchers.IO).launch {
+                    getLatestLocation()
+
+                }
+            } catch (ex: SecurityException) {
+                Timber.i("Security Exception, no location available")
+            }
+        } else {
+            if (checkSelfPermissionCompat(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                try {
+                    locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+                } catch (ex: SecurityException) {
+                    Timber.i("Security Exception, no location available")
+                }
+            }
+        }
+    }
 
     fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
