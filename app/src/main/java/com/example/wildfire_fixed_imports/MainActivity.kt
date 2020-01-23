@@ -9,12 +9,14 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.animation.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.*
@@ -49,15 +51,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var fab: FloatingActionButton
     private lateinit var layout: View
-    private val TAG:String
+    private val TAG: String
         get() = "$javaClass $methodName"
-    private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: ImageView
-    private lateinit var  fireBSIcon: ImageView
+    private lateinit var arrow: ImageView
+    private lateinit var aqiCloudBSIcon: ImageView
+    private lateinit var fireBSIcon: ImageView
+    private lateinit var cloudBSIcon: ImageView
     private lateinit var bottomSheet: BottomSheetLayout
 
     private var locationManager: LocationManager? = null
-    private lateinit var fusedLocationClient:FusedLocationProviderClient
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
     init {
@@ -70,9 +73,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         applicationLevelProvider.currentActivity = this
         mapViewModel =
-                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                        MapViewModel::class.java
-                )
+            ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                MapViewModel::class.java
+            )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
 
@@ -82,27 +85,33 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
 
-        fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
-        arrow=findViewById(R.id.imageViewArrow)
+        arrow = findViewById(R.id.imageViewArrow)
         aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
-        fireBSIcon=findViewById(R.id.imageViewFire)
-        applicationLevelProvider.arrow=arrow
-        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
-        applicationLevelProvider.fireBSIcon=fireBSIcon
-        bottomSheet =findViewById(R.id.bottomSheetLayout)
-        applicationLevelProvider.bottomSheet=bottomSheet
+        fireBSIcon = findViewById(R.id.imageViewFire)
+        cloudBSIcon = findViewById(R.id.imageViewCloud)
+        applicationLevelProvider.arrow = arrow
+        applicationLevelProvider.aqiCloudBSIcon = aqiCloudBSIcon
+        applicationLevelProvider.fireBSIcon = fireBSIcon
+        //applicationLevelProvider.cloudBSIcon = cloudBSIcon
+        //applicationLevelProvider.cloudBSIcon
+        applicationLevelProvider.fireBSIcon
+        bottomSheet = findViewById(R.id.bottomSheetLayout)
+        applicationLevelProvider.bottomSheet = bottomSheet
         setSupportActionBar(toolbar)
 
 
-
         val bottomSheetObserver = Observer<Float> {
-            if (it ==1f){
-                fireBSIcon.visibility = View.INVISIBLE
-            }
-            else {
-                fireBSIcon.visibility = View.VISIBLE
+
+
+            if (it == 1f) {
+                 imageFadeOutOrIn(fireBSIcon)
+                imageFadeOutOrIn(cloudBSIcon)
+            } else {
+                imageFadeOutOrIn(fireBSIcon)
+                imageFadeOutOrIn(cloudBSIcon)
             }
 
         }
@@ -118,10 +127,10 @@ class MainActivity : AppCompatActivity() {
 
         setUpNav()
 
-        arrow.setOnClickListener{rotateArrow(100f)}
+        arrow.setOnClickListener { rotateArrow(100f) }
         aqiCloudBSIcon.setOnClickListener {
         }
-        fireBSIcon.setOnClickListener{}
+        fireBSIcon.setOnClickListener {}
 
 
         //check permissions
@@ -129,9 +138,19 @@ class MainActivity : AppCompatActivity() {
 
         try {
             // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+            locationManager?.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                0L,
+                0f,
+                locationListener
+            )
             Timber.i(" $TAG requesting location")
-            val sauce =locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+            val sauce = locationManager?.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                0L,
+                0f,
+                locationListener
+            )
             CoroutineScope(Dispatchers.IO).launch {
                 getLatestLocation()
 
@@ -141,13 +160,42 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
     }
 
 
+    private fun imageFadeOutOrIn(img: ImageView) {
+        val fadeOut = AlphaAnimation(1F, 0F)
+        val fadeIn = AlphaAnimation(0F, 1F)
+
+        if (img.isVisible) {
+            fadeOut.setInterpolator(AccelerateInterpolator())
+            fadeOut.setDuration(100)
+
+            fadeOut.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationEnd(animation: Animation) {
+                    img.setVisibility(View.INVISIBLE)
+                }
+
+                override fun onAnimationRepeat(animation: Animation) {}
+                override fun onAnimationStart(animation: Animation) {}
+            })
+            img.startAnimation(fadeOut)
+        }else{
+            fadeIn.setInterpolator(AccelerateInterpolator())
+            fadeOut.setDuration(100)
+
+            fadeIn.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationEnd(animation: Animation) {
+                    img.setVisibility(View.VISIBLE)
+                }
+
+                override fun onAnimationRepeat(animation: Animation) {}
+                override fun onAnimationStart(animation: Animation) {}
+            })
+
+            img.startAnimation(fadeIn)
+        }
+    }
 
 
     //navigation and interface methods
@@ -165,10 +213,10 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
-                        R.id.nav_debug, R.id.nav_share, R.id.nav_send
-                ), drawerLayout
+            setOf(
+                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                R.id.nav_debug, R.id.nav_share, R.id.nav_send
+            ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
@@ -186,18 +234,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-//for grabing location
-    suspend fun getLatestLocation ():Location? {
-    if (applicationLevelProvider.fineLocationPermission) {
-        val locale = fusedLocationClient.lastLocation.await()
-        applicationLevelProvider.userLocation = locale ?: Location("empty")
-        return locale
+    //for grabing location
+    suspend fun getLatestLocation(): Location? {
+        if (applicationLevelProvider.fineLocationPermission) {
+            val locale = fusedLocationClient.lastLocation.await()
+            applicationLevelProvider.userLocation = locale ?: Location("empty")
+            return locale
+        }
+        return null
     }
-    return null
-    }
-
-
 
 
     //for location component
@@ -220,14 +265,14 @@ class MainActivity : AppCompatActivity() {
 
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
-                    .trackingGesturesManagement(true)
-                    .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    .build()
+                .trackingGesturesManagement(true)
+                .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .build()
 
             val locationComponentActivationOptions =
-                    LocationComponentActivationOptions.builder(this, loadedMapStyle)
-                            .locationComponentOptions(customLocationComponentOptions)
-                            .build()
+                LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                    .locationComponentOptions(customLocationComponentOptions)
+                    .build()
 
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
@@ -250,7 +295,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun rotateArrow(progress: Float) {
         arrow.rotation = -180 * progress
         tempFrag()
@@ -260,7 +304,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun tempFrag() {
-        var id =findViewById<FrameLayout>(R.id.fragment_container)
+        var id = findViewById<FrameLayout>(R.id.fragment_container)
         if (id != null) {
 
             // However, if we're being restored from a previous state,
@@ -279,11 +323,10 @@ class MainActivity : AppCompatActivity() {
 
             // Add the fragment to the 'fragment_container' FrameLayout
             supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit()
+                .add(R.id.fragment_container, firstFragment).commit()
         }
 
     }
-
 
 
     //permissions methods
@@ -299,13 +342,17 @@ class MainActivity : AppCompatActivity() {
         Timber.i("init - check internet")
         // Check if the INTERNET permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED
+        ) {
             Timber.i("init - internet already available")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.internetPermission = true
             //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+            applicationLevelProvider.showSnackbar(
+                "Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+                        "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}",
+                Snackbar.LENGTH_SHORT
+            )
 
 
         } else {
@@ -322,11 +369,11 @@ class MainActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             applicationLevelProvider.showSnackbar(
-                    "INTERNET acess is required for this app to function at all.",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "INTERNET acess is required for this app to function at all.",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                        arrayOf(Manifest.permission.INTERNET),
+                    arrayOf(Manifest.permission.INTERNET),
                     MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
@@ -335,7 +382,8 @@ class MainActivity : AppCompatActivity() {
             applicationLevelProvider.showSnackbar("INTERNET not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET),
+            requestPermissionsCompat(
+                arrayOf(Manifest.permission.INTERNET),
                 MY_PERMISSIONS_REQUEST_INTERNET
             )
         }
@@ -346,13 +394,17 @@ class MainActivity : AppCompatActivity() {
         Timber.i("init - check fine location")
         // Check if the Camera permission has been granted
         if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED
+        ) {
             Timber.i("init -  fine location already granted")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.fineLocationPermission = true
             //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+            applicationLevelProvider.showSnackbar(
+                "Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+                        "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}",
+                Snackbar.LENGTH_SHORT
+            )
 
         } else {
             // Permission is missing and must be requested.
@@ -369,20 +421,24 @@ class MainActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             applicationLevelProvider.showSnackbar(
-                    "GPS location data is needed to provide accurate local results",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "GPS location data is needed to provide accurate local results",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissionsCompat(
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
 
         } else {
-            applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
+            applicationLevelProvider.showSnackbar(
+                "Fine Location not available",
+                Snackbar.LENGTH_SHORT
+            )
 
             // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            requestPermissionsCompat(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 MY_PERMISSIONS_REQUEST_FINE_LOCATION
             )
         }
@@ -390,8 +446,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>, grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
     ) {
         Timber.i("on request == before while loop permission: ${permissions.toString()} requestcode: $requestCode grantresults: ${grantResults.toString()} ")
         when (requestCode) {
@@ -400,10 +456,16 @@ class MainActivity : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.fineLocationPermission = true
-                    applicationLevelProvider.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.showSnackbar(
+                        "Fine Location granted successfully",
+                        Snackbar.LENGTH_SHORT
+                    )
                 } else {
                     applicationLevelProvider.fineLocationPermission = false
-                    applicationLevelProvider.showSnackbar("Fine Location not granted", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.showSnackbar(
+                        "Fine Location not granted",
+                        Snackbar.LENGTH_SHORT
+                    )
                 }
                 return
             }
@@ -412,10 +474,16 @@ class MainActivity : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.internetPermission = true
-                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.showSnackbar(
+                        "Internet granted successfully",
+                        Snackbar.LENGTH_SHORT
+                    )
                 } else {
                     applicationLevelProvider.internetPermission = false
-                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.showSnackbar(
+                        "Internet not granted",
+                        Snackbar.LENGTH_SHORT
+                    )
                     //
                     TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
@@ -429,6 +497,62 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
+  /*  private fun animate(
+        imageView: ImageView,
+        images: IntArray,
+        imageIndex: Int,
+        forever: Boolean
+    ) {
+//forever <-- If equals true then after the last image it starts all over again with the first image resulting in an infinite loop. You have been warned.
+        val fadeInDuration = 500L// Configure time values here
+        val timeBetween = 3000
+        val fadeOutDuration = 1000L
+        imageView.setVisibility(View.INVISIBLE) //Visible or invisible by default - this will apply when the animation ends
+        imageView.setImageResource(images[imageIndex])
+        val fadeIn: Animation = AlphaAnimation(0f, 1f)
+        fadeIn.setInterpolator(DecelerateInterpolator()) // add this
+        fadeIn.setDuration(fadeInDuration)
+        val fadeOut: Animation = AlphaAnimation(1f, 0f)
+        fadeOut.setInterpolator(AccelerateInterpolator()) // and this
+        fadeOut.setStartOffset(fadeInDuration + timeBetween)
+        fadeOut.setDuration(fadeOutDuration)
+        val animation = AnimationSet(false) // change to false
+        animation.addAnimation(fadeIn)
+        animation.addAnimation(fadeOut)
+        animation.setRepeatCount(1)
+        imageView.setAnimation(animation)
+        animation.setAnimationListener(object : Animation.AnimationListener() {
+            override fun onAnimationEnd(animation: Animation?) {
+                if (images.size - 1 > imageIndex) {
+                    animate(
+                        imageView,
+                        images,
+                        imageIndex + 1,
+                        forever
+                    ) //Calls itself until it gets to the end of the array
+                } else {
+                    if (forever) {
+                        animate(
+                            imageView,
+                            images,
+                            0,
+                            forever
+                        ) //Calls itself to start the animation all over again in a loop if forever = true
+                    }
+                }
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) { // TODO Auto-generated method stub
+            }
+
+            override fun onAnimationStart(animation: Animation?) { // TODO Auto-generated method stub
+            }
+        })
+    }*/
+
+
 
 
 }

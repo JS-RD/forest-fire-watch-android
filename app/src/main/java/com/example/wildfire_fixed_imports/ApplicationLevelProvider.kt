@@ -148,6 +148,7 @@ val mapViewModelFactory by lazy {
     lateinit var arrow:ImageView
     lateinit var aqiCloudBSIcon:ImageView
     lateinit var fireBSIcon:ImageView
+    //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var internetPermission: Boolean = false
     var initZoom:Boolean =false
