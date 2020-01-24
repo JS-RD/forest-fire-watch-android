@@ -1,17 +1,21 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
-import com.example.wildfire_fixed_imports.zLoc
+
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
@@ -29,16 +33,16 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
-class WildFireMapFragment : zLoc() {
+class WildFireMapFragment : Fragment() {
     // get the correct instance of application level provider
-
+    private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
 
     init {
         //set this fragment as the map fragment in ApplicationLevelProvider
-        applicationLevelProvider.mapFragment = this
+
     }
 
     private lateinit var mapViewModel: MapViewModel
@@ -68,32 +72,178 @@ class WildFireMapFragment : zLoc() {
 
         mapView = root.findViewById(R.id.mapview_main)
         mapView.onCreate(savedInstanceState)
-
-
-        if (applicationLevelProvider.internetPermission &&
-                (applicationLevelProvider.coarseLocationPermission ||
-                        applicationLevelProvider.fineLocationPermission)) {
-            finishLoading()
-            applicationLevelProvider.currentActivity.locationInit()
-        } else {
-            initPermissions()
-        }
-
-
-
-        return root
-    }
-
-    fun finishLoading() {
         mapView.getMapAsync { myMapboxMap ->
             //set the applicationLevelProvider properties to reflect the loaded map
             Timber.i("map loaded async ${System.currentTimeMillis()}")
             applicationLevelProvider.mapboxMap = myMapboxMap
             mapboxMap = myMapboxMap
             applicationLevelProvider.mapboxView = mapView
-            val style = Style.SATELLITE
 
-            myMapboxMap.setStyle(style) {
+
+
+            initPermissions()
+            if (applicationLevelProvider.coarseLocationPermission or
+                    applicationLevelProvider.fineLocationPermission) {
+                finishLoading()
+                Timber.i("First finish loading")
+                applicationLevelProvider.currentActivity.locationInit()
+            } else {
+                initPermissions()
+            }
+        }
+
+
+        return root
+    }
+
+    fun initPermissions() {
+
+        checkFineLocationPermission()
+        checkInternetPermission()
+        checkCoarseLocationPermission()
+        Timber.i("init - initpermissions")
+
+    }
+
+
+    fun checkInternetPermission() {
+        Timber.i("init - check internet")
+        // Check if the INTERNET permission has been granted
+        if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.INTERNET) ==
+                PackageManager.PERMISSION_GRANTED) {
+            Timber.i("init - internet already available")
+            // Permission is already available, set boolean in ApplicationLevelProvider
+            applicationLevelProvider.internetPermission = true
+            //pop snackbar to notify of permissions
+            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+
+
+        } else {
+            // Permission is missing and must be requested.
+            requestInternetPermission()
+        }
+    }
+
+    fun requestInternetPermission() {
+        Timber.i("init - request internet")
+        // Permission has not been granted and must be requested.
+        if (shouldShowRequestPermissionRationale(Manifest.permission.INTERNET)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with a button to request the missing permission.
+            applicationLevelProvider.showSnackbar(
+                    "INTERNET acess is required for this app to function at all.",
+                    Snackbar.LENGTH_INDEFINITE, "OK"
+            ) {
+                requestPermissions(
+                        arrayOf(Manifest.permission.INTERNET),
+                        MY_PERMISSIONS_REQUEST_INTERNET
+                )
+            }
+
+        } else {
+            applicationLevelProvider.showSnackbar("INTERNET not available", Snackbar.LENGTH_SHORT)
+
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            requestPermissions(arrayOf(Manifest.permission.INTERNET),
+                    MY_PERMISSIONS_REQUEST_INTERNET
+            )
+        }
+    }
+
+    fun checkFineLocationPermission() {
+        Timber.i("init - check fine location")
+        // Check if the Camera permission has been granted
+        if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            Timber.i("init -  fine location already granted")
+            // Permission is already available, set boolean in ApplicationLevelProvider
+            applicationLevelProvider.fineLocationPermission = true
+            //pop snackbar to notify of permissions
+            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+
+        } else {
+            // Permission is missing and must be requested.
+            requestFineLocationPermission()
+        }
+    }
+
+    fun checkCoarseLocationPermission() {
+        Timber.i("init - check coarse location")
+        // Check if the Camera permission has been granted
+        if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            Timber.i("init -  coarse location already granted")
+            // Permission is already available, set boolean in ApplicationLevelProvider
+            applicationLevelProvider.coarseLocationPermission = true
+            //pop snackbar to notify of permissions
+            applicationLevelProvider.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
+                    "Fine Location permission: ${applicationLevelProvider.coarseLocationPermission}", Snackbar.LENGTH_SHORT)
+
+        } else {
+            // Permission is missing and must be requested.
+            requestCoarseLocationPermission()
+        }
+    }
+
+    fun requestCoarseLocationPermission() {
+        Timber.i("init - request coarse location")
+        // Permission has not been granted and must be requested.
+        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with a button to request the missing permission.
+            applicationLevelProvider.showSnackbar(
+                    "GPS location data is needed to provide accurate local results",
+                    Snackbar.LENGTH_INDEFINITE, "OK"
+            ) {
+                requestPermissions(
+                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                        MY_PERMISSIONS_COARSE_LOCATION
+                )
+            }
+
+        } else {
+            applicationLevelProvider.showSnackbar("cOARSE Location not available", Snackbar.LENGTH_SHORT)
+
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                    MY_PERMISSIONS_COARSE_LOCATION
+            )
+        }
+    }
+
+    fun requestFineLocationPermission() {
+        Timber.i("init - request fine location")
+        // Permission has not been granted and must be requested.
+        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // Display a SnackBar with a button to request the missing permission.
+            applicationLevelProvider.showSnackbar(
+                    "GPS location data is needed to provide accurate local results",
+                    Snackbar.LENGTH_INDEFINITE, "OK"
+            ) {
+                requestPermissions(
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                )
+            }
+
+        } else {
+            applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
+
+            // Request the permission. The result will be received in onRequestPermissionResult().
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
+            )
+        }
+    }
+    fun finishLoading() {
+        val style = Style.SATELLITE
+        mapboxMap.setStyle(style) {
 
 
                 it.transition = TransitionOptions(0, 0, false)
@@ -166,7 +316,7 @@ class WildFireMapFragment : zLoc() {
             }
 
         }
-    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
