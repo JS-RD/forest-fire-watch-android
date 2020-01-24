@@ -61,5 +61,5 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 ## Documentation
 
-##ScreenShots
+## ScreenShots
 <img src="https://i.imgur.com/X3UNmTP.png"/>
