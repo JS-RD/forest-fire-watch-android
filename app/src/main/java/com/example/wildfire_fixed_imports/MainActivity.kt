@@ -258,7 +258,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun rotateArrow(progress: Float) {
-        arrow.rotation = 180 * progress
+        arrow.rotation = -180 * progress
         bottomSheet.toggle()
         Timber.i("arrow click")
     }
