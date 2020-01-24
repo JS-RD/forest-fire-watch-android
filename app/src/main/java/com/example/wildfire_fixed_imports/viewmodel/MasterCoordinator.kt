@@ -17,7 +17,6 @@ import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
