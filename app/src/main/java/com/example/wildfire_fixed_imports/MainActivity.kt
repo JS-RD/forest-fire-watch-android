@@ -10,9 +10,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
@@ -39,7 +38,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -54,6 +52,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  aqiCloudBSIcon: ImageView
     private lateinit var  fireBSIcon: ImageView
     private lateinit var bottomSheet: BottomSheetLayout
+    private lateinit var topLoginButton: TextView
+    private lateinit var topRegisterButton: TextView
+    private lateinit var topSettingButton: TextView
+
+
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -89,10 +92,21 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
+        topLoginButton = findViewById(R.id.login)
+        topRegisterButton = findViewById(R.id.register_tv)
+        topSettingButton = findViewById(R.id.settings)
 
 
 
-
+        topLoginButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topRegisterButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topSettingButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_settings)
+        }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE

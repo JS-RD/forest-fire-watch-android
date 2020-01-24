@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.WebBEUser
@@ -151,6 +152,10 @@ val mapViewModelFactory by lazy {
     lateinit var arrow:ImageView
     lateinit var aqiCloudBSIcon:ImageView
     lateinit var fireBSIcon:ImageView
+    lateinit var topLoginButton: TextView
+    lateinit var topRegisterButton: TextView
+    lateinit var topSettingButtion: TextView
+
     //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var coarseLocationPermission: Boolean = false
