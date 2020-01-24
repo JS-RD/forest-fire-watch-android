@@ -34,6 +34,7 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import com.mapbox.mapboxsdk.style.layers.Property
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -152,6 +153,10 @@ val mapViewModelFactory by lazy {
     var coarseLocationPermission: Boolean = false
     var internetPermission: Boolean = false
     var initZoom:Boolean =false
+
+    var aqiLayerVisibility = Property.VISIBLE
+    var fireLayerVisibility = Property.VISIBLE
+
 
     lateinit var appMapViewModel: MapViewModel
 
