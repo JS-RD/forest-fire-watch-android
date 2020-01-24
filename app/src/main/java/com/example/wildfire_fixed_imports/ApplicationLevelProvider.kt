@@ -22,9 +22,10 @@ import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
+
+
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -51,7 +52,7 @@ class ApplicationLevelProvider : Application() {
     * bottom line is: using ApplicationLevelProvider, we can minimize objects being needlessly replicated and can further allow classes to painlessly
     * find and communicate with each other.
     *
-    * Instuctions for usee:
+    * Instuctions for use:
     * anywhere you can get a hold of the application class, i.e. within acitivties, fragments or anywhere else within the application,
     * you simply need to:
     *
@@ -71,7 +72,7 @@ class ApplicationLevelProvider : Application() {
     * As of now I'm not seeing why we need koin or dagger with a system like this in place and I don't see where we lose any functionality or
     * speed -- lets see if we can avoid the additional dependency but if issues come up, we'll switch back to another dependency provider library.
     *
-    *
+    * --- >
     * */
 
 

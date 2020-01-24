@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
         arrow=findViewById(R.id.imageViewArrow)
         aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
         fireBSIcon=findViewById(R.id.imageViewFire)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
-        setSupportActionBar(toolbar)
+
 
 
 
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //check permissions
-        initPermissions()
+
 
     }
 

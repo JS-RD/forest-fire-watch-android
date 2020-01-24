@@ -38,7 +38,7 @@ class LoginFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        applicationLevelProvider.hideFab()
+        applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
         return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
 
-        loginViewModel.loginFormState.observe(this,
+   /*     loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
                         return@Observer
@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
                         passwordEditText.error = getString(it)
                     }
                 })
-
+*/
         loginViewModel.loginResult.observe(this,
                 Observer { loginResult ->
                if (loginResult.fail){
@@ -103,9 +103,9 @@ class LoginFragment : Fragment() {
                 )
             }
         }
-        usernameEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.addTextChangedListener(afterTextChangedListener)
-        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
+      //  usernameEditText.addTextChangedListener(afterTextChangedListener)
+     //   passwordEditText.addTextChangedListener(afterTextChangedListener)
+  /*      passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(
                         usernameEditText.text.toString(),
@@ -114,7 +114,7 @@ class LoginFragment : Fragment() {
             }
             false
         }
-
+*/
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
             loginViewModel.login(
@@ -152,5 +152,6 @@ class LoginFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         applicationLevelProvider.showFab()
+        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 }

@@ -115,5 +115,6 @@ class RegistrationFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         applicationLevelProvider.showFab()
+        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 }

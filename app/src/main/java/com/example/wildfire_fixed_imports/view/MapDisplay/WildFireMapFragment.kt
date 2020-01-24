@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
@@ -43,6 +44,11 @@ class WildFireMapFragment : Fragment() {
     init {
         //set this fragment as the map fragment in ApplicationLevelProvider
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 
     private lateinit var mapViewModel: MapViewModel
