@@ -13,6 +13,7 @@
         android:id="@+id/regfrag_et_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="50sp"
         android:layout_margin="16dp"
         android:backgroundTint="@color/colorPrimary"
         android:hint="@string/first_name"
