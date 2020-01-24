@@ -1,17 +1,18 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
+import com.example.wildfire_fixed_imports.zLoc
+import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -28,9 +29,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 
-class WildFireMapFragment : Fragment() {
+class WildFireMapFragment : zLoc() {
     // get the correct instance of application level provider
-    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
@@ -64,8 +64,27 @@ class WildFireMapFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
+
+
         mapView = root.findViewById(R.id.mapview_main)
         mapView.onCreate(savedInstanceState)
+
+
+        if (applicationLevelProvider.internetPermission &&
+                (applicationLevelProvider.coarseLocationPermission ||
+                        applicationLevelProvider.fineLocationPermission)) {
+            finishLoading()
+            applicationLevelProvider.currentActivity.locationInit()
+        } else {
+            initPermissions()
+        }
+
+
+
+        return root
+    }
+
+    fun finishLoading() {
         mapView.getMapAsync { myMapboxMap ->
             //set the applicationLevelProvider properties to reflect the loaded map
             Timber.i("map loaded async ${System.currentTimeMillis()}")
@@ -77,17 +96,16 @@ class WildFireMapFragment : Fragment() {
             myMapboxMap.setStyle(style) {
 
 
-
                 it.transition = TransitionOptions(0, 0, false)
 
                 it.resetIconsForNewStyle()
 
                 applicationLevelProvider.currentActivity.enableLocationComponent(it)
-                applicationLevelProvider.mapboxStyle=it
+                applicationLevelProvider.mapboxStyle = it
 
 
-                val  symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
-                applicationLevelProvider.symbolManager=symbolManager
+                val symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
+                applicationLevelProvider.symbolManager = symbolManager
                 mapViewModel.onMapLoaded()
                 Timber.w("$TAG config")
 
@@ -133,7 +151,7 @@ class WildFireMapFragment : Fragment() {
                         }
                     }
 
-                    for(i in 0..2) {
+                    for (i in 0..2) {
                         val layer: Layer? = style.getLayer("cluster-$i")
                         if (layer != null) {
                             if (VISIBLE == layer.visibility.getValue()) {
@@ -147,18 +165,69 @@ class WildFireMapFragment : Fragment() {
                 Timber.i("$TAG toggle aqi")
             }
 
+        }
+    }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Timber.i("on request == before while loop permission: ${permissions.toString()} requestcode: $requestCode grantresults: ${grantResults.toString()} ")
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_FINE_LOCATION -> {
+                Timber.i("on request == after while loop fine location")
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    applicationLevelProvider.fineLocationPermission = true
+                    applicationLevelProvider.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.currentActivity.locationInit()
+                    finishLoading()
 
+                } else {
+                    applicationLevelProvider.fineLocationPermission = false
+                    applicationLevelProvider.showSnackbar("Fine Location not granted", Snackbar.LENGTH_SHORT)
+                }
+                return
+            }
+            MY_PERMISSIONS_REQUEST_INTERNET -> {
+                Timber.i("on request == after while loop internet")
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    applicationLevelProvider.internetPermission = true
+                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    finishLoading()
+                } else {
+                    applicationLevelProvider.internetPermission = false
+                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    //
+                    TODO("CAUSE APPLICATION TO EXIT HERE")
+                }
+                return
+            }
 
-
-
-            /*imageViewArrow.setOnClickListener { _ -> bottomSheetLayout.toggle() }
-            bottomSheetLayout.setOnProgressListener { progress -> rotateArrow(progress)}*/
+            MY_PERMISSIONS_COARSE_LOCATION -> {
+                Timber.i("on request == after while loop internet")
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    applicationLevelProvider.coarseLocationPermission = true
+                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    applicationLevelProvider.currentActivity.locationInit()
+                    finishLoading()
+                } else {
+                    applicationLevelProvider.coarseLocationPermission = false
+                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    //
+                    TODO("CAUSE APPLICATION TO EXIT HERE")
+                }
+                return
+            }
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                Timber.i("on request == after while loop else")
+                // Ignore all other requests.
+            }
         }
 
 
-
-        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -168,7 +237,6 @@ class WildFireMapFragment : Fragment() {
 
 
     }
-
 
 
 /*    override fun onAttach(context: Context) {

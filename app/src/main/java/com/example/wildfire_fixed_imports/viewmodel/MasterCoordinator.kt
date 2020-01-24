@@ -1,31 +1,26 @@
 package com.example.wildfire_fixed_imports.viewmodel
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Color
+import android.location.Location
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.model.AQIStations
-import com.example.wildfire_fixed_imports.model.AQIdata
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
+import com.example.wildfire_fixed_imports.z_notes_and_txt.zzzz
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import com.mapbox.mapboxsdk.style.layers.BackgroundLayer
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import kotlinx.coroutines.*
-import kotlinx.coroutines.selects.whileSelect
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -221,8 +216,15 @@ var FIREJOBS:Job = Job()
         // 80 will cover the hemisphere you're on (roughly),  will lead to massive drop off of local resolution
         //      50 is the current demo setting as it allows us to explore the us but also see how there may be several aqi stations in your city and many in your
         //                  state
-        val currentLocal = applicationLevelProvider.userLocation.LatLng()
+        //
 
+
+        val zzzz = zzzz(applicationLevelProvider.applicationContext)
+        if (zzzz.check() != null) {
+
+            applicationLevelProvider.userLocation = zzzz.check() as Location
+        }
+        val currentLocal = applicationLevelProvider.userLocation.LatLng()
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,
