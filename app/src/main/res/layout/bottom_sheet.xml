@@ -16,34 +16,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
-            android:src="@drawable/ic_arrow_upward_white_24dp"/>
+            android:src="@drawable/ic_arrow_upward_white_24dp" />
 
         <ImageView
             android:id="@+id/imageViewFire"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="24dp"
-            android:src="@drawable/ic_fireicon_bottomsheet"/>
+            android:src="@drawable/ic_fireicon_bottomsheet" />
 
         <ImageView
             android:id="@+id/imageViewCloud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="24dp"
-            android:src="@drawable/ic_cloudicon_bottomsheet"/>
-
-
-
-        <TextView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="24dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="test"
-            android:textColor="@color/colorAccent"
-            android:textSize="40sp"/>
+            android:padding="24dp"
+            android:src="@drawable/ic_cloudicon_bottomsheet" />
 
 
     </LinearLayout>
@@ -70,6 +59,17 @@ android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FIRE"
+            android:textColor="@color/colorAccent"
+            android:textSize="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewFireLegend"
+            app:layout_constraintTop_toTopOf="@+id/imageViewFireLegend" />
+
         <ImageView
             android:id="@+id/imageViewCloudLegend"
             android:layout_width="wrap_content"
@@ -79,6 +79,17 @@ android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewFireLegend" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AIR QAULITY"
+            android:textColor="@color/colorAccent"
+            android:textSize="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewCloudLegend"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
