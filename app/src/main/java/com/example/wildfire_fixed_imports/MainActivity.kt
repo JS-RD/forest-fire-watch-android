@@ -267,6 +267,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
 /*
     fun tempFrag() {
         var id =findViewById<FrameLayout>(R.id.fragment_container)
