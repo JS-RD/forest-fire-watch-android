@@ -328,8 +328,7 @@ class WildFireMapFragment : Fragment() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.fineLocationPermission = true
                     applicationLevelProvider.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
-                    applicationLevelProvider.currentActivity.locationInit()
-                    finishLoading()
+
 
                 } else {
                     applicationLevelProvider.fineLocationPermission = false
@@ -343,7 +342,7 @@ class WildFireMapFragment : Fragment() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.internetPermission = true
                     applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
-                    finishLoading()
+
                 } else {
                     applicationLevelProvider.internetPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
@@ -359,8 +358,6 @@ class WildFireMapFragment : Fragment() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.coarseLocationPermission = true
                     applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
-                    applicationLevelProvider.currentActivity.locationInit()
-                    finishLoading()
                 } else {
                     applicationLevelProvider.coarseLocationPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
@@ -376,8 +373,8 @@ class WildFireMapFragment : Fragment() {
                 // Ignore all other requests.
             }
         }
-
-
+        applicationLevelProvider.currentActivity.locationInit()
+        finishLoading()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
