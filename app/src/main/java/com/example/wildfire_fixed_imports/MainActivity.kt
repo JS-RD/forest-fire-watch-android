@@ -20,6 +20,7 @@ import androidx.core.view.isInvisible
 
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -40,10 +41,12 @@ import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -62,6 +65,7 @@ class MainActivity : AppCompatActivity() {
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+
 
     init {
 
@@ -104,15 +108,20 @@ class MainActivity : AppCompatActivity() {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE
                 aqiCloudBSIcon.visibility = View.INVISIBLE
+                arrow.setImageResource(R.drawable.ic_arrow_downward_white_24dp)
 
             }
             else {
                 fireBSIcon.visibility = View.VISIBLE
                 aqiCloudBSIcon.visibility =View.VISIBLE
+
+                arrow.setImageResource(R.drawable.ic_arrow_upward_white_24dp)
             }
 
         }
         bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
 
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
@@ -124,7 +133,9 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        arrow.setOnClickListener{rotateArrow(100f)}
+        arrow.setOnClickListener{ bottomSheet.toggle()
+            Timber.i("arrow click")}
+
         aqiCloudBSIcon.setOnClickListener {
         }
         fireBSIcon.setOnClickListener{}
@@ -254,15 +265,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Fine Location not enabled", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-
-    private fun rotateArrow(progress: Float) {
-        arrow.rotation = -180 * progress
-        bottomSheet.toggle()
-        Timber.i("arrow click")
-    }
-
+    
 
 /*
     fun tempFrag() {
