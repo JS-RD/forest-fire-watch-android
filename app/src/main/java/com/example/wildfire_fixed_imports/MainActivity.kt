@@ -103,9 +103,12 @@ class MainActivity : AppCompatActivity() {
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE
+                aqiCloudBSIcon.visibility = View.INVISIBLE
+
             }
             else {
                 fireBSIcon.visibility = View.VISIBLE
+                aqiCloudBSIcon.visibility =View.VISIBLE
             }
 
         }
