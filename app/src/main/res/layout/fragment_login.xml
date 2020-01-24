@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
+    android:background="@color/colorAccent"
     tools:context=".view.loginRegistration.LoginFragment"
     app:layoutDescription="@xml/fragment_login_scene">
 

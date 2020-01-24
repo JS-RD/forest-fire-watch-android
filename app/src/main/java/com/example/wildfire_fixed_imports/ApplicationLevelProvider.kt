@@ -22,8 +22,9 @@ import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.AQIDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.SymbolController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -149,6 +150,7 @@ val mapViewModelFactory by lazy {
     lateinit var arrow:ImageView
     lateinit var aqiCloudBSIcon:ImageView
     lateinit var fireBSIcon:ImageView
+    //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var coarseLocationPermission: Boolean = false
     var internetPermission: Boolean = false

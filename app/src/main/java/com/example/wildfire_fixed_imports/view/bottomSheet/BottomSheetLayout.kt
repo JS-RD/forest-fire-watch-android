@@ -29,12 +29,12 @@ class BottomSheetLayout : FrameLayout {
     private var isScrollingUp: Boolean = false
 
     private var clickListener: OnClickListener? = null
-
+    var animationDuration: Long = 300
     private var fireImageView = findViewById<ImageView>(R.id.imageViewFire)
 
     private var cloudImageView = findViewById<ImageView>(R.id.imageViewCloud)
 
-    var animationDuration: Long = 300
+
 
     override fun setOnClickListener(l: OnClickListener?) {
         clickListener = l
