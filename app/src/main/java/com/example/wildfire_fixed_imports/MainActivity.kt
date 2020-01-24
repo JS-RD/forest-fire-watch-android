@@ -265,7 +265,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Fine Location not enabled", Toast.LENGTH_SHORT).show()
         }
     }
-    
+
 
 /*
     fun tempFrag() {

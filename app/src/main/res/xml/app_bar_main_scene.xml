@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            motion:layout_constraintTop_toTopOf="parent" />
+            motion:layout_constraintBottom_toBottomOf="parent" />
         <Constraint
             android:id="@+id/login"
             motion:layout_constraintEnd_toStartOf="@id/register_tv"
