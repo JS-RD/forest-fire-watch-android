@@ -4,7 +4,9 @@
     package="com.example.wildfire_fixed_imports">
     <uses-permission android:name="android.permission.INTERNET" android:required="true" />
     <uses-permission android:name="android.hardwar.ACCESS_FINE_LOCATION" android:requiredFeature="false" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"  android:requiredFeature="false" />
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:requiredFeature="true" />
 
     <application
 
