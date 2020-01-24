@@ -19,6 +19,7 @@
             android:src="@drawable/ic_arrow_upward_white_24dp" />
 
         <ImageView
+            android:elevation="11dp"
             android:id="@+id/imageViewFire"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
 
         <ImageView
             android:id="@+id/imageViewCloud"
+            android:elevation="11dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
