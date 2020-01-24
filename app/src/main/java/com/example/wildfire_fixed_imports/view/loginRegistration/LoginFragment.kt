@@ -1,9 +1,5 @@
 package com.example.wildfire_fixed_imports.view.loginRegistration
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,11 +11,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.hideFab
 import com.example.wildfire_fixed_imports.util.showFab
 import com.example.wildfire_fixed_imports.util.showSnackbar
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
@@ -58,7 +56,7 @@ class LoginFragment : Fragment() {
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
 
-   /*     loginViewModel.loginFormState.observe(this,
+        loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
                         return@Observer
@@ -71,7 +69,7 @@ class LoginFragment : Fragment() {
                         passwordEditText.error = getString(it)
                     }
                 })
-*/
+
         loginViewModel.loginResult.observe(this,
                 Observer { loginResult ->
                if (loginResult.fail){
@@ -84,6 +82,8 @@ class LoginFragment : Fragment() {
                     else if (loginResult.firebase) {
                    applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
                    loginViewModel.loginWeb()
+               } else {
+                   applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
                }
                 })
 
@@ -103,9 +103,9 @@ class LoginFragment : Fragment() {
                 )
             }
         }
-      //  usernameEditText.addTextChangedListener(afterTextChangedListener)
-     //   passwordEditText.addTextChangedListener(afterTextChangedListener)
-  /*      passwordEditText.setOnEditorActionListener { _, actionId, _ ->
+        usernameEditText.addTextChangedListener(afterTextChangedListener)
+        passwordEditText.addTextChangedListener(afterTextChangedListener)
+        passwordEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(
                         usernameEditText.text.toString(),
@@ -114,7 +114,7 @@ class LoginFragment : Fragment() {
             }
             false
         }
-*/
+
         loginButton.setOnClickListener {
             loadingProgressBar.visibility = View.VISIBLE
             loginViewModel.login(
