@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
@@ -150,8 +151,8 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-    lateinit var aqiCloudBSIcon:ImageView
-    lateinit var fireBSIcon:ImageView
+    lateinit var aqiCloudBSIcon:Switch
+    lateinit var fireBSIcon:Switch
     lateinit var topLoginButton: TextView
     lateinit var topRegisterButton: TextView
     lateinit var topSettingButtion: TextView

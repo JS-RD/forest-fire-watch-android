@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: ImageView
-    private lateinit var  fireBSIcon: ImageView
+    private lateinit var  aqiCloudBSIcon: Switch
+    private lateinit var  fireBSIcon: Switch
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var topLoginButton: TextView
     private lateinit var topRegisterButton: TextView
@@ -85,8 +86,8 @@ class MainActivity : AppCompatActivity() {
         //set up toolbar
 
         arrow=findViewById(R.id.imageViewArrow)
-        aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
-        fireBSIcon=findViewById(R.id.imageViewFire)
+        aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
+        fireBSIcon=findViewById(R.id.switchImageViewFire)
         applicationLevelProvider.arrow=arrow
         applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
         applicationLevelProvider.fireBSIcon=fireBSIcon
@@ -111,14 +112,14 @@ class MainActivity : AppCompatActivity() {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE
                 aqiCloudBSIcon.visibility = View.INVISIBLE
-                arrow.setImageResource(R.drawable.ic_arrow_downward_white_24dp)
+                arrow.setImageResource(R.drawable.ic_arrow_drop_down)
 
             }
             else {
                 fireBSIcon.visibility = View.VISIBLE
                 aqiCloudBSIcon.visibility =View.VISIBLE
 
-                arrow.setImageResource(R.drawable.ic_arrow_upward_white_24dp)
+                arrow.setImageResource(R.drawable.ic_arrow_drop_up)
             }
 
         }
