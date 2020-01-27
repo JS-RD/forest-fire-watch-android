@@ -76,6 +76,9 @@ fun createLayers(loadedMapStyle: Style) {
             PropertyFactory.circleColor(Color.parseColor("#FBB03B")),
             PropertyFactory.circleRadius(20f),
             PropertyFactory.circleBlur(1f))
+
+
+
     unclustered.setFilter(Expression.neq(Expression.get("cluster"), Expression.literal(true)))
 
     loadedMapStyle.addLayerBelow(unclustered, "building")
