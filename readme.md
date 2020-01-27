@@ -10,6 +10,8 @@ Additional technical Documentation can be found here at
 [https://github.com/Lambda-School-Labs/forest-fire-watch-android/blob/master/app_documentation.md](https://github.com/Lambda-School-Labs/forest-fire-watch-android/blob/master/app_documentation.md)
  as well as through the app
 
+
+[https://sketchboard.me/TBW0hRd1TSJL#](Sketchboard.me) 
 ## Contributors
 
 |                                      [Jack Seymour](https://github.com/stilljack)                                      |                                         [Ronnie Dipple](https://github.com/RonnieDipple)                                         | 
@@ -61,5 +63,5 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 ## Documentation
 
-##ScreenShots
-<img src="https://i.imgur.com/X3UNmTP.png"/>](https://github.com/RonnieDipple)
+## ScreenShots
+<img src="https://i.imgur.com/X3UNmTP.png"/>
