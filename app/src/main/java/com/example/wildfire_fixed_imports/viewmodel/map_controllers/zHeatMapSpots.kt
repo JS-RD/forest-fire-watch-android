@@ -47,7 +47,10 @@ class zHeatMapSpots {
             // Use the earthquakes source to create four layers:
 // three for each cluster category, and one for unclustered points
 // Each point range gets a different fill color.
-            val layers = arrayOf(intArrayOf(150, Color.parseColor("#E55E5E")), intArrayOf(20, Color.parseColor("#F9886C")), intArrayOf(0, Color.parseColor("#FBB03B")))
+
+            val layers = arrayOf(intArrayOf(150, Color.parseColor("#E55E5E")),
+                    intArrayOf(20, Color.parseColor("#F9886C")),
+                    intArrayOf(0, Color.parseColor("#FBB03B")))
             val unclustered = CircleLayer("unclustered-points", "earthquakes")
             unclustered.setProperties(
                     PropertyFactory.circleColor(Color.parseColor("#FBB03B")),
