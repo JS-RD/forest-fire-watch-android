@@ -1,7 +1,7 @@
 package com.example.wildfire_fixed_imports.viewmodel
 
 import android.app.Activity
-import android.location.Location
+
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
@@ -15,8 +15,8 @@ import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.example.wildfire_fixed_imports.z_notes_and_txt.zzzz
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
@@ -219,12 +219,11 @@ var FIREJOBS:Job = Job()
         //
 
 
-        val zzzz = zzzz(applicationLevelProvider.applicationContext)
-        if (zzzz.check() != null) {
-
-            applicationLevelProvider.userLocation = zzzz.check() as Location
-        }
-        val currentLocal = applicationLevelProvider.userLocation.LatLng()
+        val currentLocal = applicationLevelProvider.userLocation?.LatLng()
+                ?: LatLng(20.0, 20.0).also {
+                    Toast.makeText(applicationLevelProvider.currentActivity,
+                            "Something went wrong when finding your location, please enable GPS in your application settings", Toast.LENGTH_SHORT).show()
+                }
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,

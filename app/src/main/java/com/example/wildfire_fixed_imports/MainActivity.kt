@@ -24,6 +24,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
+import com.example.wildfire_fixed_imports.z_notes_and_txt.locationFinder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -226,12 +227,19 @@ class MainActivity : AppCompatActivity() {
 
 
     //for grabing location
-    suspend fun getLatestLocation ():Location? {
-        if (applicationLevelProvider.fineLocationPermission) {
-            val locale = fusedLocationClient.lastLocation.await()
-            applicationLevelProvider.userLocation = locale ?: Location("empty")
-            return locale
+    fun getLatestLocation(): Location? {
+
+        val localationFinder = locationFinder(this)
+        val result = localationFinder.check()
+        if (result != null) {
+            return result
         }
+        /* else {
+             if (applicationLevelProvider.fineLocationPermission) {
+                 val locale = fusedLocationClient.lastLocation
+                 return locale
+             }
+         }*/
         return null
     }
 
@@ -242,7 +250,6 @@ class MainActivity : AppCompatActivity() {
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             Timber.i("location log" + location.longitude + ":" + location.latitude)
-            applicationLevelProvider.userLocation = location
 
         }
 

@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports
 
+
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -25,8 +26,6 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSCon
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
-
-
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -171,7 +170,7 @@ val mapViewModelFactory by lazy {
     lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
-    lateinit var userLocation: Location
+    val userLocation: Location? get() = currentActivity.getLatestLocation()
 
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 

@@ -1,32 +1,5 @@
 package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
-import android.content.Context
-import android.graphics.*
-import android.os.AsyncTask
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.mapbox.geojson.Feature
-import com.mapbox.geojson.FeatureCollection
-import com.mapbox.mapboxsdk.Mapbox
-import com.mapbox.mapboxsdk.annotations.BubbleLayout
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.MapboxMap.OnMapClickListener
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
-import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.style.expressions.Expression
-import com.mapbox.mapboxsdk.style.layers.Property
-import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.layers.SymbolLayer
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import java.lang.ref.WeakReference
-import java.nio.charset.Charset
-import java.util.*
 /*
 
 this code is from the sdk examples for android, should contain code we can adapt to
@@ -39,8 +12,8 @@ show detailed AQIdata for each aqi station on click.
 /**
  * Use a SymbolLayer to show a BubbleLayout above a SymbolLayer icon. This is a more performant
  * way to show the BubbleLayout that appears when using the MapboxMap.addMarker() method.
- *//*
-
+ */
+/*
 class InfoWindowSymbolLayerActivity : AppCompatActivity(), OnMapReadyCallback, OnMapClickListener {
     private var mapView: MapView? = null
     private var mapboxMap: MapboxMap? = null
