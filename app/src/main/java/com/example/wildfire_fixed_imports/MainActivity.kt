@@ -10,9 +10,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
@@ -53,6 +52,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  aqiCloudBSIcon: ImageView
     private lateinit var  fireBSIcon: ImageView
     private lateinit var bottomSheet: BottomSheetLayout
+    private lateinit var topLoginButton: TextView
+    private lateinit var topRegisterButton: TextView
+    private lateinit var topSettingButton: TextView
+
+
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
         arrow=findViewById(R.id.imageViewArrow)
         aqiCloudBSIcon = findViewById(R.id.imageViewCloud)
         fireBSIcon=findViewById(R.id.imageViewFire)
@@ -88,20 +92,39 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
-        setSupportActionBar(toolbar)
+        topLoginButton = findViewById(R.id.login)
+        topRegisterButton = findViewById(R.id.register_tv)
+        topSettingButton = findViewById(R.id.settings)
 
 
 
+        topLoginButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topRegisterButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topSettingButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_settings)
+        }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE
+                aqiCloudBSIcon.visibility = View.INVISIBLE
+                arrow.setImageResource(R.drawable.ic_arrow_downward_white_24dp)
+
             }
             else {
                 fireBSIcon.visibility = View.VISIBLE
+                aqiCloudBSIcon.visibility =View.VISIBLE
+
+                arrow.setImageResource(R.drawable.ic_arrow_upward_white_24dp)
             }
 
         }
         bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
 
         //floating action button, can be removed.
         fab = findViewById(R.id.fab)
@@ -113,7 +136,9 @@ class MainActivity : AppCompatActivity() {
 
         setUpNav()
 
-        arrow.setOnClickListener{rotateArrow(100f)}
+        arrow.setOnClickListener{ bottomSheet.toggle()
+            Timber.i("arrow click")}
+
         aqiCloudBSIcon.setOnClickListener {
         }
         fireBSIcon.setOnClickListener{}
@@ -160,6 +185,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+
+    //navigation and interface methods
+
     fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
     }
@@ -173,12 +203,12 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
-                        R.id.nav_debug, R.id.nav_share, R.id.nav_send
-                ), drawerLayout
+            setOf(
+                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                R.id.nav_debug, R.id.nav_share, R.id.nav_send
+            ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
     }
 
@@ -195,14 +225,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
-//for grabing location
+    //for grabing location
     suspend fun getLatestLocation ():Location? {
-    if (applicationLevelProvider.fineLocationPermission) {
-        val locale = fusedLocationClient.lastLocation.await()
-        applicationLevelProvider.userLocation = locale ?: Location("empty")
-        return locale
-    }
-    return null
+        if (applicationLevelProvider.fineLocationPermission) {
+            val locale = fusedLocationClient.lastLocation.await()
+            applicationLevelProvider.userLocation = locale ?: Location("empty")
+            return locale
+        }
+        return null
     }
 
 
@@ -228,14 +258,14 @@ class MainActivity : AppCompatActivity() {
 
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
-                    .trackingGesturesManagement(true)
-                    .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                    .build()
+                .trackingGesturesManagement(true)
+                .accuracyColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .build()
 
             val locationComponentActivationOptions =
-                    LocationComponentActivationOptions.builder(this, loadedMapStyle)
-                            .locationComponentOptions(customLocationComponentOptions)
-                            .build()
+                LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                    .locationComponentOptions(customLocationComponentOptions)
+                    .build()
 
 // Get an instance of the LocationComponent and then adjust its settings
             applicationLevelProvider.mapboxMap.locationComponent.apply {
@@ -270,7 +300,6 @@ class MainActivity : AppCompatActivity() {
     fun tempFrag() {
         var id =findViewById<FrameLayout>(R.id.fragment_container)
         if (id != null) {
-
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
@@ -279,19 +308,15 @@ class MainActivity : AppCompatActivity() {
                      return;
                  }
      *//*
-
             // Create a new Fragment to be placed in the activity layout
             val firstFragment = GetInfoFragment()
-
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
             // firstFragment.arguments = intent.extras
-
             // Add the fragment to the 'fragment_container' FrameLayout
             supportFragmentManager.beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit()
         }
-
     }
 */
 
@@ -301,8 +326,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<String>, grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
     ) {
         Timber.i("on request == before while loop permission: ${permissions.toString()} requestcode: $requestCode grantresults: ${grantResults.toString()} ")
         when (requestCode) {
@@ -365,20 +390,12 @@ class MainActivity : AppCompatActivity() {
 *
     var permissionsListener: PermissionsListener = object : PermissionsListener {
         override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-
         }
-
         override fun onPermissionResult(granted: Boolean) {
             if (granted) {
-
                 // Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
-
-
             } else {
-
                 // User denied the permission
-
-
             }
         }
     }
@@ -392,7 +409,6 @@ class MainActivity : AppCompatActivity() {
             )
             != PackageManager.PERMISSION_GRANTED
         ) {
-
             // Permission is not granted
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
@@ -410,7 +426,6 @@ class MainActivity : AppCompatActivity() {
                     arrayOf(Manifest.permission.READ_CONTACTS),
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
-
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
@@ -418,27 +433,19 @@ class MainActivity : AppCompatActivity() {
         } else {
             // Permission has already been granted
         }
-
     }
 *
 *     var permissionsManager = PermissionsManager()
-
     if (PermissionsManager.areLocationPermissionsGranted(this)) {
-
 // Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
-
-
-
     } else {
         permissionsManager = PermissionsManager(this)
         permissionsManager.requestLocationPermissions(this)
     }
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
                                             grantResults: IntArray) {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
 }
 * */
 
@@ -467,8 +474,5 @@ class MainActivity : AppCompatActivity() {
             println(fragment2)
        *//*  //   println(fragment2!!.tag)
             println(fragment2.id)
-
             *//*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()*/
-*
-* */

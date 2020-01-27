@@ -10,17 +10,20 @@
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
+    android:background="@color/colorAccent"
     tools:context=".view.loginRegistration.LoginFragment"
     app:layoutDescription="@xml/fragment_login_scene">
 
     <EditText
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:id="@+id/says_username"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="24dp"
+        android:textSize="20sp"
         android:autofillHints="@string/prompt_email"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
@@ -30,9 +33,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
         android:id="@+id/password"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"

@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports.view.MapDisplay
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
@@ -15,7 +16,6 @@ import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
-
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
@@ -23,6 +23,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.style.layers.Layer
+import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
@@ -43,6 +44,11 @@ class WildFireMapFragment : Fragment() {
     init {
         //set this fragment as the map fragment in ApplicationLevelProvider
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 
     private lateinit var mapViewModel: MapViewModel
@@ -95,6 +101,95 @@ class WildFireMapFragment : Fragment() {
 
         return root
     }
+
+    fun finishLoading() {
+        val style = Style.SATELLITE
+        mapboxMap.setStyle(style) {
+
+
+            it.transition = TransitionOptions(0, 0, false)
+
+            it.resetIconsForNewStyle()
+
+            applicationLevelProvider.currentActivity.enableLocationComponent(it)
+            applicationLevelProvider.mapboxStyle = it
+
+
+            val symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
+            applicationLevelProvider.symbolManager = symbolManager
+            mapViewModel.onMapLoaded()
+            Timber.w("$TAG config")
+
+            // start the fire service/immediately to start retrieving fires
+            CoroutineScope(Dispatchers.IO).launch {
+                mapViewModel.startFireRetrieval()
+                mapViewModel.startAQIRetrieval()
+            }
+
+        }
+
+        applicationLevelProvider.fireBSIcon.setOnClickListener {
+            fireToggleButtonOnClick()
+        }
+        applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
+            aqiToggleButtonOnClick()
+        }
+
+    }
+
+    fun fireToggleButtonOnClick() {
+        mapboxMap.getStyle { style ->
+            val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
+            if (layer != null) {
+                if (VISIBLE == layer.visibility.getValue()) {
+                    layer.setProperties(visibility(NONE))
+                    applicationLevelProvider.fireLayerVisibility = Property.NONE
+                } else {
+                    layer.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.fireLayerVisibility = Property.VISIBLE
+                }
+            }
+        }
+        mapViewModel.toggleFireRetrieval()
+        Timber.i("$TAG toggle fire")
+    }
+
+    fun aqiToggleButtonOnClick() {
+        mapViewModel.toggleAQIRetrieval()
+        mapboxMap.getStyle { style ->
+            val layer: Layer? = style.getLayer("count")
+            if (layer != null) {
+                if (VISIBLE == layer.visibility.getValue()) {
+                    layer.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiLayerVisibility = Property.NONE
+                } else {
+                    layer.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiLayerVisibility = Property.VISIBLE
+                }
+            }
+            val layer1: Layer? = style.getLayer("unclustered-aqi-points")
+            if (layer1 != null) {
+                if (VISIBLE == layer1.visibility.getValue()) {
+                    layer1.setProperties(visibility(NONE))
+                } else {
+                    layer1.setProperties(visibility(VISIBLE))
+                }
+            }
+
+            for (i in 0..2) {
+                val layer: Layer? = style.getLayer("cluster-$i")
+                if (layer != null) {
+                    if (VISIBLE == layer.visibility.getValue()) {
+                        layer.setProperties(visibility(NONE))
+                    } else {
+                        layer.setProperties(visibility(VISIBLE))
+                    }
+                }
+            }
+        }
+        Timber.i("$TAG toggle aqi")
+    }
+
 
     fun initPermissions() {
 
@@ -241,81 +336,6 @@ class WildFireMapFragment : Fragment() {
             )
         }
     }
-    fun finishLoading() {
-        val style = Style.SATELLITE
-        mapboxMap.setStyle(style) {
-
-
-                it.transition = TransitionOptions(0, 0, false)
-
-                it.resetIconsForNewStyle()
-
-                applicationLevelProvider.currentActivity.enableLocationComponent(it)
-                applicationLevelProvider.mapboxStyle = it
-
-
-                val symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
-                applicationLevelProvider.symbolManager = symbolManager
-                mapViewModel.onMapLoaded()
-                Timber.w("$TAG config")
-
-                // start the fire service/immediately to start retrieving fires
-                CoroutineScope(Dispatchers.IO).launch {
-                    mapViewModel.startFireRetrieval()
-                    mapViewModel.startAQIRetrieval()
-                }
-
-            }
-
-            applicationLevelProvider.fireBSIcon.setOnClickListener {
-                mapboxMap.getStyle { style ->
-                    val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
-                    if (layer != null) {
-                        if (VISIBLE == layer.visibility.getValue()) {
-                            layer.setProperties(visibility(NONE))
-                        } else {
-                            layer.setProperties(visibility(VISIBLE))
-                        }
-                    }
-                }
-                mapViewModel.toggleFireRetrieval()
-                Timber.i("$TAG toggle fire")
-            }
-            applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
-                mapViewModel.toggleAQIRetrieval()
-                mapboxMap.getStyle { style ->
-                    val layer: Layer? = style.getLayer("count")
-                    if (layer != null) {
-                        if (VISIBLE == layer.visibility.getValue()) {
-                            layer.setProperties(visibility(NONE))
-                        } else {
-                            layer.setProperties(visibility(VISIBLE))
-                        }
-                    }
-                    val layer1: Layer? = style.getLayer("unclustered-aqi-points")
-                    if (layer1 != null) {
-                        if (VISIBLE == layer1.visibility.getValue()) {
-                            layer1.setProperties(visibility(NONE))
-                        } else {
-                            layer1.setProperties(visibility(VISIBLE))
-                        }
-                    }
-
-                    for (i in 0..2) {
-                        val layer: Layer? = style.getLayer("cluster-$i")
-                        if (layer != null) {
-                            if (VISIBLE == layer.visibility.getValue()) {
-                                layer.setProperties(visibility(NONE))
-                            } else {
-                                layer.setProperties(visibility(VISIBLE))
-                            }
-                        }
-                    }
-                }
-                Timber.i("$TAG toggle aqi")
-            }
-
-        }
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
