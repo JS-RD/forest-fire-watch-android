@@ -1,9 +1,5 @@
 package com.example.wildfire_fixed_imports.view.loginRegistration
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,11 +11,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.hideFab
 import com.example.wildfire_fixed_imports.util.showFab
 import com.example.wildfire_fixed_imports.util.showSnackbar
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
@@ -38,7 +36,7 @@ class LoginFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        applicationLevelProvider.hideFab()
+        applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
         return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
@@ -84,6 +82,8 @@ class LoginFragment : Fragment() {
                     else if (loginResult.firebase) {
                    applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
                    loginViewModel.loginWeb()
+               } else {
+                   applicationLevelProvider.showSnackbar(loginResult.message, Snackbar.LENGTH_SHORT)
                }
                 })
 
@@ -152,5 +152,6 @@ class LoginFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         applicationLevelProvider.showFab()
+        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 }

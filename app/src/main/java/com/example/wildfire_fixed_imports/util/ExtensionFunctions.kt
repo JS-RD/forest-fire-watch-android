@@ -11,7 +11,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar

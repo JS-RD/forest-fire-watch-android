@@ -6,24 +6,27 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.NonNull
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
+import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
-import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
+
+
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -34,6 +37,7 @@ import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import com.mapbox.mapboxsdk.style.layers.Property
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -49,7 +53,7 @@ class ApplicationLevelProvider : Application() {
     * bottom line is: using ApplicationLevelProvider, we can minimize objects being needlessly replicated and can further allow classes to painlessly
     * find and communicate with each other.
     *
-    * Instuctions for usee:
+    * Instuctions for use:
     * anywhere you can get a hold of the application class, i.e. within acitivties, fragments or anywhere else within the application,
     * you simply need to:
     *
@@ -69,7 +73,7 @@ class ApplicationLevelProvider : Application() {
     * As of now I'm not seeing why we need koin or dagger with a system like this in place and I don't see where we lose any functionality or
     * speed -- lets see if we can avoid the additional dependency but if issues come up, we'll switch back to another dependency provider library.
     *
-    *
+    * --- >
     * */
 
 
@@ -148,10 +152,19 @@ val mapViewModelFactory by lazy {
     lateinit var arrow:ImageView
     lateinit var aqiCloudBSIcon:ImageView
     lateinit var fireBSIcon:ImageView
+    lateinit var topLoginButton: TextView
+    lateinit var topRegisterButton: TextView
+    lateinit var topSettingButtion: TextView
+
     //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
+    var coarseLocationPermission: Boolean = false
     var internetPermission: Boolean = false
     var initZoom:Boolean =false
+
+    var aqiLayerVisibility = Property.VISIBLE
+    var fireLayerVisibility = Property.VISIBLE
+
 
     lateinit var appMapViewModel: MapViewModel
 

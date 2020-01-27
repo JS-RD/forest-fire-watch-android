@@ -9,26 +9,20 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
-
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.*
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
-import com.example.wildfire_fixed_imports.view.bottomSheet.GetInfoFragment
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -40,13 +34,10 @@ import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,15 +52,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  aqiCloudBSIcon: ImageView
     private lateinit var  fireBSIcon: ImageView
     private lateinit var bottomSheet: BottomSheetLayout
+    private lateinit var topLoginButton: TextView
+    private lateinit var topRegisterButton: TextView
+    private lateinit var topSettingButton: TextView
+
+
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
-    val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-
-    init {
-
-    }
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,9 +69,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         applicationLevelProvider.currentActivity = this
         mapViewModel =
-            ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                MapViewModel::class.java
-            )
+                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                        MapViewModel::class.java
+                )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
 
@@ -100,10 +92,21 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
+        topLoginButton = findViewById(R.id.login)
+        topRegisterButton = findViewById(R.id.register_tv)
+        topSettingButton = findViewById(R.id.settings)
 
 
 
-
+        topLoginButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topRegisterButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_login_register)
+        }
+        topSettingButton.setOnClickListener {
+            findNavController(R.id.login).navigate(R.id.nav_settings)
+        }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
                 fireBSIcon.visibility = View.INVISIBLE
@@ -131,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         setFabOnclick(lambda)
 
 
-
+        setUpNav()
 
         arrow.setOnClickListener{ bottomSheet.toggle()
             Timber.i("arrow click")}
@@ -142,26 +145,44 @@ class MainActivity : AppCompatActivity() {
 
 
         //check permissions
-        initPermissions()
 
-        try {
-            // Request location updates
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-            Timber.i(" $TAG requesting location")
-            val sauce =locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-            CoroutineScope(Dispatchers.IO).launch {
-                getLatestLocation()
 
+    }
+
+
+
+    //navigation and interface methods
+
+    fun locationInit() {
+        if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            try {
+                // Request location updates
+
+                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+                Timber.i(" $TAG requesting location")
+                val sauce = locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
+                CoroutineScope(Dispatchers.IO).launch {
+                    getLatestLocation()
+
+                }
+            } catch (ex: SecurityException) {
+                Timber.i("Security Exception, no location available")
             }
-        } catch (ex: SecurityException) {
-            Timber.i("Security Exception, no location available")
+        } else {
+            if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                try {
+                    locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        getLatestLocation()
+
+                    }
+                } catch (ex: SecurityException) {
+                    Timber.i("Security Exception, no location available")
+                }
+            }
         }
-
-
-
-
-
-
     }
 
 
@@ -187,7 +208,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_debug, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
-        
+
         navView.setupWithNavController(navController)
     }
 
@@ -268,6 +289,13 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    private fun rotateArrow(progress: Float) {
+        arrow.rotation = 180 * progress
+        bottomSheet.toggle()
+        Timber.i("arrow click")
+    }
+
+
 /*
     fun tempFrag() {
         var id =findViewById<FrameLayout>(R.id.fragment_container)
@@ -295,106 +323,6 @@ class MainActivity : AppCompatActivity() {
 
 
     //permissions methods
-    private fun initPermissions() {
-        if (!applicationLevelProvider.internetPermission) {
-            checkFineLocationPermission()
-            checkInternetPermission()
-            Timber.i("init - initpermissions")
-        }
-    }
-
-    private fun checkInternetPermission() {
-        Timber.i("init - check internet")
-        // Check if the INTERNET permission has been granted
-        if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
-            PackageManager.PERMISSION_GRANTED) {
-            Timber.i("init - internet already available")
-            // Permission is already available, set boolean in ApplicationLevelProvider
-            applicationLevelProvider.internetPermission = true
-            //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
-
-
-        } else {
-            // Permission is missing and must be requested.
-            requestInternetPermission()
-        }
-    }
-
-    private fun requestInternetPermission() {
-        Timber.i("init - request internet")
-        // Permission has not been granted and must be requested.
-        if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.INTERNET)) {
-            // Provide an additional rationale to the user if the permission was not granted
-            // and the user would benefit from additional context for the use of the permission.
-            // Display a SnackBar with a button to request the missing permission.
-            applicationLevelProvider.showSnackbar(
-                "INTERNET acess is required for this app to function at all.",
-                Snackbar.LENGTH_INDEFINITE, "OK"
-            ) {
-                requestPermissionsCompat(
-                    arrayOf(Manifest.permission.INTERNET),
-                    MY_PERMISSIONS_REQUEST_INTERNET
-                )
-            }
-
-        } else {
-            applicationLevelProvider.showSnackbar("INTERNET not available", Snackbar.LENGTH_SHORT)
-
-            // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.INTERNET),
-                MY_PERMISSIONS_REQUEST_INTERNET
-            )
-        }
-    }
-
-
-    private fun checkFineLocationPermission() {
-        Timber.i("init - check fine location")
-        // Check if the Camera permission has been granted
-        if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED) {
-            Timber.i("init -  fine location already granted")
-            // Permission is already available, set boolean in ApplicationLevelProvider
-            applicationLevelProvider.fineLocationPermission = true
-            //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
-
-        } else {
-            // Permission is missing and must be requested.
-            requestFineLocationPermission()
-        }
-    }
-
-
-    private fun requestFineLocationPermission() {
-        Timber.i("init - request fine location")
-        // Permission has not been granted and must be requested.
-        if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // Provide an additional rationale to the user if the permission was not granted
-            // and the user would benefit from additional context for the use of the permission.
-            // Display a SnackBar with a button to request the missing permission.
-            applicationLevelProvider.showSnackbar(
-                "GPS location data is needed to provide accurate local results",
-                Snackbar.LENGTH_INDEFINITE, "OK"
-            ) {
-                requestPermissionsCompat(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
-                )
-            }
-
-        } else {
-            applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
-
-            // Request the permission. The result will be received in onRequestPermissionResult().
-            requestPermissionsCompat(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_FINE_LOCATION
-            )
-        }
-    }
 
 
     override fun onRequestPermissionsResult(
@@ -423,6 +351,21 @@ class MainActivity : AppCompatActivity() {
                     applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
                 } else {
                     applicationLevelProvider.internetPermission = false
+                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    //
+                    TODO("CAUSE APPLICATION TO EXIT HERE")
+                }
+                return
+            }
+
+            MY_PERMISSIONS_COARSE_LOCATION -> {
+                Timber.i("on request == after while loop internet")
+                // If request is cancelled, the result arrays are empty.
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    applicationLevelProvider.coarseLocationPermission = true
+                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                } else {
+                    applicationLevelProvider.coarseLocationPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
                     TODO("CAUSE APPLICATION TO EXIT HERE")
