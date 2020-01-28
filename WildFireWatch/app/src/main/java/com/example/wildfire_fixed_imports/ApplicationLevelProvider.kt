@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
@@ -151,8 +152,8 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-    lateinit var aqiCloudBSIcon:Switch
-    lateinit var fireBSIcon:Switch
+    lateinit var aqiCloudBSIcon:SwitchCompat
+    lateinit var fireBSIcon:SwitchCompat
     lateinit var topLoginButton: TextView
     lateinit var topRegisterButton: TextView
     lateinit var topSettingButtion: TextView

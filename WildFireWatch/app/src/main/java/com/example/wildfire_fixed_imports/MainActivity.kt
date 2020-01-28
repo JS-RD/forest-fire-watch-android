@@ -14,6 +14,7 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -50,8 +51,8 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: Switch
-    private lateinit var  fireBSIcon: Switch
+    private lateinit var  aqiCloudBSIcon: SwitchCompat
+    private lateinit var  fireBSIcon: SwitchCompat
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var topLoginButton: TextView
     private lateinit var topRegisterButton: TextView
@@ -110,14 +111,14 @@ class MainActivity : AppCompatActivity() {
         }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
-                fireBSIcon.visibility = View.INVISIBLE
-                aqiCloudBSIcon.visibility = View.INVISIBLE
+              //  fireBSIcon.visibility = View.INVISIBLE
+               // aqiCloudBSIcon.visibility = View.INVISIBLE
                 arrow.setImageResource(R.drawable.ic_arrow_drop_down)
 
             }
             else {
-                fireBSIcon.visibility = View.VISIBLE
-                aqiCloudBSIcon.visibility =View.VISIBLE
+                //fireBSIcon.visibility = View.VISIBLE
+               // aqiCloudBSIcon.visibility =View.VISIBLE
 
                 arrow.setImageResource(R.drawable.ic_arrow_drop_up)
             }
