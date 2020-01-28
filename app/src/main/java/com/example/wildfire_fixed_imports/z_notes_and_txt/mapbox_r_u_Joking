@@ -1,0 +1,9 @@
+https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions
+
+somewhere in this hellish spec is the answer to the problem:
+
+how do you average the aggregate of cluster heads for a specific property
+
+i.e, get all features, sum aqi.value for all features, divide sum by number of features
+
+((Sum(feature[0-length].aqi))/feature.size)

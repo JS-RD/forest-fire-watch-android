@@ -1,0 +1,40 @@
+
+Things that need doing ASAP:
+
+Testing -- full UNIT TESTING
+
+LONG TERM PRODUCT VISION FOR CANVAS 2
+
+
+
+system for handling/replacing/editing fires when they change.
+-->SANE FOR AQI
+---->NEED A "FILTER CLASS" THAT GATHERS CHANGES AND PROVIDES FINISHED STYLES TO VIEWMODEL, THAT WAY COORDINATOR CAN JUST HANDLE AGREGATING CHANGES
+TO BACKEND OBJECTS/ETC
+-----> this and a "force map refresh" method are probably the only way we're gonna get the map to maintain complex data through config changes,
+high on the list of priorities
+
+
+
+
+NEED ERROR HANDLING FOR HTTP AND PROBABLY OTHER AREAS
+-->>mostly done, SuccessFail wrapper and network_controllers infrastrcture supports both handling at the controller level as well as passing errors, throwables
+and exceptions up the chain.
+----->> SEEMS TO BE WORKING QUITE WELL
+
+FIX BUG THAT CAUSES ICONS TO LOSE COLOR
+ -->> likely due to icons being deprecated, https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-annotation
+   --> switch to symbols from icons, shouldn't be tremendously hard and symbols appear to offer other options.
+   ---->EMULATOR ISSUE, DOESN'T SEEM TO HAPPEN ON HARDWARE
+
+
+LOW PRIORITY:
+
+/api/users/ RETURNING LIST INSTEAD OF SINGLE OBJECT
+   //AS OF 1/142020 incorrectly returns a list of webBEUsers instead of the single altered object,
+    //when web fixes the implementation, should be easy enough to simple drop List<> and result[0\
+    @PUT("/api/users/")
+    suspend fun updateUser(@Header("Authorization") token: String, @Body user: SafeWebUser): List<WebBEUser>
+
+
+
