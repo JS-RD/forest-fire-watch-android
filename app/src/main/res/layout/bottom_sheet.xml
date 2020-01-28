@@ -1,103 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:id="@+id/imageViewArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="24dp"
-            android:src="@drawable/ic_arrow_upward_white_24dp" />
-
-        <ImageView
-            android:elevation="11dp"
-            android:id="@+id/imageViewFire"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="24dp"
-            android:src="@drawable/ic_fireicon_bottomsheet" />
-
-        <ImageView
-            android:id="@+id/imageViewCloud"
-            android:elevation="11dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="24dp"
-            android:src="@drawable/ic_cloudicon_bottomsheet" />
+    <ImageView
+        android:id="@+id/imageViewArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_drop_up"
+        app:layout_constraintBottom_toBottomOf="@+id/switchImageViewFire"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/switchImageViewFire" />
 
 
-    </LinearLayout>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchImageViewFire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:thumbTint="@android:color/holo_red_light"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_fireicon_bottomsheet"
+        app:layout_constraintEnd_toEndOf="@+id/switchImageViewFire"
+        app:layout_constraintStart_toStartOf="@+id/switchImageViewFire"
+        app:layout_constraintTop_toBottomOf="@+id/switchImageViewFire" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchImageViewCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        android:padding="10dp"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewArrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewArrow"
+        app:thumbTint="#00BCD4" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_cloudicon_bottomsheet"
+        app:layout_constraintEnd_toEndOf="@+id/switchImageViewCloud"
+        app:layout_constraintStart_toStartOf="@+id/switchImageViewCloud"
+        app:layout_constraintTop_toBottomOf="@+id/switchImageViewCloud" />
 
 
-<FrameLayout
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    android:id="@+id/fragment_container"
-    >
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageViewFireLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="24dp"
-            android:src="@drawable/ic_fireicon_bottomsheet"
-            app:layout_constraintBottom_toTopOf="@+id/imageViewCloudLegend"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="FIRE"
-            android:textColor="@color/colorAccent"
-            android:textSize="64dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewFireLegend"
-            app:layout_constraintTop_toTopOf="@+id/imageViewFireLegend" />
-
-        <ImageView
-            android:id="@+id/imageViewCloudLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="24dp"
-            android:src="@drawable/ic_cloudicon_bottomsheet"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewFireLegend" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AIR QUALITY"
-            android:textColor="@color/colorAccent"
-            android:textSize="34dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageViewCloudLegend"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
 
 
 
-</LinearLayout>
+
