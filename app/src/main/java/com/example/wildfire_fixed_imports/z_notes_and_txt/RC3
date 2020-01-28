@@ -1,0 +1,46 @@
+paralel requests for aqi:
+
+https://stackoverflow.com/questions/58658630/parallel-request-with-retrofit-coroutines-and-suspend-functions
+
+maps are definitely part of the solutions, flows seem to fit perfectly,
+
+something like -- livedata that map, whenever it gets updated a method is called that reads in the data at the map key,
+transforms it as necessary, writes it to the maps style and deletes the original key/value pair
+
+Additonally,
+it will make sense to do maps and start implementing some amount of reactive or flow style code
+this is likely gonna be a big part of the next release
+
+
+current model
+
+
+
+
+Activity
+ contains fragment
+
+fragment
+has ViewModel
+
+ViewModel
+creates
+MasterController
+
+MasterController
+gets data from network controllers
+
+Mastercontroll
+passes data to view controllers
+
+view controllers write to mapbox in fragment
+
+
+alternative:
+
+viewcontrollers passes changes up through mastercontroller to viewmodel which writers changes to
+LiveData<Style> observered by fragment.
+
+this is a more MVVM patern I believe and may be worth implementing
+
+drawing of original at https://sketchboard.me/TBW0hRd1TSJL
