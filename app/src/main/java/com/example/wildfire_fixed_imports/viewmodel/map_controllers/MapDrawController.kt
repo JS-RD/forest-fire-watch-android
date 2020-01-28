@@ -417,8 +417,9 @@ circles.setProperties(
                                 )
 
                         ),
-                        PropertyFactory.circleRadius(50f),
-                        PropertyFactory.circleBlur(1f))
+                        PropertyFactory.circleOpacity(0.7f),
+                        PropertyFactory.circleRadius(100f),
+                        PropertyFactory.circleBlur(0.5f))
                 alt_bottom_layer.setFilter(Expression.neq(get("cluster"), literal(true)))
                 style.addLayerBelow(alt_bottom_layer, "cluster-0")
 
@@ -439,9 +440,9 @@ circles.setProperties(
                                             literal(500), rgb(127, 52, 52)
                                     )
                             ),
-                            PropertyFactory.circleOpacity(0.5f),
+                            PropertyFactory.circleOpacity(0.6f),
                             PropertyFactory.circleRadius(70f),
-                            PropertyFactory.circleBlur(1f)
+                            PropertyFactory.circleBlur(0.5f)
                     )
 
                     circles.setFilter(

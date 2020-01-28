@@ -154,6 +154,7 @@ class WildFireMapFragment : Fragment() {
         Timber.i("$TAG toggle fire")
     }
 
+    var counter = 0
     fun aqiToggleButtonOnClick() {
         mapViewModel.toggleAQIRetrieval()
         mapboxMap.getStyle { style ->
@@ -177,6 +178,24 @@ class WildFireMapFragment : Fragment() {
             }
 
             for (i in 0..2) {
+                if (counter == i) {
+                    val layer: Layer? = style.getLayer("cluster-$i")
+                    if (layer != null) {
+                        layer.setProperties(visibility(VISIBLE))
+                    }
+                } else {
+                    val layer: Layer? = style.getLayer("cluster-$i")
+                    if (layer != null) {
+                        layer.setProperties(visibility(NONE))
+                    }
+                }
+            }
+            if (counter == 2) {
+                counter = 0
+            } else {
+                counter++
+            }
+            /*for (i in 0..2) {
                 val layer: Layer? = style.getLayer("cluster-$i")
                 if (layer != null) {
                     if (VISIBLE == layer.visibility.getValue()) {
@@ -185,7 +204,7 @@ class WildFireMapFragment : Fragment() {
                         layer.setProperties(visibility(VISIBLE))
                     }
                 }
-            }
+            }*/
         }
         Timber.i("$TAG toggle aqi")
     }
