@@ -6,39 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <androidx.constraintlayout.motion.widget.MotionLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/motion_base"
-            app:layoutDescription="@xml/app_bar_main_scene"
-            tools:context=".MainActivity">
-
-            <View
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:background="@color/colorPrimary"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/ic_baseline_menu_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/header" />
-
             <TextView
+
                 android:id="@+id/login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,8 +20,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/menu"
-                app:layout_constraintTop_toBottomOf="@id/menu"
                 android:text="Login" />
 
             <TextView
@@ -67,7 +34,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/menu"
                 app:layout_constraintTop_toBottomOf="@id/login"
                 android:text="Register" />
 
@@ -83,53 +49,28 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/menu"
                 app:layout_constraintTop_toBottomOf="@id/register_tv"
                 android:text="Settings" />
 
-            <TextView
-                android:id="@+id/title_app"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:text="FIRE-WATCH"
-                app:layout_constraintBottom_toBottomOf="@id/menu"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/menu"
-                app:layout_constraintTop_toTopOf="@id/menu" />
 
-            <FrameLayout
-                android:id="@+id/main_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@id/header"/>
-        </androidx.constraintlayout.motion.widget.MotionLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
 
     <include
         android:id="@+id/include"
         layout="@layout/content_main" />
 
 
-    <ImageView
-        android:id="@+id/arrow_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_keyboard_arrow_up"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
-
     <com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_background"
+        style="@style/Widget.AppCompat.Button.Colored"
         app:collapsedHeight="80dp">
 
         <include

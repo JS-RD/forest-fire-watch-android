@@ -30,9 +30,9 @@ class BottomSheetLayout : FrameLayout {
 
     private var clickListener: OnClickListener? = null
     var animationDuration: Long = 300
-    private var fireImageView = findViewById<ImageView>(R.id.imageViewFire)
+    private var fireImageView = findViewById<ImageView>(R.id.switchImageViewFire)
 
-    private var cloudImageView = findViewById<ImageView>(R.id.imageViewCloud)
+    private var cloudImageView = findViewById<ImageView>(R.id.switchImageViewCloud)
 
 
 
