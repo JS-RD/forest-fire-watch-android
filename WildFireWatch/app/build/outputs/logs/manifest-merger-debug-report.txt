@@ -1,0 +1,733 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:2:1-26:12
+MERGED from [com.jakewharton.timber:timber:4.7.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3600339b156ca9523ab96768fd6fe24/jetified-timber-4.7.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-core:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/552aa070722888c4fcf31f875bf1448c/firebase-core-17.2.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:17:1-42:12
+MERGED from [com.google.firebase:firebase-analytics:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/3f710e6ec86a7fcc6ad6f55170a8a021/firebase-analytics-17.2.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7f3ca85d2902bfa41f6109e2809c5075/jetified-mapbox-android-plugin-annotation-v8-0.7.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:2:1-20:12
+MERGED from [com.google.android.gms:play-services-location:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/927527c28063eecfbfde1837f8188a07/play-services-location-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1d3afbf86e93cddebf57cddc507f4cd1/lifecycle-extensions-2.1.0/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.core:core-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d3105e7410f11656b64c93fc13c9633/core-ktx-1.1.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.navigation:navigation-ui-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/897b839f999ea90f3cc4b0ccec2dc609/navigation-ui-ktx-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-ui:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bb050a88155d1a4618d775903c712229/jetified-navigation-ui-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.material:material:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/87f0919a87e863a5c3fd88beff33a831/material-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta4] /home/ronnie/.gradle/caches/transforms-2/files-2.1/109fda2bd4ed8850ea127624a790ec3c/constraintlayout-2.0.0-beta4/AndroidManifest.xml:2:1-11:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6240c59ffaf9aaaa575d01c0bddd4937/rxbinding-appcompat-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/feb6009578fd43530e8b173edc01a66c/appcompat-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a2bc9ba33b4037ac3b8aa4e1dfbfb746/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-core:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/95519fab15665673bdcabfcee68b40ca/rxbinding-core-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/312024455d26fef6e0d24d6475d9e37b/rxbinding-drawerlayout-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1532976259c5fe9839bd58c0548b609a/rxbinding-leanback-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/460017f87312f2fbd4d711de35d5ecff/rxbinding-recyclerview-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a355957baaca1c20c3b978970f85f628/rxbinding-slidingpanelayout-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4c447b30e7e43ef6ee8d0b9104b7665c/rxbinding-swiperefreshlayout-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eb48f86d322ad41ff622bc19b35d0385/rxbinding-viewpager-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.jakewharton.rxbinding3:rxbinding:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1ad20ee39d921587f12acc1748d595ce/rxbinding-3.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:17:1-55:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:2:1-30:12
+MERGED from [androidx.leanback:leanback:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d9f7ff236102826eb0b67963f56349ad/leanback-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e0b64881e6d269764873b5823c3734ba/recyclerview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2d9b1039511d014bbcb9d951f859d64c/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:17:1-36:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c250a1a250519993f2be4c1d678f247a/play-services-measurement-sdk-17.2.2/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:17:1-47:12
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ecfff5347b25dc228496ec9956db751a/play-services-stats-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/564885a07d7da52386e15f7e3abb4e2e/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a9f42651517b78ac1bcb9f2b66a0797d/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0ead4a625067aa0ae950ec4be082da49/firebase-auth-interop-19.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:15:1-39:12
+MERGED from [com.google.firebase:firebase-components:16.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6469afbb7708a8eaf6b8a3dccdd5965b/jetified-firebase-components-16.0.0/AndroidManifest.xml:15:1-23:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-accounts:0.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a25370382ac304042e06cfc230edd6b3/jetified-mapbox-android-accounts-0.2.0/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ede7b87a864ac7713d8b8cc776a013d3/lifecycle-service-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/13f29af5a1e38848c7a94ba47156d880/firebase-iid-interop-17.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b0c7398dbb8236d98360dd368efb69e6/play-services-tasks-17.0.0/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/482e72309ff4f6f9587cb8f4f969bbb1/play-services-places-placereport-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:17:1-27:12
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/332b9c6c0ffad8396d763d87102239c9/play-services-measurement-base-17.2.2/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0f93d2baafe2518cb95692d377967959/firebase-measurement-connector-18.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/34cbc4a2cc8dd0ba531ad23b58c8a8ae/play-services-ads-identifier-17.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:17:1-28:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0796aa0597baff38e0b4b4aef3c3e5/jetified-mapbox-android-gestures-0.5.1/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7b2ede3c8dbee50fe3584f6ba5e2d337/navigation-fragment-ktx-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-fragment:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/47b892e722a426720eed33be7a0dc7d3/navigation-fragment-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e97f600daf2f98221dd9edac854c3929/fragment-ktx-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/606b67cf649644f70bd4826e424bfaff/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6167b63b81a2a79e08dbfd27fd2279b0/appcompat-resources-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d0a033c7b0ba4ba28bea669389f65929/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c0077d714171fac7d44bd2cabddc0ab1/media-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4958f09cf3cfa47fa855ab001616db27/transition-1.0.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d4da9e7697f1823390acf31cda61b4b/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/945e61dd4d9626dd0c9157fe51aa675b/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7a7af1e2543675599f36c80e553a595e/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4aef40bdc601aa6937135749544beef4/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e9a3c1f831625652c2e489c94c37b957/navigation-runtime-ktx-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c77446c3a1e7a32b162f4c3655f10788/navigation-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity-ktx:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/296eea6e26d71c2919330be84fb2d0b8/activity-ktx-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.activity:activity:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/78d167cb31735354a245dae8351f753e/activity-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a7d6f68f594f01275730944e7d059bab/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/f5bc9f7e4f6a7518177eef848d7aff4c/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01976ee4e8797ea05738df94f01c21bc/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/88ac5f771783a38aeb9be7cf9e757374/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/39670c67fbdc1d71bd5dcbcb49968e43/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6b2e8776465aca1126fb9c18ee5956dc/navigation-common-ktx-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-common:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/00e03fc55c7219535738224f8736813b/navigation-common-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac81a024ab0ef95b6118c9cad56ecdf/lifecycle-runtime-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5a4b1ba777464d38c1c5b8c6c51d2a75/lifecycle-livedata-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3499b59dd5c06c5d5a1841584c160a1/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b18899dd0cdb5fd276e7e0be54c832e4/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b06e844c54b2802c3d937b51110ecd8b/savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2da1cb4fc8f0e45aaa88d3480196c8a3/lifecycle-viewmodel-ktx-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5484247c0dca3ebf62932e65be6b6025/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eca465c1560e29347a9c70593f2c4ef5/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/57e89350c135dd72df644f689225630b/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0a7c4ab207fa5bf475736460e74172ca/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/559ad608c01a37e9c5eca5cb1b32db48/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ab83203b4106b49ea3350ce83b650ff1/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d262e551235d0a7717a8206e1c7fb1df/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ed348324140be208ae6e839669931050/rxandroid-2.1.1/AndroidManifest.xml:15:1-20:12
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:45:1-56:12
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:2:1-13:12
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:2:1-13:12
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:22:1-33:12
+MERGED from [com.facebook.soloader:soloader:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14cfbd1686a1574d37c0c20412002a93/soloader-0.8.0/AndroidManifest.xml:2:1-13:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:2:1-14:12
+MERGED from [com.facebook.soloader:annotation:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2ad460e5964e644b58c4084c7b476557/annotation-0.8.0/AndroidManifest.xml:2:1-13:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+	package
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:4:5-49
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:1-45:12
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:2:11-69
+uses-feature#android.software.leanback
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:6:5-8:36
+	android:required
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:8:9-33
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:7:9-49
+uses-feature#android.hardware.touchscreen
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:9:5-11:36
+	android:required
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:11:9-33
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:10:9-52
+uses-permission#android.permission.INTERNET
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:5-91
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:16:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:16:5-67
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:16:5-67
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:16:5-67
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:16:5-67
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:16:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:22:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:23:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:9:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:29:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:29:5-67
+	android:required
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:65-88
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:22-64
+uses-permission#android.hardwar.ACCESS_FINE_LOCATION
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:14:5-15:43
+	android:requiredFeature
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:15:9-40
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:14:22-73
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:16:5-18:42
+	android:requiredFeature
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:18:9-39
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:17:9-65
+application
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:20:5-43:19
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:18:5-24:19
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:18:5-24:19
+MERGED from [com.jakewharton.timber:timber:4.7.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3600339b156ca9523ab96768fd6fe24/jetified-timber-4.7.1/AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.timber:timber:4.7.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3600339b156ca9523ab96768fd6fe24/jetified-timber-4.7.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-core:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/552aa070722888c4fcf31f875bf1448c/firebase-core-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-core:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/552aa070722888c4fcf31f875bf1448c/firebase-core-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-analytics:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/3f710e6ec86a7fcc6ad6f55170a8a021/firebase-analytics-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-analytics:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/3f710e6ec86a7fcc6ad6f55170a8a021/firebase-analytics-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/927527c28063eecfbfde1837f8188a07/play-services-location-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/927527c28063eecfbfde1837f8188a07/play-services-location-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1d3afbf86e93cddebf57cddc507f4cd1/lifecycle-extensions-2.1.0/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1d3afbf86e93cddebf57cddc507f4cd1/lifecycle-extensions-2.1.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.material:material:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/87f0919a87e863a5c3fd88beff33a831/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/87f0919a87e863a5c3fd88beff33a831/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta4] /home/ronnie/.gradle/caches/transforms-2/files-2.1/109fda2bd4ed8850ea127624a790ec3c/constraintlayout-2.0.0-beta4/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta4] /home/ronnie/.gradle/caches/transforms-2/files-2.1/109fda2bd4ed8850ea127624a790ec3c/constraintlayout-2.0.0-beta4/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:28:5-53:19
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:28:5-53:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:18:5-28:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:18:5-28:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:26:5-34:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c250a1a250519993f2be4c1d678f247a/play-services-measurement-sdk-17.2.2/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c250a1a250519993f2be4c1d678f247a/play-services-measurement-sdk-17.2.2/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:28:5-38:19
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:28:5-38:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:28:5-45:19
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ecfff5347b25dc228496ec9956db751a/play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ecfff5347b25dc228496ec9956db751a/play-services-stats-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0ead4a625067aa0ae950ec4be082da49/firebase-auth-interop-19.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0ead4a625067aa0ae950ec4be082da49/firebase-auth-interop-19.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:25:5-37:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:25:5-37:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:22:5-28:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:22:5-28:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/13f29af5a1e38848c7a94ba47156d880/firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/13f29af5a1e38848c7a94ba47156d880/firebase-iid-interop-17.0.0/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b0c7398dbb8236d98360dd368efb69e6/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b0c7398dbb8236d98360dd368efb69e6/play-services-tasks-17.0.0/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/482e72309ff4f6f9587cb8f4f969bbb1/play-services-places-placereport-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/482e72309ff4f6f9587cb8f4f969bbb1/play-services-places-placereport-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/332b9c6c0ffad8396d763d87102239c9/play-services-measurement-base-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/332b9c6c0ffad8396d763d87102239c9/play-services-measurement-base-17.2.2/AndroidManifest.xml:7:5-20
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0f93d2baafe2518cb95692d377967959/firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0f93d2baafe2518cb95692d377967959/firebase-measurement-connector-18.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/34cbc4a2cc8dd0ba531ad23b58c8a8ae/play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/34cbc4a2cc8dd0ba531ad23b58c8a8ae/play-services-ads-identifier-17.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:22:5-26:19
+MERGED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0a7c4ab207fa5bf475736460e74172ca/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0a7c4ab207fa5bf475736460e74172ca/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:11:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:31:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:31:5-20
+MERGED from [com.facebook.soloader:soloader:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14cfbd1686a1574d37c0c20412002a93/soloader-0.8.0/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14cfbd1686a1574d37c0c20412002a93/soloader-0.8.0/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:annotation:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2ad460e5964e644b58c4084c7b476557/annotation-0.8.0/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:annotation:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2ad460e5964e644b58c4084c7b476557/annotation-0.8.0/AndroidManifest.xml:11:5-20
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:27:9-35
+	android:label
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:24:9-41
+	tools:ignore
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:29:9-71
+	android:roundIcon
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:26:9-54
+	android:icon
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:23:9-43
+	android:allowBackup
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:22:9-35
+	android:theme
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:28:9-40
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:25:9-83
+activity#com.example.wildfire_fixed_imports.MainActivity
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:31:9-42:20
+	android:label
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:34:13-45
+	android:configChanges
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:36:13-59
+	android:theme
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:35:13-56
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:33:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:37:13-41:29
+action#android.intent.action.MAIN
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:38:17-69
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:38:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:40:17-77
+	android:name
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:40:27-74
+uses-sdk
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:12:5-14:63
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:12:5-14:63
+MERGED from [com.jakewharton.timber:timber:4.7.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3600339b156ca9523ab96768fd6fe24/jetified-timber-4.7.1/AndroidManifest.xml:5:5-43
+MERGED from [com.jakewharton.timber:timber:4.7.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3600339b156ca9523ab96768fd6fe24/jetified-timber-4.7.1/AndroidManifest.xml:5:5-43
+MERGED from [com.google.firebase:firebase-core:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/552aa070722888c4fcf31f875bf1448c/firebase-core-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-core:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/552aa070722888c4fcf31f875bf1448c/firebase-core-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-analytics:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/3f710e6ec86a7fcc6ad6f55170a8a021/firebase-analytics-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-analytics:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/3f710e6ec86a7fcc6ad6f55170a8a021/firebase-analytics-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7f3ca85d2902bfa41f6109e2809c5075/jetified-mapbox-android-plugin-annotation-v8-0.7.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7f3ca85d2902bfa41f6109e2809c5075/jetified-mapbox-android-plugin-annotation-v8-0.7.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-location:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/927527c28063eecfbfde1837f8188a07/play-services-location-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/927527c28063eecfbfde1837f8188a07/play-services-location-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1d3afbf86e93cddebf57cddc507f4cd1/lifecycle-extensions-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-extensions:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1d3afbf86e93cddebf57cddc507f4cd1/lifecycle-extensions-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d3105e7410f11656b64c93fc13c9633/core-ktx-1.1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.core:core-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d3105e7410f11656b64c93fc13c9633/core-ktx-1.1.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.navigation:navigation-ui-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/897b839f999ea90f3cc4b0ccec2dc609/navigation-ui-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-ui-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/897b839f999ea90f3cc4b0ccec2dc609/navigation-ui-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-ui:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bb050a88155d1a4618d775903c712229/jetified-navigation-ui-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-ui:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bb050a88155d1a4618d775903c712229/jetified-navigation-ui-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/87f0919a87e863a5c3fd88beff33a831/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/87f0919a87e863a5c3fd88beff33a831/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta4] /home/ronnie/.gradle/caches/transforms-2/files-2.1/109fda2bd4ed8850ea127624a790ec3c/constraintlayout-2.0.0-beta4/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta4] /home/ronnie/.gradle/caches/transforms-2/files-2.1/109fda2bd4ed8850ea127624a790ec3c/constraintlayout-2.0.0-beta4/AndroidManifest.xml:5:5-7:41
+MERGED from [com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6240c59ffaf9aaaa575d01c0bddd4937/rxbinding-appcompat-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-appcompat:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6240c59ffaf9aaaa575d01c0bddd4937/rxbinding-appcompat-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/feb6009578fd43530e8b173edc01a66c/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/feb6009578fd43530e8b173edc01a66c/appcompat-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a2bc9ba33b4037ac3b8aa4e1dfbfb746/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a2bc9ba33b4037ac3b8aa4e1dfbfb746/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-core:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/95519fab15665673bdcabfcee68b40ca/rxbinding-core-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-core:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/95519fab15665673bdcabfcee68b40ca/rxbinding-core-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/312024455d26fef6e0d24d6475d9e37b/rxbinding-drawerlayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-drawerlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/312024455d26fef6e0d24d6475d9e37b/rxbinding-drawerlayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1532976259c5fe9839bd58c0548b609a/rxbinding-leanback-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-leanback:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1532976259c5fe9839bd58c0548b609a/rxbinding-leanback-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/460017f87312f2fbd4d711de35d5ecff/rxbinding-recyclerview-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/460017f87312f2fbd4d711de35d5ecff/rxbinding-recyclerview-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a355957baaca1c20c3b978970f85f628/rxbinding-slidingpanelayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-slidingpanelayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a355957baaca1c20c3b978970f85f628/rxbinding-slidingpanelayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4c447b30e7e43ef6ee8d0b9104b7665c/rxbinding-swiperefreshlayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-swiperefreshlayout:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4c447b30e7e43ef6ee8d0b9104b7665c/rxbinding-swiperefreshlayout-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eb48f86d322ad41ff622bc19b35d0385/rxbinding-viewpager-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding-viewpager:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eb48f86d322ad41ff622bc19b35d0385/rxbinding-viewpager-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1ad20ee39d921587f12acc1748d595ce/rxbinding-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.rxbinding3:rxbinding:3.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1ad20ee39d921587f12acc1748d595ce/rxbinding-3.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.leanback:leanback:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d9f7ff236102826eb0b67963f56349ad/leanback-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.leanback:leanback:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d9f7ff236102826eb0b67963f56349ad/leanback-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e0b64881e6d269764873b5823c3734ba/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e0b64881e6d269764873b5823c3734ba/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2d9b1039511d014bbcb9d951f859d64c/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2d9b1039511d014bbcb9d951f859d64c/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c250a1a250519993f2be4c1d678f247a/play-services-measurement-sdk-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c250a1a250519993f2be4c1d678f247a/play-services-measurement-sdk-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ecfff5347b25dc228496ec9956db751a/play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ecfff5347b25dc228496ec9956db751a/play-services-stats-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/564885a07d7da52386e15f7e3abb4e2e/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/564885a07d7da52386e15f7e3abb4e2e/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a9f42651517b78ac1bcb9f2b66a0797d/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a9f42651517b78ac1bcb9f2b66a0797d/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0ead4a625067aa0ae950ec4be082da49/firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:19.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0ead4a625067aa0ae950ec4be082da49/firebase-auth-interop-19.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-components:16.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6469afbb7708a8eaf6b8a3dccdd5965b/jetified-firebase-components-16.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.google.firebase:firebase-components:16.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6469afbb7708a8eaf6b8a3dccdd5965b/jetified-firebase-components-16.0.0/AndroidManifest.xml:19:5-21:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-accounts:0.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a25370382ac304042e06cfc230edd6b3/jetified-mapbox-android-accounts-0.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-accounts:0.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a25370382ac304042e06cfc230edd6b3/jetified-mapbox-android-accounts-0.2.0/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ede7b87a864ac7713d8b8cc776a013d3/lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ede7b87a864ac7713d8b8cc776a013d3/lifecycle-service-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/13f29af5a1e38848c7a94ba47156d880/firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/13f29af5a1e38848c7a94ba47156d880/firebase-iid-interop-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b0c7398dbb8236d98360dd368efb69e6/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b0c7398dbb8236d98360dd368efb69e6/play-services-tasks-17.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/482e72309ff4f6f9587cb8f4f969bbb1/play-services-places-placereport-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/482e72309ff4f6f9587cb8f4f969bbb1/play-services-places-placereport-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/332b9c6c0ffad8396d763d87102239c9/play-services-measurement-base-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-measurement-base:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/332b9c6c0ffad8396d763d87102239c9/play-services-measurement-base-17.2.2/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0f93d2baafe2518cb95692d377967959/firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0f93d2baafe2518cb95692d377967959/firebase-measurement-connector-18.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/34cbc4a2cc8dd0ba531ad23b58c8a8ae/play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/34cbc4a2cc8dd0ba531ad23b58c8a8ae/play-services-ads-identifier-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0796aa0597baff38e0b4b4aef3c3e5/jetified-mapbox-android-gestures-0.5.1/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0796aa0597baff38e0b4b4aef3c3e5/jetified-mapbox-android-gestures-0.5.1/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7b2ede3c8dbee50fe3584f6ba5e2d337/navigation-fragment-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7b2ede3c8dbee50fe3584f6ba5e2d337/navigation-fragment-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/47b892e722a426720eed33be7a0dc7d3/navigation-fragment-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-fragment:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/47b892e722a426720eed33be7a0dc7d3/navigation-fragment-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e97f600daf2f98221dd9edac854c3929/fragment-ktx-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment-ktx:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e97f600daf2f98221dd9edac854c3929/fragment-ktx-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/606b67cf649644f70bd4826e424bfaff/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/606b67cf649644f70bd4826e424bfaff/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6167b63b81a2a79e08dbfd27fd2279b0/appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6167b63b81a2a79e08dbfd27fd2279b0/appcompat-resources-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d0a033c7b0ba4ba28bea669389f65929/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d0a033c7b0ba4ba28bea669389f65929/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c0077d714171fac7d44bd2cabddc0ab1/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c0077d714171fac7d44bd2cabddc0ab1/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4958f09cf3cfa47fa855ab001616db27/transition-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4958f09cf3cfa47fa855ab001616db27/transition-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d4da9e7697f1823390acf31cda61b4b/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/9d4da9e7697f1823390acf31cda61b4b/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/945e61dd4d9626dd0c9157fe51aa675b/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/945e61dd4d9626dd0c9157fe51aa675b/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7a7af1e2543675599f36c80e553a595e/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/7a7af1e2543675599f36c80e553a595e/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4aef40bdc601aa6937135749544beef4/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4aef40bdc601aa6937135749544beef4/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e9a3c1f831625652c2e489c94c37b957/navigation-runtime-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e9a3c1f831625652c2e489c94c37b957/navigation-runtime-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c77446c3a1e7a32b162f4c3655f10788/navigation-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/c77446c3a1e7a32b162f4c3655f10788/navigation-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity-ktx:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/296eea6e26d71c2919330be84fb2d0b8/activity-ktx-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity-ktx:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/296eea6e26d71c2919330be84fb2d0b8/activity-ktx-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/78d167cb31735354a245dae8351f753e/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/78d167cb31735354a245dae8351f753e/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a7d6f68f594f01275730944e7d059bab/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a7d6f68f594f01275730944e7d059bab/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/f5bc9f7e4f6a7518177eef848d7aff4c/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/f5bc9f7e4f6a7518177eef848d7aff4c/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01976ee4e8797ea05738df94f01c21bc/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01976ee4e8797ea05738df94f01c21bc/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/88ac5f771783a38aeb9be7cf9e757374/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/88ac5f771783a38aeb9be7cf9e757374/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/39670c67fbdc1d71bd5dcbcb49968e43/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/39670c67fbdc1d71bd5dcbcb49968e43/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6b2e8776465aca1126fb9c18ee5956dc/navigation-common-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/6b2e8776465aca1126fb9c18ee5956dc/navigation-common-ktx-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/00e03fc55c7219535738224f8736813b/navigation-common-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigation:navigation-common:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/00e03fc55c7219535738224f8736813b/navigation-common-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac81a024ab0ef95b6118c9cad56ecdf/lifecycle-runtime-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac81a024ab0ef95b6118c9cad56ecdf/lifecycle-runtime-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5a4b1ba777464d38c1c5b8c6c51d2a75/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5a4b1ba777464d38c1c5b8c6c51d2a75/lifecycle-livedata-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3499b59dd5c06c5d5a1841584c160a1/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/e3499b59dd5c06c5d5a1841584c160a1/lifecycle-livedata-core-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b18899dd0cdb5fd276e7e0be54c832e4/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b18899dd0cdb5fd276e7e0be54c832e4/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b06e844c54b2802c3d937b51110ecd8b/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b06e844c54b2802c3d937b51110ecd8b/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2da1cb4fc8f0e45aaa88d3480196c8a3/lifecycle-viewmodel-ktx-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2da1cb4fc8f0e45aaa88d3480196c8a3/lifecycle-viewmodel-ktx-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5484247c0dca3ebf62932e65be6b6025/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/5484247c0dca3ebf62932e65be6b6025/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eca465c1560e29347a9c70593f2c4ef5/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eca465c1560e29347a9c70593f2c4ef5/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/57e89350c135dd72df644f689225630b/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/57e89350c135dd72df644f689225630b/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0a7c4ab207fa5bf475736460e74172ca/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/0a7c4ab207fa5bf475736460e74172ca/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/559ad608c01a37e9c5eca5cb1b32db48/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/559ad608c01a37e9c5eca5cb1b32db48/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ab83203b4106b49ea3350ce83b650ff1/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ab83203b4106b49ea3350ce83b650ff1/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d262e551235d0a7717a8206e1c7fb1df/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d262e551235d0a7717a8206e1c7fb1df/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ed348324140be208ae6e839669931050/rxandroid-2.1.1/AndroidManifest.xml:18:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ed348324140be208ae6e839669931050/rxandroid-2.1.1/AndroidManifest.xml:18:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.7.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/d2b9c7862056097c98d4c44a212fdc94/crashlytics-core-2.7.0/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:beta:1.2.10] /home/ronnie/.gradle/caches/transforms-2/files-2.1/01c8e27578e8d71ba7c52bc2b8584c99/beta-1.2.10/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.4.7] /home/ronnie/.gradle/caches/transforms-2/files-2.1/8d0a20f41329c61e04c9295421806dbf/jetified-answers-1.4.7/AndroidManifest.xml:7:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:27:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.4.8] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bcf831353d72603f09101907714ddc72/fabric-1.4.8/AndroidManifest.xml:27:5-43
+MERGED from [com.facebook.soloader:soloader:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14cfbd1686a1574d37c0c20412002a93/soloader-0.8.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14cfbd1686a1574d37c0c20412002a93/soloader-0.8.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:annotation:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2ad460e5964e644b58c4084c7b476557/annotation-0.8.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:annotation:0.8.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/2ad460e5964e644b58c4084c7b476557/annotation-0.8.0/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:14:9-60
+	android:targetSdkVersion
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		ADDED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+provider#com.crashlytics.android.CrashlyticsInitProvider
+ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:19:9-23:38
+	android:authorities
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:21:13-75
+	android:exported
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:22:13-37
+	android:initOrder
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:23:13-35
+	android:name
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:20:13-75
+activity#com.google.firebase.auth.internal.FederatedSignInActivity
+ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:24:9-31:50
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:26:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:28:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:27:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:29:13-102
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:30:13-72
+	tools:replace
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:31:13-47
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:25:13-85
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:33:9-39:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:27:9-33:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:29:9-35:19
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:32:9-36:35
+MERGED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:32:9-36:35
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:35:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:36:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:34:13-84
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:36:13-38:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:38:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:37:17-109
+uses-feature#0x00020000
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:9:5-11:35
+	android:glEsVersion
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:10:9-41
+	android:required
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:11:9-32
+uses-feature#android.hardware.wifi
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:12:5-14:36
+	android:required
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:14:9-33
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:13:9-45
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:17:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:14:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:14:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:24:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:12:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:12:5-79
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:17:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:18:5-76
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:15:5-76
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:15:5-76
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:18:22-73
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:25:5-68
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:12:5-68
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:12:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:24:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:25:5-68
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/609cb6503ec42826aa3fe267aae7a1df/play-services-measurement-sdk-api-17.2.2/AndroidManifest.xml:25:5-68
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:25:22-65
+uses-permission#com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:26:5-110
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:26:5-110
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:26:22-107
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:29:9-33:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:31:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:30:13-85
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:34:9-42:20
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:29:9-37:20
+MERGED from [com.google.android.gms:play-services-measurement-impl:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/837a0d4d0ce8f6f471d61cd69c3c11e2/play-services-measurement-impl-17.2.2/AndroidManifest.xml:29:9-37:20
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:36:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:37:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:38:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:35:13-100
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:39:13-41:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:40:17-79
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:40:25-76
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:44:9-47:40
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:46:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:47:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:45:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:48:9-52:72
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:50:13-35
+	android:exported
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:51:13-37
+	android:permission
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:52:13-69
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:49:13-87
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:13:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:11:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4894218771024ef7b32d524371af6290/jetified-mapbox-android-core-1.3.0/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:13:22-76
+provider#com.mapbox.android.telemetry.provider.MapboxTelemetryInitProvider
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:19:9-23:39
+	android:authorities
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:21:13-79
+	android:exported
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:22:13-37
+	android:initOrder
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:23:13-36
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:20:13-93
+service#com.mapbox.android.telemetry.crash.CrashReporterJobIntentService
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:25:9-27:72
+	android:permission
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:27:13-69
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:26:13-92
+meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+ADDED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:31:17-139
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:26:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:26:22-79
+meta-data#com.google.firebase.components:com.google.firebase.iid.Registrar
+ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:32:13-34:85
+	android:value
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:34:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:33:17-96
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:37:9-44:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:39:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:40:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:38:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:41:13-43:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:42:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:42:25-78
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:26:9-30:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:28:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:29:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:27:13-77
+provider#androidx.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:23:9-27:43
+	android:authorities
+		ADDED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:25:13-69
+	android:multiprocess
+		ADDED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:27:13-40
+	android:exported
+		ADDED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:26:13-37
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:24:13-79
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58

@@ -1,0 +1,290 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.wildfire_fixed_imports"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml
+10
+11    <uses-feature
+11-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:6:5-8:36
+12        android:name="android.software.leanback"
+12-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:7:9-49
+13        android:required="false" />
+13-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:8:9-33
+14    <uses-feature
+14-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:9:5-11:36
+15        android:name="android.hardware.touchscreen"
+15-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:10:9-52
+16        android:required="false" />
+16-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:11:9-33
+17
+18    <uses-permission
+18-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:5-91
+19        android:name="android.permission.INTERNET"
+19-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:22-64
+20        android:required="true" />
+20-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:13:65-88
+21    <uses-permission
+21-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:14:5-15:43
+22        android:name="android.hardwar.ACCESS_FINE_LOCATION"
+22-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:14:22-73
+23        android:requiredFeature="false" />
+23-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:15:9-40
+24    <uses-permission
+24-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:16:5-18:42
+25        android:name="android.permission.ACCESS_COARSE_LOCATION"
+25-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:17:9-65
+26        android:requiredFeature="true" />
+26-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:18:9-39
+27
+28    <uses-feature
+28-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:9:5-11:35
+29        android:glEsVersion="0x00020000"
+29-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:10:9-41
+30        android:required="true" />
+30-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:11:9-32
+31    <uses-feature
+31-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:12:5-14:36
+32        android:name="android.hardware.wifi"
+32-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:13:9-45
+33        android:required="false" />
+33-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:14:9-33
+34
+35    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+35-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:17:5-79
+35-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:17:22-76
+36    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+36-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:18:5-76
+36-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/cb551b1e6da5dc094f9066b19a5dea84/jetified-mapbox-android-sdk-8.6.1/AndroidManifest.xml:18:22-73
+37    <uses-permission android:name="android.permission.WAKE_LOCK" />
+37-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:25:5-68
+37-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:25:22-65
+38    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+38-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:26:5-110
+38-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:26:22-107
+39    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+39-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:13:5-79
+39-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:13:22-76
+40    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+40-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:26:5-82
+40-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:26:22-79
+41
+42    <application
+42-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:20:5-43:19
+43        android:name="com.example.wildfire_fixed_imports.ApplicationLevelProvider"
+43-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:25:9-83
+44        android:allowBackup="true"
+44-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:22:9-35
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/14f573bb41180500fe93a0cd6648c466/core-1.1.0/AndroidManifest.xml:24:18-86
+46        android:debuggable="true"
+47        android:icon="@mipmap/ic_launcher"
+47-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:23:9-43
+48        android:label="@string/app_name"
+48-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:24:9-41
+49        android:roundIcon="@mipmap/ic_launcher_round"
+49-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:26:9-54
+50        android:supportsRtl="true"
+50-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:27:9-35
+51        android:theme="@style/AppTheme" >
+51-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:28:9-40
+52        <activity
+52-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:31:9-42:20
+53            android:name="com.example.wildfire_fixed_imports.MainActivity"
+53-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:33:13-41
+54            android:configChanges="orientation|screenSize"
+54-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:36:13-59
+55            android:label="@string/app_name"
+55-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:34:13-45
+56            android:theme="@style/AppTheme.NoActionBar" >
+56-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:35:13-56
+57            <intent-filter>
+57-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:37:13-41:29
+58                <action android:name="android.intent.action.MAIN" />
+58-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:38:17-69
+58-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:38:25-66
+59
+60                <category android:name="android.intent.category.LAUNCHER" />
+60-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:40:17-77
+60-->/home/ronnie/SolusAndroidStudioProjects/WildFireWatch/app/src/main/AndroidManifest.xml:40:27-74
+61            </intent-filter>
+62        </activity>
+63
+64        <provider
+64-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:19:9-23:38
+65            android:name="com.crashlytics.android.CrashlyticsInitProvider"
+65-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:20:13-75
+66            android:authorities="com.example.wildfire_fixed_imports.crashlyticsinitprovider"
+66-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:21:13-75
+67            android:exported="false"
+67-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:22:13-37
+68            android:initOrder="90" />
+68-->[com.crashlytics.sdk.android:crashlytics:2.10.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/1346559853a0760f1a20edbc9d684b9e/jetified-crashlytics-2.10.1/AndroidManifest.xml:23:13-35
+69
+70        <activity
+70-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:24:9-31:50
+71            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+71-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:25:13-85
+72            android:excludeFromRecents="true"
+72-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:26:13-46
+73            android:exported="true"
+73-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:27:13-36
+74            android:launchMode="singleTask"
+74-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:28:13-44
+75            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+75-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:29:13-102
+76            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+76-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:30:13-72
+77
+78        <service
+78-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:33:9-39:19
+79            android:name="com.google.firebase.components.ComponentDiscoveryService"
+79-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:34:13-84
+80            android:directBootAware="true"
+80-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:34:13-43
+81            android:exported="false" >
+81-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:35:13-37
+82            <meta-data
+82-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:36:13-38:85
+83                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+83-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:37:17-109
+84                android:value="com.google.firebase.components.ComponentRegistrar" />
+84-->[com.google.firebase:firebase-auth:19.2.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/b848c055f304e7c322565395522f59d9/firebase-auth-19.2.0/AndroidManifest.xml:38:17-82
+85            <meta-data
+85-->[com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:30:13-32:85
+86                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+86-->[com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:31:17-139
+87                android:value="com.google.firebase.components.ComponentRegistrar" />
+87-->[com.google.android.gms:play-services-measurement-api:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/31feece9744cae95f4b7120bf6f78612/play-services-measurement-api-17.2.2/AndroidManifest.xml:32:17-82
+88            <meta-data
+88-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:32:13-34:85
+89                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+89-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:33:17-96
+90                android:value="com.google.firebase.components.ComponentRegistrar" />
+90-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:34:17-82
+91        </service>
+92
+93        <receiver
+93-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:29:9-33:20
+94            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+94-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:30:13-85
+95            android:enabled="true"
+95-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:31:13-35
+96            android:exported="false" >
+96-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:32:13-37
+97        </receiver>
+98        <receiver
+98-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:34:9-42:20
+99            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+99-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:35:13-100
+100            android:enabled="true"
+100-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:36:13-35
+101            android:exported="true"
+101-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:37:13-36
+102            android:permission="android.permission.INSTALL_PACKAGES" >
+102-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:38:13-69
+103            <intent-filter>
+103-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:39:13-41:29
+104                <action android:name="com.android.vending.INSTALL_REFERRER" />
+104-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:40:17-79
+104-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:40:25-76
+105            </intent-filter>
+106        </receiver>
+107
+108        <service
+108-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:44:9-47:40
+109            android:name="com.google.android.gms.measurement.AppMeasurementService"
+109-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:45:13-84
+110            android:enabled="true"
+110-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:46:13-35
+111            android:exported="false" />
+111-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:47:13-37
+112        <service
+112-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:48:9-52:72
+113            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+113-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:49:13-87
+114            android:enabled="true"
+114-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:50:13-35
+115            android:exported="false"
+115-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:51:13-37
+116            android:permission="android.permission.BIND_JOB_SERVICE" />
+116-->[com.google.android.gms:play-services-measurement:17.2.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/eac8242f40f676eb428cc8c22a92429e/play-services-measurement-17.2.2/AndroidManifest.xml:52:13-69
+117
+118        <provider
+118-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:19:9-23:39
+119            android:name="com.mapbox.android.telemetry.provider.MapboxTelemetryInitProvider"
+119-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:20:13-93
+120            android:authorities="com.example.wildfire_fixed_imports.mapboxtelemetryinitprovider"
+120-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:21:13-79
+121            android:exported="false"
+121-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:22:13-37
+122            android:initOrder="100" />
+122-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:23:13-36
+123
+124        <service
+124-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:25:9-27:72
+125            android:name="com.mapbox.android.telemetry.crash.CrashReporterJobIntentService"
+125-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:26:13-92
+126            android:permission="android.permission.BIND_JOB_SERVICE" />
+126-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] /home/ronnie/.gradle/caches/transforms-2/files-2.1/ce6b328fd109e3a4302d5bb5ff0fa60e/jetified-mapbox-android-telemetry-4.5.1/AndroidManifest.xml:27:13-69
+127
+128        <receiver
+128-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:37:9-44:20
+129            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+129-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:38:13-78
+130            android:exported="true"
+130-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:39:13-36
+131            android:permission="com.google.android.c2dm.permission.SEND" >
+131-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:40:13-73
+132            <intent-filter>
+132-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:41:13-43:29
+133                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+133-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:42:17-81
+133-->[com.google.firebase:firebase-iid:20.0.2] /home/ronnie/.gradle/caches/transforms-2/files-2.1/a1a1de5bef90e061fa21783a3d352f03/firebase-iid-20.0.2/AndroidManifest.xml:42:25-78
+134            </intent-filter>
+135        </receiver>
+136
+137        <provider
+137-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:26:9-30:39
+138            android:name="com.google.firebase.provider.FirebaseInitProvider"
+138-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:27:13-77
+139            android:authorities="com.example.wildfire_fixed_imports.firebaseinitprovider"
+139-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:28:13-72
+140            android:exported="false"
+140-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:29:13-37
+141            android:initOrder="100" />
+141-->[com.google.firebase:firebase-common:19.3.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/4f532717a9897ab14331b0b03d3c10a8/jetified-firebase-common-19.3.0/AndroidManifest.xml:30:13-36
+142        <provider
+142-->[androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:23:9-27:43
+143            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+143-->[androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:24:13-79
+144            android:authorities="com.example.wildfire_fixed_imports.lifecycle-process"
+144-->[androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:25:13-69
+145            android:exported="false"
+145-->[androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:26:13-37
+146            android:multiprocess="true" />
+146-->[androidx.lifecycle:lifecycle-process:2.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/bf7fc99a6437f38585cccc5bf8e4c5b5/lifecycle-process-2.1.0/AndroidManifest.xml:27:13-40
+147
+148        <activity
+148-->[com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:23:9-26:75
+149            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+149-->[com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:24:13-79
+150            android:exported="false"
+150-->[com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:25:13-37
+151            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+151-->[com.google.android.gms:play-services-base:17.1.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/93f4ebf01800fd92517fd6bf81b60be8/play-services-base-17.1.0/AndroidManifest.xml:26:13-72
+152
+153        <meta-data
+153-->[com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+154            android:name="com.google.android.gms.version"
+154-->[com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+155            android:value="@integer/google_play_services_version" />
+155-->[com.google.android.gms:play-services-basement:17.0.0] /home/ronnie/.gradle/caches/transforms-2/files-2.1/56b301ff54d9b896deafeae81178b623/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+156    </application>
+157
+158</manifest>
