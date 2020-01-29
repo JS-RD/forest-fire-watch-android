@@ -62,12 +62,12 @@ class HeatMapController () {
     private val HEATMAP_STYLE = Style.DARK
 
 
-    fun initializeHeatMapExtended() {
+ /*   fun initializeHeatMapExtended() {
 
         targetMap.setStyle(HEATMAP_STYLE) { style ->
             addHeatMapSource(style)
-            /*      addHeatmapLayer_fixed(style)
-                      addCircleLayer(style)*/
+            *//*      addHeatmapLayer_fixed(style)
+                      addCircleLayer(style)*//*
             if (!heatmapHasBeennitialized) {
                 initHeatmapColors()
                 initHeatmapRadiusStops()
@@ -101,9 +101,10 @@ class HeatMapController () {
                 heatmapHasBeennitialized=true
             }
         }
+        }
+*/
 
 
-    }
 
     fun addHeatMapSource(@NonNull loadedMapStyle: Style) {
         val source = GeoJsonSource(

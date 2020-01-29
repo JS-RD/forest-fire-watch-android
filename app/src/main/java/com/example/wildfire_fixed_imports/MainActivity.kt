@@ -192,9 +192,9 @@ setUpOnClicks()
 
     //navigation and interface methods
 
-    fun setFabOnclick(lambda: () -> Unit) {
+   /* fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
-    }
+    }*/
 
     private fun setUpNav() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

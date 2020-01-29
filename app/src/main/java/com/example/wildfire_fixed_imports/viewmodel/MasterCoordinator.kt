@@ -169,7 +169,7 @@ var FIREJOBS:Job = Job()
         fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
         AQIGeoJson.observe(currentActivity as LifecycleOwner, AQIGeoJsonObserver)
 
-
+/*
         //the following can be deleted easily enough
         var iterator = 0
         val arrayOfStyles: ArrayList<String> = arrayListOf(
@@ -198,7 +198,7 @@ var FIREJOBS:Job = Job()
                 // heatMapController.initializeHeatMapExtended()
             }
         }
-
+*/
 
     }
 
