@@ -21,6 +21,7 @@
         android:id="@+id/bottomsheert_switch_fire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:elevation="11dp"
         android:padding="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,7 @@
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="10dp"
-        android:rotation="180"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="@+id/bottomsheert_img_arrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bottomsheert_img_arrow"
@@ -85,11 +86,12 @@
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv1"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv1"
-        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv1"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_switch1"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_switch1"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
@@ -113,6 +115,7 @@
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -138,6 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
+        android:checked="true"
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
@@ -150,7 +154,7 @@
 
     <TextView
 
-        android:id="@+id/bottomsheet_tv1"
+        android:id="@+id/bottomsheet_tv_switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
@@ -170,6 +174,7 @@
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
+        android:checked="true"
         app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -189,7 +194,7 @@
         app:layout_constraintEnd_toStartOf="@+id/bottomsheet_sw_switch2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv1" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv_switch1" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

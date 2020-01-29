@@ -160,6 +160,19 @@ val mapViewModelFactory by lazy {
     lateinit var aqiGaugeMinimized: ImageView
 
 
+    //bottom sheet toggles
+    var btmSheetToggle1: SwitchCompat? = null
+    var btmSheetToggle2: SwitchCompat? = null
+    var btmSheetToggle3: SwitchCompat? = null
+    var btmSheetToggle4: SwitchCompat? = null
+    var btmSheetTv1: TextView? = null
+    var btmSheetTv2: TextView? = null
+    var btmSheetTv3: TextView? = null
+    var btmSheetTv4: TextView? = null
+
+
+
+
     //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
     var coarseLocationPermission: Boolean = false

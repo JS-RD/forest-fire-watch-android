@@ -128,15 +128,111 @@ class WildFireMapFragment : Fragment() {
 
         }
 
-        applicationLevelProvider.switchFireBSIcon.setOnClickListener {
 
+        applicationLevelProvider.switchFireBSIcon.setOnClickListener {
             fireToggleButtonOnClick()
         }
         applicationLevelProvider.switchAqiCloudBSIcon.setOnClickListener {
             aqiToggleButtonOnClick()
         }
+        applicationLevelProvider.fireImageView.setOnClickListener {
+            fireToggleButtonOnClick()
+        }
+        applicationLevelProvider.cloudImageView.setOnClickListener {
+            aqiToggleButtonOnClick()
+        }
 
+        applicationLevelProvider.btmSheetToggle1?.setOnClickListener {
+            aqiToggleBaseText()
+        }
+        applicationLevelProvider.btmSheetToggle2?.setOnClickListener {
+            aqiToggleCompositeText()
+        }
+        applicationLevelProvider.btmSheetToggle3?.setOnClickListener {
+            aqiToggleBaseHML()
+        }
+        applicationLevelProvider.btmSheetToggle4?.setOnClickListener {
+            aqiToggleCompositeHML()
+        }
+        applicationLevelProvider.btmSheetTv1?.text="bottom text layer"
+        applicationLevelProvider.btmSheetTv2?.text="composite text layer"
+        applicationLevelProvider.btmSheetTv3?.text="bottom circles layer"
+        applicationLevelProvider.btmSheetTv4?.text="composite circles layer"
     }
+
+    fun aqiToggleBaseText() {
+        mapboxMap.getStyle { style ->
+
+
+            val layer2: Layer? = style.getLayer(AQI_TEXT_LAYER)
+            if (layer2 != null) {
+                if (VISIBLE == layer2.visibility.getValue()) {
+                    layer2.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiBaseTextLayerVisibility = NONE
+                } else {
+                    layer2.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiBaseTextLayerVisibility = VISIBLE
+                }
+
+            }
+
+        }
+    }
+
+    fun aqiToggleCompositeText():Boolean {
+
+        mapboxMap.getStyle { style ->
+
+            val layer: Layer? = style.getLayer(AQI_SUM_COUNT_LAYER)
+            if (layer != null) {
+                if (VISIBLE == layer.visibility.getValue()) {
+                    layer.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiClusterTextLayerVisibility = NONE
+
+                } else {
+                    layer.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiClusterTextLayerVisibility = VISIBLE
+
+                }
+            }
+        }
+    }
+
+    fun aqiToggleBaseHML() {
+        mapboxMap.getStyle { style ->
+
+        val layer1: Layer? = style.getLayer(AQI_HEATLITE_BASE_LAYER)
+        if (layer1 != null) {
+            if (VISIBLE == layer1.visibility.getValue()) {
+                layer1.setProperties(visibility(NONE))
+                applicationLevelProvider.aqiBaseHMLLayerVisibility = NONE
+            } else {
+                layer1.setProperties(visibility(VISIBLE))
+                applicationLevelProvider.aqiBaseHMLLayerVisibility = VISIBLE
+            }
+        }
+    }
+    }
+
+    fun aqiToggleCompositeHML() {
+
+        mapboxMap.getStyle { style ->
+            for (i in 0..2) {
+                val layer: Layer? = style.getLayer("cluster-hml-$i")
+                if (layer != null) {
+                    if (VISIBLE == layer.visibility.getValue()) {
+                        layer.setProperties(visibility(NONE))
+                        applicationLevelProvider.aqiClusterHMLLayerVisibility = NONE
+                    } else {
+                        layer.setProperties(visibility(VISIBLE))
+                        applicationLevelProvider.aqiClusterHMLLayerVisibility = VISIBLE
+                    }
+                }
+            }
+        }
+    }
+
+
 
     fun fireToggleButtonOnClick() {
         opacitySwitch(applicationLevelProvider.fireImageView)
@@ -146,9 +242,11 @@ class WildFireMapFragment : Fragment() {
                 if (VISIBLE == layer.visibility.getValue()) {
                     layer.setProperties(visibility(NONE))
                     applicationLevelProvider.fireLayerVisibility = NONE
+                    applicationLevelProvider.switchFireBSIcon.setChecked(false)
                 } else {
                     layer.setProperties(visibility(VISIBLE))
                     applicationLevelProvider.fireLayerVisibility = VISIBLE
+                    applicationLevelProvider.switchFireBSIcon.setChecked(true)
                 }
             }
         }
@@ -158,63 +256,84 @@ class WildFireMapFragment : Fragment() {
 
 
     }
+   private fun toggleAQIDetailSwitchs(switchOn: Boolean) {
+       if(switchOn) {
+           applicationLevelProvider.btmSheetToggle4?.setChecked(true)
+           applicationLevelProvider.btmSheetToggle3?.setChecked(true)
+           applicationLevelProvider.btmSheetToggle2?.setChecked(true)
+           applicationLevelProvider.btmSheetToggle1?.setChecked(true)
+       }
+       else {
+           applicationLevelProvider.btmSheetToggle4?.setChecked(false)
+           applicationLevelProvider.btmSheetToggle3?.setChecked(false)
+           applicationLevelProvider.btmSheetToggle2?.setChecked(false)
+           applicationLevelProvider.btmSheetToggle1?.setChecked(false)
+       }
+   }
 
-    var counter = 0
     fun aqiToggleButtonOnClick() {
         opacitySwitch(applicationLevelProvider.cloudImageView)
         mapViewModel.toggleAQIRetrieval()
         mapboxMap.getStyle { style ->
-            val layer: Layer? = style.getLayer("count")
-            if (layer != null) {
-                if (VISIBLE == layer.visibility.getValue()) {
-                    layer.setProperties(visibility(NONE))
-                    applicationLevelProvider.aqiLayerVisibility = NONE
+
+
+            val layer2: Layer? = style.getLayer(AQI_TEXT_LAYER)
+            if (layer2 != null) {
+                if (VISIBLE == layer2.visibility.getValue()) {
+                    layer2.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiBaseTextLayerVisibility = NONE
+                    applicationLevelProvider.switchAqiCloudBSIcon.setChecked(false)
+                    toggleAQIDetailSwitchs(true)
                 } else {
-                    layer.setProperties(visibility(VISIBLE))
-                    applicationLevelProvider.aqiLayerVisibility = VISIBLE
-                }
-            }
-            val layer1: Layer? = style.getLayer("unclustered-aqi-points")
-            if (layer1 != null) {
-                if (VISIBLE == layer1.visibility.getValue()) {
-                    layer1.setProperties(visibility(NONE))
-                } else {
-                    layer1.setProperties(visibility(VISIBLE))
+                    layer2.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiBaseTextLayerVisibility = VISIBLE
+                    applicationLevelProvider.switchAqiCloudBSIcon.setChecked(true)
+                    toggleAQIDetailSwitchs(false)
                 }
             }
 
-            for (i in 0..2) {
-                if (counter == i) {
-                    val layer: Layer? = style.getLayer("cluster-$i")
-                    if (layer != null) {
-                        layer.setProperties(visibility(VISIBLE))
-                    }
+
+            val layer: Layer? = style.getLayer(AQI_SUM_COUNT_LAYER)
+            if (layer != null) {
+                if (VISIBLE == layer.visibility.getValue()) {
+                    layer.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiLayerVisibility =NONE
+                    applicationLevelProvider.aqiClusterTextLayerVisibility = NONE
+
                 } else {
-                    val layer: Layer? = style.getLayer("cluster-$i")
-                    if (layer != null) {
-                        layer.setProperties(visibility(NONE))
-                    }
+                    layer.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiLayerVisibility =VISIBLE
+                    applicationLevelProvider.aqiClusterTextLayerVisibility = VISIBLE
+
                 }
             }
-            Toast.makeText(this.context, counter.toString(), Toast.LENGTH_SHORT).show()
-            if (counter == 2) {
-                counter = 0
-            } else {
-                counter++
+
+            val layer1: Layer? = style.getLayer(AQI_HEATLITE_BASE_LAYER)
+            if (layer1 != null) {
+                if (VISIBLE == layer1.visibility.getValue()) {
+                    layer1.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiBaseHMLLayerVisibility = NONE
+                } else {
+                    layer1.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiBaseHMLLayerVisibility = VISIBLE
+                }
             }
-            /*for (i in 0..2) {
-                val layer: Layer? = style.getLayer("cluster-$i")
+            for (i in 0..2) {
+                val layer: Layer? = style.getLayer("cluster-hml-$i")
                 if (layer != null) {
                     if (VISIBLE == layer.visibility.getValue()) {
                         layer.setProperties(visibility(NONE))
+                        applicationLevelProvider.aqiClusterHMLLayerVisibility = NONE
                     } else {
                         layer.setProperties(visibility(VISIBLE))
+                        applicationLevelProvider.aqiClusterHMLLayerVisibility = VISIBLE
                     }
                 }
-            }*/
+            }
         }
         Timber.i("$TAG toggle aqi")
     }
+
 
     fun opacitySwitch(view: ImageView){
         if (view.alpha == 1F){

@@ -64,9 +64,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-    private lateinit var togle:SwitchCompat
-
-
+    private lateinit var btmSheetToggle1: SwitchCompat
+    private lateinit var btmSheetToggle2: SwitchCompat
+    private lateinit var btmSheetToggle3: SwitchCompat
+    private lateinit var btmSheetToggle4: SwitchCompat
+    private lateinit var btmSheetTv1: TextView
+    private lateinit var btmSheetTv2: TextView
+    private lateinit var btmSheetTv3: TextView
+    private lateinit var btmSheetTv4: TextView
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -125,18 +130,36 @@ class MainActivity : AppCompatActivity() {
         aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
-      /*  aqiGaugeExpanded.setAlpha(0.5f)*/
+        //bottom sheet toggles and textviews
+        btmSheetToggle1 = findViewById(R.id.bottomsheet_sw_switch1)
+        btmSheetToggle2 = findViewById(R.id.bottomsheet_sw_switch2)
+        btmSheetToggle3 = findViewById(R.id.bottomsheet_sw_switch3)
+        btmSheetToggle4 = findViewById(R.id.bottomsheet_sw_switch4)
+        btmSheetTv1 = findViewById(R.id.bottomsheet_tv_switch1)
+        btmSheetTv2 = findViewById(R.id.bottomsheet_tv_switch2)
+        btmSheetTv3 = findViewById(R.id.bottomsheet_tv_switch3)
+        btmSheetTv4 = findViewById(R.id.bottomsheet_tv_switch4)
+        applicationLevelProvider.btmSheetToggle1=btmSheetToggle1
+        applicationLevelProvider.btmSheetToggle2=btmSheetToggle2
+        applicationLevelProvider.btmSheetToggle3=btmSheetToggle3
+        applicationLevelProvider.btmSheetToggle4=btmSheetToggle4
+        applicationLevelProvider.btmSheetTv1=btmSheetTv1
+        applicationLevelProvider.btmSheetTv2=btmSheetTv2
+        applicationLevelProvider.btmSheetTv3=btmSheetTv3
+        applicationLevelProvider.btmSheetTv4=btmSheetTv4
+
+        /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)
 
 
         applicationLevelProvider.arrow=arrow
+        applicationLevelProvider.fireImageView=fireImageView
+        applicationLevelProvider.cloudImageView=cloudImageView
         applicationLevelProvider.switchAqiCloudBSIcon=switchAqiCloudBSIcon
         applicationLevelProvider.switchFireBSIcon=switchFireBSIcon
         applicationLevelProvider.bottomSheet=bottomSheet
         applicationLevelProvider.aqiGaugeExpanded=aqiGaugeExpanded
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
-        applicationLevelProvider.fireImageView=fireImageView
-        applicationLevelProvider.cloudImageView=cloudImageView
         applicationLevelProvider.legendText=legendText
 
 

@@ -171,7 +171,7 @@ class MapDrawController() {
                         PropertyFactory.textSize(40f),
                         PropertyFactory.textColor(
                                 interpolate(
-                                        linear(), aqiFeatureCalcExpression, //
+                                        linear(), dived, //
                                         literal(0), rgb(0, 255, 0),
                                         literal(50), rgb(255, 255, 0),
                                         literal(100), rgb(255, 153, 51),
@@ -222,7 +222,7 @@ class MapDrawController() {
                             /*                 PropertyFactory.textField("adsfasdf"),       //get("aqi")),
                                              PropertyFactory.textSize(40f),
                                              PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*/
-                            PropertyFactory.visibility(applicationLevelProvider.aqiBaseHMLLayerVisibility
+                            PropertyFactory.visibility(applicationLevelProvider.aqiClusterHMLLayerVisibility
                             ),
                             PropertyFactory.circleColor(
                             interpolate(
@@ -248,8 +248,34 @@ class MapDrawController() {
                        style.addLayerBelow(circles, AQI_SUM_COUNT_LAYER)
                 }
 
+//begin fire source and layers
+                style.addSource(
+                        GeoJsonSource(FIRE_SOURCE_ID,
+                                // Point to GeoJSON data.
+                                FeatureCollection.fromJson(FireGeoJson),
+                                GeoJsonOptions()
+                                        .withCluster(false)
+                                         .withClusterMaxZoom(14)
+                                        .withClusterRadius(50)
+                        )
+                )
+                val fireSymbols = SymbolLayer(FIRE_SYMBOL_LAYER, FIRE_SOURCE_ID)
 
+                fireSymbols.setProperties(
+                        PropertyFactory.visibility(applicationLevelProvider.fireLayerVisibility),
+                        PropertyFactory.textField(get("name")),
+                        PropertyFactory.textAnchor(Property.TEXT_ANCHOR_BOTTOM),
+                        PropertyFactory.textSize(12f),
+                        PropertyFactory.iconImage(fireIconTarget),
+                        PropertyFactory.iconSize(2.0f),
+                        PropertyFactory.textFont(arrayOf("Roboto Black", "Arial Unicode MS Bold")),
+                        PropertyFactory.textColor(Color.WHITE)
+                        //    PropertyFactory.textFont(arrayOf("Roboto Black Bold", "Arial Unicode MS Bold"))
+                        //PropertyFactory.textHaloColor(Color.WHITE)
 
+                )
+                fireSymbols.setFilter(Expression.has(get("fire")))
+                style.addLayer(fireSymbols)
 
 
 
