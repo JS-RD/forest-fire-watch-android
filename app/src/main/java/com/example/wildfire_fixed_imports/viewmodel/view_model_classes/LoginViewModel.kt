@@ -3,16 +3,15 @@ package com.example.wildfire_fixed_imports.viewmodel.view_model_classes
 
 import android.util.Patterns
 import androidx.lifecycle.*
-import com.example.wildfire_fixed_imports.*
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
-import com.example.wildfire_fixed_imports.view.loginRegistration.LoginFormState
-import com.example.wildfire_fixed_imports.view.loginRegistration.LoginResult
-import com.example.wildfire_fixed_imports.view.loginRegistration.RegistrationResult
+import com.example.wildfire_fixed_imports.view.login_registration.LoginFormState
+import com.example.wildfire_fixed_imports.view.login_registration.LoginResult
+import com.example.wildfire_fixed_imports.view.login_registration.RegistrationResult
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.MapDisplay
+package com.example.wildfire_fixed_imports.view.map_display
 
 import android.Manifest
 import android.content.Context
@@ -8,14 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.Mapbox
@@ -24,12 +23,10 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.style.layers.Layer
-import com.mapbox.mapboxsdk.style.layers.Property
 import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,10 +40,6 @@ class WildFireMapFragment : Fragment() {
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
 
-    init {
-        //set this fragment as the map fragment in ApplicationLevelProvider
-
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -56,7 +49,6 @@ class WildFireMapFragment : Fragment() {
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
     private lateinit var mapView: MapView
-    private lateinit var masterCoordinator: MasterCoordinator
 
 
 
@@ -65,9 +57,6 @@ class WildFireMapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
 
 
      // Initialize Home View Model
@@ -80,7 +69,6 @@ class WildFireMapFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val view  = inflater!!.inflate(R.layout.bottom_sheet, container, false)
 
 
         mapView = root.findViewById(R.id.mapview_main)
@@ -137,27 +125,23 @@ class WildFireMapFragment : Fragment() {
 
         applicationLevelProvider.fireBSIcon.setOnClickListener {
             fireToggleButtonOnClick()
-
         }
         applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
             aqiToggleButtonOnClick()
-
         }
 
     }
 
-
     fun fireToggleButtonOnClick() {
-
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
             if (layer != null) {
                 if (VISIBLE == layer.visibility.getValue()) {
                     layer.setProperties(visibility(NONE))
-                    applicationLevelProvider.fireLayerVisibility = Property.NONE
+                    applicationLevelProvider.fireLayerVisibility = NONE
                 } else {
                     layer.setProperties(visibility(VISIBLE))
-                    applicationLevelProvider.fireLayerVisibility = Property.VISIBLE
+                    applicationLevelProvider.fireLayerVisibility = VISIBLE
                 }
             }
         }
@@ -165,18 +149,18 @@ class WildFireMapFragment : Fragment() {
         Timber.i("$TAG toggle fire")
     }
 
+    var counter = 0
     fun aqiToggleButtonOnClick() {
-
         mapViewModel.toggleAQIRetrieval()
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer("count")
             if (layer != null) {
                 if (VISIBLE == layer.visibility.getValue()) {
                     layer.setProperties(visibility(NONE))
-                    applicationLevelProvider.aqiLayerVisibility = Property.NONE
+                    applicationLevelProvider.aqiLayerVisibility = NONE
                 } else {
                     layer.setProperties(visibility(VISIBLE))
-                    applicationLevelProvider.aqiLayerVisibility = Property.VISIBLE
+                    applicationLevelProvider.aqiLayerVisibility = VISIBLE
                 }
             }
             val layer1: Layer? = style.getLayer("unclustered-aqi-points")
@@ -189,6 +173,25 @@ class WildFireMapFragment : Fragment() {
             }
 
             for (i in 0..2) {
+                if (counter == i) {
+                    val layer: Layer? = style.getLayer("cluster-$i")
+                    if (layer != null) {
+                        layer.setProperties(visibility(VISIBLE))
+                    }
+                } else {
+                    val layer: Layer? = style.getLayer("cluster-$i")
+                    if (layer != null) {
+                        layer.setProperties(visibility(NONE))
+                    }
+                }
+            }
+            Toast.makeText(this.context, counter.toString(), Toast.LENGTH_SHORT).show()
+            if (counter == 2) {
+                counter = 0
+            } else {
+                counter++
+            }
+            /*for (i in 0..2) {
                 val layer: Layer? = style.getLayer("cluster-$i")
                 if (layer != null) {
                     if (VISIBLE == layer.visibility.getValue()) {
@@ -197,7 +200,7 @@ class WildFireMapFragment : Fragment() {
                         layer.setProperties(visibility(VISIBLE))
                     }
                 }
-            }
+            }*/
         }
         Timber.i("$TAG toggle aqi")
     }
@@ -410,7 +413,6 @@ class WildFireMapFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         super.onViewCreated(view, savedInstanceState)
 

@@ -3,12 +3,20 @@ package com.example.wildfire_fixed_imports.view.drawer
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.wildfire_fixed_imports.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.app_bar_main.view.*
+
 //automatically sets the MotionLayout’s progress
 class DrawerContent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MotionLayout(context, attrs, defStyleAttr), DrawerLayout.DrawerListener {
+
     override fun onDrawerStateChanged(newState: Int) {
     }
 
@@ -26,4 +34,11 @@ class DrawerContent @JvmOverloads constructor(
         super.onAttachedToWindow()
         (parent as? DrawerLayout)?.addDrawerListener(this)
     }
+
+
+
+
+
+
+
 }
