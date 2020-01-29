@@ -13,7 +13,9 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
@@ -37,6 +39,8 @@ import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
 import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,14 +56,22 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: SwitchCompat
-    private lateinit var  fireBSIcon: SwitchCompat
+    private lateinit var legendText: TextView
+    private lateinit var cloudImageView: ImageView
+    private lateinit var fireImageView: ImageView
+    private lateinit var  switchAqiCloudBSIcon: SwitchCompat
+    private lateinit var  switchFireBSIcon: SwitchCompat
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-    private lateinit var togle:SwitchCompat
-
-
+    private lateinit var btmSheetToggle1: SwitchCompat
+    private lateinit var btmSheetToggle2: SwitchCompat
+    private lateinit var btmSheetToggle3: SwitchCompat
+    private lateinit var btmSheetToggle4: SwitchCompat
+    private lateinit var btmSheetTv1: TextView
+    private lateinit var btmSheetTv2: TextView
+    private lateinit var btmSheetTv3: TextView
+    private lateinit var btmSheetTv4: TextView
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -86,32 +98,74 @@ class MainActivity : AppCompatActivity() {
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+
+        val drawerToggle = ActionBarDrawerToggle(this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close)
+
+
+
+        // Configure the drawer layout to add listener and show icon on toolbar
+        drawerToggle.isDrawerIndicatorEnabled = true
+        drawer_layout.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+        actionBar!!.setDisplayShowTitleEnabled(false)
+
+
+
 
         //find by ids and APLs
-        arrow=findViewById(R.id.imageViewArrow)
-        aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
-        fireBSIcon=findViewById(R.id.switchImageViewFire)
+
+        arrow=findViewById(R.id.bottomsheert_img_arrow)
+        legendText=findViewById(R.id.bottomsheert_tv_status)
+        fireImageView = findViewById(R.id.bottomsheert_img_fire)
+        cloudImageView = findViewById(R.id.bottomsheert_img_cloud)
+        switchAqiCloudBSIcon = findViewById(R.id.bottomsheet_switch_cloud)
+        switchFireBSIcon=findViewById(R.id.bottomsheert_switch_fire)
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
+        //bottom sheet toggles and textviews
+        btmSheetToggle1 = findViewById(R.id.bottomsheet_sw_switch1)
+        btmSheetToggle2 = findViewById(R.id.bottomsheet_sw_switch2)
+        btmSheetToggle3 = findViewById(R.id.bottomsheet_sw_switch3)
+        btmSheetToggle4 = findViewById(R.id.bottomsheet_sw_switch4)
+        btmSheetTv1 = findViewById(R.id.bottomsheet_tv_switch1)
+        btmSheetTv2 = findViewById(R.id.bottomsheet_tv_switch2)
+        btmSheetTv3 = findViewById(R.id.bottomsheet_tv_switch3)
+        btmSheetTv4 = findViewById(R.id.bottomsheet_tv_switch4)
+        applicationLevelProvider.btmSheetToggle1=btmSheetToggle1
+        applicationLevelProvider.btmSheetToggle2=btmSheetToggle2
+        applicationLevelProvider.btmSheetToggle3=btmSheetToggle3
+        applicationLevelProvider.btmSheetToggle4=btmSheetToggle4
+        applicationLevelProvider.btmSheetTv1=btmSheetTv1
+        applicationLevelProvider.btmSheetTv2=btmSheetTv2
+        applicationLevelProvider.btmSheetTv3=btmSheetTv3
+        applicationLevelProvider.btmSheetTv4=btmSheetTv4
+
+        /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)
+
+
         applicationLevelProvider.arrow=arrow
-        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
-        applicationLevelProvider.fireBSIcon=fireBSIcon
+        applicationLevelProvider.fireImageView=fireImageView
+        applicationLevelProvider.cloudImageView=cloudImageView
+        applicationLevelProvider.switchAqiCloudBSIcon=switchAqiCloudBSIcon
+        applicationLevelProvider.switchFireBSIcon=switchFireBSIcon
         applicationLevelProvider.bottomSheet=bottomSheet
         applicationLevelProvider.aqiGaugeExpanded=aqiGaugeExpanded
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
+        applicationLevelProvider.legendText=legendText
 
 
 
 setUpOnClicks()
         setUpNav()
-
-
-
-
-        //check permissions
 
 
     }
@@ -130,20 +184,25 @@ setUpOnClicks()
 
      val bottomSheetObserver = Observer<Float> {
          if (it ==1f){
-             //  fireBSIcon.visibility = View.INVISIBLE
-             // aqiCloudBSIcon.visibility = View.INVISIBLE
+             //  switchFireBSIcon.visibility = View.INVISIBLE
+             // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+             legendText.setText("")
+
 
          }
          else {
-             //fireBSIcon.visibility = View.VISIBLE
-             // aqiCloudBSIcon.visibility =View.VISIBLE
+             //switchFireBSIcon.visibility = View.VISIBLE
+             // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
+             legendText.setText(R.string.swipe_up_for_more_filters)
          }
 
      }
      bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
 
 
 
@@ -190,11 +249,6 @@ setUpOnClicks()
 
 
 
-    //navigation and interface methods
-
-   /* fun setFabOnclick(lambda: () -> Unit) {
-        fab.setOnClickListener { lambda.invoke() }
-    }*/
 
     private fun setUpNav() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -206,7 +260,7 @@ setUpOnClicks()
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                R.id.nav_home, R.id.nav_login, R.id.nav_settings,
                 R.id.nav_debug, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )

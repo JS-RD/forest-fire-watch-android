@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
             <TextView
 
                 android:id="@+id/login"
@@ -59,13 +75,11 @@
         android:layout_height="0dp" />
 
 
+
     <include
         android:id="@+id/include"
         layout="@layout/content_main"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="-96dp" />
+       />
 
     <com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
         android:id="@+id/bottomSheetLayout"
@@ -85,11 +99,10 @@
     <include
         android:id="@+id/aqi_bar_include"
         layout="@layout/aqi_bar"
+        android:layout_marginTop="100dp"
         android:layout_width="85sp"
         android:layout_height="281sp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="55dp"
         android:layout_marginEnd="12dp" />
 
     <ImageView

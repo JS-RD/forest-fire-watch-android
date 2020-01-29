@@ -27,13 +27,26 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 //this is the source id for aqi
 const val AQI_SOURCE_ID = "aqiID"
 //aqi count layer
-const val AQI_COUNT_LAYER = "count"
+const val AQI_SUM_COUNT_LAYER = "count"
 //aqi unclustered layer
 const val AQI_UNCLUSTERED_LAYER = "unclustered-aqi-points"
 
-//CIRCLE LAYERS AQI
-val AQI_CIRCLE_LAYERS = arrayListOf<String>("cluster-0", "cluster-1", "cluster-2")
+//CIRCLE heatmaplite LAYERS AQI
+val AQI_HML_CIRCLE_LAYERS = arrayListOf("cluster-hml-0", "cluster-hml-1", "cluster-hml-2")
 
+//CIRCLE LAYERS AQI
+val AQI_CIRCLE_LAYERS = arrayListOf("cluster-0", "cluster-1", "cluster-2")
+
+
+
+//text layer aqi
+const val AQI_TEXT_LAYER = "aqi-text-layer"
+
+//bottom heatmap lite aqi circles
+const val AQI_HEATLITE_BASE_LAYER="heatmap_lite_base"
+
+//bottom heatmap lite aqi circles
+const val AQI_HEATLITE_CLUSTER_LAYER="heatmap_lite_cluster"
 
 const val aqiCloudIcon = "cloudicon"
 //source id for fire

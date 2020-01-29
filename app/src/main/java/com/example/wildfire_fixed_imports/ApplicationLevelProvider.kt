@@ -151,10 +151,26 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-    lateinit var aqiCloudBSIcon:SwitchCompat
-    lateinit var fireBSIcon:SwitchCompat
+     lateinit var legendText: TextView
+    lateinit var switchAqiCloudBSIcon:SwitchCompat
+    lateinit var switchFireBSIcon:SwitchCompat
+    lateinit var fireImageView: ImageView
+    lateinit var cloudImageView: ImageView
      lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
+
+
+    //bottom sheet toggles
+    var btmSheetToggle1: SwitchCompat? = null
+    var btmSheetToggle2: SwitchCompat? = null
+    var btmSheetToggle3: SwitchCompat? = null
+    var btmSheetToggle4: SwitchCompat? = null
+    var btmSheetTv1: TextView? = null
+    var btmSheetTv2: TextView? = null
+    var btmSheetTv3: TextView? = null
+    var btmSheetTv4: TextView? = null
+
+
 
 
     //lateinit var cloudBSIcon:ImageView
@@ -164,6 +180,10 @@ val mapViewModelFactory by lazy {
     var initZoom:Boolean =false
 
     var aqiLayerVisibility = Property.VISIBLE
+    var aqiBaseTextLayerVisibility = Property.VISIBLE
+    var aqiClusterTextLayerVisibility = Property.VISIBLE
+    var aqiBaseHMLLayerVisibility = Property.VISIBLE
+    var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
 
@@ -210,6 +230,8 @@ val mapViewModelFactory by lazy {
             Timber.plant(CrashReportingTree())
         }
         Timber.i("$javaClass $methodName initialized")
+
+
 
     }
 

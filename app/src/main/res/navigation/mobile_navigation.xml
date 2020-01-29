@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_login_register"
+        android:id="@+id/nav_login"
         android:name="com.example.wildfire_fixed_imports.view.login_registration.LoginFragment"
         android:label="@string/menu_login_register"
         tools:layout="@layout/fragment_login" />

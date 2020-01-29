@@ -238,7 +238,7 @@ var FIREJOBS:Job = Job()
                 is SuccessFailWrapper.Fail -> Timber.i(result.message).also { isAQIdatasServiceRunning.set(false) }.also {
                     CoroutineScope(Dispatchers.Main).launch {
                         Toast.makeText(applicationLevelProvider.applicationContext,
-                                result.message, Toast.LENGTH_LONG).show()
+                                "canceled or error" + result.message, Toast.LENGTH_LONG).show()
                         applicationLevelProvider.showSnackbar("AQI service quitting", Snackbar.LENGTH_INDEFINITE)
                     }
                 }

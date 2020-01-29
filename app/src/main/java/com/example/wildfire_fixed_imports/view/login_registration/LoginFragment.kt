@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,7 +38,10 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+
+
         return inflater.inflate(R.layout.fragment_login, container, false)
+
 
     }
 
@@ -55,6 +59,11 @@ class LoginFragment : Fragment() {
         val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
+
+
+
+
+
 
         loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
