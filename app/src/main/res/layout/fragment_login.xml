@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
     android:background="@android:color/white"
-    tools:context=".view.loginRegistration.LoginFragment"
+    tools:context=".view.login_registration.LoginFragment"
     app:layoutDescription="@xml/fragment_login_scene">
 
     <EditText

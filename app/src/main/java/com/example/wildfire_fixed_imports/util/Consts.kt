@@ -12,6 +12,9 @@ const val WEB_BASE_URL = "https://wildfire-watch.herokuapp.com/"
 // the new backend is at https://web-wildfirewatch.herokuapp.com/ and we should be able to switch in this url
 // as soon as the web folks have their stuff set up, as of 1/14 we're holding off on switching.
 
+const val SIMPLE_HEATMAP_LAYER_ID = "heat-map-layer-uno"
+
+const val SIMPLE_CIRCLE_LAYER_ID = "circle-layer-dos"
 
 const val DS_BASE_URL = "https://appwildfirewatch.herokuapp.com/"
 
@@ -22,35 +25,31 @@ const val AUTH_ERROR_STRING_WEB_BE = "You shall not pass"
 const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
 //this is the source id for aqi
-const val AQI_SOURCE_ID ="aqiID"
+const val AQI_SOURCE_ID = "aqiID"
 //aqi count layer
 const val AQI_COUNT_LAYER = "count"
 //aqi unclustered layer
-const val AQI_UNCLUSTERED_LAYER ="unclustered-aqi-points"
+const val AQI_UNCLUSTERED_LAYER = "unclustered-aqi-points"
 
 //CIRCLE LAYERS AQI
-val AQI_CIRCLE_LAYERS = arrayListOf<String>("cluster-0","cluster-1","cluster-2")
+val AQI_CIRCLE_LAYERS = arrayListOf<String>("cluster-0", "cluster-1", "cluster-2")
 
 
 const val aqiCloudIcon = "cloudicon"
 //source id for fire
-const val FIRE_SOURCE_ID ="fireID"
+const val FIRE_SOURCE_ID = "fireID"
 
 //fire layers
-const val FIRE_SYMBOL_LAYER ="fire-symbols"
-
-
+const val FIRE_SYMBOL_LAYER = "fire-symbols"
 
 
 const val fireIconTarget = "fire_icon_50"
 
-const val crossIconTarget ="cross-icon-id"
-
-
+const val crossIconTarget = "cross-icon-id"
 
 
 val methodName
-get() = StackTraceInfo.invokingMethodName
+    get() = StackTraceInfo.invokingMethodName
 
 val className
     get() = StackTraceInfo.invokingClassName

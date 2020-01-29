@@ -61,10 +61,13 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_main" />
+        layout="@layout/content_main"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="-96dp" />
 
-
-    <com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+    <com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
         android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +80,27 @@
             android:id="@+id/bottom_include"
             layout="@layout/bottom_sheet" />
 
-    </com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout>
+    </com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout>
 
+    <include
+        android:id="@+id/aqi_bar_include"
+        layout="@layout/aqi_bar"
+        android:layout_width="85sp"
+        android:layout_height="281sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="12dp" />
+
+    <ImageView
+        android:id="@+id/img_appbar_aqi_gauge"
+        android:layout_width="40sp"
+        android:layout_height="85sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_marginStart="343dp"
+        android:layout_marginTop="83dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/meter_clipart" />
 
 </RelativeLayout>

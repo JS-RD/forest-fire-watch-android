@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.loginRegistration
+package com.example.wildfire_fixed_imports.view.login_registration
 
 import android.os.Bundle
 import android.text.Editable

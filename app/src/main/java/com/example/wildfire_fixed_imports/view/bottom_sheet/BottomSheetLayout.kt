@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.bottomSheet
+package com.example.wildfire_fixed_imports.view.bottom_sheet
 
 import android.animation.ValueAnimator
 import android.content.Context

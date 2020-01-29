@@ -1,10 +1,10 @@
-package com.example.wildfire_fixed_imports.z_notes_and_txt
+package com.example.wildfire_fixed_imports.util
 
 import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 
-class zzzz(context: Context) {
+class LocationFinder(context: Context) {
     var lm = context
             .getSystemService(Context.LOCATION_SERVICE) as LocationManager
     var gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -41,6 +41,7 @@ class zzzz(context: Context) {
                 finalLoc = net_loc
             }
         }
+
         return finalLoc
     }
 }

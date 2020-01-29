@@ -9,9 +9,10 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -24,7 +25,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -54,9 +55,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  aqiCloudBSIcon: SwitchCompat
     private lateinit var  fireBSIcon: SwitchCompat
     private lateinit var bottomSheet: BottomSheetLayout
-    private lateinit var topLoginButton: TextView
-    private lateinit var topRegisterButton: TextView
-    private lateinit var topSettingButton: TextView
+    private lateinit var aqiGaugeExpanded: ViewGroup
+    private lateinit var aqiGaugeMinimized: ImageView
+    private lateinit var togle:SwitchCompat
 
 
 
@@ -81,69 +82,33 @@ class MainActivity : AppCompatActivity() {
 
 
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
-        //set this activity as the current activity in application level provider
+
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
 
+        //find by ids and APLs
         arrow=findViewById(R.id.imageViewArrow)
         aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
         fireBSIcon=findViewById(R.id.switchImageViewFire)
+        bottomSheet =findViewById(R.id.bottomSheetLayout)
+        aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
+        aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
+
+        aqiGaugeMinimized.setAlpha(0.5f)
         applicationLevelProvider.arrow=arrow
         applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
         applicationLevelProvider.fireBSIcon=fireBSIcon
-        bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
-        topLoginButton = findViewById(R.id.login)
-        topRegisterButton = findViewById(R.id.register_tv)
-        topSettingButton = findViewById(R.id.settings)
+        applicationLevelProvider.aqiGaugeExpanded=aqiGaugeExpanded
+        applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
 
 
 
-        topLoginButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_login_register)
-        }
-        topRegisterButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_login_register)
-        }
-        topSettingButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_settings)
-        }
-        val bottomSheetObserver = Observer<Float> {
-            if (it ==1f){
-              //  fireBSIcon.visibility = View.INVISIBLE
-               // aqiCloudBSIcon.visibility = View.INVISIBLE
-                arrow.setImageResource(R.drawable.ic_arrow_drop_down)
-
-            }
-            else {
-                //fireBSIcon.visibility = View.VISIBLE
-               // aqiCloudBSIcon.visibility =View.VISIBLE
-
-                arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-            }
-
-        }
-        bottomSheet.progress.observe(this, bottomSheetObserver)
-
-
-
-        //floating action button, can be removed.
-        fab = findViewById(R.id.fab)
-        fab.hide()
-
-        val lambda = { }
-        setFabOnclick(lambda)
-
-
+setUpOnClicks()
         setUpNav()
 
-        arrow.setOnClickListener{ bottomSheet.toggle()
-            Timber.i("arrow click")}
 
-        aqiCloudBSIcon.setOnClickListener {
-        }
-        fireBSIcon.setOnClickListener{}
 
 
         //check permissions
@@ -151,7 +116,42 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+ fun setUpOnClicks() {
+     aqiGaugeExpanded.setOnClickListener {
+         aqiGaugeExpanded.visibility = INVISIBLE
+         aqiGaugeMinimized.visibility = VISIBLE
+        // aqiGaugeMinimized.setAlpha(0.3f)
+     }
+     aqiGaugeMinimized.setOnClickListener {
+         aqiGaugeExpanded.visibility = VISIBLE
+         aqiGaugeMinimized.visibility = INVISIBLE
+         //aqiGaugeExpanded.setAlpha(0.3f)
+     }
 
+     val bottomSheetObserver = Observer<Float> {
+         if (it ==1f){
+             //  fireBSIcon.visibility = View.INVISIBLE
+             // aqiCloudBSIcon.visibility = View.INVISIBLE
+             arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+
+         }
+         else {
+             //fireBSIcon.visibility = View.VISIBLE
+             // aqiCloudBSIcon.visibility =View.VISIBLE
+
+             arrow.setImageResource(R.drawable.ic_arrow_drop_up)
+         }
+
+     }
+     bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
+
+     arrow.setOnClickListener{ bottomSheet.toggle()
+         Timber.i("arrow click")}
+
+
+ }
 
     //navigation and interface methods
 
@@ -192,9 +192,9 @@ class MainActivity : AppCompatActivity() {
 
     //navigation and interface methods
 
-    fun setFabOnclick(lambda: () -> Unit) {
+   /* fun setFabOnclick(lambda: () -> Unit) {
         fab.setOnClickListener { lambda.invoke() }
-    }
+    }*/
 
     private fun setUpNav() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -228,12 +228,19 @@ class MainActivity : AppCompatActivity() {
 
 
     //for grabing location
-    suspend fun getLatestLocation ():Location? {
-        if (applicationLevelProvider.fineLocationPermission) {
-            val locale = fusedLocationClient.lastLocation.await()
-            applicationLevelProvider.userLocation = locale ?: Location("empty")
-            return locale
+    fun getLatestLocation(): Location? {
+
+        val localationFinder = LocationFinder(this)
+        val result = localationFinder.check()
+        if (result != null) {
+            return result
         }
+        /* else {
+             if (applicationLevelProvider.fineLocationPermission) {
+                 val locale = fusedLocationClient.lastLocation
+                 return locale
+             }
+         }*/
         return null
     }
 
@@ -244,7 +251,6 @@ class MainActivity : AppCompatActivity() {
     private val locationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location) {
             Timber.i("location log" + location.longitude + ":" + location.latitude)
-            applicationLevelProvider.userLocation = location
 
         }
 

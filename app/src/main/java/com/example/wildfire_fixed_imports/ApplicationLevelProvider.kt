@@ -1,12 +1,13 @@
 package com.example.wildfire_fixed_imports
 
+
 import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.widget.SwitchCompat
@@ -18,8 +19,8 @@ import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScien
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.util.methodName
-import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
-import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
@@ -27,8 +28,6 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSCon
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLocationWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
-
-
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
 import com.google.android.material.navigation.NavigationView
@@ -154,9 +153,9 @@ val mapViewModelFactory by lazy {
     lateinit var arrow:ImageView
     lateinit var aqiCloudBSIcon:SwitchCompat
     lateinit var fireBSIcon:SwitchCompat
-    lateinit var topLoginButton: TextView
-    lateinit var topRegisterButton: TextView
-    lateinit var topSettingButtion: TextView
+     lateinit var aqiGaugeExpanded: ViewGroup
+    lateinit var aqiGaugeMinimized: ImageView
+
 
     //lateinit var cloudBSIcon:ImageView
     var fineLocationPermission: Boolean = false
@@ -173,7 +172,7 @@ val mapViewModelFactory by lazy {
     lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
-    lateinit var userLocation: Location
+    val userLocation: Location? get() = currentActivity.getLatestLocation()
 
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 
