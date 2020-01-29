@@ -31,6 +31,7 @@ import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -64,7 +65,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-    private lateinit var togle:SwitchCompat
+    private lateinit var drawerToggle: ActionBarDrawerToggle
+    private lateinit var appBarLayout: AppBarLayout
 
 
 
@@ -84,11 +86,8 @@ class MainActivity : AppCompatActivity() {
                 )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
-
-
-
-
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
+
 
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
@@ -96,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
 
-        val drawerToggle = ActionBarDrawerToggle(this,
+         drawerToggle = ActionBarDrawerToggle(this,
             drawer_layout,
             toolbar,
             R.string.navigation_drawer_open,
@@ -109,6 +108,10 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
+        applicationLevelProvider.drawerToggle = drawerToggle
+
+        appBarLayout = findViewById(R.id.app_bar_layout)
+        applicationLevelProvider.appBarLayout = appBarLayout
 
 
 

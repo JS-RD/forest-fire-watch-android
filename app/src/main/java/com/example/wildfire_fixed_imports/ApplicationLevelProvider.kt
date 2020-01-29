@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.WebBEUser
@@ -31,6 +32,7 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLoca
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -159,9 +161,9 @@ val mapViewModelFactory by lazy {
     lateinit var cloudImageView: ImageView
     lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
+    lateinit var drawerToggle: ActionBarDrawerToggle
+    lateinit var appBarLayout: AppBarLayout
 
-    lateinit var appBarInclude: Layout
-    lateinit var imgAppbarAqiGauge: ImageView
 
 
     //lateinit var cloudBSIcon:ImageView

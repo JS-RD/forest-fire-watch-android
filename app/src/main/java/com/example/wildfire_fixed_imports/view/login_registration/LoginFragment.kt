@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports.view.login_registration
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.StringRes
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -37,6 +39,11 @@ class LoginFragment : Fragment() {
     ): View? {
 
         applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
+        applicationLevelProvider.drawerToggle.isDrawerIndicatorEnabled = false
+        applicationLevelProvider.appBarLayout.isInvisible = true
+
+
 
         return inflater.inflate(R.layout.fragment_login, container, false)
 
@@ -58,7 +65,8 @@ class LoginFragment : Fragment() {
 
 
 
-        loginViewModel.loginFormState.observe(this,
+
+            loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
                         return@Observer
@@ -130,6 +138,10 @@ class LoginFragment : Fragment() {
 
 
         }
+
+
+
+
 
 
     }
