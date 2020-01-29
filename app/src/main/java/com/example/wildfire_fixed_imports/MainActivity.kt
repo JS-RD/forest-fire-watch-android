@@ -9,8 +9,10 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -53,9 +55,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  aqiCloudBSIcon: SwitchCompat
     private lateinit var  fireBSIcon: SwitchCompat
     private lateinit var bottomSheet: BottomSheetLayout
-    private lateinit var topLoginButton: TextView
-    private lateinit var topRegisterButton: TextView
-    private lateinit var topSettingButton: TextView
+    private lateinit var aqiGaugeExpanded: ViewGroup
+    private lateinit var aqiGaugeMinimized: ImageView
+
 
 
 
@@ -80,55 +82,33 @@ class MainActivity : AppCompatActivity() {
 
 
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
-        //set this activity as the current activity in application level provider
+
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
 
+        //find by ids and APLs
         arrow=findViewById(R.id.imageViewArrow)
         aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
         fireBSIcon=findViewById(R.id.switchImageViewFire)
+        bottomSheet =findViewById(R.id.bottomSheetLayout)
+        aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
+        aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
+        aqiGaugeMinimized.setAlpha(0.5f)
+
         applicationLevelProvider.arrow=arrow
         applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
         applicationLevelProvider.fireBSIcon=fireBSIcon
-        bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
-
-        val bottomSheetObserver = Observer<Float> {
-            if (it ==1f){
-              //  fireBSIcon.visibility = View.INVISIBLE
-               // aqiCloudBSIcon.visibility = View.INVISIBLE
-                arrow.setImageResource(R.drawable.ic_arrow_drop_down)
-
-            }
-            else {
-                //fireBSIcon.visibility = View.VISIBLE
-               // aqiCloudBSIcon.visibility =View.VISIBLE
-
-                arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-            }
-
-        }
-        bottomSheet.progress.observe(this, bottomSheetObserver)
+        applicationLevelProvider.aqiGaugeExpanded=aqiGaugeExpanded
+        applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
 
 
 
-        //floating action button, can be removed.
-        fab = findViewById(R.id.fab)
-        fab.hide()
-
-        val lambda = { }
-        setFabOnclick(lambda)
-
-
+setUpOnClicks()
         setUpNav()
 
-        arrow.setOnClickListener{ bottomSheet.toggle()
-            Timber.i("arrow click")}
 
-        aqiCloudBSIcon.setOnClickListener {
-        }
-        fireBSIcon.setOnClickListener{}
 
 
         //check permissions
@@ -136,7 +116,42 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+ fun setUpOnClicks() {
+     aqiGaugeExpanded.setOnClickListener {
+         aqiGaugeExpanded.visibility = INVISIBLE
+         aqiGaugeMinimized.visibility = VISIBLE
 
+     }
+     aqiGaugeMinimized.setOnClickListener {
+         aqiGaugeExpanded.visibility = VISIBLE
+         aqiGaugeMinimized.visibility = INVISIBLE
+
+     }
+
+     val bottomSheetObserver = Observer<Float> {
+         if (it ==1f){
+             //  fireBSIcon.visibility = View.INVISIBLE
+             // aqiCloudBSIcon.visibility = View.INVISIBLE
+             arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+
+         }
+         else {
+             //fireBSIcon.visibility = View.VISIBLE
+             // aqiCloudBSIcon.visibility =View.VISIBLE
+
+             arrow.setImageResource(R.drawable.ic_arrow_drop_up)
+         }
+
+     }
+     bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
+
+     arrow.setOnClickListener{ bottomSheet.toggle()
+         Timber.i("arrow click")}
+
+
+ }
 
     //navigation and interface methods
 
