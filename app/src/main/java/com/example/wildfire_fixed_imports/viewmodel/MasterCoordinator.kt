@@ -16,6 +16,9 @@ import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.android.telemetry.MapboxTelemetry
+import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -23,7 +26,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
-
+import com.mapbox.turf.TurfMeasurement
 
 /*
 *           MasterCoordinator
@@ -104,9 +107,40 @@ var AQIJOBS:Job = Job()
 var FIREJOBS:Job = Job()
     val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
+fun aqiForUser(list:List<AQIStations>) {
+    val user =    applicationLevelProvider.userLocation?.LatLng() ?: LatLng(20.0,20.0)
 
+    var nearestNeighbor:AQIStations? = null
+    var bestDist:Double? = null
+    for (i in list.indices) {
+        val current =list[i]
+        Timber.d("\n current = $current")
+        val turf = TurfMeasurement.distance(Point.fromLngLat(user.latitude,user.longitude)
+                , Point.fromLngLat(current.lat,current.lon))
+        Timber.d("\n turf = $turf")
+        if((bestDist == null || turf<bestDist) && current.aqi.toIntOrNull() !=null) {
+            Timber.d("\n **** IF STATEMENT TRIGGERED ****")
+            bestDist=turf
+            Timber.d("\n bestdist = $bestDist")
+            nearestNeighbor=current
+            Timber.d("\n nearestNeighbor = $nearestNeighbor")
+        }
+    }
+    Toast.makeText(currentActivity,"hey girl you aqi closest is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}",Toast.LENGTH_SHORT).show()
 
-
+}
+    /*
+     myHouse:Latl = *//* whatever *//* ;
+    val comp:Comparable =  {
+        LonLat a;
+        int compareTo (Object b) {
+            int aDist = calcDistance(a, myHouse) ;
+            int bDist = calcDistance(b, myHouse) ;
+            return aDist - bDist;
+        }
+    };
+    myLonLatList.sort(lonLatList, comp);
+*/
     init {
 
         Timber.i("$TAG init")
@@ -132,10 +166,12 @@ var FIREJOBS:Job = Job()
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
 
-
+                aqiForUser(list)
             } else if (!list.isNullOrEmpty()) {
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
+                aqiForUser(list)
             }
+
         }
 
         fireGeoJsonObserver = Observer {
