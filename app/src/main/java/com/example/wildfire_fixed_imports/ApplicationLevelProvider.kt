@@ -151,6 +151,7 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
+     lateinit var legendText: TextView
     lateinit var switchAqiCloudBSIcon:SwitchCompat
     lateinit var switchFireBSIcon:SwitchCompat
     lateinit var fireImageView: ImageView

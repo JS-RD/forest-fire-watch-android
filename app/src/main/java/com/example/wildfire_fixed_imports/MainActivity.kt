@@ -13,6 +13,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
+    private lateinit var legendText: TextView
     private lateinit var cloudImageView: ImageView
     private lateinit var fireImageView: ImageView
     private lateinit var  switchAqiCloudBSIcon: SwitchCompat
@@ -114,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         //find by ids and APLs
 
         arrow=findViewById(R.id.imageViewArrow)
+        legendText=findViewById(R.id.textViewPullup)
         fireImageView = findViewById(R.id.imageViewFire)
         cloudImageView = findViewById(R.id.imageViewCloud)
         switchAqiCloudBSIcon = findViewById(R.id.switchCloud)
@@ -134,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
         applicationLevelProvider.fireImageView=fireImageView
         applicationLevelProvider.cloudImageView=cloudImageView
+        applicationLevelProvider.legendText=legendText
 
 
 
@@ -160,6 +164,8 @@ setUpOnClicks()
              //  switchFireBSIcon.visibility = View.INVISIBLE
              // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+             legendText.setText("")
+
 
          }
          else {
@@ -167,6 +173,7 @@ setUpOnClicks()
              // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
+             legendText.setText(R.string.swipe_up_for_more_filters)
          }
 
      }
