@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- Actually burger menu icon but I don't get a choice of name unfortunately -->
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
 
         

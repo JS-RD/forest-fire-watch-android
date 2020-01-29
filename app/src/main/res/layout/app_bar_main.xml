@@ -99,11 +99,10 @@
     <include
         android:id="@+id/aqi_bar_include"
         layout="@layout/aqi_bar"
+        android:layout_marginTop="100dp"
         android:layout_width="85sp"
         android:layout_height="281sp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="55dp"
         android:layout_marginEnd="12dp" />
 
     <ImageView

@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.isDrawerIndicatorEnabled = true
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+
         actionBar!!.setDisplayShowTitleEnabled(false)
 
 
