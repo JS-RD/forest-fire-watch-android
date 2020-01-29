@@ -283,12 +283,12 @@ class WildFireMapFragment : Fragment() {
                     layer2.setProperties(visibility(NONE))
                     applicationLevelProvider.aqiBaseTextLayerVisibility = NONE
                     applicationLevelProvider.switchAqiCloudBSIcon.setChecked(false)
-                    toggleAQIDetailSwitchs(true)
+                    toggleAQIDetailSwitchs(false)
                 } else {
                     layer2.setProperties(visibility(VISIBLE))
                     applicationLevelProvider.aqiBaseTextLayerVisibility = VISIBLE
                     applicationLevelProvider.switchAqiCloudBSIcon.setChecked(true)
-                    toggleAQIDetailSwitchs(false)
+                    toggleAQIDetailSwitchs(true)
                 }
             }
 
