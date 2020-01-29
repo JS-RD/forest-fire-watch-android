@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-
+    private lateinit var togle:SwitchCompat
 
 
 
@@ -94,8 +94,8 @@ class MainActivity : AppCompatActivity() {
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
-        aqiGaugeMinimized.setAlpha(0.5f)
 
+        aqiGaugeMinimized.setAlpha(0.5f)
         applicationLevelProvider.arrow=arrow
         applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
         applicationLevelProvider.fireBSIcon=fireBSIcon
@@ -120,12 +120,12 @@ setUpOnClicks()
      aqiGaugeExpanded.setOnClickListener {
          aqiGaugeExpanded.visibility = INVISIBLE
          aqiGaugeMinimized.visibility = VISIBLE
-
+         aqiGaugeMinimized.setAlpha(0.3f)
      }
      aqiGaugeMinimized.setOnClickListener {
          aqiGaugeExpanded.visibility = VISIBLE
          aqiGaugeMinimized.visibility = INVISIBLE
-
+         aqiGaugeExpanded.setAlpha(0.3f)
      }
 
      val bottomSheetObserver = Observer<Float> {
