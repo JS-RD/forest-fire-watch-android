@@ -3,6 +3,7 @@ package com.example.wildfire_fixed_imports
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -18,6 +19,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,7 +29,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
-import com.example.wildfire_fixed_imports.view.drawer.DrawerContent
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -41,7 +42,6 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -104,6 +104,13 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.isDrawerIndicatorEnabled = true
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+        actionBar!!.setDisplayShowTitleEnabled(false)
+
+
+
+
+
+
 
 
 
