@@ -40,7 +40,6 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -230,7 +229,7 @@ setUpOnClicks()
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_login_register, R.id.nav_settings,
+                R.id.nav_home, R.id.nav_login, R.id.nav_settings,
                 R.id.nav_debug, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
