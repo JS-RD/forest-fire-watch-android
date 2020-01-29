@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,9 +23,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
-import com.example.wildfire_fixed_imports.z_notes_and_txt.locationFinder
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -95,21 +93,7 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.fireBSIcon=fireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
-        topLoginButton = findViewById(R.id.login)
-        topRegisterButton = findViewById(R.id.register_tv)
-        topSettingButton = findViewById(R.id.settings)
 
-
-
-        topLoginButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_login_register)
-        }
-        topRegisterButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_login_register)
-        }
-        topSettingButton.setOnClickListener {
-            findNavController(R.id.login).navigate(R.id.nav_settings)
-        }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
               //  fireBSIcon.visibility = View.INVISIBLE
@@ -231,7 +215,7 @@ class MainActivity : AppCompatActivity() {
     //for grabing location
     fun getLatestLocation(): Location? {
 
-        val localationFinder = locationFinder(this)
+        val localationFinder = LocationFinder(this)
         val result = localationFinder.check()
         if (result != null) {
             return result

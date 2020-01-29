@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.MapDisplay
+package com.example.wildfire_fixed_imports.view.map_display
 
 import android.Manifest
 import android.content.Context

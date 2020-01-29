@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.loginRegistration
+package com.example.wildfire_fixed_imports.view.login_registration
 
 /**
  * Support data classes for the login and registration fragments

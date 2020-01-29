@@ -124,9 +124,10 @@ class MapDrawController() {
                                         Expression.linear(), aqiFeatureCalcExpression, //
                                         literal(0), rgb(0, 255, 0),
                                         literal(50), rgb(255, 255, 0),
-                                        literal(100), rgb(255, 153, 51),
+                                        literal(100), rgb(255, 165, 0),
                                         literal(150), rgb(255, 0, 0),
-                                        literal(500), rgb(127, 52, 52)
+                                        literal(200), rgb(146, 76, 175),
+                                        literal(500), rgb(172, 94, 58)
                                 )
                         ),
                         PropertyFactory.textColor(

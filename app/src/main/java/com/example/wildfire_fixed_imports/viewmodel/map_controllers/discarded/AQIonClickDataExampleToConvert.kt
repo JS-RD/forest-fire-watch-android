@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.viewmodel.map_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.discarded
 
 /*
 

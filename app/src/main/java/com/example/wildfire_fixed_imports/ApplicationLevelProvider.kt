@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.widget.SwitchCompat
@@ -19,8 +18,8 @@ import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScien
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.util.methodName
-import com.example.wildfire_fixed_imports.view.MapDisplay.WildFireMapFragment
-import com.example.wildfire_fixed_imports.view.bottomSheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController

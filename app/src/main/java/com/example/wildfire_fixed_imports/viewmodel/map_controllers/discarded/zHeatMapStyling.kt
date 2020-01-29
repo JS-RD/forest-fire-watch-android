@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.viewmodel.map_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.discarded
 
 import android.os.Bundle
 import android.view.View
@@ -45,7 +45,7 @@ class MultipleHeatmapStylingActivity : AppCompatActivity(), OnMapReadyCallback {
             mapboxMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(cameraPositionForFragmentMap), 2600)
             try {
-                style.addSource(GeoJsonSource(Companion.HEATMAP_SOURCE_ID, URI("asset://la_heatmap_styling_points.geojson")))
+                style.addSource(GeoJsonSource(HEATMAP_SOURCE_ID, URI("asset://la_heatmap_styling_points.geojson")))
             } catch (exception: URISyntaxException) {
                 Timber.d(exception)
             }
@@ -58,7 +58,7 @@ class MultipleHeatmapStylingActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (index == listOfHeatmapColors.size - 1) {
                     index = 0
                 }
-                val heatmapLayer = style.getLayer(Companion.HEATMAP_LAYER_ID)
+                val heatmapLayer = style.getLayer(HEATMAP_LAYER_ID)
                 heatmapLayer?.setProperties(
                         PropertyFactory.heatmapColor(listOfHeatmapColors[index]),
                         PropertyFactory.heatmapRadius(listOfHeatmapRadiusStops[index]),
@@ -69,7 +69,7 @@ class MultipleHeatmapStylingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun addHeatmapLayer(loadedMapStyle: Style) { // Create the heatmap layer
-        val layer = HeatmapLayer(Companion.HEATMAP_LAYER_ID, Companion.HEATMAP_SOURCE_ID)
+        val layer = HeatmapLayer(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID)
         // Heatmap layer disappears at whatever zoom level is set as the maximum
         layer.maxZoom = 18f
         layer.setProperties( // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
