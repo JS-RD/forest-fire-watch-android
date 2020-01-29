@@ -127,6 +127,7 @@ class MainActivity : AppCompatActivity() {
 
 
         aqiGaugeMinimized.setAlpha(0.5f)
+        aqiGaugeExpanded.setAlpha(0.7f)
 
 
         applicationLevelProvider.arrow=arrow

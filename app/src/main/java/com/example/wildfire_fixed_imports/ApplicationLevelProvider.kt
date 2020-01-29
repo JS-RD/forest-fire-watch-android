@@ -5,6 +5,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.location.Location
+import android.text.Layout
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -151,13 +152,16 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-     lateinit var legendText: TextView
+    lateinit var legendText: TextView
     lateinit var switchAqiCloudBSIcon:SwitchCompat
     lateinit var switchFireBSIcon:SwitchCompat
     lateinit var fireImageView: ImageView
     lateinit var cloudImageView: ImageView
-     lateinit var aqiGaugeExpanded: ViewGroup
+    lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
+
+    lateinit var appBarInclude: Layout
+    lateinit var imgAppbarAqiGauge: ImageView
 
 
     //lateinit var cloudBSIcon:ImageView

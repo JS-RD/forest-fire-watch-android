@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StringRes
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -31,13 +28,16 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    //private lateinit var imgAppbarAqiGauge: ImageView
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+
         return inflater.inflate(R.layout.fragment_login, container, false)
 
 
@@ -50,13 +50,18 @@ class LoginFragment : Fragment() {
                 .get(LoginViewModel::class.java)
 
 
-
-
         val usernameEditText = view.findViewById<EditText>(R.id.says_username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
+
+
+
+
+
+
+
 
 
 

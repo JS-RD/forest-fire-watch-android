@@ -18,7 +18,6 @@
             android:id="@+id/img_aqiscale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:fadingEdge="horizontal|vertical"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/aqiscaleupsidetopwise" />
@@ -29,11 +28,10 @@
             android:layout_height="wrap_content"
             android:background="#1DFFFFFF"
             android:backgroundTint="#001A0A0A"
-
             android:gravity="center"
             android:shadowColor="#00ff00"
             android:text="Good\n0"
-            android:textColor="#000000"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:fontFamily="@font/roboto"
             android:typeface="normal"
