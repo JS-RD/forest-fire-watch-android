@@ -104,14 +104,8 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
 
 
-
 setUpOnClicks()
         setUpNav()
-
-
-
-
-        //check permissions
 
 
     }
@@ -190,11 +184,6 @@ setUpOnClicks()
 
 
 
-    //navigation and interface methods
-
-   /* fun setFabOnclick(lambda: () -> Unit) {
-        fab.setOnClickListener { lambda.invoke() }
-    }*/
 
     private fun setUpNav() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
