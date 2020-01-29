@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -51,12 +50,16 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: SwitchCompat
-    private lateinit var  fireBSIcon: SwitchCompat
+    private lateinit var  switchAqiCloudBSIcon: SwitchCompat
+    private lateinit var  switchFireBSIcon: SwitchCompat
+
+
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var topLoginButton: TextView
     private lateinit var topRegisterButton: TextView
     private lateinit var topSettingButton: TextView
+
+    private lateinit var imageViewFire: ImageView
 
 
 
@@ -80,6 +83,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         //set this activity as the current activity in application level provider
 
@@ -87,16 +91,17 @@ class MainActivity : AppCompatActivity() {
         //set up toolbar
 
         arrow=findViewById(R.id.imageViewArrow)
-        aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
-        fireBSIcon=findViewById(R.id.switchImageViewFire)
+        switchAqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
+        switchFireBSIcon=findViewById(R.id.switchImageViewFire)
         applicationLevelProvider.arrow=arrow
-        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
-        applicationLevelProvider.fireBSIcon=fireBSIcon
+        applicationLevelProvider.aqiCloudBSIcon=switchAqiCloudBSIcon
+        applicationLevelProvider.fireBSIcon=switchFireBSIcon
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         applicationLevelProvider.bottomSheet=bottomSheet
         topLoginButton = findViewById(R.id.login)
         topRegisterButton = findViewById(R.id.register_tv)
         topSettingButton = findViewById(R.id.settings)
+        imageViewFire = findViewById(R.id.imageViewFire)
 
 
 
@@ -111,14 +116,14 @@ class MainActivity : AppCompatActivity() {
         }
         val bottomSheetObserver = Observer<Float> {
             if (it ==1f){
-              //  fireBSIcon.visibility = View.INVISIBLE
-               // aqiCloudBSIcon.visibility = View.INVISIBLE
+              //  switchFireBSIcon.visibility = View.INVISIBLE
+               // switchAqiCloudBSIcon.visibility = View.INVISIBLE
                 arrow.setImageResource(R.drawable.ic_arrow_drop_down)
 
             }
             else {
-                //fireBSIcon.visibility = View.VISIBLE
-               // aqiCloudBSIcon.visibility =View.VISIBLE
+                //switchFireBSIcon.visibility = View.VISIBLE
+               // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
                 arrow.setImageResource(R.drawable.ic_arrow_drop_up)
             }
@@ -141,14 +146,33 @@ class MainActivity : AppCompatActivity() {
         arrow.setOnClickListener{ bottomSheet.toggle()
             Timber.i("arrow click")}
 
-        aqiCloudBSIcon.setOnClickListener {
+        switchAqiCloudBSIcon.setOnClickListener {
+
+
         }
-        fireBSIcon.setOnClickListener{}
+        switchFireBSIcon.setOnClickListener{
+            imageViewFire.setAlpha(0.5f)
+
+        }
 
 
         //check permissions
 
 
+
+    }
+
+
+
+
+    fun opacitySwitch(view: ImageView){
+        if (view.alpha == 1F){
+            view.alpha = 0.5F
+            timber.log.Timber.i("Opacity 0.5")
+        }else{
+            timber.log.Timber.i("Opacity 1")
+            view.alpha = 1F
+        }
     }
 
 

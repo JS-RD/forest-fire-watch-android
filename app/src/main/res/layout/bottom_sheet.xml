@@ -74,60 +74,72 @@
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintBottom_toBottomOf="@+id/text3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text3"
         app:layout_constraintTop_toTopOf="@+id/text3"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
         android:id="@+id/text1"
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="text 1"
-        android:textSize="44dp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/switch4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch2"
-        android:scaleX="1.3"
-        android:scaleY="1.3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintBottom_toBottomOf="@+id/text4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text4"
         app:layout_constraintTop_toTopOf="@+id/text4"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
         android:id="@+id/text2"
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="text 2"
-        android:textSize="44dp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/text1"
+        app:layout_constraintEnd_toStartOf="@+id/switch3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text4" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch3"
-        android:scaleX="1.4"
-        android:scaleY="1.4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintBottom_toBottomOf="@+id/text2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text2"
         app:layout_constraintTop_toTopOf="@+id/text2"
         app:thumbTint="@android:color/holo_red_light" />
 
@@ -136,34 +148,42 @@
         android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="text 3"
         android:padding="16dp"
-        android:textSize="44dp"
+        android:text="text 3"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/text4"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageViewFire" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch4"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
+        android:padding="16dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
         app:layout_constraintBottom_toBottomOf="@+id/text1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/text1"
         app:layout_constraintTop_toTopOf="@+id/text1"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
 
         android:id="@+id/text4"
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="text 4"
-        android:textSize="44dp"
+        android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/text2"
+        app:layout_constraintEnd_toStartOf="@+id/switch2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text3" />
 
 

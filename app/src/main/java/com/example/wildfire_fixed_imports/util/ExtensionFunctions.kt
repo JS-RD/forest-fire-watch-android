@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.location.Location
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -84,6 +85,7 @@ fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
                                                requestCode: Int) {
     ActivityCompat.requestPermissions(this, permissionsArray, requestCode)
 }
+
 
 
 

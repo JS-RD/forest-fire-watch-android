@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -28,6 +29,7 @@ import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,11 +59,15 @@ class WildFireMapFragment : Fragment() {
     private lateinit var masterCoordinator: MasterCoordinator
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
 
 
      // Initialize Home View Model
@@ -74,6 +80,7 @@ class WildFireMapFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
+        val view  = inflater!!.inflate(R.layout.bottom_sheet, container, false)
 
 
         mapView = root.findViewById(R.id.mapview_main)
@@ -130,14 +137,18 @@ class WildFireMapFragment : Fragment() {
 
         applicationLevelProvider.fireBSIcon.setOnClickListener {
             fireToggleButtonOnClick()
+
         }
         applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
             aqiToggleButtonOnClick()
+
         }
 
     }
 
+
     fun fireToggleButtonOnClick() {
+
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
             if (layer != null) {
@@ -155,6 +166,7 @@ class WildFireMapFragment : Fragment() {
     }
 
     fun aqiToggleButtonOnClick() {
+
         mapViewModel.toggleAQIRetrieval()
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer("count")
@@ -398,6 +410,7 @@ class WildFireMapFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
         super.onViewCreated(view, savedInstanceState)
 
