@@ -58,16 +58,6 @@ class LoginFragment : Fragment() {
 
 
 
-
-
-
-
-
-
-
-
-
-
         loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
