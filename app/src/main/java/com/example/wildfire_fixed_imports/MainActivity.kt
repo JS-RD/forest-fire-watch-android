@@ -120,12 +120,12 @@ setUpOnClicks()
      aqiGaugeExpanded.setOnClickListener {
          aqiGaugeExpanded.visibility = INVISIBLE
          aqiGaugeMinimized.visibility = VISIBLE
-         aqiGaugeMinimized.setAlpha(0.3f)
+        // aqiGaugeMinimized.setAlpha(0.3f)
      }
      aqiGaugeMinimized.setOnClickListener {
          aqiGaugeExpanded.visibility = VISIBLE
          aqiGaugeMinimized.visibility = INVISIBLE
-         aqiGaugeExpanded.setAlpha(0.3f)
+         //aqiGaugeExpanded.setAlpha(0.3f)
      }
 
      val bottomSheetObserver = Observer<Float> {
