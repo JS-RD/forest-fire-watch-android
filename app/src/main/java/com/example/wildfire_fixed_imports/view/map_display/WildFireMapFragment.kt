@@ -179,7 +179,7 @@ class WildFireMapFragment : Fragment() {
         }
     }
 
-    fun aqiToggleCompositeText():Boolean {
+    fun aqiToggleCompositeText() {
 
         mapboxMap.getStyle { style ->
 
