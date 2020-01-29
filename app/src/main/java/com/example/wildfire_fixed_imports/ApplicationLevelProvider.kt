@@ -167,6 +167,10 @@ val mapViewModelFactory by lazy {
     var initZoom:Boolean =false
 
     var aqiLayerVisibility = Property.VISIBLE
+    var aqiBaseTextLayerVisibility = Property.VISIBLE
+    var aqiClusterTextLayerVisibility = Property.VISIBLE
+    var aqiBaseHMLLayerVisibility = Property.VISIBLE
+    var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
 

@@ -115,17 +115,17 @@ class MainActivity : AppCompatActivity() {
 
         //find by ids and APLs
 
-        arrow=findViewById(R.id.imageViewArrow)
-        legendText=findViewById(R.id.textViewPullup)
-        fireImageView = findViewById(R.id.imageViewFire)
-        cloudImageView = findViewById(R.id.imageViewCloud)
-        switchAqiCloudBSIcon = findViewById(R.id.switchCloud)
-        switchFireBSIcon=findViewById(R.id.switchFire)
+        arrow=findViewById(R.id.bottomsheert_img_arrow)
+        legendText=findViewById(R.id.bottomsheert_tv_status)
+        fireImageView = findViewById(R.id.bottomsheert_img_fire)
+        cloudImageView = findViewById(R.id.bottomsheert_img_cloud)
+        switchAqiCloudBSIcon = findViewById(R.id.bottomsheet_switch_cloud)
+        switchFireBSIcon=findViewById(R.id.bottomsheert_switch_fire)
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
-
+      /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)
 
 

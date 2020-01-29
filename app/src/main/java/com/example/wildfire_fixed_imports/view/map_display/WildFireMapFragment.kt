@@ -47,7 +47,7 @@ class WildFireMapFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
+        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
     }
 
     private lateinit var mapViewModel: MapViewModel

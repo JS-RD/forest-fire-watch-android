@@ -38,6 +38,8 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+
+
         return inflater.inflate(R.layout.fragment_login, container, false)
 
 

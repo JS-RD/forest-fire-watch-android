@@ -7,18 +7,18 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageViewArrow"
+        android:id="@+id/bottomsheert_img_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_drop_up"
-        app:layout_constraintBottom_toBottomOf="@+id/switchFire"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheert_switch_fire"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switchFire" />
+        app:layout_constraintTop_toTopOf="@+id/bottomsheert_switch_fire" />
 
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchFire"
+        android:id="@+id/bottomsheert_switch_fire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
@@ -28,43 +28,43 @@
         tools:layout_editor_absoluteY="5dp" />
 
     <ImageView
-        android:id="@+id/imageViewFire"
+        android:id="@+id/bottomsheert_img_fire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_fireicon_bottomsheet"
 
-        app:layout_constraintEnd_toEndOf="@+id/switchFire"
-        app:layout_constraintStart_toStartOf="@+id/switchFire"
-        app:layout_constraintTop_toBottomOf="@+id/switchFire" />
+        app:layout_constraintEnd_toEndOf="@+id/bottomsheert_switch_fire"
+        app:layout_constraintStart_toStartOf="@+id/bottomsheert_switch_fire"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheert_switch_fire" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchCloud"
+        android:id="@+id/bottomsheet_switch_cloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="10dp"
         android:rotation="180"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewArrow"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheert_img_arrow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewArrow"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheert_img_arrow"
         app:thumbTint="#00BCD4"
 
         />
 
     <ImageView
-        android:id="@+id/imageViewCloud"
+        android:id="@+id/bottomsheert_img_cloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_cloudicon_bottomsheet"
 
 
-        app:layout_constraintEnd_toEndOf="@+id/switchCloud"
-        app:layout_constraintStart_toStartOf="@+id/switchCloud"
-        app:layout_constraintTop_toBottomOf="@+id/switchCloud" />
+        app:layout_constraintEnd_toEndOf="@+id/bottomsheet_switch_cloud"
+        app:layout_constraintStart_toStartOf="@+id/bottomsheet_switch_cloud"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_switch_cloud" />
 
 
     <TextView
-        android:id="@+id/textViewPullup"
+        android:id="@+id/bottomsheert_tv_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
@@ -74,122 +74,122 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewArrow" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheert_img_arrow" />
 
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch1"
+        android:id="@+id/bottomsheet_sw_switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="@+id/text3"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text3"
-        app:layout_constraintTop_toTopOf="@+id/text3"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv1"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv1"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
-        android:id="@+id/text1"
+        android:id="@+id/bottomsheet_tv_switch4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="text 1"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/switch4"
+        app:layout_constraintEnd_toStartOf="@+id/bottomsheet_sw_switch4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text2" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv_switch3" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch2"
+        android:id="@+id/bottomsheet_sw_switch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="@+id/text4"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text4"
-        app:layout_constraintTop_toTopOf="@+id/text4"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_switch2"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_switch2"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
-        android:id="@+id/text2"
+        android:id="@+id/bottomsheet_tv_switch3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="text 2"
         android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/text1"
-        app:layout_constraintEnd_toStartOf="@+id/switch3"
+        app:layout_constraintBottom_toTopOf="@+id/bottomsheet_tv_switch4"
+        app:layout_constraintEnd_toStartOf="@+id/bottomsheet_sw_switch3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text4" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv_switch2" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch3"
+        android:id="@+id/bottomsheet_sw_switch3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="@+id/text2"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text2"
-        app:layout_constraintTop_toTopOf="@+id/text2"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_switch3"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_switch3"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
 
-        android:id="@+id/text3"
+        android:id="@+id/bottomsheet_tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="text 3"
         android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/text4"
-        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintBottom_toTopOf="@+id/bottomsheet_tv_switch2"
+        app:layout_constraintEnd_toStartOf="@+id/bottomsheet_sw_switch1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewFire" />
+        app:layout_constraintTop_toBottomOf="@id/bottomsheert_img_fire" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switch4"
+        android:id="@+id/bottomsheet_sw_switch4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="@+id/text1"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomsheet_tv_switch4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/text1"
-        app:layout_constraintTop_toTopOf="@+id/text1"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_switch4"
+        app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_switch4"
         app:thumbTint="@android:color/holo_red_light" />
 
     <TextView
 
-        android:id="@+id/text4"
+        android:id="@+id/bottomsheet_tv_switch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="text 4"
         android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/text2"
-        app:layout_constraintEnd_toStartOf="@+id/switch2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomsheet_tv_switch3"
+        app:layout_constraintEnd_toStartOf="@+id/bottomsheet_sw_switch2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text3" />
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv1" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
