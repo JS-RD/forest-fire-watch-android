@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.drawable.AdaptiveIconDrawable
+import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -27,6 +30,7 @@ import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,6 +53,7 @@ class WildFireMapFragment : Fragment() {
     private lateinit var mapViewModel: MapViewModel
     private lateinit var mapboxMap:MapboxMap
     private lateinit var mapView: MapView
+
 
 
 
@@ -123,16 +128,18 @@ class WildFireMapFragment : Fragment() {
 
         }
 
-        applicationLevelProvider.fireBSIcon.setOnClickListener {
+        applicationLevelProvider.switchFireBSIcon.setOnClickListener {
+
             fireToggleButtonOnClick()
         }
-        applicationLevelProvider.aqiCloudBSIcon.setOnClickListener {
+        applicationLevelProvider.switchAqiCloudBSIcon.setOnClickListener {
             aqiToggleButtonOnClick()
         }
 
     }
 
     fun fireToggleButtonOnClick() {
+        opacitySwitch(applicationLevelProvider.fireImageView)
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer(FIRE_SYMBOL_LAYER)
             if (layer != null) {
@@ -147,10 +154,14 @@ class WildFireMapFragment : Fragment() {
         }
         mapViewModel.toggleFireRetrieval()
         Timber.i("$TAG toggle fire")
+
+
+
     }
 
     var counter = 0
     fun aqiToggleButtonOnClick() {
+        opacitySwitch(applicationLevelProvider.cloudImageView)
         mapViewModel.toggleAQIRetrieval()
         mapboxMap.getStyle { style ->
             val layer: Layer? = style.getLayer("count")
@@ -205,6 +216,13 @@ class WildFireMapFragment : Fragment() {
         Timber.i("$TAG toggle aqi")
     }
 
+    fun opacitySwitch(view: ImageView){
+        if (view.alpha == 1F){
+            view.alpha = 0.5F
+        }else{
+            view.alpha = 1F
+        }
+    }
 
     fun initPermissions() {
 

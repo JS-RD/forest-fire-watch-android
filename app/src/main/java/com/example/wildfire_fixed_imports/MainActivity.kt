@@ -3,7 +3,6 @@ package com.example.wildfire_fixed_imports
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -19,7 +18,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -42,6 +40,7 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -57,8 +56,10 @@ class MainActivity : AppCompatActivity() {
     private val TAG:String
         get() = "$javaClass $methodName"
     private lateinit var  arrow: ImageView
-    private lateinit var  aqiCloudBSIcon: SwitchCompat
-    private lateinit var  fireBSIcon: SwitchCompat
+    private lateinit var cloudImageView: ImageView
+    private lateinit var fireImageView: ImageView
+    private lateinit var  switchAqiCloudBSIcon: SwitchCompat
+    private lateinit var  switchFireBSIcon: SwitchCompat
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
@@ -100,6 +101,8 @@ class MainActivity : AppCompatActivity() {
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close)
 
+
+
         // Configure the drawer layout to add listener and show icon on toolbar
         drawerToggle.isDrawerIndicatorEnabled = true
         drawer_layout.addDrawerListener(drawerToggle)
@@ -108,27 +111,30 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
         //find by ids and APLs
+
         arrow=findViewById(R.id.imageViewArrow)
-        aqiCloudBSIcon = findViewById(R.id.switchImageViewCloud)
-        fireBSIcon=findViewById(R.id.switchImageViewFire)
+        fireImageView = findViewById(R.id.imageViewFire)
+        cloudImageView = findViewById(R.id.imageViewCloud)
+        switchAqiCloudBSIcon = findViewById(R.id.switchCloud)
+        switchFireBSIcon=findViewById(R.id.switchFire)
         bottomSheet =findViewById(R.id.bottomSheetLayout)
         aqiGaugeExpanded = findViewById(R.id.aqi_bar_include)
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
+
         aqiGaugeMinimized.setAlpha(0.5f)
+
+
         applicationLevelProvider.arrow=arrow
-        applicationLevelProvider.aqiCloudBSIcon=aqiCloudBSIcon
-        applicationLevelProvider.fireBSIcon=fireBSIcon
+        applicationLevelProvider.switchAqiCloudBSIcon=switchAqiCloudBSIcon
+        applicationLevelProvider.switchFireBSIcon=switchFireBSIcon
         applicationLevelProvider.bottomSheet=bottomSheet
         applicationLevelProvider.aqiGaugeExpanded=aqiGaugeExpanded
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
+        applicationLevelProvider.fireImageView=fireImageView
+        applicationLevelProvider.cloudImageView=cloudImageView
+
 
 
 setUpOnClicks()
@@ -151,20 +157,22 @@ setUpOnClicks()
 
      val bottomSheetObserver = Observer<Float> {
          if (it ==1f){
-             //  fireBSIcon.visibility = View.INVISIBLE
-             // aqiCloudBSIcon.visibility = View.INVISIBLE
+             //  switchFireBSIcon.visibility = View.INVISIBLE
+             // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
 
          }
          else {
-             //fireBSIcon.visibility = View.VISIBLE
-             // aqiCloudBSIcon.visibility =View.VISIBLE
+             //switchFireBSIcon.visibility = View.VISIBLE
+             // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
          }
 
      }
      bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
 
 
 

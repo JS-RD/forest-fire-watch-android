@@ -151,8 +151,10 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-    lateinit var aqiCloudBSIcon:SwitchCompat
-    lateinit var fireBSIcon:SwitchCompat
+    lateinit var switchAqiCloudBSIcon:SwitchCompat
+    lateinit var switchFireBSIcon:SwitchCompat
+    lateinit var fireImageView: ImageView
+    lateinit var cloudImageView: ImageView
      lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
 
@@ -210,6 +212,8 @@ val mapViewModelFactory by lazy {
             Timber.plant(CrashReportingTree())
         }
         Timber.i("$javaClass $methodName initialized")
+
+
 
     }
 

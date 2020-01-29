@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_drop_up"
-        app:layout_constraintBottom_toBottomOf="@+id/switchImageViewFire"
+        app:layout_constraintBottom_toBottomOf="@+id/switchFire"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switchImageViewFire" />
+        app:layout_constraintTop_toTopOf="@+id/switchFire" />
 
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchImageViewFire"
+        android:id="@+id/switchFire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
@@ -31,13 +31,14 @@
         android:id="@+id/imageViewFire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_fireicon_bottomsheet"
-        app:layout_constraintEnd_toEndOf="@+id/switchImageViewFire"
-        app:layout_constraintStart_toStartOf="@+id/switchImageViewFire"
-        app:layout_constraintTop_toBottomOf="@+id/switchImageViewFire" />
+        app:srcCompat="@drawable/ic_fireicon_bottomsheet"
+
+        app:layout_constraintEnd_toEndOf="@+id/switchFire"
+        app:layout_constraintStart_toStartOf="@+id/switchFire"
+        app:layout_constraintTop_toBottomOf="@+id/switchFire" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchImageViewCloud"
+        android:id="@+id/switchCloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="11dp"
@@ -46,20 +47,24 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageViewArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageViewArrow"
-        app:thumbTint="#00BCD4" />
+        app:thumbTint="#00BCD4"
+
+        />
 
     <ImageView
         android:id="@+id/imageViewCloud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_cloudicon_bottomsheet"
-        app:layout_constraintEnd_toEndOf="@+id/switchImageViewCloud"
-        app:layout_constraintStart_toStartOf="@+id/switchImageViewCloud"
-        app:layout_constraintTop_toBottomOf="@+id/switchImageViewCloud" />
+        app:srcCompat="@drawable/ic_cloudicon_bottomsheet"
+
+
+        app:layout_constraintEnd_toEndOf="@+id/switchCloud"
+        app:layout_constraintStart_toStartOf="@+id/switchCloud"
+        app:layout_constraintTop_toBottomOf="@+id/switchCloud" />
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewPullup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
