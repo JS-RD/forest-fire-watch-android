@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/exp2-app.iml" filepath="$PROJECT_DIR$/exp2-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/forest-fire-watch-android-master-app.iml" filepath="$PROJECT_DIR$/forest-fire-watch-android-master-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../wildfire_fixed-imports.iml" filepath="$PROJECT_DIR$/../wildfire_fixed-imports.iml" />
     </modules>
   </component>
