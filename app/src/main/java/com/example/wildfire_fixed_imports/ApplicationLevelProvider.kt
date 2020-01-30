@@ -152,7 +152,7 @@ val mapViewModelFactory by lazy {
     lateinit var mapboxView: MapView
     lateinit var mapboxStyle:Style
     lateinit var nav_view:NavigationView
-    lateinit var bottomSheet: BottomSheetLayout
+
     lateinit var arrow:ImageView
     lateinit var legendText: TextView
     lateinit var switchAqiCloudBSIcon:SwitchCompat
@@ -165,7 +165,7 @@ val mapViewModelFactory by lazy {
     lateinit var appBarLayout: AppBarLayout
 
 
-
+    var bottomSheet: BottomSheetLayout? = null
     //bottom sheet toggles
     var btmSheetToggle1: SwitchCompat? = null
     var btmSheetToggle2: SwitchCompat? = null

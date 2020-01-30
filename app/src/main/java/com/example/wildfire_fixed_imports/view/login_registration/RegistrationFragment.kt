@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.hideFab
-import com.example.wildfire_fixed_imports.util.showFab
 import com.example.wildfire_fixed_imports.util.showSnackbar
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
@@ -26,7 +24,6 @@ import kotlinx.coroutines.launch
 class RegistrationFragment : Fragment() {
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    private val firebaseAuthImpl =applicationLevelProvider.firebaseAuthImpl
     private lateinit var loginViewModel: LoginViewModel
     lateinit var email: String
     lateinit var password: String
@@ -114,6 +111,6 @@ class RegistrationFragment : Fragment() {
     }
     override fun onDetach() {
         super.onDetach()
-        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
+        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
     }
 }

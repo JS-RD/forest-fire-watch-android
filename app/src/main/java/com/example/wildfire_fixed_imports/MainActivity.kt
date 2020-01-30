@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mapViewModel: MapViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var fab: FloatingActionButton
     private lateinit var layout: View
     private val TAG:String
         get() = "$javaClass $methodName"
