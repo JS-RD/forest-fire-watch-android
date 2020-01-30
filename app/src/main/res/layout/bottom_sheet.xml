@@ -56,8 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_cloudicon_bottomsheet"
-
-
         app:layout_constraintEnd_toEndOf="@+id/bottomsheet_switch_cloud"
         app:layout_constraintStart_toStartOf="@+id/bottomsheet_switch_cloud"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_switch_cloud" />
@@ -69,8 +67,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/swipe_up_for_more_filters"
+        android:text="@string/filters"
         android:textColor="@color/colorPrimary"
+        android:textAlignment="center"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/bottomsheert_img_cloud"

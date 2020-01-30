@@ -42,4 +42,5 @@
     <string name="bottom_sheet_layout_example">BottomSheetLayout Sample</string>
     <string name="register">Register</string>
     <string name="swipe_up_for_more_filters">Swipe up for more filters</string>
+    <string name="filters">Filters</string>
 </resources>
