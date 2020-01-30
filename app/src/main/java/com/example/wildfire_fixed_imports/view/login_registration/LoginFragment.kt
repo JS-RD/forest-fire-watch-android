@@ -1,18 +1,20 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.StringRes
+import androidx.core.graphics.blue
 import androidx.core.view.isGone
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -31,13 +33,25 @@ class LoginFragment : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    //private lateinit var imgAppbarAqiGauge: ImageView
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+
+
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
+        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+
+        /*
+        Makes toggle disappear
+        applicationLevelProvider.drawerToggle.isDrawerIndicatorEnabled = true
+        applicationLevelProvider.appBarLayout.isInvisible = true*/
+
 
 
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -52,8 +66,6 @@ class LoginFragment : Fragment() {
                 .get(LoginViewModel::class.java)
 
 
-
-
         val usernameEditText = view.findViewById<EditText>(R.id.says_username)
         val passwordEditText = view.findViewById<EditText>(R.id.password)
         val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
@@ -63,9 +75,7 @@ class LoginFragment : Fragment() {
 
 
 
-
-
-        loginViewModel.loginFormState.observe(this,
+            loginViewModel.loginFormState.observe(this,
                 Observer { loginFormState ->
                     if (loginFormState == null) {
                         return@Observer
@@ -137,6 +147,10 @@ class LoginFragment : Fragment() {
 
 
         }
+
+
+
+
 
 
     }

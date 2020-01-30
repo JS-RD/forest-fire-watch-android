@@ -106,8 +106,7 @@ class LoginViewModel() : ViewModel() {
         ))
         firstLastPair =Pair(firstname,lastname)
         viewModelScope.launch {
-            val result = firebaseAuthImpl.registerCoroutine(email,password)
-            when (result) {
+            when (val result = firebaseAuthImpl.registerCoroutine(email,password)) {
                 is SuccessFailWrapper.Success -> _registrationResult.postValue(RegistrationResult(
                         "${result.message}", firebase = true, webBE = false, fail = false
                 ))

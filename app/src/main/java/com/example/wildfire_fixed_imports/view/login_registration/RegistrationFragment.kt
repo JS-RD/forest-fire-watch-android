@@ -102,7 +102,7 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ):View?{
         // Inflate the layout for this fragment
-        applicationLevelProvider.hideFab()
+
         return inflater.inflate(R.layout.fragment_registration, container, false)
 
 
@@ -110,11 +110,10 @@ class RegistrationFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        applicationLevelProvider.showFab()
+
     }
     override fun onDetach() {
         super.onDetach()
-        applicationLevelProvider.showFab()
         applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
     }
 }

@@ -201,6 +201,9 @@ data class AQIStations(
         val uid: Int
 ) {
 
+    fun getLatLng():LatLng {
+        return LatLng(this.lat,this.lon)
+    }
     data class Name(
             val name: String,
             val time: String

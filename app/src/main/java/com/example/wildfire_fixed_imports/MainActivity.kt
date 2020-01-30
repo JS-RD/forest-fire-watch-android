@@ -31,6 +31,7 @@ import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -72,6 +73,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btmSheetTv2: TextView
     private lateinit var btmSheetTv3: TextView
     private lateinit var btmSheetTv4: TextView
+    private lateinit var drawerToggle: ActionBarDrawerToggle
+    private lateinit var appBarLayout: AppBarLayout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -89,11 +92,8 @@ class MainActivity : AppCompatActivity() {
                 )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
-
-
-
-
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
+
 
 
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
 
-        val drawerToggle = ActionBarDrawerToggle(this,
+         drawerToggle = ActionBarDrawerToggle(this,
             drawer_layout,
             toolbar,
             R.string.navigation_drawer_open,
@@ -114,6 +114,10 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
+        applicationLevelProvider.drawerToggle = drawerToggle
+
+        appBarLayout = findViewById(R.id.app_bar_layout)
+        applicationLevelProvider.appBarLayout = appBarLayout
 
 
 
@@ -150,6 +154,7 @@ class MainActivity : AppCompatActivity() {
 
         /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)
+        aqiGaugeExpanded.setAlpha(0.7f)
 
 
         applicationLevelProvider.arrow=arrow
@@ -357,34 +362,6 @@ setUpOnClicks()
         Timber.i("arrow click")
     }
 
-
-/*
-    fun tempFrag() {
-        var id =findViewById<FrameLayout>(R.id.fragment_container)
-        if (id != null) {
-            // However, if we're being restored from a previous state,
-            // then we don't need to do anything and should return or else
-            // we could end up with overlapping fragments.
-            */
-/*     if (savedInstanceState != null) {
-                     return;
-                 }
-     *//*
-            // Create a new Fragment to be placed in the activity layout
-            val firstFragment = GetInfoFragment()
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            // firstFragment.arguments = intent.extras
-            // Add the fragment to the 'fragment_container' FrameLayout
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit()
-        }
-    }
-*/
-
-
-
-    //permissions methods
 
 
     override fun onRequestPermissionsResult(

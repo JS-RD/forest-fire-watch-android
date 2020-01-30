@@ -5,11 +5,13 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.location.Location
+import android.text.Layout
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.WebBEUser
@@ -30,6 +32,7 @@ import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserLoca
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.UserWebBEController
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModelFactory
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
@@ -151,13 +154,16 @@ val mapViewModelFactory by lazy {
     lateinit var nav_view:NavigationView
     lateinit var bottomSheet: BottomSheetLayout
     lateinit var arrow:ImageView
-     lateinit var legendText: TextView
+    lateinit var legendText: TextView
     lateinit var switchAqiCloudBSIcon:SwitchCompat
     lateinit var switchFireBSIcon:SwitchCompat
     lateinit var fireImageView: ImageView
     lateinit var cloudImageView: ImageView
-     lateinit var aqiGaugeExpanded: ViewGroup
+    lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
+    lateinit var drawerToggle: ActionBarDrawerToggle
+    lateinit var appBarLayout: AppBarLayout
+
 
 
     //bottom sheet toggles

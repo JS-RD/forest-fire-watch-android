@@ -16,6 +16,9 @@ import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.google.android.material.snackbar.Snackbar
+import com.mapbox.android.telemetry.MapboxTelemetry
+import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -23,7 +26,7 @@ import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
-
+import com.mapbox.turf.TurfMeasurement
 
 /*
 *           MasterCoordinator
@@ -105,13 +108,10 @@ var FIREJOBS:Job = Job()
     val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
 
-
-
     init {
 
         Timber.i("$TAG init")
         fireObserver = Observer { list ->
-            // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG init fire list reached observer ${list.toString()}")
@@ -124,18 +124,19 @@ var FIREJOBS:Job = Job()
         }
 
         AQIStationObserver = Observer { list ->
-            // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
-                //while we load the exact AQI data using the next function ,lets load the data we have now
+                // make some geojson out of the data
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
 
 
             } else if (!list.isNullOrEmpty()) {
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
+
             }
+
         }
 
         fireGeoJsonObserver = Observer {
@@ -158,8 +159,6 @@ var FIREJOBS:Job = Job()
         }
 
 
-        // Create the fire observer which updates the UI.
-
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
@@ -168,37 +167,6 @@ var FIREJOBS:Job = Job()
 
         fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
         AQIGeoJson.observe(currentActivity as LifecycleOwner, AQIGeoJsonObserver)
-
-/*
-        //the following can be deleted easily enough
-        var iterator = 0
-        val arrayOfStyles: ArrayList<String> = arrayListOf(
-                Style.DARK,
-                Style.MAPBOX_STREETS,
-                Style.OUTDOORS,
-                Style.LIGHT,
-                Style.SATELLITE,
-                Style.SATELLITE_STREETS,
-                Style.TRAFFIC_DAY,
-                Style.TRAFFIC_NIGHT)
-
-
-        if (currentActivity is MainActivity) {
-            currentActivity.setFabOnclick {
-                Timber.i("$TAG iterator = ${iterator} \n size = ${arrayOfStyles.size}")
-                if (iterator >= arrayOfStyles.size - 1) {
-                    Timber.i("$TAG iterator>=arrayOfStyles.siz")
-                    iterator = 0
-                } else {
-                    iterator++
-                    Timber.i("$TAG iterator++ = $iterator")
-                }
-                Timber.i("$TAG setting map style to ${arrayOfStyles[iterator]}")
-                targetMap.setStyle(arrayOfStyles[iterator])
-                // heatMapController.initializeHeatMapExtended()
-            }
-        }
-*/
 
     }
 
@@ -222,7 +190,8 @@ var FIREJOBS:Job = Job()
         val currentLocal = applicationLevelProvider.userLocation?.LatLng()
                 ?: LatLng(20.0, 20.0).also {
                     Toast.makeText(applicationLevelProvider.currentActivity,
-                            "Something went wrong when finding your location, please enable GPS in your application settings", Toast.LENGTH_SHORT).show()
+                            "Something went wrong when finding your location, please enable GPS in your application settings",
+                            Toast.LENGTH_SHORT).show()
                 }
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
@@ -254,21 +223,22 @@ var FIREJOBS:Job = Job()
         isFiresServiceRunning.set(true)
         var countup = 0
         while (isFiresServiceRunning.get()) {
-            FIREJOBS =Job()
+            FIREJOBS = Job()
             val systemmilli = System.currentTimeMillis()
-     FIREJOBS= withContext(FIREJOBS) {this.launch {
-    val result = fireDSController.getDSFireLocations()
-    if (result is SuccessFailWrapper.Success) {
-        _fireData.postValue(result.value ?: listOf())
-    } else {
-        when (result) {
-            is SuccessFailWrapper.Throwable -> Timber.i(result.message)
-            is SuccessFailWrapper.Fail -> Timber.i(result.message)
-            else -> Timber.i(result.toString())
-        }
-    }
-}
-}
+            FIREJOBS = withContext(FIREJOBS) {
+                this.launch {
+                    val result = fireDSController.getDSFireLocations()
+                    if (result is SuccessFailWrapper.Success) {
+                        _fireData.postValue(result.value ?: listOf())
+                    } else {
+                        when (result) {
+                            is SuccessFailWrapper.Throwable -> Timber.i(result.message)
+                            is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                            else -> Timber.i(result.toString())
+                        }
+                    }
+                }
+            }
             // delay(300000)
             delay(300000)
             Timber.i("$TAG system milli: $systemmilli")
@@ -307,13 +277,13 @@ var FIREJOBS:Job = Job()
         }
 
     }
-    suspend fun stopFireService() {
+     fun stopFireService() {
         //Potential issue if job running?
         AQIJOBS.cancel()
         isFiresServiceRunning.set(false)
     }
 
-    suspend fun stopAQIService(){
+     fun stopAQIService(){
         //Potential issue if job running?
         FIREJOBS.cancel()
         isAQIdatasServiceRunning.set(false)
