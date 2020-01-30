@@ -362,7 +362,7 @@ setUpOnClicks()
         Timber.i("arrow click")
     }
 
-    
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
