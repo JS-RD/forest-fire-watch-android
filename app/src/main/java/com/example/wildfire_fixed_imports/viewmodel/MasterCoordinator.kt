@@ -107,40 +107,7 @@ var AQIJOBS:Job = Job()
 var FIREJOBS:Job = Job()
     val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
-fun aqiForUser(list:List<AQIStations>) {
-    val user =    applicationLevelProvider.userLocation?.LatLng() ?: LatLng(20.0,20.0)
 
-    var nearestNeighbor:AQIStations? = null
-    var bestDist:Double? = null
-    for (i in list.indices) {
-        val current =list[i]
-        Timber.d("\n current = $current")
-        val turf = TurfMeasurement.distance(Point.fromLngLat(user.latitude,user.longitude)
-                , Point.fromLngLat(current.lat,current.lon))
-        Timber.d("\n turf = $turf")
-        if((bestDist == null || turf<bestDist) && current.aqi.toIntOrNull() !=null) {
-            Timber.d("\n **** IF STATEMENT TRIGGERED ****")
-            bestDist=turf
-            Timber.d("\n bestdist = $bestDist")
-            nearestNeighbor=current
-            Timber.d("\n nearestNeighbor = $nearestNeighbor")
-        }
-    }
-    Toast.makeText(currentActivity,"hey girl you aqi closest is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}",Toast.LENGTH_SHORT).show()
-
-}
-    /*
-     myHouse:Latl = *//* whatever *//* ;
-    val comp:Comparable =  {
-        LonLat a;
-        int compareTo (Object b) {
-            int aDist = calcDistance(a, myHouse) ;
-            int bDist = calcDistance(b, myHouse) ;
-            return aDist - bDist;
-        }
-    };
-    myLonLatList.sort(lonLatList, comp);
-*/
     init {
 
         Timber.i("$TAG init")
@@ -166,10 +133,10 @@ fun aqiForUser(list:List<AQIStations>) {
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
 
-                aqiForUser(list)
+
             } else if (!list.isNullOrEmpty()) {
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
-                aqiForUser(list)
+
             }
 
         }
@@ -194,8 +161,6 @@ fun aqiForUser(list:List<AQIStations>) {
         }
 
 
-        // Create the fire observer which updates the UI.
-
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
@@ -204,37 +169,6 @@ fun aqiForUser(list:List<AQIStations>) {
 
         fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
         AQIGeoJson.observe(currentActivity as LifecycleOwner, AQIGeoJsonObserver)
-
-/*
-        //the following can be deleted easily enough
-        var iterator = 0
-        val arrayOfStyles: ArrayList<String> = arrayListOf(
-                Style.DARK,
-                Style.MAPBOX_STREETS,
-                Style.OUTDOORS,
-                Style.LIGHT,
-                Style.SATELLITE,
-                Style.SATELLITE_STREETS,
-                Style.TRAFFIC_DAY,
-                Style.TRAFFIC_NIGHT)
-
-
-        if (currentActivity is MainActivity) {
-            currentActivity.setFabOnclick {
-                Timber.i("$TAG iterator = ${iterator} \n size = ${arrayOfStyles.size}")
-                if (iterator >= arrayOfStyles.size - 1) {
-                    Timber.i("$TAG iterator>=arrayOfStyles.siz")
-                    iterator = 0
-                } else {
-                    iterator++
-                    Timber.i("$TAG iterator++ = $iterator")
-                }
-                Timber.i("$TAG setting map style to ${arrayOfStyles[iterator]}")
-                targetMap.setStyle(arrayOfStyles[iterator])
-                // heatMapController.initializeHeatMapExtended()
-            }
-        }
-*/
 
     }
 
@@ -258,7 +192,8 @@ fun aqiForUser(list:List<AQIStations>) {
         val currentLocal = applicationLevelProvider.userLocation?.LatLng()
                 ?: LatLng(20.0, 20.0).also {
                     Toast.makeText(applicationLevelProvider.currentActivity,
-                            "Something went wrong when finding your location, please enable GPS in your application settings", Toast.LENGTH_SHORT).show()
+                            "Something went wrong when finding your location, please enable GPS in your application settings",
+                            Toast.LENGTH_SHORT).show()
                 }
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
@@ -290,21 +225,22 @@ fun aqiForUser(list:List<AQIStations>) {
         isFiresServiceRunning.set(true)
         var countup = 0
         while (isFiresServiceRunning.get()) {
-            FIREJOBS =Job()
+            FIREJOBS = Job()
             val systemmilli = System.currentTimeMillis()
-     FIREJOBS= withContext(FIREJOBS) {this.launch {
-    val result = fireDSController.getDSFireLocations()
-    if (result is SuccessFailWrapper.Success) {
-        _fireData.postValue(result.value ?: listOf())
-    } else {
-        when (result) {
-            is SuccessFailWrapper.Throwable -> Timber.i(result.message)
-            is SuccessFailWrapper.Fail -> Timber.i(result.message)
-            else -> Timber.i(result.toString())
-        }
-    }
-}
-}
+            FIREJOBS = withContext(FIREJOBS) {
+                this.launch {
+                    val result = fireDSController.getDSFireLocations()
+                    if (result is SuccessFailWrapper.Success) {
+                        _fireData.postValue(result.value ?: listOf())
+                    } else {
+                        when (result) {
+                            is SuccessFailWrapper.Throwable -> Timber.i(result.message)
+                            is SuccessFailWrapper.Fail -> Timber.i(result.message)
+                            else -> Timber.i(result.toString())
+                        }
+                    }
+                }
+            }
             // delay(300000)
             delay(300000)
             Timber.i("$TAG system milli: $systemmilli")
@@ -343,13 +279,13 @@ fun aqiForUser(list:List<AQIStations>) {
         }
 
     }
-    suspend fun stopFireService() {
+     fun stopFireService() {
         //Potential issue if job running?
         AQIJOBS.cancel()
         isFiresServiceRunning.set(false)
     }
 
-    suspend fun stopAQIService(){
+     fun stopAQIService(){
         //Potential issue if job running?
         FIREJOBS.cancel()
         isAQIdatasServiceRunning.set(false)

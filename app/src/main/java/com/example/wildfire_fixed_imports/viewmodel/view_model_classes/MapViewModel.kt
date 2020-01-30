@@ -24,11 +24,11 @@ class MapViewModel : ViewModel() {
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val currentActivity = applicationLevelProvider.currentActivity
     lateinit var targetMaster: MasterCoordinator
-    val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+    private val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
 
     private val _fireServiceRunning = MutableLiveData<Boolean>().apply { value = false }
-    val fireServiceRunning: LiveData<Boolean> = _fireServiceRunning
+    private val fireServiceRunning: LiveData<Boolean> = _fireServiceRunning
     private var fireObserver: Observer<Boolean> = Observer {
         if (it) {
             Timber.i("$TAG fire service logging true")
@@ -49,12 +49,12 @@ class MapViewModel : ViewModel() {
     val aqiServiceRunning: LiveData<Boolean> = _aqiServiceRunning
     private var aqiObserver: Observer<Boolean> = Observer {
         if (it) {
-            Timber.i("$TAG fire service logging true")
+            Timber.i("$TAG aqi service logging true")
             viewModelScope.launch {
                 targetMaster.startAQIService()
             }
         } else {
-            Timber.i("$TAG fire service logging false")
+            Timber.i("$TAG aqi service logging false")
             viewModelScope.launch {
                 targetMaster.stopAQIService()
             }
@@ -67,7 +67,7 @@ class MapViewModel : ViewModel() {
             val aqistations = targetMaster.AQIGeoJson.value
             val firedata = targetMaster.fireGeoJson.value
             if (!aqistations.isNullOrEmpty() && !firedata.isNullOrEmpty()) {
-                Timber.i("$TAG \naqi + fire not mull not empty")
+                Timber.i("$TAG \naqi + fire not null not empty")
                 mapDrawController.createStyleFromGeoJson(aqistations, firedata)
 
             }
@@ -85,9 +85,6 @@ class MapViewModel : ViewModel() {
             fireServiceRunning.observe(currentActivity as LifecycleOwner, fireObserver)
             aqiServiceRunning.observe(currentActivity as LifecycleOwner, aqiObserver)
 
-            //initialize symbol manager
-
-            //initialize markert controller
 
 
         }
@@ -96,7 +93,6 @@ class MapViewModel : ViewModel() {
             viewModelScope.launch {
                 _fireServiceRunning.postValue(true)
             }
-
         }
 
         fun stopFireRetrieval() {

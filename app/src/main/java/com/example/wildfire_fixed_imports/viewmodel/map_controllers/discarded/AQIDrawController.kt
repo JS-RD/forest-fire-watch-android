@@ -1,13 +1,11 @@
-package com.example.wildfire_fixed_imports.viewmodel.map_controllers
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.discarded
 
 import android.app.Activity
 import android.graphics.Color
-import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.*
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.AQIdata
-import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Feature
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.FeatureCollection
@@ -16,20 +14,16 @@ import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.P
 
 import com.fasterxml.jackson.databind.ObjectMapper
 
-import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.expressions.Expression.get
 import com.mapbox.mapboxsdk.style.expressions.Expression.literal
 import com.mapbox.mapboxsdk.style.layers.CircleLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
-import com.mapbox.mapboxsdk.style.layers.PropertyValue
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import kotlinx.coroutines.*
 import timber.log.Timber
 import java.net.URISyntaxException
 

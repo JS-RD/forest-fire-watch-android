@@ -12,6 +12,9 @@ import timber.log.Timber
 
 /*
 *
+*                       1/30/2020
+*       Likely could be slimmed down a bit, support classes probablyly pruned. -JS
+*
 * FirebaseAuthImpl provides some relatively simple methods to allow registering a new user with firebase, logging in, signing out and
 * updating user information
 *
@@ -26,8 +29,6 @@ import timber.log.Timber
 class FirebaseAuthImpl () {
 
         private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-
-        private val firebaseAnalytics = applicationLevelProvider.mFirebaseAnalytics
 
         private  val firebaseAuth =applicationLevelProvider.firebaseAuth
 

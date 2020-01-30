@@ -5,7 +5,7 @@ an example:
 
 produceAFeatureCollection() makes a feature collection for us
 
-fun sauce():FeatureCollection{
+fun produceAFeatureCollection():FeatureCollection{
 
 
     return  FeatureCollection().apply {

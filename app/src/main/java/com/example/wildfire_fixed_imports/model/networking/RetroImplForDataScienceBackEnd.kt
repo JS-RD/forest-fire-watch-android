@@ -3,6 +3,8 @@ package com.example.wildfire_fixed_imports.model.networking
 
 /*
 *
+*
+*
 * Retrofit implementation class
 * will provide the actually interface and service for retrofit
 *
