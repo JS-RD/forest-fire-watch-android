@@ -65,7 +65,7 @@
 
     <TextView
         android:id="@+id/bottomsheert_tv_status"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:fontFamily="@font/roboto"
