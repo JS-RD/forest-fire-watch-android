@@ -112,7 +112,6 @@ var FIREJOBS:Job = Job()
 
         Timber.i("$TAG init")
         fireObserver = Observer { list ->
-            // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG init fire list reached observer ${list.toString()}")
@@ -125,11 +124,10 @@ var FIREJOBS:Job = Job()
         }
 
         AQIStationObserver = Observer { list ->
-            // Update the UI, in this case, a TextView.
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized && !list.isNullOrEmpty()) {
                 Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
-                //while we load the exact AQI data using the next function ,lets load the data we have now
+                // make some geojson out of the data
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
 
