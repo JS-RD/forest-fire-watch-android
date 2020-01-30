@@ -191,12 +191,7 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
     return bitmap
 }
 
- fun ApplicationLevelProvider.hideFab(){
-    currentActivity.fab.hide()
-}
- fun ApplicationLevelProvider.showFab(){
-    currentActivity.fab.show()
-}
+
 
 fun ApplicationLevelProvider.zoomCameraToUser() {
     CoroutineScope(Dispatchers.Main).launch {

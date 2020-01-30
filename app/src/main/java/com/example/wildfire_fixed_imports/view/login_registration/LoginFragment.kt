@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.showFab
 import com.example.wildfire_fixed_imports.util.showSnackbar
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
@@ -41,7 +40,7 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        applicationLevelProvider.bottomSheet.visibility = View.INVISIBLE
+        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
 
 
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
@@ -170,11 +169,9 @@ class LoginFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        applicationLevelProvider.showFab()
     }
     override fun onDetach() {
         super.onDetach()
-        applicationLevelProvider.showFab()
-        applicationLevelProvider.bottomSheet.visibility = View.VISIBLE
+        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
     }
 }
