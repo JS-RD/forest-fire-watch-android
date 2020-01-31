@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
+
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     //private lateinit var imgAppbarAqiGauge: ImageView
@@ -41,8 +42,6 @@ class LoginFragment : Fragment() {
     ): View? {
 
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-
-
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
 
@@ -70,6 +69,7 @@ class LoginFragment : Fragment() {
         val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
+
 
 
 
@@ -152,8 +152,8 @@ class LoginFragment : Fragment() {
 
 
 
-    }
 
+    }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName

@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +22,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : Fragment(){
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private lateinit var loginViewModel: LoginViewModel
@@ -101,6 +102,9 @@ class RegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ):View?{
 
+        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
@@ -114,6 +118,9 @@ class RegistrationFragment : Fragment() {
     }
     override fun onDetach() {
         super.onDetach()
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
+
     }
+
+
+
 }

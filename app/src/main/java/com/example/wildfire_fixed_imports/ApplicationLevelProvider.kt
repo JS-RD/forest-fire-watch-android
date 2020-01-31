@@ -163,6 +163,7 @@ val mapViewModelFactory by lazy {
     lateinit var aqiGaugeMinimized: ImageView
     lateinit var drawerToggle: ActionBarDrawerToggle
     lateinit var appBarLayout: AppBarLayout
+    lateinit var layoutRegistrationFragment: Layout
 
 
     var bottomSheet: BottomSheetLayout? = null
@@ -191,6 +192,8 @@ val mapViewModelFactory by lazy {
     var aqiBaseHMLLayerVisibility = Property.VISIBLE
     var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
+
+
 
 
     lateinit var appMapViewModel: MapViewModel

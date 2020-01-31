@@ -3,10 +3,12 @@ package com.example.wildfire_fixed_imports
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.text.Layout
 import android.view.Menu
 import android.view.View
 import android.view.View.INVISIBLE
@@ -32,7 +34,6 @@ import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewMo
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btmSheetTv4: TextView
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var appBarLayout: AppBarLayout
+    lateinit var layoutRegistrationFragment: Layout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -84,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         applicationLevelProvider.currentActivity = this
         mapViewModel =
                 ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
@@ -114,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
         applicationLevelProvider.drawerToggle = drawerToggle
+        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
 
         appBarLayout = findViewById(R.id.app_bar_layout)
         applicationLevelProvider.appBarLayout = appBarLayout
@@ -168,7 +172,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
-setUpOnClicks()
+
+
+
+        setUpOnClicks()
         setUpNav()
 
 
@@ -419,6 +426,7 @@ setUpOnClicks()
         }
     }
 
+    
 
 }
 /*
@@ -490,7 +498,7 @@ setUpOnClicks()
 
 /*
 *
-*         /* val fm = supportFragmentManager
+*          val fm = supportFragmentManager
              val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
              val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
               println(fragment2.toString())
