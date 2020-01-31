@@ -264,7 +264,7 @@ setUpOnClicks()
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_login, R.id.nav_settings,
+                R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
                 R.id.nav_debug, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )

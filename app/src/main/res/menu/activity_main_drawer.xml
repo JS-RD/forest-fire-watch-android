@@ -17,7 +17,7 @@
             android:title="@string/menu_login_register" />
         <item
             android:textColor="@color/colorAccent"
-            android:id="@+id/nav_register"
+            android:id="@+id/nav_reg"
             android:icon="@drawable/ic_baseline_person_outline_24"
             android:title="@string/register" />
 

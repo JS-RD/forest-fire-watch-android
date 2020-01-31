@@ -38,6 +38,7 @@ class RegistrationFragment : Fragment() {
                 .get(LoginViewModel::class.java)
         button_reg = view.findViewById(R.id.regfrag_btn_register)
 
+
         loginViewModel.registrationResult.observe(this,
                 Observer { registrationResult ->
                     if (registrationResult.fail){
@@ -60,6 +61,7 @@ class RegistrationFragment : Fragment() {
             password = regfrag_et_input_password.text.toString().trim()
             firstname = regfrag_et_firstname.text.toString().trim()
             lastename = regfrag_et_lastname.text.toString().trim()
+
 
             if (!loginViewModel.isUserNameValid(email)) {
                 regfrag_et_EmailAddress.error = "Email required"
@@ -98,12 +100,13 @@ class RegistrationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ):View?{
+
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
 
-
     }
+
 
     override fun onPause() {
         super.onPause()
