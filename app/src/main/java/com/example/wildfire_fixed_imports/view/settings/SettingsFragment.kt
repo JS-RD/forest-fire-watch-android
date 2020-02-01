@@ -19,7 +19,7 @@ class SettingsFragment : Fragment() {
     private lateinit var settingsViewModel: SettingsViewModel
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-    private var switchCompat: SwitchCompat? = null
+    lateinit var switchCompat: SwitchCompat
     private lateinit var saveData: SaveData
 
     override fun onCreateView(
@@ -28,21 +28,34 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
-        saveData = SaveData(context())
-
+        //Darkmode savedata
+        saveData = SaveData(this.context!!)
         applicationLevelProvider.saveData = saveData
+
+
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
 
-        //Switch for on off
-        val switchCompat = view!!.findViewById<SwitchCompat>(R.id.settings_textview_darkmode)
+
+        settingsViewModel =
+            ViewModelProviders.of(this).get(SettingsViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        switchCompat = view.findViewById<SwitchCompat>(R.id.settings_switch_darkmode)
+
+        //Darkmode switch for on off
+
         if (saveData.loadDarkModeState() == true){
             switchCompat!!.isChecked = true
         }
 
-        //On click On Off
+        //Darkmode On click On Off
         switchCompat!!.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 saveData.setDarkModeState(true)
@@ -53,11 +66,6 @@ class SettingsFragment : Fragment() {
 
         }
 
-        settingsViewModel =
-            ViewModelProviders.of(this).get(SettingsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
-
-        return root
     }
 
     override fun onDetach() {
