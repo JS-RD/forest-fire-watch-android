@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         applicationLevelProvider.appMapViewModel = mapViewModel
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
+        applicationLevelProvider.bottomSheet?.visibility = VISIBLE
 
 
 
@@ -111,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        // Configure the drawer layout to add listener and show icon on toolbar
+        // drawer toggle aka burger menu changes
         drawerToggle.isDrawerIndicatorEnabled = true
         applicationLevelProvider.drawerToggle = drawerToggle
         applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
