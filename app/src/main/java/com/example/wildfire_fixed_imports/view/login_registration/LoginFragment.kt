@@ -173,5 +173,6 @@ class LoginFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
+        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
     }
 }

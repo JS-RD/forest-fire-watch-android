@@ -113,11 +113,13 @@ class MainActivity : AppCompatActivity() {
 
         // Configure the drawer layout to add listener and show icon on toolbar
         drawerToggle.isDrawerIndicatorEnabled = true
+        applicationLevelProvider.drawerToggle = drawerToggle
+        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
-        applicationLevelProvider.drawerToggle = drawerToggle
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
+
+
 
         appBarLayout = findViewById(R.id.app_bar_layout)
         applicationLevelProvider.appBarLayout = appBarLayout
@@ -426,7 +428,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    
+
 
 }
 /*
