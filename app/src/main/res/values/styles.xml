@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
     <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed">true</item><!-- shows error because min sdk is 23 but still compiles. -->
@@ -11,34 +11,48 @@
 
         <!-- Actually burger menu icon but I don't get a choice of name unfortunately -->
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
-
-        
-        
     </style>
 
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
 
+
+    <!-- Dark application theme. -->
+    <style name="DarkTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#6200EA</item>
+        <item name="colorAccent">#E040FB</item>
+
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+
+
+    </style>
+
+
+
+    <!-- This is for smooth reset activity on switch click on off-->
+    <style name="WindowAnimationTransition">
+
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+
+
+
+    </style>
+
+
+    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
     <item name="switchStyle">@android:color/holo_red_light</item>
 </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="TextColor" parent="AppTheme">
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
-
-
     </style>
 
 

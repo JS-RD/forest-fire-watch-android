@@ -193,6 +193,9 @@ val mapViewModelFactory by lazy {
     var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
+    //dark mode
+    lateinit var saveData: SaveData
+
 
 
 

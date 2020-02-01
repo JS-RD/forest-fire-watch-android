@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -81,6 +82,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
+    private lateinit var saveData: SaveData
+
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +100,8 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.appMapViewModel = mapViewModel
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
         applicationLevelProvider.bottomSheet?.visibility = VISIBLE
+
+
 
 
 
@@ -176,12 +181,27 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        //Theme switching
+        saveData = SaveData(this)
+        applicationLevelProvider.saveData = saveData
+        themeSwitcher(this)
+
 
 
 
         setUpOnClicks()
         setUpNav()
 
+
+    }
+
+    fun themeSwitcher(context: Context){
+        saveData = SaveData(context)
+        if (saveData.loadDarkModeState() == true){
+            setTheme(R.style.DarkTheme)
+        }else{
+            setTheme(R.style.AppTheme)
+        }
 
     }
 
