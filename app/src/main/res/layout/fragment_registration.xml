@@ -6,28 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".view.login_registration.RegistrationFragment"
-    app:layoutDescription="@xml/fragment_gallery_scene">
+    app:layoutDescription="@xml/fragment_gallery_scene"
+    tools:context=".view.login_registration.RegistrationFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/regfrag_layout_firstname"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:ems="10"
         android:textColor="@android:color/white"
         app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
-        android:ems="10"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_lastname"
-        app:layout_constraintTop_toBottomOf="@+id/regfrag_text_signup"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="@+id/regfrag_layout_lastname"
+        app:layout_constraintStart_toStartOf="@+id/regfrag_layout_lastname"
+        app:layout_constraintTop_toBottomOf="@+id/regfrag_text_signup">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/regfrag_et_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@android:color/white"
             android:hint="@string/first_name"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email"
@@ -40,24 +40,24 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/regfrag_layout_lastname"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textColor="@android:color/white"
         app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email"
-        app:layout_constraintTop_toBottomOf="@+id/regfrag_layout_firstname"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="@+id/regfrag_layout_email"
+        app:layout_constraintStart_toStartOf="@+id/regfrag_layout_email"
+        app:layout_constraintTop_toBottomOf="@+id/regfrag_layout_firstname">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/regfrag_et_lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@android:color/white"
+            android:ems="10"
             android:hint="@string/last_name"
             android:inputType="text"
-            android:ems="10"
             app:layout_constraintTop_toBottomOf="@+id/regfrag_et_firstname"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -67,15 +67,15 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/regfrag_layout_email"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textColor="@android:color/white"
         app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_text_input_layout_password"
+        app:layout_constraintEnd_toEndOf="@+id/regfrag_text_input_layout_password"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/regfrag_text_input_layout_password"
         app:layout_constraintTop_toBottomOf="@+id/regfrag_layout_lastname">
 
 
@@ -95,7 +95,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/regfrag_text_input_layout_password"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:ems="10"
         android:inputType="textPassword"
@@ -105,9 +105,9 @@
         app:counterMaxLength="12"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_btn_register"
+        app:layout_constraintEnd_toEndOf="@+id/regfrag_btn_register"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/regfrag_btn_register"
         app:layout_constraintTop_toBottomOf="@+id/regfrag_layout_email"
         app:passwordToggleEnabled="true">
 
@@ -145,11 +145,10 @@
         android:layout_marginEnd="8dp"
         android:text="@string/register_here"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

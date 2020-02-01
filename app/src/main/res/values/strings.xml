@@ -43,4 +43,6 @@
     <string name="register">Register</string>
     <string name="swipe_up_for_more_filters">Swipe up for more filters</string>
     <string name="filters">Filters</string>
+    <string name="settings">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>

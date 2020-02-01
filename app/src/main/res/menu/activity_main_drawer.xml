@@ -6,23 +6,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:textColor="@color/colorAccent"
+
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/menu_home" />
         <item
-            android:textColor="@color/colorAccent"
+
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_user_login"
             android:title="@string/menu_login_register" />
         <item
-            android:textColor="@color/colorAccent"
+
             android:id="@+id/nav_reg"
             android:icon="@drawable/ic_baseline_person_outline_24"
             android:title="@string/register" />
 
         <item
-            android:textColor="@color/colorAccent"
+
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/menu_settings" />
@@ -31,12 +31,12 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:textColor="@color/colorAccent"
+
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_share" />
             <item
-                android:textColor="@color/colorAccent"
+
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="@string/menu_send" />
