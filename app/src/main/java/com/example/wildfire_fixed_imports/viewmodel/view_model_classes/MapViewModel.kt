@@ -14,8 +14,10 @@ import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 
 
@@ -66,9 +68,22 @@ class MapViewModel : ViewModel() {
         if (::targetMaster.isInitialized) {
             val aqistations = targetMaster.AQIGeoJson.value
             val firedata = targetMaster.fireGeoJson.value
+
             if (!aqistations.isNullOrEmpty() && !firedata.isNullOrEmpty()) {
                 Timber.i("$TAG \naqi + fire not null not empty")
                 mapDrawController.createStyleFromGeoJson(aqistations, firedata)
+
+                viewModelScope.launch {
+                    val exp = ExperimentalNearestNeighborApproach()
+
+                            exp.createCircleStyleFromGeoJson(
+                            exp.makeGeoJsonCirclesManually(targetMaster.AQIStations.value?: listOf())
+                            )
+
+                }
+
+
+
 
             }
         }
