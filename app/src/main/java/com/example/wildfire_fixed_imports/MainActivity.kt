@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
+
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
 
