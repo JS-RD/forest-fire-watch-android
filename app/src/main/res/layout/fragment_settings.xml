@@ -58,5 +58,5 @@
             android:text="@string/system_theme" />
 
     </RadioGroup>
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

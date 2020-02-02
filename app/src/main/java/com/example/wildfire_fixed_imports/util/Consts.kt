@@ -61,6 +61,16 @@ const val fireIconTarget = "fire_icon_50"
 const val crossIconTarget = "cross-icon-id"
 
 
+//DarkMode
+const val PREFS_NAME = "theme_prefs"
+const val KEY_THEME = "prefs.theme"
+const val THEME_UNDEFINED = -1
+const val THEME_LIGHT = 0
+const val THEME_DARK = 1
+const val THEME_SYSTEM = 2
+const val THEME_BATTERY = 3
+
+
 val methodName
     get() = StackTraceInfo.invokingMethodName
 
