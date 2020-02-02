@@ -179,29 +179,10 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
         applicationLevelProvider.legendText=legendText
 
-
-
-        //Theme switching
-        saveData = SaveData(this)
-        applicationLevelProvider.saveData = saveData
-        themeSwitcher(this)
-
-
-
-
+        
         setUpOnClicks()
         setUpNav()
 
-
-    }
-
-    fun themeSwitcher(context: Context){
-        saveData = SaveData(context)
-        if (saveData.loadDarkModeState() == true){
-            setTheme(R.style.DarkTheme)
-        }else{
-            setTheme(R.style.AppTheme)
-        }
 
     }
 

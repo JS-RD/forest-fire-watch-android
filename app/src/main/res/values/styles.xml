@@ -15,17 +15,19 @@
 
 
 
-    <!-- Dark application theme. -->
-    <style name="DarkTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">#FFFFFF</item>
-        <item name="colorPrimaryDark">#6200EA</item>
-        <item name="colorAccent">#E040FB</item>
-
-        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-
-
+    <style name="PrimaryText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">@font/raleway_medium</item>
     </style>
 
+    <style name="SecondaryText" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">@font/raleway_regular</item>
+    </style>
 
 
     <!-- This is for smooth reset activity on switch click on off-->
