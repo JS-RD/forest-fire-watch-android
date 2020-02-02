@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.WebBEUser
@@ -193,9 +194,6 @@ val mapViewModelFactory by lazy {
     var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
-    //dark mode
-    lateinit var saveData: SaveData
-
 
 
 
@@ -219,6 +217,7 @@ val mapViewModelFactory by lazy {
 
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
 
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 

@@ -82,9 +82,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fusedLocationClient:FusedLocationProviderClient
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-    private lateinit var saveData: SaveData
-
-
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -179,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.aqiGaugeMinimized=aqiGaugeMinimized
         applicationLevelProvider.legendText=legendText
 
-        
+
         setUpOnClicks()
         setUpNav()
 

@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.SaveData
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.SettingsViewModel
 
@@ -20,7 +19,7 @@ class SettingsFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     lateinit var switchCompat: SwitchCompat
-    private lateinit var saveData: SaveData
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,9 +27,6 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        //Darkmode savedata
-        saveData = SaveData(this.context!!)
-        applicationLevelProvider.saveData = saveData
 
 
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
@@ -47,24 +43,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        switchCompat = view.findViewById<SwitchCompat>(R.id.settings_switch_darkmode)
-
-        //Darkmode switch for on off
-
-        if (saveData.loadDarkModeState() == true){
-            switchCompat!!.isChecked = true
-        }
-
-        //Darkmode On click On Off
-        switchCompat!!.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                saveData.setDarkModeState(true)
-
-            }else {
-                saveData.setDarkModeState(false)
-            }
-
-        }
 
     }
 
