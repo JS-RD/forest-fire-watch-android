@@ -205,7 +205,7 @@ class EntranceActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.fineLocationPermission = true
                     applicationLevelProvider.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
-
+                    redirect()
 
                 } else {
                     applicationLevelProvider.fineLocationPermission = false
@@ -235,6 +235,7 @@ class EntranceActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.coarseLocationPermission = true
                     applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    redirect()
                 } else {
                     applicationLevelProvider.coarseLocationPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
@@ -252,7 +253,7 @@ class EntranceActivity : AppCompatActivity() {
         }
         Timber.i("$TAG \n END OF ENTRANCE ACTIVITY, PERMISSIONS EXHAUSTED \n redirecting to mainActivity ")
 
-        redirect()
+
 
     }
 
