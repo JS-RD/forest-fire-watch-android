@@ -169,14 +169,12 @@ val mapViewModelFactory by lazy {
 
     var bottomSheet: BottomSheetLayout? = null
     //bottom sheet toggles
-    var btmSheetToggle1: SwitchCompat? = null
-    var btmSheetToggle2: SwitchCompat? = null
-    var btmSheetToggle3: SwitchCompat? = null
-    var btmSheetToggle4: SwitchCompat? = null
-    var btmSheetTv1: TextView? = null
-    var btmSheetTv2: TextView? = null
-    var btmSheetTv3: TextView? = null
-    var btmSheetTv4: TextView? = null
+    var btmsheetToggleIndex: SwitchCompat? = null
+    var btmSheetToggleRadius: SwitchCompat? = null
+
+    var btmSheetTvIndex: TextView? = null
+    var btmSheetTvRadius: TextView? = null
+
 
 
 

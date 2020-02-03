@@ -2,7 +2,6 @@ package com.example.wildfire_fixed_imports
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
@@ -66,14 +65,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-    private lateinit var btmSheetToggle1: SwitchCompat
-    private lateinit var btmSheetToggle2: SwitchCompat
-    private lateinit var btmSheetToggle3: SwitchCompat
-    private lateinit var btmSheetToggle4: SwitchCompat
-    private lateinit var btmSheetTv1: TextView
-    private lateinit var btmSheetTv2: TextView
-    private lateinit var btmSheetTv3: TextView
-    private lateinit var btmSheetTv4: TextView
+
+
+    private lateinit var btmsheetToggleIndex: SwitchCompat
+    private lateinit var btmSheetToggleRadius: SwitchCompat
+
+    private lateinit var btmSheetTvIndex: TextView
+    private lateinit var btmSheetTvRadius: TextView
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var appBarLayout: AppBarLayout
     lateinit var layoutRegistrationFragment: Layout
@@ -145,22 +143,15 @@ class MainActivity : AppCompatActivity() {
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
         //bottom sheet toggles and textviews
-        btmSheetToggle1 = findViewById(R.id.bottomsheet_sw_switch1)
-        btmSheetToggle2 = findViewById(R.id.bottomsheet_sw_switch2)
-        btmSheetToggle3 = findViewById(R.id.bottomsheet_sw_switch3)
-        btmSheetToggle4 = findViewById(R.id.bottomsheet_sw_switch4)
-        btmSheetTv1 = findViewById(R.id.bottomsheet_tv_switch1)
-        btmSheetTv2 = findViewById(R.id.bottomsheet_tv_switch2)
-        btmSheetTv3 = findViewById(R.id.bottomsheet_tv_switch3)
-        btmSheetTv4 = findViewById(R.id.bottomsheet_tv_switch4)
-        applicationLevelProvider.btmSheetToggle1=btmSheetToggle1
-        applicationLevelProvider.btmSheetToggle2=btmSheetToggle2
-        applicationLevelProvider.btmSheetToggle3=btmSheetToggle3
-        applicationLevelProvider.btmSheetToggle4=btmSheetToggle4
-        applicationLevelProvider.btmSheetTv1=btmSheetTv1
-        applicationLevelProvider.btmSheetTv2=btmSheetTv2
-        applicationLevelProvider.btmSheetTv3=btmSheetTv3
-        applicationLevelProvider.btmSheetTv4=btmSheetTv4
+        btmsheetToggleIndex = findViewById(R.id.bottomsheet_switch_index)
+        btmSheetToggleRadius = findViewById(R.id.bottomsheet_switch_radius)
+        btmSheetTvIndex = findViewById(R.id.bottomsheet_tv_index)
+        btmSheetTvRadius = findViewById(R.id.bottomsheet_tv_radius)
+        applicationLevelProvider.btmsheetToggleIndex=btmsheetToggleIndex
+        applicationLevelProvider.btmSheetToggleRadius=btmSheetToggleRadius
+        applicationLevelProvider.btmSheetTvIndex=btmSheetTvIndex
+        applicationLevelProvider.btmSheetTvRadius=btmSheetTvRadius
+
 
         /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)

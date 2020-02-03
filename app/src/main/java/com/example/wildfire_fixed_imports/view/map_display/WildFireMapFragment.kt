@@ -4,14 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.drawable.AdaptiveIconDrawable
-import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -30,7 +27,6 @@ import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility
 import com.mapbox.mapboxsdk.style.layers.TransitionOptions
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -142,22 +138,19 @@ class WildFireMapFragment : Fragment() {
             aqiToggleButtonOnClick()
         }
 
-        applicationLevelProvider.btmSheetToggle1?.setOnClickListener {
+        applicationLevelProvider.btmsheetToggleIndex?.setOnClickListener {
             aqiToggleBaseText()
-        }
-        applicationLevelProvider.btmSheetToggle2?.setOnClickListener {
             aqiToggleCompositeText()
         }
-        applicationLevelProvider.btmSheetToggle3?.setOnClickListener {
+
+        applicationLevelProvider.btmSheetToggleRadius?.setOnClickListener {
             aqiToggleBaseHML()
-        }
-        applicationLevelProvider.btmSheetToggle4?.setOnClickListener {
             aqiToggleCompositeHML()
         }
-        applicationLevelProvider.btmSheetTv1?.text="bottom text layer"
-        applicationLevelProvider.btmSheetTv2?.text="composite text layer"
-        applicationLevelProvider.btmSheetTv3?.text="bottom circles layer"
-        applicationLevelProvider.btmSheetTv4?.text="composite circles layer"
+
+        applicationLevelProvider.btmSheetTvIndex?.text="bottom text layer"
+        applicationLevelProvider.btmSheetTvRadius?.text="bottom circles layer"
+
     }
 
     fun aqiToggleBaseText() {
@@ -258,16 +251,14 @@ class WildFireMapFragment : Fragment() {
     }
    private fun toggleAQIDetailSwitchs(switchOn: Boolean) {
        if(switchOn) {
-           applicationLevelProvider.btmSheetToggle4?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle3?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle2?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle1?.setChecked(true)
+
+           applicationLevelProvider.btmSheetToggleRadius?.setChecked(true)
+           applicationLevelProvider.btmsheetToggleIndex?.setChecked(true)
        }
        else {
-           applicationLevelProvider.btmSheetToggle4?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle3?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle2?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle1?.setChecked(false)
+
+           applicationLevelProvider.btmSheetToggleRadius?.setChecked(false)
+           applicationLevelProvider.btmsheetToggleIndex?.setChecked(false)
        }
    }
 
