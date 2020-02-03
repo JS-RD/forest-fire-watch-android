@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.viewmodel.map_controllers.discarded
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.z_delete_discarded
 
 import android.graphics.Color
 import android.os.Bundle

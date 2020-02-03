@@ -21,7 +21,6 @@ class LocalUser(
         var mWebBEUser: WebBEUser? = null,
         var mLocations: MutableList<WebBELocation?> = mutableListOf(),
         var mTheme: Int? = THEME_UNDEFINED,
-        var mFirebaseUser: FirebaseUser? = null,
         var mAqiStations: MutableList<AQIStations> = mutableListOf(),
         var mFireLocations: MutableList<DSFires> = mutableListOf(),
         var mLayerVisibility: MutableMap<String, Boolean> = mutableMapOf(
@@ -34,6 +33,9 @@ class LocalUser(
 
 
 ) {
+
+    val mFirebaseUser: FirebaseUser? get() =  firebaseAuth.currentUser
+
     private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val sharedPreferencesHelper: SharedPreferencesHelper = applicationLevelProvider.sharedPreferencesHelper
     private val userLocationWebBEController = applicationLevelProvider.userLocationWebBEController

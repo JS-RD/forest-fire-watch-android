@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.view.tools
+package com.example.wildfire_fixed_imports.view.z_delete_discarded
 
 import android.graphics.Color
 import android.os.Bundle

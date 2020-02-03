@@ -28,7 +28,7 @@ import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
-import com.example.wildfire_fixed_imports.view.tools.DebugFragment
+import com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
