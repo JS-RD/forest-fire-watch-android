@@ -182,8 +182,8 @@ class MainActivity : AppCompatActivity() {
         setUpOnClicks()
         setUpNav()
 
-            Timber.i("HEYFUCKBOY"+applicationLevelProvider.firebaseAuth.currentUser?.email)
-        Timber.i("HEYFUCKBOY"+applicationLevelProvider.firebaseAuth.uid)
+            Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
+
     }
 
  fun setUpOnClicks() {

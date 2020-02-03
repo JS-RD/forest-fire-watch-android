@@ -190,9 +190,9 @@ var FIREJOBS:Job = Job()
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,
-                50.0)
+                30.0)
         if (result is SuccessFailWrapper.Success) {
-            return result.value
+            return cleanAQIStationData(result.value)
 
         } else {
             when (result) {
@@ -210,6 +210,15 @@ var FIREJOBS:Job = Job()
         return null
     }
 
+    fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
+        val mutListResult = mutableListOf<AQIStations>()
+        aqiStations?.forEach{
+            if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
+                mutListResult.add(it)
+            }
+        }
+        return mutListResult
+    }
 
     suspend fun startFireService() {
         Timber.i("$TAG initialized")

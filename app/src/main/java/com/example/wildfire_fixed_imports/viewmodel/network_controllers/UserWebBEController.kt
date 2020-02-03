@@ -106,7 +106,7 @@ class UserWebBEController () {
             val fullWebBEUser = getUserObject(result.token)
             when (fullWebBEUser) {
                 is SuccessFailWrapper.Success -> applicationLevelProvider.localUser?.mWebBEUser = fullWebBEUser.value.also {
-                    Timber.i("$TAG full web from BE $fullWebBEUser")
+                    Timber.i("$TAG full web from BE $fullWebBEUser \n local user . mWebBeUSEr = ${applicationLevelProvider.localUser?.mWebBEUser}")
                 }
                 else -> {
                     Timber.i("$TAG something went wrong when getting user object from backend ${fullWebBEUser.toString()}")

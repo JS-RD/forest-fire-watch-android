@@ -251,6 +251,7 @@ class EntranceActivity : AppCompatActivity() {
             }
         }
         Timber.i("$TAG \n END OF ENTRANCE ACTIVITY, PERMISSIONS EXHAUSTED \n redirecting to mainActivity ")
+
         redirect()
 
     }

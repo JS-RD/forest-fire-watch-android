@@ -44,8 +44,8 @@ class WildFireMapFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider?.appMapViewModel?.let{
-            it.triggerMapRedraw()
+        if (::mapViewModel.isInitialized){
+            mapViewModel.triggerMapRedraw()
         }
 
 
@@ -78,9 +78,6 @@ class WildFireMapFragment : Fragment() {
 
         }
 
-
-
-        mapView!!.onCreate(savedInstanceState)
     }
 
 
@@ -90,15 +87,7 @@ class WildFireMapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
-
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-
-
-
-
 
         return root
     }
@@ -106,7 +95,6 @@ class WildFireMapFragment : Fragment() {
     fun finishLoading() {
         val style = Style.SATELLITE
         mapboxMap.setStyle(style) {
-
 
             it.transition = TransitionOptions(0, 0, false)
 
@@ -116,8 +104,6 @@ class WildFireMapFragment : Fragment() {
             applicationLevelProvider.mapboxStyle = it
 
 
-            val symbolManager = SymbolManager(applicationLevelProvider.mapboxView, applicationLevelProvider.mapboxMap, applicationLevelProvider.mapboxStyle)
-            applicationLevelProvider.symbolManager = symbolManager
             mapViewModel.onMapLoaded()
             Timber.w("$TAG config")
 

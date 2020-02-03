@@ -48,7 +48,10 @@ class LocalUser(
             if (firebaseAuth.currentUser?.uid != null) {
                 val result = CoroutineScope(Dispatchers.IO).async {applicationLevelProvider.userWebBEController.signin()}.await()
                 when (result) {
-                    is SuccessFailWrapper.Success -> Timber.i("$TAG Login successful for ${applicationLevelProvider.webUser?.email}\n token = ${applicationLevelProvider.webUser?.token}")
+                    is SuccessFailWrapper.Success -> {
+
+                    Timber.i("$TAG Login successful for ${applicationLevelProvider.webUser?.email}\n token = ${applicationLevelProvider.webUser?.token}")
+                }
                     /*
                     is SuccessFailWrapper.Exception -> Timber.i("$TAG login fail ${result.e}"
                     is SuccessFailWrapper.Fail -> _"$TAG login fail ${result.mes}"
