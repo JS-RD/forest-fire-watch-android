@@ -17,6 +17,7 @@ import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
 import com.example.wildfire_fixed_imports.model.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
+import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
@@ -82,6 +83,9 @@ class ApplicationLevelProvider : Application() {
     * --- >
     * */
 
+    // local user object, functionally cache/repo for app
+    var localUser:LocalUser? = null
+
 
     // Initialize Firebase analytics, Auth
 
@@ -101,15 +105,16 @@ class ApplicationLevelProvider : Application() {
             return null
         }
     }
-    var webUser:WebBEUser? = null
 
+    val webUser:WebBEUser?
+    get() = localUser?.mWebBEUser
 
-/*    val authenticationState by lazy {
-        AuthenticationState()
-    }*/
+    val userLocation: Location? get() = currentActivity.getLatestLocation()
 
-
-
+    var fineLocationPermission: Boolean = false
+    var coarseLocationPermission: Boolean = false
+    var internetPermission: Boolean = false
+    var initZoom:Boolean =false
 
 
     val retrofitWebService by lazy {
@@ -138,6 +143,9 @@ class ApplicationLevelProvider : Application() {
         UserLocationWebBEController()
     }
 
+    val sharedPreferencesHelper by lazy {
+        SharedPreferencesHelper(this)
+    }
 // ...
 
 
@@ -189,11 +197,8 @@ val mapViewModelFactory by lazy {
 
 
 
-    //lateinit var cloudBSIcon:ImageView
-    var fineLocationPermission: Boolean = false
-    var coarseLocationPermission: Boolean = false
-    var internetPermission: Boolean = false
-    var initZoom:Boolean =false
+
+
 
     var aqiLayerVisibility = Property.VISIBLE
     var aqiBaseTextLayerVisibility = Property.VISIBLE
@@ -202,8 +207,7 @@ val mapViewModelFactory by lazy {
     var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
-    var localUser:LocalUser? =
-        null
+
 
 
 
@@ -213,7 +217,7 @@ val mapViewModelFactory by lazy {
     lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
-    val userLocation: Location? get() = currentActivity.getLatestLocation()
+
 
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 

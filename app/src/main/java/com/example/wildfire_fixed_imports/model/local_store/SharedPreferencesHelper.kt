@@ -26,8 +26,8 @@ class SharedPreferencesHelper {
     var isLoggingEnabled = false
         private set
 
-    @SuppressLint("CommitPrefEdits")
-    private constructor(context: Context) {
+
+    constructor (context: Context) {
         prefs = context.getSharedPreferences(filename, Context.MODE_PRIVATE)
         editor = prefs.edit()
     }

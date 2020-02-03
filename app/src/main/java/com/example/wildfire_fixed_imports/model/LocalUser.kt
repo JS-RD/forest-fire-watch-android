@@ -7,6 +7,7 @@ import com.example.wildfire_fixed_imports.util.Coroutines
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
+import com.example.wildfire_fixed_imports.view.login_registration.LoginResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,12 +40,20 @@ class LocalUser(
 
     init {
         Timber.i ("$TAG \n LocalUser init")
-        CoroutineScope(Dispatchers.IO).launch{
+        Coroutines.io {
             if (firebaseAuth.currentUser?.uid != null) {
                 val result =applicationLevelProvider.userWebBEController.signin()
-                Timber.i ("$TAG \n web user = \n ${applicationLevelProvider.webUser} ")
+                when (result) {
+                    is SuccessFailWrapper.Success -> Timber.i("$TAG Login successful for ${applicationLevelProvider.webUser?.email}")
+              /*      is SuccessFailWrapper.Exception -> Timber.i("$TAG login fail ${result.e}"
+                    is SuccessFailWrapper.Fail -> _"$TAG login fail ${result.mes}"
+                    is SuccessFailWrapper.Throwable ->*/
+                    else -> "$TAG login fail $result"
+                }
             }
         }
+
+
     }
     companion object {
         private var mInstance: LocalUser? = null
