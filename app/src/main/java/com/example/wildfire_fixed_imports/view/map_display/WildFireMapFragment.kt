@@ -148,8 +148,8 @@ class WildFireMapFragment : Fragment() {
             aqiToggleCompositeHML()
         }
 
-        applicationLevelProvider.btmSheetTvIndex?.text="bottom text layer"
-        applicationLevelProvider.btmSheetTvRadius?.text="bottom circles layer"
+        applicationLevelProvider.btmSheetTvIndex?.text="Air Quality index"
+        applicationLevelProvider.btmSheetTvRadius?.text="Air Quality Radius"
 
     }
 
