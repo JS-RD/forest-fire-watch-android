@@ -32,7 +32,46 @@ import java.util.concurrent.CancellationException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+fun View.showSnackbar(msgId: Int, length: Int) {
+    showSnackbar(this.context.getString(msgId), length)
+}
 
+fun View.showSnackbar(msg: String, length: Int) {
+    showSnackbar(msg, length, null, {})
+}
+
+fun View.showSnackbar(
+        msgId: Int,
+        length: Int,
+        actionMessageId: Int,
+        action: (View) -> Unit
+) {
+    showSnackbar(this.context.getString(msgId), length, this.context.getString(actionMessageId), action)
+}
+
+
+fun View.showSnackbar(    msg: String,
+                          length: Int,
+                          actionMessage: CharSequence?,
+                          action: (View) -> Unit
+) {
+    val snackbar = Snackbar.make(this, msg, length)
+    if (actionMessage != null) {
+        snackbar.setAction(actionMessage) {
+            action(this)
+        }.show()
+    }
+    else {
+        snackbar.show()
+
+    }
+    if (length==Snackbar.LENGTH_INDEFINITE){
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(8000)
+            snackbar.dismiss()
+        }
+    }
+}
 fun ApplicationLevelProvider.showSnackbar(msgId: Int, length: Int) {
     showSnackbar(applicationContext.getString(msgId), length)
 }

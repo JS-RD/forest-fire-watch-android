@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
@@ -14,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import timber.log.Timber
 
 
@@ -35,9 +37,12 @@ class EntranceActivity : AppCompatActivity() {
     private val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
+    lateinit var textView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entrance)
+        textView=findViewById(R.id.entry_tv)
+        initPermissions()
     }
 
     fun initPermissions() {
@@ -67,7 +72,7 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.internetPermission = true
             //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+            textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
                     "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
 
 
@@ -84,7 +89,7 @@ class EntranceActivity : AppCompatActivity() {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-            applicationLevelProvider.showSnackbar(
+            textView.showSnackbar(
                     "INTERNET acess is required for this app to function at all.",
                     Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
@@ -113,9 +118,9 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.fineLocationPermission = true
             //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+            textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
                     "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
-
+            redirect()
         } else {
             // Permission is missing and must be requested.
             requestFineLocationPermission()
@@ -131,9 +136,9 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.coarseLocationPermission = true
             //pop snackbar to notify of permissions
-            applicationLevelProvider.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
+            textView.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
                     "Fine Location permission: ${applicationLevelProvider.coarseLocationPermission}", Snackbar.LENGTH_SHORT)
-
+            redirect()
         } else {
             // Permission is missing and must be requested.
             requestCoarseLocationPermission()
@@ -147,7 +152,7 @@ class EntranceActivity : AppCompatActivity() {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-            applicationLevelProvider.showSnackbar(
+            textView.showSnackbar(
                     "GPS location data is needed to provide accurate local results",
                     Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
@@ -158,7 +163,7 @@ class EntranceActivity : AppCompatActivity() {
             }
 
         } else {
-            applicationLevelProvider.showSnackbar("cOARSE Location not available", Snackbar.LENGTH_SHORT)
+            textView.showSnackbar("cOARSE Location not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
             requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -174,7 +179,7 @@ class EntranceActivity : AppCompatActivity() {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
-            applicationLevelProvider.showSnackbar(
+            textView.showSnackbar(
                     "GPS location data is needed to provide accurate local results",
                     Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
@@ -185,7 +190,7 @@ class EntranceActivity : AppCompatActivity() {
             }
 
         } else {
-            applicationLevelProvider.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
+            textView.showSnackbar("Fine Location not available", Snackbar.LENGTH_SHORT)
 
             // Request the permission. The result will be received in onRequestPermissionResult().
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -204,12 +209,12 @@ class EntranceActivity : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.fineLocationPermission = true
-                    applicationLevelProvider.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
                     redirect()
 
                 } else {
                     applicationLevelProvider.fineLocationPermission = false
-                    applicationLevelProvider.showSnackbar("Fine Location not granted", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Fine Location not granted", Snackbar.LENGTH_SHORT)
                 }
                 return
             }
@@ -218,11 +223,11 @@ class EntranceActivity : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.internetPermission = true
-                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
 
                 } else {
                     applicationLevelProvider.internetPermission = false
-                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
                     TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
@@ -234,11 +239,11 @@ class EntranceActivity : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.coarseLocationPermission = true
-                    applicationLevelProvider.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
                     redirect()
                 } else {
                     applicationLevelProvider.coarseLocationPermission = false
-                    applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
+                    textView.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
                     TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
