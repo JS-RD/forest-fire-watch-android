@@ -91,7 +91,7 @@ class MapDrawController() {
 
 
     fun createStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String) {
-        Timber.e(AQIgeoJson)
+     //   Timber.e(AQIgeoJson)
         applicationLevelProvider.mapboxView.getMapAsync { myMapboxMap ->
             myMapboxMap.getStyle { style ->
 

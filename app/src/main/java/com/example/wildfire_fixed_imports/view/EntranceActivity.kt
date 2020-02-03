@@ -3,10 +3,9 @@ package com.example.wildfire_fixed_imports.view
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
@@ -14,8 +13,8 @@ import com.example.wildfire_fixed_imports.util.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import org.w3c.dom.Text
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -46,11 +45,12 @@ class EntranceActivity : AppCompatActivity() {
     }
 
     fun initPermissions() {
-
-        checkFineLocationPermission()
-        checkInternetPermission()
-        checkCoarseLocationPermission()
-        Timber.i("init - initpermissions")
+ CoroutineScope(Dispatchers.Main).async {
+     withContext(Dispatchers.Default) {  checkInternetPermission() }
+     withContext(Dispatchers.Default) { checkFineLocationPermission() }
+     withContext(Dispatchers.Default) { checkCoarseLocationPermission()}
+     Timber.i("init - initpermissions")
+ }
 
     }
 
@@ -240,12 +240,11 @@ class EntranceActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.coarseLocationPermission = true
                     textView.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
-                    redirect()
                 } else {
                     applicationLevelProvider.coarseLocationPermission = false
                     textView.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
-                    TODO("CAUSE APPLICATION TO EXIT HERE")
+                   // TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
                 return
             }

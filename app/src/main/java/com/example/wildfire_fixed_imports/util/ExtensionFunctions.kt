@@ -250,8 +250,8 @@ fun Location.toWebBELocation(radius:Int = 5): WebBELocation {
 
 fun ApplicationLevelProvider.zoomCameraToUser() {
     CoroutineScope(Dispatchers.Main).launch {
-        //val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().userLocation?.LatLng()
-        val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mLocations?.get(0)?.latLng
+        val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().userLocation?.LatLng()
+        //val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mLocations?.get(0)?.latLng
         res?.let {
             mapboxMap?.let {
                 it.animateCamera(CameraUpdateFactory.newLatLngZoom(
