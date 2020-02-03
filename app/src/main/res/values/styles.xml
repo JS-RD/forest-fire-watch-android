@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
     <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed">true</item><!-- shows error because min sdk is 23 but still compiles. -->
