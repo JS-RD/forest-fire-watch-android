@@ -9,24 +9,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.MainActivity
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.google.android.material.snackbar.Snackbar
-import com.mapbox.android.telemetry.MapboxTelemetry
-import com.mapbox.geojson.Point
-import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
-import com.mapbox.turf.TurfMeasurement
 
 /*
 *           MasterCoordinator
@@ -114,11 +108,11 @@ var FIREJOBS:Job = Job()
         fireObserver = Observer { list ->
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized && !list.isNullOrEmpty()) {
-                Timber.i("$TAG init fire list reached observer ${list.toString()}")
+              Timber.i("$TAG init fire list reached observer ")
                 // removeAllFires()
                 _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             } else if (!list.isNullOrEmpty()) {
-                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+                Timber.i("$TAG new aqi list reached observer")
                 _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             }
         }
@@ -126,7 +120,7 @@ var FIREJOBS:Job = Job()
         AQIStationObserver = Observer { list ->
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized && !list.isNullOrEmpty()) {
-                Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
+                Timber.i("$TAG  init aqi station list reached observer ")
                 // make some geojson out of the data
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
@@ -142,7 +136,7 @@ var FIREJOBS:Job = Job()
         fireGeoJsonObserver = Observer {
             Timber.i("$TAG init create fire geojson observer")
             if (!it.isNullOrBlank()) {
-                Timber.i("$TAG force redraw from ${fireGeoJson.value}")
+                Timber.i("$TAG force redraw from firegeojson")
                 mapViewModel.triggerMapRedraw()
             }
 
@@ -152,7 +146,7 @@ var FIREJOBS:Job = Job()
         AQIGeoJsonObserver = Observer {
             Timber.i("$TAG init create AQI geojson observer")
             if (!it.isNullOrBlank()) {
-                Timber.i("$TAG force redraw from ${AQIGeoJson.value}")
+                Timber.i("$TAG force redraw from aqigeojson")
                 mapViewModel.triggerMapRedraw()
             }
 
@@ -196,10 +190,9 @@ var FIREJOBS:Job = Job()
         val result = aqidsController.getAQIStations(
                 currentLocal.latitude,
                 currentLocal.longitude,
-                50.0)
+                30.0)
         if (result is SuccessFailWrapper.Success) {
-            Timber.i("$TAG result: ${result.value}")
-            return result.value
+            return cleanAQIStationData(result.value)
 
         } else {
             when (result) {
@@ -217,6 +210,15 @@ var FIREJOBS:Job = Job()
         return null
     }
 
+    fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
+        val mutListResult = mutableListOf<AQIStations>()
+        aqiStations?.forEach{
+            if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
+                mutListResult.add(it)
+            }
+        }
+        return mutListResult
+    }
 
     suspend fun startFireService() {
         Timber.i("$TAG initialized")

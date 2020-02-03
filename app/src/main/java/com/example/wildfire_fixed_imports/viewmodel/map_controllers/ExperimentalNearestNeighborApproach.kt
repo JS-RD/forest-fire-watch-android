@@ -55,17 +55,14 @@ class ExperimentalNearestNeighborApproach {
             try {
 
                 applicationLevelProvider.mapboxStyle = style
-                style.resetIconsForNewStyle()
                 val pointCount = Expression.toNumber(Expression.get("point_count"))
                 val dived = Expression.ceil(Expression.division(Expression.get("sum"), pointCount))
                 val aqiFeatureCalcExpression = Expression.ceil(Expression.toNumber(Expression.get("aqi")))
 
                 // new manual aqi circle sheet
-                val tempSourceID = "temporary_source_id_for_manual_circles"
-                val tempLayerID = "temporary_layer_id_for_manual_circles"
                 style.addSource(
                         GeoJsonSource(
-                                tempSourceID,
+                                AQI_NEAREST_NEIGHBOR_SOURCE_ID,
 
                                 // Point to GeoJSON data.
                                 FeatureCollection.fromJson(AqiCircle),
@@ -93,7 +90,7 @@ map.addLayer({
 });
 * */
 
-                val fillLayer = FillLayer(tempLayerID, tempSourceID)
+                val fillLayer = FillLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID, AQI_NEAREST_NEIGHBOR_SOURCE_ID)
                 fillLayer.setProperties(PropertyFactory.fillColor(
 
                         Expression.interpolate(
@@ -138,14 +135,14 @@ map.addLayer({
 
                         radiusInKm = (it.value / 2.0)
                 )
-                Timber.e("\nres = ${res.toString()}")
+              //  Timber.e("\nres = ${res.toString()}")
                 add(res)
             }
         }
 
         val myObjectMapper = ObjectMapper()
         val resultGeoJson = myObjectMapper.writeValueAsString(result)
-        Timber.i("\nFINAL RESULT GEOJSON \n$resultGeoJson")
+      //  Timber.i("\nFINAL RESULT GEOJSON \n$resultGeoJson")
         return resultGeoJson
     }
 
@@ -178,10 +175,11 @@ map.addLayer({
                     mapOfNearest[current] = bestDist
                     if (bestDist < (mapOfNearest[bestCompare] ?: 0.001)) {
                         mapOfNearest[bestCompare as AQIStations] = bestDist
-                        Timber.w("\n*${current.station.name} * AND * ${bestCompare.station.name} \n " +
+                       /* Timber.w("\n*${current.station.name} * AND * ${bestCompare.station.name} \n " +
                                 "dist = $bestDist\n"
                                 +
                                 "${current.getLatLng().latitude}/${current.getLatLng().longitude} and ${bestCompare.getLatLng().latitude}/${bestCompare.getLatLng().longitude}")
+                  */
                     }
                 }
             }

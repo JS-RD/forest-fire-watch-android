@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -191,11 +192,27 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
     return bitmap
 }
 
+fun Location.toWebBELocation(radius:Int = 5): WebBELocation {
+    return WebBELocation(
+            address = "",
+            address_label = "",
+            id = 100001,
+            last_alert = 0L,
+            latitude = this.latitude,
+            longitude = this.longitude,
+            notifications = true,
+            notification_timer = 0,
+            radius = radius,
+            user_id = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mWebBEUser?.id ?: 10101
+    )
+
+}
 
 
 fun ApplicationLevelProvider.zoomCameraToUser() {
     CoroutineScope(Dispatchers.Main).launch {
-        val res = currentActivity.getLatestLocation()?.LatLng()
+        //val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().userLocation?.LatLng()
+        val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mLocations?.get(0)?.latLng
         res?.let {
             mapboxMap?.let {
                 it.animateCamera(CameraUpdateFactory.newLatLngZoom(

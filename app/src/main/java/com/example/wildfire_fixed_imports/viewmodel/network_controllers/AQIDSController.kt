@@ -30,7 +30,7 @@ class AQIDSController() {
             Timber.i("$TAG try postWebBELocation triggered")
             val result =retrofitDSService.getAQIStations(lat,lng,distance)
 
-            Timber.i("$TAG success\n list of aqi stations for lat:$lat lng$lng distance:$distance  = \n$result ")
+            Timber.i("$TAG success\n list of aqi stations for lat:$lat lng$lng distance:$distance")
             if(result.data.isNullOrEmpty()){
                 if (result.status=="ok"){
                     SuccessFailWrapper.Fail("No Aqi stations in range, please raise your search range")
@@ -60,7 +60,7 @@ class AQIDSController() {
             Timber.i("$TAG try postWebBELocation triggered")
             val result =retrofitDSService.getAQIData(lat,lng)
 
-            Timber.i("$TAG success\n list of aqi for lat:$lat and lng$lng = \n$result ")
+            Timber.i("$TAG success\n list of aqi for lat:$lat and lng$lng ")
             SuccessFailWrapper.Success("Success", result)
 
         } catch (throwable: Throwable) {

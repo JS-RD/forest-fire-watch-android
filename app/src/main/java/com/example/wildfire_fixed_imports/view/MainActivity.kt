@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports
+package com.example.wildfire_fixed_imports.view
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -28,6 +28,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
@@ -109,8 +111,8 @@ class MainActivity : AppCompatActivity() {
          drawerToggle = ActionBarDrawerToggle(this,
             drawer_layout,
             toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close)
+                 R.string.navigation_drawer_open,
+                 R.string.navigation_drawer_close)
 
 
 
@@ -172,6 +174,7 @@ class MainActivity : AppCompatActivity() {
         setUpOnClicks()
         setUpNav()
 
+            Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
 
     }
 
@@ -228,10 +231,6 @@ class MainActivity : AppCompatActivity() {
                 locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
                 Timber.i(" $TAG requesting location")
                 val sauce = locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-                CoroutineScope(Dispatchers.IO).launch {
-                    getLatestLocation()
-
-                }
             } catch (ex: SecurityException) {
                 Timber.i("Security Exception, no location available")
             }
@@ -240,10 +239,6 @@ class MainActivity : AppCompatActivity() {
                     PackageManager.PERMISSION_GRANTED) {
                 try {
                     locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-                    CoroutineScope(Dispatchers.IO).launch {
-                        getLatestLocation()
-
-                    }
                 } catch (ex: SecurityException) {
                     Timber.i("Security Exception, no location available")
                 }
@@ -265,8 +260,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
-                R.id.nav_debug, R.id.nav_share, R.id.nav_send
+                    R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
+                    R.id.nav_debug, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
 
@@ -286,22 +281,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    //for grabing location
-    fun getLatestLocation(): Location? {
 
-        val localationFinder = LocationFinder(this)
-        val result = localationFinder.check()
-        if (result != null) {
-            return result
-        }
-        /* else {
-             if (applicationLevelProvider.fineLocationPermission) {
-                 val locale = fusedLocationClient.lastLocation
-                 return locale
-             }
-         }*/
-        return null
-    }
 
 
 

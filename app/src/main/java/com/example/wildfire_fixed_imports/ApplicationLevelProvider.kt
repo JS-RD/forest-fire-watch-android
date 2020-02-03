@@ -15,16 +15,20 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
+import com.example.wildfire_fixed_imports.model.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
+import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
+import com.example.wildfire_fixed_imports.util.LocationFinder
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.util.methodName
+import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
-import com.example.wildfire_fixed_imports.view.tools.DebugFragment
+import com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
@@ -38,6 +42,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -81,6 +86,9 @@ class ApplicationLevelProvider : Application() {
     * --- >
     * */
 
+    // local user object, functionally cache/repo for app
+    var localUser:LocalUser? = null
+
 
     // Initialize Firebase analytics, Auth
 
@@ -91,17 +99,26 @@ class ApplicationLevelProvider : Application() {
         FirebaseAuth.getInstance()
     }
 
-    var firebaseUser: FirebaseUser? = null
+    val firebaseUser: FirebaseUser?
+    get() {
+        if (firebaseAuth.currentUser != null) {
+            return firebaseAuth.currentUser
+        }
+        else {
+            return null
+        }
+    }
 
-    var webUser:WebBEUser? = null
+    val webUser:WebBEUser?
+    get() = localUser?.mWebBEUser
 
+    val userLocation: Location? get() = latestLocation
+    val latestLocation:Location? get() = locationFinder.check()
 
-/*    val authenticationState by lazy {
-        AuthenticationState()
-    }*/
-
-
-
+    var fineLocationPermission: Boolean = false
+    var coarseLocationPermission: Boolean = false
+    var internetPermission: Boolean = false
+    var initZoom:Boolean =false
 
 
     val retrofitWebService by lazy {
@@ -130,7 +147,16 @@ class ApplicationLevelProvider : Application() {
         UserLocationWebBEController()
     }
 
-// ...
+    val sharedPreferencesHelper by lazy {
+        SharedPreferencesHelper(this)
+    }
+
+    val locationFinder by lazy {
+        LocationFinder(this)
+    }
+
+
+
 
 
 val mapViewModelFactory by lazy {
@@ -179,11 +205,8 @@ val mapViewModelFactory by lazy {
 
 
 
-    //lateinit var cloudBSIcon:ImageView
-    var fineLocationPermission: Boolean = false
-    var coarseLocationPermission: Boolean = false
-    var internetPermission: Boolean = false
-    var initZoom:Boolean =false
+
+
 
     var aqiLayerVisibility = Property.VISIBLE
     var aqiBaseTextLayerVisibility = Property.VISIBLE
@@ -195,12 +218,14 @@ val mapViewModelFactory by lazy {
 
 
 
+
+
     lateinit var appMapViewModel: MapViewModel
 
     lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
 
-    val userLocation: Location? get() = currentActivity.getLatestLocation()
+
 
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
 
@@ -216,7 +241,7 @@ val mapViewModelFactory by lazy {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
-
+        Mapbox.getInstance(this,  getString(R.string.mapbox_access_token))
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
         aqiIconCircle=
@@ -231,7 +256,7 @@ val mapViewModelFactory by lazy {
 
         instance = this
 
-
+        localUser= LocalUser.getInstance(this)
         //hash tag team smoke trees
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())

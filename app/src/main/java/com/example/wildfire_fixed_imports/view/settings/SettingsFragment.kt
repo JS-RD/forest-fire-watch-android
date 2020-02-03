@@ -75,7 +75,7 @@ class SettingsFragment : Fragment() {
         saveTheme(prefsMode)
     }
 
-
+    private fun getSavedTheme() = sharedPrefs.getInt(KEY_THEME, THEME_UNDEFINED)
 
     private fun saveTheme(theme: Int) = sharedPrefs.edit().putInt(KEY_THEME, theme).apply()
 
@@ -100,7 +100,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    private fun getSavedTheme() = sharedPrefs.getInt(KEY_THEME, THEME_UNDEFINED)
+
 
     override fun onDetach() {
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE

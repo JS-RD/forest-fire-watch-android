@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_debug"
-        android:name="com.example.wildfire_fixed_imports.view.tools.DebugFragment"
+        android:name="com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment"
         android:label="@string/menu_debug"
         tools:layout="@layout/fragment_debug" />
 
