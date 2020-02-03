@@ -163,6 +163,18 @@ data class WebBELocation(
         return SafeWebBELocation(this.address,this.address_label,this.last_alert,this.latitude,this.longitude,this.notification_timer,
                 this.notifications,this.radius)
     }
+    data class SafeWebBELocation(
+            val address: String,
+            val address_label: String,
+            // val id: Int,
+            val last_alert: Long,
+            val latitude: Double,
+            val longitude: Double,
+            val notification_timer: Int,
+            val notifications: Boolean,
+            val radius: Int
+            // val user_id: Int
+    )
 }
 
 
@@ -174,18 +186,7 @@ data class requestAQI(
 
 )
 
-data class SafeWebBELocation(
-        val address: String,
-        val address_label: String,
-       // val id: Int,
-        val last_alert: Long,
-        val latitude: Double,
-        val longitude: Double,
-        val notification_timer: Int,
-        val notifications: Boolean,
-        val radius: Int
-       // val user_id: Int
-)
+
 
 data class DSStationsResponse(
         val `data`: List<AQIStations>,

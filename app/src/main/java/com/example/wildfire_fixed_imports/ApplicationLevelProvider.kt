@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
+import com.example.wildfire_fixed_imports.model.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
@@ -194,6 +195,9 @@ val mapViewModelFactory by lazy {
     var aqiClusterHMLLayerVisibility = Property.VISIBLE
     var fireLayerVisibility = Property.VISIBLE
 
+    var localUser:LocalUser? =
+        null
+
 
 
 
@@ -233,7 +237,7 @@ val mapViewModelFactory by lazy {
 
         instance = this
 
-
+        localUser= LocalUser.getInstance(this)
         //hash tag team smoke trees
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())

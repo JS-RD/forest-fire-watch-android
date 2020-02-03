@@ -43,7 +43,7 @@ interface RetrofitImplementationForWebBackend {
 
     @PUT( "/api/locations/{id}")
     suspend fun updateWebBELocation(@Header("Authorization") token: String,@Path("id") id:String,
-                                    @Body user: SafeWebBELocation):WebMessage
+                                    @Body user: WebBELocation.SafeWebBELocation):WebMessage
 
     @POST("/api/locations/")
     suspend fun postWebBELocation(@Header("Authorization") token: String, @Body webBELocationSubmit: WebBELocationSubmit): WebBELocation

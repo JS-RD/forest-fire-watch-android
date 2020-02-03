@@ -55,7 +55,6 @@ class ExperimentalNearestNeighborApproach {
             try {
 
                 applicationLevelProvider.mapboxStyle = style
-                style.resetIconsForNewStyle()
                 val pointCount = Expression.toNumber(Expression.get("point_count"))
                 val dived = Expression.ceil(Expression.division(Expression.get("sum"), pointCount))
                 val aqiFeatureCalcExpression = Expression.ceil(Expression.toNumber(Expression.get("aqi")))
@@ -138,7 +137,7 @@ map.addLayer({
 
                         radiusInKm = (it.value / 2.0)
                 )
-                Timber.e("\nres = ${res.toString()}")
+              //  Timber.e("\nres = ${res.toString()}")
                 add(res)
             }
         }
@@ -178,10 +177,11 @@ map.addLayer({
                     mapOfNearest[current] = bestDist
                     if (bestDist < (mapOfNearest[bestCompare] ?: 0.001)) {
                         mapOfNearest[bestCompare as AQIStations] = bestDist
-                        Timber.w("\n*${current.station.name} * AND * ${bestCompare.station.name} \n " +
+                       /* Timber.w("\n*${current.station.name} * AND * ${bestCompare.station.name} \n " +
                                 "dist = $bestDist\n"
                                 +
                                 "${current.getLatLng().latitude}/${current.getLatLng().longitude} and ${bestCompare.getLatLng().latitude}/${bestCompare.getLatLng().longitude}")
+                  */
                     }
                 }
             }

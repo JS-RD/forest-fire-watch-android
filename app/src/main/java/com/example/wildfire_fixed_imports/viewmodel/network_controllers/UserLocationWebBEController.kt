@@ -2,7 +2,7 @@ package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
-import com.example.wildfire_fixed_imports.model.SafeWebBELocation
+
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.model.WebBELocationSubmit
@@ -59,7 +59,7 @@ class UserLocationWebBEController () {
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
     }
 
-    suspend fun updateWebBELocation(id: String, location: SafeWebBELocation): SuccessFailWrapper<String> {
+    suspend fun updateWebBELocation(id: String, location: WebBELocation.SafeWebBELocation): SuccessFailWrapper<String> {
         if (webBEUser?.token != null) {
             try {
                 Timber.i("$TAG try postWebBELocation triggered")
