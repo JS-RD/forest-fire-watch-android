@@ -67,7 +67,6 @@ class FirebaseAuthImpl () {
                         return null
                 }
                 else if (currentUser != null) {
-                        applicationLevelProvider.firebaseUser = currentUser
                         return currentUser
                 }
 
@@ -86,17 +85,13 @@ class FirebaseAuthImpl () {
                                 )
                              /*   applicationLevelProvider.firebaseUser=it
                                 result=it*/
-                                applicationLevelProvider.firebaseUser= firebaseAuth.currentUser
                                 result =firebaseAuth.currentUser
 
-                                Timber.i("$TAG ${it.additionalUserInfo.toString()} CREDCHECK and ${it.user.toString()}")
-                                val cred=applicationLevelProvider.firebaseUser?.getIdToken(true)?.await()
                                // firebaseAuth.signInWithCustomToken(cred?.token ?:"sayce")
                                //val results = firebaseAuth.signInWithCredential(cred as AuthCredential).await()
                             //    Timber.i("$TAG ${results.credential} CREDCHECK and \n${results.user}")
 
                                 Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
-                                Timber.i("$TAG \n idtoken= ${firebaseAuth.signInWithCustomToken(cred?.token ?:"sayce").await()} \n cred = $cred credcheck")
                                 return SuccessFailWrapper.Success("Success",result)
                         } ?: run {
                                 authenticationState.postValue(
@@ -122,7 +117,7 @@ class FirebaseAuthImpl () {
                         authenticationState.postValue(
                                 true
                         )
-                        applicationLevelProvider.firebaseUser=it
+
                         result=it
                         Timber.i("$TAG ${it} and $it")
                         Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
@@ -176,7 +171,6 @@ class FirebaseAuthImpl () {
                 firebaseAuth.currentUser?.delete()?.await()
                 //check to make sure no user is logged in and hence, the user is deleted
                 if (firebaseAuth.currentUser ==null) {
-                        applicationLevelProvider.firebaseUser= null
                         Toast.makeText(applicationLevelProvider.applicationContext,
                                 "User ($userToDeleteEmail) successfully deleted",
                                 Toast.LENGTH_SHORT).show()
@@ -202,7 +196,6 @@ fun tokenHiJinx() {
                         Timber.d( "$TAG,  user not null ${firebaseAuth.currentUser}\n running firebaseauth.signOut()")
                 firebaseAuth.signOut()
                         Timber.d( "$TAG,  user signed out, current status ${firebaseAuth.currentUser}")
-                        applicationLevelProvider.firebaseUser = null
                 }
                 if (firebaseAuth.currentUser != null) {
                         //failed to sign out somehow
@@ -230,7 +223,6 @@ fun tokenHiJinx() {
                                         val user = firebaseAuth.currentUser
                                         if (user != null) {
                                                 Timber.d( "$TAG, ${user.toString()}")
-                                                applicationLevelProvider.firebaseUser =user
                                         }
 
                                 } else {
@@ -255,7 +247,7 @@ fun tokenHiJinx() {
                                         Timber.d( "$TAG,  signInWithEmail:success")
                                         val user = firebaseAuth.currentUser
                                         if (user != null) {
-                                                applicationLevelProvider.firebaseUser =user
+                                               Timber.i("$TAG user = $user")
                                         }
 
                                 } else {

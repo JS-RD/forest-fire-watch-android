@@ -119,9 +119,10 @@ class UserWebBEController () {
 
             return SuccessFailWrapper.Success("$result", result)
         } catch (throwable: Throwable) {
-            Timber.i("$TAG catch triggered")
+            Timber.i("$TAG catch triggered signin ${throwable} ")
             if (throwable is HttpException) {
                 if (throwable.code() ==403) {
+
                     return SuccessFailWrapper.Fail("User Could not be authenticated, try again")
                 }
             }

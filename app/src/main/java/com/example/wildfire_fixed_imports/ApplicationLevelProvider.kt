@@ -92,8 +92,15 @@ class ApplicationLevelProvider : Application() {
         FirebaseAuth.getInstance()
     }
 
-    var firebaseUser: FirebaseUser? = null
-
+    val firebaseUser: FirebaseUser?
+    get() {
+        if (firebaseAuth.currentUser != null) {
+            return firebaseAuth.currentUser
+        }
+        else {
+            return null
+        }
+    }
     var webUser:WebBEUser? = null
 
 

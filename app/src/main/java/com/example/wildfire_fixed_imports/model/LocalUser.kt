@@ -8,6 +8,9 @@ import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /*
@@ -36,9 +39,9 @@ class LocalUser(
 
     init {
         Timber.i ("$TAG \n LocalUser init")
-        Coroutines.io {
+        CoroutineScope(Dispatchers.IO).launch{
             if (firebaseAuth.currentUser?.uid != null) {
-                applicationLevelProvider.userWebBEController.signin()
+                val result =applicationLevelProvider.userWebBEController.signin()
                 Timber.i ("$TAG \n web user = \n ${applicationLevelProvider.webUser} ")
             }
         }

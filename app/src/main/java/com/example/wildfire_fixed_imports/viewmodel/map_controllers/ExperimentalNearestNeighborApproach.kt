@@ -144,7 +144,7 @@ map.addLayer({
 
         val myObjectMapper = ObjectMapper()
         val resultGeoJson = myObjectMapper.writeValueAsString(result)
-        Timber.i("\nFINAL RESULT GEOJSON \n$resultGeoJson")
+      //  Timber.i("\nFINAL RESULT GEOJSON \n$resultGeoJson")
         return resultGeoJson
     }
 

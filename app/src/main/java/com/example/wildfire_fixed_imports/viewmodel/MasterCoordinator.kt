@@ -114,11 +114,11 @@ var FIREJOBS:Job = Job()
         fireObserver = Observer { list ->
             Timber.i("$TAG init create fire observer")
             if (!fireInitialized && !list.isNullOrEmpty()) {
-                Timber.i("$TAG init fire list reached observer ${list.toString()}")
+              Timber.i("$TAG init fire list reached observer ")
                 // removeAllFires()
                 _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             } else if (!list.isNullOrEmpty()) {
-                Timber.i("$TAG new aqi list reached observer ${list.toString()}")
+                Timber.i("$TAG new aqi list reached observer")
                 _fireGeoJson.postValue(mapDrawController.makeFireGeoJson(list))
             }
         }
@@ -126,7 +126,7 @@ var FIREJOBS:Job = Job()
         AQIStationObserver = Observer { list ->
             Timber.i("$TAG init create aqi observer")
             if (!AQIInitialized && !list.isNullOrEmpty()) {
-                Timber.i("$TAG  init aqi station list reached observer ${list.toString()}")
+                Timber.i("$TAG  init aqi station list reached observer ")
                 // make some geojson out of the data
                 _AQIGeoJson.postValue(mapDrawController.makeAQIGeoJson(list))
                 AQIInitialized = true
@@ -142,7 +142,7 @@ var FIREJOBS:Job = Job()
         fireGeoJsonObserver = Observer {
             Timber.i("$TAG init create fire geojson observer")
             if (!it.isNullOrBlank()) {
-                Timber.i("$TAG force redraw from ${fireGeoJson.value}")
+                Timber.i("$TAG force redraw from firegeojson")
                 mapViewModel.triggerMapRedraw()
             }
 
@@ -152,7 +152,7 @@ var FIREJOBS:Job = Job()
         AQIGeoJsonObserver = Observer {
             Timber.i("$TAG init create AQI geojson observer")
             if (!it.isNullOrBlank()) {
-                Timber.i("$TAG force redraw from ${AQIGeoJson.value}")
+                Timber.i("$TAG force redraw from aqigeojson")
                 mapViewModel.triggerMapRedraw()
             }
 
@@ -198,7 +198,6 @@ var FIREJOBS:Job = Job()
                 currentLocal.longitude,
                 50.0)
         if (result is SuccessFailWrapper.Success) {
-            Timber.i("$TAG result: ${result.value}")
             return result.value
 
         } else {
