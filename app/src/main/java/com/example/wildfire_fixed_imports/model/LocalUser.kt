@@ -19,7 +19,7 @@ import timber.log.Timber
 
 class LocalUser(
         var mWebBEUser: WebBEUser? = null,
-        var mLocations: MutableList<WebBELocation?> = mutableListOf(),
+        var mLocations: MutableList<WebBELocation?> = mutableListOf(DEFAULT_WEBBELOCATION),
         var mTheme: Int? = THEME_UNDEFINED,
         var mAqiStations: MutableList<AQIStations> = mutableListOf(),
         var mFireLocations: MutableList<DSFires> = mutableListOf(),
@@ -70,6 +70,7 @@ class LocalUser(
     }
 
     private suspend fun getUserLocationsInit() {
+        mLocations= mutableListOf()
         mLocations.add(applicationLevelProvider.latestLocation?.toWebBELocation()
                 ?: DEFAULT_WEBBELOCATION)
         val result = userLocationWebBEController.getWebBELocations()
