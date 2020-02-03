@@ -22,8 +22,10 @@ import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
 import com.example.wildfire_fixed_imports.model.networking.NetworkConnectionInterceptor
 import com.example.wildfire_fixed_imports.model.networking.RetroImplForDataScienceBackEnd
 import com.example.wildfire_fixed_imports.model.networking.RetrofitImplementationForWebBackend
+import com.example.wildfire_fixed_imports.util.LocationFinder
 import com.example.wildfire_fixed_imports.util.getBitmapFromVectorDrawable
 import com.example.wildfire_fixed_imports.util.methodName
+import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.tools.DebugFragment
@@ -40,6 +42,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
@@ -109,7 +112,8 @@ class ApplicationLevelProvider : Application() {
     val webUser:WebBEUser?
     get() = localUser?.mWebBEUser
 
-    val userLocation: Location? get() = currentActivity.getLatestLocation()
+    val userLocation: Location? get() = latestLocation
+    val latestLocation:Location? get() = locationFinder.check()
 
     var fineLocationPermission: Boolean = false
     var coarseLocationPermission: Boolean = false
@@ -146,7 +150,13 @@ class ApplicationLevelProvider : Application() {
     val sharedPreferencesHelper by lazy {
         SharedPreferencesHelper(this)
     }
-// ...
+
+    val locationFinder by lazy {
+        LocationFinder(this)
+    }
+
+
+
 
 
 val mapViewModelFactory by lazy {
@@ -233,7 +243,7 @@ val mapViewModelFactory by lazy {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
-
+        Mapbox.getInstance(this,  getString(R.string.mapbox_access_token))
         networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
         aqiIconCircle=

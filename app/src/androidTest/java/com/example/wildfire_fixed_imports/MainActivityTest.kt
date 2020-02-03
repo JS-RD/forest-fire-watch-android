@@ -9,7 +9,7 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import org.junit.After
+import com.example.wildfire_fixed_imports.view.MainActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -28,7 +28,7 @@ class UserWebBEController () {
             Timber.i("$TAG try triggered")
             val userObjectCompleteFromBackend = retroImpl.getUserInfoFromBE(token)
 
-            applicationLevelProvider.webUser=userObjectCompleteFromBackend
+            applicationLevelProvider.localUser?.mWebBEUser=userObjectCompleteFromBackend
             Timber.i("$TAG success\n tokenstore = $token \n returned user = $userObjectCompleteFromBackend \n APL user = ${applicationLevelProvider.webUser}" )
             SuccessFailWrapper.Success("Success",userObjectCompleteFromBackend)
         }
@@ -61,7 +61,7 @@ class UserWebBEController () {
 
             //if we don't fall over to catch here, we are successful and can finish out
             when (val fullWebBEUser = getUserObject(result.token)) {
-                is SuccessFailWrapper.Success -> applicationLevelProvider.webUser = fullWebBEUser.value.also {
+                is SuccessFailWrapper.Success -> applicationLevelProvider.localUser?.mWebBEUser = fullWebBEUser.value.also {
                     Timber.i("$TAG full web from BE $fullWebBEUser")
                 }
                 else -> {
@@ -105,7 +105,7 @@ class UserWebBEController () {
 
             val fullWebBEUser = getUserObject(result.token)
             when (fullWebBEUser) {
-                is SuccessFailWrapper.Success -> applicationLevelProvider.webUser = fullWebBEUser.value.also {
+                is SuccessFailWrapper.Success -> applicationLevelProvider.localUser?.mWebBEUser = fullWebBEUser.value.also {
                     Timber.i("$TAG full web from BE $fullWebBEUser")
                 }
                 else -> {
@@ -149,7 +149,7 @@ class UserWebBEController () {
 
             Timber.i("$TAG result successful ${result[0]}")
             //set the local model of webuser to the result of the update
-            applicationLevelProvider.webUser = result[0]
+            applicationLevelProvider.localUser?.mWebBEUser = result[0]
 
             //finally set the newly updated webUser object's token
             applicationLevelProvider.webUser.apply {

@@ -158,7 +158,11 @@ data class WebBELocation(
         val notifications: Boolean,
         val radius: Int,
         val user_id: Int
+
 ) {
+
+    val latLng: LatLng = LatLng(this.latitude,this.longitude)
+
     fun toSafeWebBELocation() :SafeWebBELocation {
         return SafeWebBELocation(this.address,this.address_label,this.last_alert,this.latitude,this.longitude,this.notification_timer,
                 this.notifications,this.radius)

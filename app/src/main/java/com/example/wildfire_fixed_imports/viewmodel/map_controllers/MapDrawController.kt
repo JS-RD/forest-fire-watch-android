@@ -12,6 +12,7 @@ import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.L
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Point
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mapbox.geojson.FeatureCollection
+import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.expressions.Expression.*
@@ -89,9 +90,10 @@ class MapDrawController() {
 
 
     fun createStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String) {
-        applicationLevelProvider.mapboxMap.getStyle {  style ->
 
-            try {
+        applicationLevelProvider.mapboxMap.setStyle(Style.SATELLITE) {style ->
+
+        try {
 
                 applicationLevelProvider.mapboxStyle = style
                 style.resetIconsForNewStyle()
@@ -119,7 +121,7 @@ class MapDrawController() {
 
 
 
-                val aqiTextLayer = SymbolLayer(AQI_TEXT_LAYER, AQI_SOURCE_ID)
+                val aqiTextLayer = SymbolLayer(AQI_BASE_TEXT_LAYER, AQI_SOURCE_ID)
 
                 aqiTextLayer.setProperties(
                         PropertyFactory.visibility(applicationLevelProvider.aqiBaseTextLayerVisibility),
@@ -160,7 +162,7 @@ class MapDrawController() {
                 style.addLayer(aqiTextLayer)
 
 
-                val textSumLayer = SymbolLayer(AQI_SUM_COUNT_LAYER, AQI_SOURCE_ID)
+                val textSumLayer = SymbolLayer(AQI_CLUSTERED_COUNT_LAYER, AQI_SOURCE_ID)
                 textSumLayer.setProperties(
                         /*
                         *this esoteric horror show breaks down as follows:
@@ -213,7 +215,7 @@ class MapDrawController() {
                         PropertyFactory.circleRadius(100f),
                         PropertyFactory.circleBlur(0.5f))
                 heatmapLiteCircleLayerBase.setFilter(Expression.neq(get("cluster"), literal(true)))
-                    style.addLayerBelow(heatmapLiteCircleLayerBase, AQI_TEXT_LAYER)
+                    style.addLayerBelow(heatmapLiteCircleLayerBase, AQI_BASE_TEXT_LAYER)
 
 
                 val layers = arrayOf(intArrayOf(10, Color.parseColor("#FFFF00")),
@@ -249,7 +251,7 @@ class MapDrawController() {
                                     lt(pointCount, literal(layers[i - 1][0]))
                             )
                     )
-                       style.addLayerBelow(circles, AQI_SUM_COUNT_LAYER)
+                       style.addLayerBelow(circles, AQI_CLUSTERED_COUNT_LAYER)
                 }
 
 //begin fire source and layers
@@ -297,6 +299,8 @@ class MapDrawController() {
 
 
     }
+
+}
 
     /*
      fun createStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String,AqiCircle:String ="") {
@@ -562,67 +566,67 @@ map.addLayer({
 
      */
 
-    @Deprecated("unusers, various traces of code that might be usefull to refer to later")
-    fun oldcreateStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String) {
+/*    @Deprecated("unusers, various traces of code that might be usefull to refer to later")
+  fun oldcreateStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String) {
 
-        applicationLevelProvider.mapboxMap.setStyle(Style.SATELLITE) { style ->
+       applicationLevelProvider.mapboxMap.setStyle(Style.SATELLITE) { style ->
 
-            try {
+           try {
 
-                applicationLevelProvider.mapboxStyle = style
-                style.resetIconsForNewStyle()
+               applicationLevelProvider.mapboxStyle = style
+               style.resetIconsForNewStyle()
 
-                Timber.i("$TAG \naqigeojson=\n $AQIgeoJson[0] \n firegeojson ${FireGeoJson[0]}")
-                style.addSource(
-                        GeoJsonSource(AQI_SOURCE_ID,
-                                // Point to GeoJSON data.
-                                FeatureCollection.fromJson(AQIgeoJson),
-                                GeoJsonOptions()
-                                        .withCluster(true)
-                                        .withClusterMaxZoom(14)
-                                        .withClusterRadius(50)
-                                        .withClusterProperty("sum", literal("+"), toNumber(get("aqi")))
-                        )
-                )
+               Timber.i("$TAG \naqigeojson=\n $AQIgeoJson[0] \n firegeojson ${FireGeoJson[0]}")
+               style.addSource(
+                       GeoJsonSource(AQI_SOURCE_ID,
+                               // Point to GeoJSON data.
+                               FeatureCollection.fromJson(AQIgeoJson),
+                               GeoJsonOptions()
+                                       .withCluster(true)
+                                       .withClusterMaxZoom(14)
+                                       .withClusterRadius(50)
+                                       .withClusterProperty("sum", literal("+"), toNumber(get("aqi")))
+                       )
+               )
 
-                //Creating a marker layer for single data points
-                // this mostly works as i want, i.e. it displays the AQI of each feature using Expression.get("aqi")
-                val unclustered = SymbolLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
-                val aqiFeatureCalcExpression = ceil(toNumber(get("aqi")))
-                unclustered.setProperties(
-                        PropertyFactory.visibility(applicationLevelProvider.aqiLayerVisibility),
-                        PropertyFactory.textField(get("aqi")),
-                        PropertyFactory.textSize(40f),
-                        PropertyFactory.iconImage(crossIconTarget),
-                        PropertyFactory.iconSize(2f),
-                        PropertyFactory.iconColor(
-                                Expression.interpolate(
-                                        Expression.linear(), aqiFeatureCalcExpression, //
-                                        literal(0), rgb(0, 255, 0),
-                                        literal(50), rgb(255, 255, 0),
-                                        literal(100), rgb(255, 165, 0),
-                                        literal(150), rgb(255, 0, 0),
-                                        literal(200), rgb(146, 76, 175),
-                                        literal(500), rgb(172, 94, 58)
-                                )
-                        ),
-                        PropertyFactory.textColor(
-                                Expression.interpolate(
-                                        Expression.linear(), aqiFeatureCalcExpression, //
-                                        literal(0), rgb(0, 255, 0),
-                                        literal(50), rgb(255, 255, 0),
-                                        literal(100), rgb(255, 153, 51),
-                                        literal(150), rgb(255, 0, 0),
-                                        literal(500), rgb(127, 52, 52)
-                                )
-                        ),
-                        PropertyFactory.textHaloColor(Color.WHITE),
-                        PropertyFactory.textHaloBlur(1f),
-                        PropertyFactory.textHaloWidth(.75f),
-                        PropertyFactory.textFont(arrayOf("Roboto Black", "Arial Unicode MS Bold"))
-                        // PropertyFactory.iconImage(crossIconTarget),
-                        // PropertyFactory.iconSize(1f),
-                        /*      PropertyFactory.iconColor(
+               //Creating a marker layer for single data points
+               // this mostly works as i want, i.e. it displays the AQI of each feature using Expression.get("aqi")
+               val unclustered = SymbolLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
+               val aqiFeatureCalcExpression = ceil(toNumber(get("aqi")))
+               unclustered.setProperties(
+                       PropertyFactory.visibility(applicationLevelProvider.aqiLayerVisibility),
+                       PropertyFactory.textField(get("aqi")),
+                       PropertyFactory.textSize(40f),
+                       PropertyFactory.iconImage(crossIconTarget),
+                       PropertyFactory.iconSize(2f),
+                       PropertyFactory.iconColor(
+                               Expression.interpolate(
+                                       Expression.linear(), aqiFeatureCalcExpression, //
+                                       literal(0), rgb(0, 255, 0),
+                                       literal(50), rgb(255, 255, 0),
+                                       literal(100), rgb(255, 165, 0),
+                                       literal(150), rgb(255, 0, 0),
+                                       literal(200), rgb(146, 76, 175),
+                                       literal(500), rgb(172, 94, 58)
+                               )
+                       ),
+                       PropertyFactory.textColor(
+                               Expression.interpolate(
+                                       Expression.linear(), aqiFeatureCalcExpression, //
+                                       literal(0), rgb(0, 255, 0),
+                                       literal(50), rgb(255, 255, 0),
+                                       literal(100), rgb(255, 153, 51),
+                                       literal(150), rgb(255, 0, 0),
+                                       literal(500), rgb(127, 52, 52)
+                               )
+                       ),
+                       PropertyFactory.textHaloColor(Color.WHITE),
+                       PropertyFactory.textHaloBlur(1f),
+                       PropertyFactory.textHaloWidth(.75f),
+                       PropertyFactory.textFont(arrayOf("Roboto Black", "Arial Unicode MS Bold"))
+                       // PropertyFactory.iconImage(crossIconTarget),
+                       // PropertyFactory.iconSize(1f),
+                       *//*      PropertyFactory.iconColor(
                                       Expression.interpolate(
                                               Expression.linear(), toNumber(get("api")), //
                                               Expression.literal(0), Expression.rgb(0, 255, 0),
@@ -631,7 +635,7 @@ map.addLayer({
                                               Expression.literal(150), Expression.rgb(255, 0, 0),
                                               Expression.literal(500), Expression.rgb(127, 52, 52)
                                       )
-                              )*/
+                              )*//*
 
                         // PropertyFactory.textTransform(Property.TEXT_TRANSFORM_UPPERCASE),
                         // PropertyFactory.textHaloColor(Color.WHITE),
@@ -678,12 +682,12 @@ map.addLayer({
 
 
                     //original cicles
-/*    val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
+*//*    val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
 circles.setProperties(
        PropertyFactory.circleColor(layers[i][1]),
        PropertyFactory.circleRadius(22f)
 
-)*/
+)*//*
 
 
 //this is where i'm lost, so i more or less get whats going on here, point_count is a property
@@ -703,13 +707,13 @@ circles.setProperties(
                     style.addLayer(circles)
                 }
 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
-                val count = SymbolLayer(AQI_SUM_COUNT_LAYER, AQI_SOURCE_ID)
+                val count = SymbolLayer(AQI_CLUSTERED_COUNT_LAYER, AQI_SOURCE_ID)
                 count.setProperties(
-                        /*
+                        *//*
                         *this esoteric horror show breaks down as follows:
                         *Expression.division(get("sum"),get("point_count"))
                         * gets the sum of the contained features aqi property, divide that by the number of features counted
-                        * */
+                        * *//*
                         PropertyFactory.visibility(applicationLevelProvider.aqiLayerVisibility),
                         PropertyFactory.textField(Expression.toString(
                                 ceil(Expression.division(get("sum"), get("point_count"))))
@@ -730,9 +734,9 @@ circles.setProperties(
                                 com.mapbox.geojson.FeatureCollection.fromJson(FireGeoJson),
                                 GeoJsonOptions()
                                         .withCluster(false)
-                                /* .withClusterMaxZoom(14)
+                                *//* .withClusterMaxZoom(14)
                                  .withClusterRadius(50)
-                                 .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))*/
+                                 .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))*//*
                         )
                 )
                 val fireSymbols = SymbolLayer(FIRE_SYMBOL_LAYER, FIRE_SOURCE_ID)
@@ -755,14 +759,14 @@ circles.setProperties(
                 val uncultured = HeatmapLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
                 uncultured.maxZoom = 9f
                 uncultured.sourceLayer = AQI_SOURCE_ID
-                /* uncultured.setProperties(
+                *//* uncultured.setProperties(
 
-                 *//*        PropertyFactory.circleColor(Color.parseColor("#FBB03B")),
+                 *//**//*        PropertyFactory.circleColor(Color.parseColor("#FBB03B")),
                         PropertyFactory.circleRadius(20f),
                         PropertyFactory.circleBlur(1f))
                                         PropertyFactory.textField("adsfasdf"),       //get("aqi")),
                                          PropertyFactory.textSize(40f),
-                                         PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*//*
+                                         PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*//**//*
 
                         PropertyFactory.heatmapColor(
                                 Expression.interpolate(
@@ -774,7 +778,7 @@ circles.setProperties(
                                         Expression.literal(500), Expression.rgb(127, 52, 52)
                                 )
                         ),
-             *//*           PropertyFactory.heatmapWeight(
+             *//**//*           PropertyFactory.heatmapWeight(
                                 interpolate(
                                         linear(),aqiFeatureCalcExpression,
                                         stop(0, 0.1),
@@ -783,7 +787,7 @@ circles.setProperties(
                                         stop(150, 0.75),
                                         stop(500, 1)
                                 )
-                        ),*//*
+                        ),*//**//*
                         PropertyFactory.heatmapRadius(
                                 Expression.interpolate(
                                         Expression.linear(), Expression.zoom(),
@@ -795,8 +799,8 @@ circles.setProperties(
                         PropertyFactory.heatmapOpacity(0.8f)
 
 
-                )*/
-                /*
+                )*//*
+                *//*
                          PropertyFactory.circleStrokeColor("white"),
                      PropertyFactory.circleStrokeWidth(1.0f)
                        PropertyFactory.circleRadius(70f),
@@ -820,18 +824,18 @@ circles.setProperties(
                                              Expression.literal(150), Expression.rgb(255, 0, 0),
                                              Expression.literal(500), Expression.rgb(127, 52, 52)
                                      )),
-                          *//*   PropertyFactory.textField("adsfasdf"),       //get("aqi")),
+                          *//**//*   PropertyFactory.textField("adsfasdf"),       //get("aqi")),
                         PropertyFactory.textSize(40f),
-                        PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*//*
+                        PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*//**//*
                         PropertyFactory.circleRadius(20f),
-                        PropertyFactory.circleBlur(1f))*/
+                        PropertyFactory.circleBlur(1f))*//*
                 uncultured.setFilter(Expression.neq(get("cluster"), literal(true)))
                 //  style.addLayer(uncultured)
 
 
 
 
-                /* val layer = HeatmapLayer(SIMPLE_HEATMAP_LAYER_ID, AQI_SOURCE_ID)
+                *//* val layer = HeatmapLayer(SIMPLE_HEATMAP_LAYER_ID, AQI_SOURCE_ID)
                  layer.maxZoom = 9f
                  layer.sourceLayer = AQI_SOURCE_ID
                  layer.setProperties(
@@ -884,7 +888,7 @@ circles.setProperties(
                  val circleLayer = CircleLayer(SIMPLE_CIRCLE_LAYER_ID, AQI_SOURCE_ID)
                  circleLayer.setProperties( // Size circle radius by earthquake magnitude and zoom level
                          PropertyFactory.circleRadius(30f
-                        *//*         Expression.interpolate(
+                        *//**//*         Expression.interpolate(
                                         Expression.linear(), Expression.zoom(),
                                         Expression.literal(7), Expression.interpolate(
                                         Expression.linear(), Expression.get("aqi"),
@@ -896,7 +900,7 @@ circles.setProperties(
                                         Expression.stop(1, 5),
                                         Expression.stop(6, 50)
                                 )
-                                )*//*
+                                )*//**//*
                         ),  // Color circle by earthquake magnitude
                         PropertyFactory.circleColor(
                                 Expression.interpolate(
@@ -918,11 +922,11 @@ circles.setProperties(
                         ),
                         PropertyFactory.circleStrokeColor("red"),
                         PropertyFactory.circleStrokeWidth(1.0f)
-                )*/
+                )*//*
                 //      style.addLayerBelow(circleLayer, SIMPLE_HEATMAP_LAYER_ID)
                 //Creating a marker layer for single data points
                 // this mostly works as i want, i.e. it displays the AQI of each feature using Expression.get("aqi")
-                /* val unclustered = SymbolLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
+                *//* val unclustered = SymbolLayer(AQI_UNCLUSTERED_LAYER, AQI_SOURCE_ID)
 
                  unclustered.setProperties(
                          PropertyFactory.visibility(applicationLevelProvider.aqiLayerVisibility),
@@ -976,12 +980,12 @@ circles.setProperties(
 
 
                      //original cicles
- *//*    val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
+ *//**//*    val circles = CircleLayer("cluster-$i", AQI_SOURCE_ID)
 circles.setProperties(
        PropertyFactory.circleColor(layers[i][1]),
        PropertyFactory.circleRadius(22f)
 
-)*//*
+)*//**//*
 
 
 //this is where i'm lost, so i more or less get whats going on here, point_count is a property
@@ -1003,11 +1007,11 @@ circles.setProperties(
 //Add the count labels that same sum i would like to display here where point_count is currently being displayed
                 val count = SymbolLayer(AQI_COUNT_LAYER, AQI_SOURCE_ID)
                 count.setProperties(
-                        *//*
+                        *//**//*
                         *this esoteric horror show breaks down as follows:
                         *Expression.division(get("sum"),get("point_count"))
                         * gets the sum of the contained features aqi property, divide that by the number of features counted
-                        * *//*
+                        * *//**//*
                         PropertyFactory.visibility(applicationLevelProvider.aqiLayerVisibility),
                         PropertyFactory.textField(Expression.toString(
                                 Expression.ceil(Expression.division(Expression.get("sum"), Expression.get("point_count"))))
@@ -1020,17 +1024,17 @@ circles.setProperties(
                 count.setFilter(Expression.has(get("air")))
                 style.addLayer(count)
 
-*/
+*//*
 ///begin code for fires
-                /*   style.addSource(
+                *//*   style.addSource(
                            GeoJsonSource(FIRE_SOURCE_ID,
                                    // Point to GeoJSON data.
                                    com.mapbox.geojson.FeatureCollection.fromJson(FireGeoJson),
                                    GeoJsonOptions()
                                            .withCluster(false)
-                                   *//* .withClusterMaxZoom(14)
+                                   *//**//* .withClusterMaxZoom(14)
                                  .withClusterRadius(50)
-                                 .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))*//*
+                                 .withClusterProperty("sum", literal("+"), Expression.toNumber(get("aqi")))*//**//*
                         )
                 )
                 val fireSymbols = SymbolLayer(FIRE_SYMBOL_LAYER, FIRE_SOURCE_ID)
@@ -1049,7 +1053,7 @@ circles.setProperties(
 
                 )
                 fireSymbols.setFilter(Expression.has(get("fire")))
-                style.addLayer(fireSymbols)*/
+                style.addLayer(fireSymbols)*//*
 
 
 //if the application is just starting up, zoom to user and set initzoom
@@ -1071,5 +1075,4 @@ circles.setProperties(
 
 
     }
-
-}
+*/

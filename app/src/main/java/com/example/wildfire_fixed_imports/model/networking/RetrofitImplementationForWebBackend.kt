@@ -36,8 +36,6 @@ interface RetrofitImplementationForWebBackend {
     @GET("/api/users/ip-address")
     suspend fun dataFromIP(): dataFromIP
 
-
-
     @GET("/api/locations/")
     suspend fun getWebBELocations(@Header("Authorization") token: String): List<WebBELocation>
 

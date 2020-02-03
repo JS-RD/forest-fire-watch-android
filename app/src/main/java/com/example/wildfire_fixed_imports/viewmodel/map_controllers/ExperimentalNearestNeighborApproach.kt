@@ -60,11 +60,9 @@ class ExperimentalNearestNeighborApproach {
                 val aqiFeatureCalcExpression = Expression.ceil(Expression.toNumber(Expression.get("aqi")))
 
                 // new manual aqi circle sheet
-                val tempSourceID = "temporary_source_id_for_manual_circles"
-                val tempLayerID = "temporary_layer_id_for_manual_circles"
                 style.addSource(
                         GeoJsonSource(
-                                tempSourceID,
+                                AQI_NEAREST_NEIGHBOR_SOURCE_ID,
 
                                 // Point to GeoJSON data.
                                 FeatureCollection.fromJson(AqiCircle),
@@ -92,7 +90,7 @@ map.addLayer({
 });
 * */
 
-                val fillLayer = FillLayer(tempLayerID, tempSourceID)
+                val fillLayer = FillLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID, AQI_NEAREST_NEIGHBOR_SOURCE_ID)
                 fillLayer.setProperties(PropertyFactory.fillColor(
 
                         Expression.interpolate(
