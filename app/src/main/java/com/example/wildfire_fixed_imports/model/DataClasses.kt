@@ -156,7 +156,7 @@ data class WebBELocation(
         val longitude: Double,
         val notification_timer: Int,
         val notifications: Boolean,
-        val radius: Int,
+        val radius: Double,
         val user_id: Int
 
 ) {
@@ -176,7 +176,7 @@ data class WebBELocation(
             val longitude: Double,
             val notification_timer: Int,
             val notifications: Boolean,
-            val radius: Int
+            val radius: Double
             // val user_id: Int
     )
 }

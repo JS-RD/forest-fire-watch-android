@@ -12,6 +12,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.google.android.material.snackbar.Snackbar
@@ -166,8 +167,41 @@ var FIREJOBS:Job = Job()
 
 
     suspend fun getAQIstations(): List<AQIStations>? {
-        //TODO this will eventually need to check user prefs and react accordingly,
-        // for now, we simply will check from the users location
+
+        val userLocations:MutableList<WebBELocation?> = applicationLevelProvider.localUser?.mLocations
+                ?: mutableListOf<WebBELocation?>()
+                .also{ Timber.e("$TAG mLocations is null, exiting getaqistations unsuccessfully"); return null}
+
+        Timber.e("user locations in get aqi stations" )
+        userLocations.forEach {
+            Timber.i(it.toString())
+        }
+
+        var compositeResult = mutableListOf<AQIStations>()
+        userLocations.forEach {
+            // for now we include some pretty meaningless defaults, shouldn't be an issue but we keep these to avoid crashes within the app
+            val result = aqidsController.getAQIStations(
+                    it?.latitude ?: 20.0,
+                    it?.longitude ?: 20.0,
+                    it?.radius ?: 5.0)
+            if (result is SuccessFailWrapper.Success) {
+                return cleanAQIStationData(result.value)
+
+            } else {
+                when (result) {
+                    is SuccessFailWrapper.Throwable -> Timber.i(result.message)
+                    is SuccessFailWrapper.Fail -> Timber.i(result.message).also { isAQIdatasServiceRunning.set(false) }.also {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(applicationLevelProvider.applicationContext,
+                                    "canceled or error" + result.message, Toast.LENGTH_LONG).show()
+                            applicationLevelProvider.showSnackbar("AQI service quitting", Snackbar.LENGTH_INDEFINITE)
+                        }
+                    }
+                    else -> Timber.i(result.toString())
+                }
+            }
+        }
+
 
         // 8.0 is max distance that can be set and still expect maximum local resolution (or very close to it), any higher
         // and you will start to notice local stations dropping off the list

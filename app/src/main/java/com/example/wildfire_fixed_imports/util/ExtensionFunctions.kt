@@ -256,7 +256,7 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
     return bitmap
 }
 
-fun Location.toWebBELocation(radius:Int = 5): WebBELocation {
+fun Location.toWebBELocation(radius:Double = 5.0): WebBELocation {
     return WebBELocation(
             address = "",
             address_label = "",
