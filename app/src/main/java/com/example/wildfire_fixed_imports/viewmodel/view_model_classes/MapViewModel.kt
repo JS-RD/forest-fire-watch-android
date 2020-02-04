@@ -14,8 +14,10 @@ import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
 import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 
 
@@ -25,7 +27,6 @@ class MapViewModel : ViewModel() {
     private val currentActivity = applicationLevelProvider.currentActivity
     lateinit var targetMaster: MasterCoordinator
     private val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
-
 
     private val _fireServiceRunning = MutableLiveData<Boolean>().apply { value = false }
     private val fireServiceRunning: LiveData<Boolean> = _fireServiceRunning
@@ -43,7 +44,6 @@ class MapViewModel : ViewModel() {
         }
     }
 
-    private val mediator = MediatorLiveData<Boolean>()
     private val mapDrawController = MapDrawController()
     private val _aqiServiceRunning = MutableLiveData<Boolean>().apply { value = false }
     val aqiServiceRunning: LiveData<Boolean> = _aqiServiceRunning
@@ -62,13 +62,27 @@ class MapViewModel : ViewModel() {
     }
 
     fun triggerMapRedraw() {
-        Timber.i(TAG)
+        Timber.i(TAG + "triggermapredraw")
         if (::targetMaster.isInitialized) {
+            Timber.i(TAG + "triggermapredraw targetmaster is initialized")
             val aqistations = targetMaster.AQIGeoJson.value
             val firedata = targetMaster.fireGeoJson.value
+
             if (!aqistations.isNullOrEmpty() && !firedata.isNullOrEmpty()) {
                 Timber.i("$TAG \naqi + fire not null not empty")
                 mapDrawController.createStyleFromGeoJson(aqistations, firedata)
+
+            /*    viewModelScope.launch {
+                    val exp = ExperimentalNearestNeighborApproach()
+
+                            exp.createCircleStyleFromGeoJson(
+                            exp.makeGeoJsonCirclesManually(targetMaster.AQIStations.value?: listOf())
+                            )
+
+                }*/
+
+
+
 
             }
         }
@@ -88,6 +102,7 @@ class MapViewModel : ViewModel() {
 
 
         }
+        triggerMapRedraw()
     }
         fun startFireRetrieval() {
             viewModelScope.launch {

@@ -1,77 +1,79 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
-        <!-- Customize your theme here. -->
+    <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed">true</item><!-- shows error because min sdk is 23 but still compiles. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+
+
         <!-- Actually burger menu icon but I don't get a choice of name unfortunately -->
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/drawerIconColorStyle</item>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:forceDarkAllowed" tools:ignore="NewApi">true</item><!-- Allows theme to force apply app wide -->
-    </style>
-
-    <style name="AppTheme.Light.IgnoreOverrideForceDarkOption">
-        <item name="android:forceDarkAllowed" tools:ignore="NewApi">false</item>
     </style>
 
 
 
     <style name="PrimaryText" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">24sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textStyle">bold</item>
+
     </style>
 
     <style name="SecondaryText" parent="TextAppearance.AppCompat.Body2">
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/textSecondary</item>
         <item name="android:textSize">19sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_regular</item>
     </style>
 
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/buttonTextPrimary</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-    <!-- ANIMATIONS This is for smooth reset activity on switch click on off-->
+
+
+    <!-- This is for smooth reset activity on switch click on off-->
     <style name="WindowAnimationTransition">
 
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
 
-    </style>
 
-    <!-- Switch Coloring-->
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
-        <item name="switchStyle">@android:color/holo_red_light</item>
+
     </style>
 
 
-    <!-- Action Bar UI controls-->
+
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="TextColor" parent="AppTheme">
+        <item name="colorAccent">@color/colorAccent</item>
 
-
-
-    <!-- Hamburger UI controls-->
-    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@android:color/white</item>
     </style>
 
 
 
 
-</resources>
 
+</resources>

@@ -1,12 +1,14 @@
-package com.example.wildfire_fixed_imports
+package com.example.wildfire_fixed_imports.view
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.text.Layout
 import android.view.Menu
 import android.view.View
 import android.view.View.INVISIBLE
@@ -26,13 +28,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
@@ -64,16 +67,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheet: BottomSheetLayout
     private lateinit var aqiGaugeExpanded: ViewGroup
     private lateinit var aqiGaugeMinimized: ImageView
-    private lateinit var btmSheetToggle1: SwitchCompat
-    private lateinit var btmSheetToggle2: SwitchCompat
-    private lateinit var btmSheetToggle3: SwitchCompat
-    private lateinit var btmSheetToggle4: SwitchCompat
-    private lateinit var btmSheetTv1: TextView
-    private lateinit var btmSheetTv2: TextView
-    private lateinit var btmSheetTv3: TextView
-    private lateinit var btmSheetTv4: TextView
+
+
+    private lateinit var btmsheetToggleIndex: SwitchCompat
+    private lateinit var btmSheetToggleRadius: SwitchCompat
+
+    private lateinit var btmSheetTvIndex: TextView
+    private lateinit var btmSheetTvRadius: TextView
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var appBarLayout: AppBarLayout
+    lateinit var layoutRegistrationFragment: Layout
 
     private var locationManager: LocationManager? = null
     private lateinit var fusedLocationClient:FusedLocationProviderClient
@@ -82,8 +85,10 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         applicationLevelProvider.currentActivity = this
         mapViewModel =
                 ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
@@ -92,6 +97,12 @@ class MainActivity : AppCompatActivity() {
 
         applicationLevelProvider.appMapViewModel = mapViewModel
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
+        applicationLevelProvider.bottomSheet?.visibility = VISIBLE
+
+
+
+
+
 
 
 
@@ -103,17 +114,20 @@ class MainActivity : AppCompatActivity() {
          drawerToggle = ActionBarDrawerToggle(this,
             drawer_layout,
             toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close)
+                 R.string.navigation_drawer_open,
+                 R.string.navigation_drawer_close)
 
 
 
-        // Configure the drawer layout to add listener and show icon on toolbar
+        // drawer toggle aka burger menu changes
         drawerToggle.isDrawerIndicatorEnabled = true
+        applicationLevelProvider.drawerToggle = drawerToggle
+
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
-        applicationLevelProvider.drawerToggle = drawerToggle
+
+
 
         appBarLayout = findViewById(R.id.app_bar_layout)
         applicationLevelProvider.appBarLayout = appBarLayout
@@ -134,22 +148,15 @@ class MainActivity : AppCompatActivity() {
         aqiGaugeMinimized = findViewById(R.id.img_appbar_aqi_gauge)
 
         //bottom sheet toggles and textviews
-        btmSheetToggle1 = findViewById(R.id.bottomsheet_sw_switch1)
-        btmSheetToggle2 = findViewById(R.id.bottomsheet_sw_switch2)
-        btmSheetToggle3 = findViewById(R.id.bottomsheet_sw_switch3)
-        btmSheetToggle4 = findViewById(R.id.bottomsheet_sw_switch4)
-        btmSheetTv1 = findViewById(R.id.bottomsheet_tv_switch1)
-        btmSheetTv2 = findViewById(R.id.bottomsheet_tv_switch2)
-        btmSheetTv3 = findViewById(R.id.bottomsheet_tv_switch3)
-        btmSheetTv4 = findViewById(R.id.bottomsheet_tv_switch4)
-        applicationLevelProvider.btmSheetToggle1=btmSheetToggle1
-        applicationLevelProvider.btmSheetToggle2=btmSheetToggle2
-        applicationLevelProvider.btmSheetToggle3=btmSheetToggle3
-        applicationLevelProvider.btmSheetToggle4=btmSheetToggle4
-        applicationLevelProvider.btmSheetTv1=btmSheetTv1
-        applicationLevelProvider.btmSheetTv2=btmSheetTv2
-        applicationLevelProvider.btmSheetTv3=btmSheetTv3
-        applicationLevelProvider.btmSheetTv4=btmSheetTv4
+        btmsheetToggleIndex = findViewById(R.id.bottomsheet_switch_index)
+        btmSheetToggleRadius = findViewById(R.id.bottomsheet_switch_radius)
+        btmSheetTvIndex = findViewById(R.id.bottomsheet_tv_index)
+        btmSheetTvRadius = findViewById(R.id.bottomsheet_tv_radius)
+        applicationLevelProvider.btmsheetToggleIndex=btmsheetToggleIndex
+        applicationLevelProvider.btmSheetToggleRadius=btmSheetToggleRadius
+        applicationLevelProvider.btmSheetTvIndex=btmSheetTvIndex
+        applicationLevelProvider.btmSheetTvRadius=btmSheetTvRadius
+
 
         /*  aqiGaugeExpanded.setAlpha(0.5f)*/
         aqiGaugeMinimized.setAlpha(0.5f)
@@ -167,12 +174,14 @@ class MainActivity : AppCompatActivity() {
         applicationLevelProvider.legendText=legendText
 
 
-
-setUpOnClicks()
+        setUpOnClicks()
         setUpNav()
 
+            Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
 
     }
+
+
 
  fun setUpOnClicks() {
      aqiGaugeExpanded.setOnClickListener {
@@ -191,7 +200,8 @@ setUpOnClicks()
              //  switchFireBSIcon.visibility = View.INVISIBLE
              // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
-             legendText.setText("")
+             legendText.visibility = INVISIBLE
+
 
 
          }
@@ -200,11 +210,17 @@ setUpOnClicks()
              // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-             legendText.setText(R.string.swipe_up_for_more_filters)
+             legendText.setText("FILTERS")
+             legendText.visibility = VISIBLE
          }
 
      }
+
+
+
+
      bottomSheet.progress.observe(this, bottomSheetObserver)
+
 
 
 
@@ -227,10 +243,6 @@ setUpOnClicks()
                 locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
                 Timber.i(" $TAG requesting location")
                 val sauce = locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener)
-                CoroutineScope(Dispatchers.IO).launch {
-                    getLatestLocation()
-
-                }
             } catch (ex: SecurityException) {
                 Timber.i("Security Exception, no location available")
             }
@@ -239,10 +251,6 @@ setUpOnClicks()
                     PackageManager.PERMISSION_GRANTED) {
                 try {
                     locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
-                    CoroutineScope(Dispatchers.IO).launch {
-                        getLatestLocation()
-
-                    }
                 } catch (ex: SecurityException) {
                     Timber.i("Security Exception, no location available")
                 }
@@ -264,8 +272,8 @@ setUpOnClicks()
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_login, R.id.nav_settings,
-                R.id.nav_debug, R.id.nav_share, R.id.nav_send
+                    R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
+                    R.id.nav_debug//, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
 
@@ -285,22 +293,7 @@ setUpOnClicks()
 
 
 
-    //for grabing location
-    fun getLatestLocation(): Location? {
 
-        val localationFinder = LocationFinder(this)
-        val result = localationFinder.check()
-        if (result != null) {
-            return result
-        }
-        /* else {
-             if (applicationLevelProvider.fineLocationPermission) {
-                 val locale = fusedLocationClient.lastLocation
-                 return locale
-             }
-         }*/
-        return null
-    }
 
 
 
@@ -420,6 +413,7 @@ setUpOnClicks()
     }
 
 
+
 }
 /*
 *
@@ -490,7 +484,7 @@ setUpOnClicks()
 
 /*
 *
-*         /* val fm = supportFragmentManager
+*          val fm = supportFragmentManager
              val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
              val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
               println(fragment2.toString())

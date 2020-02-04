@@ -1,5 +1,7 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.showSnackbar
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -21,7 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : Fragment(){
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private lateinit var loginViewModel: LoginViewModel
@@ -33,10 +35,12 @@ class RegistrationFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
         button_reg = view.findViewById(R.id.regfrag_btn_register)
+
 
         loginViewModel.registrationResult.observe(this,
                 Observer { registrationResult ->
@@ -61,6 +65,7 @@ class RegistrationFragment : Fragment() {
             firstname = regfrag_et_firstname.text.toString().trim()
             lastename = regfrag_et_lastname.text.toString().trim()
 
+
             if (!loginViewModel.isUserNameValid(email)) {
                 regfrag_et_EmailAddress.error = "Email required"
                 regfrag_et_EmailAddress.requestFocus()
@@ -83,7 +88,13 @@ class RegistrationFragment : Fragment() {
                 regfrag_et_lastname.requestFocus()
                 return@setOnClickListener
             }
-
+            AQI_BASE_TEXT_LAYER
+            AQI_CLUSTERED_COUNT_LAYER
+            AQI_HEATLITE_BASE_LAYER
+            "cluster-hml-0"
+            "cluster-hml-1"
+            "cluster-hml-2"
+            FIRE_SYMBOL_LAYER
             CoroutineScope(Dispatchers.IO).launch {
                 loginViewModel.registerNewUser(email,password,firstname,lastename)
 
@@ -98,19 +109,15 @@ class RegistrationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ):View?{
+
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
 
-
     }
 
-    override fun onPause() {
-        super.onPause()
 
-    }
-    override fun onDetach() {
-        super.onDetach()
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-    }
+
+
+
 }

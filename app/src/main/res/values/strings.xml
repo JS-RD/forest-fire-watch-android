@@ -42,4 +42,12 @@
     <string name="bottom_sheet_layout_example">BottomSheetLayout Sample</string>
     <string name="register">Register</string>
     <string name="swipe_up_for_more_filters">Swipe up for more filters</string>
+    <string name="filters">Filters</string>
+    <string name="settings">Settings</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="theme_title">Themes:</string>
+    <string name="light_theme">Dark theme</string>
+    <string name="dark_theme">Light theme</string>
+    <string name="system_theme">Use system theme</string>
+    <string name="battery_saver_theme">Battery saver theme</string>
 </resources>

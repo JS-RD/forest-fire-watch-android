@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
@@ -31,7 +32,46 @@ import java.util.concurrent.CancellationException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+fun View.showSnackbar(msgId: Int, length: Int) {
+    showSnackbar(this.context.getString(msgId), length)
+}
 
+fun View.showSnackbar(msg: String, length: Int) {
+    showSnackbar(msg, length, null, {})
+}
+
+fun View.showSnackbar(
+        msgId: Int,
+        length: Int,
+        actionMessageId: Int,
+        action: (View) -> Unit
+) {
+    showSnackbar(this.context.getString(msgId), length, this.context.getString(actionMessageId), action)
+}
+
+
+fun View.showSnackbar(    msg: String,
+                          length: Int,
+                          actionMessage: CharSequence?,
+                          action: (View) -> Unit
+) {
+    val snackbar = Snackbar.make(this, msg, length)
+    if (actionMessage != null) {
+        snackbar.setAction(actionMessage) {
+            action(this)
+        }.show()
+    }
+    else {
+        snackbar.show()
+
+    }
+    if (length==Snackbar.LENGTH_INDEFINITE){
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(8000)
+            snackbar.dismiss()
+        }
+    }
+}
 fun ApplicationLevelProvider.showSnackbar(msgId: Int, length: Int) {
     showSnackbar(applicationContext.getString(msgId), length)
 }
@@ -87,6 +127,31 @@ fun AppCompatActivity.requestPermissionsCompat(permissionsArray: Array<String>,
 }
 
 
+// THIS SUCKS
+// this is a very silly workaround for a very silly behavior of mapbox
+// it is unclear if this is somehow our fault or if it is a weakness of mapbox, however, they only way we've managed
+// to successfully create a dynamic styling system is by manually deleting all of our custom layers and sources
+// before we need to update them... and additionally, before we even create them the first time! Absolutely bizzare..
+// regardless, this function simply need to be updated with any custom sources/layers created, and for it to run whenever the
+// map box style is updated.
+
+// i truly have to hope there is a better way to do this, but it works for now.
+fun Style.flushLayersAndSources() {
+    this.removeLayer(AQI_BASE_TEXT_LAYER)
+    this.removeLayer(AQI_CLUSTERED_COUNT_LAYER)
+    this.removeLayer(AQI_HEATLITE_BASE_LAYER)
+    this.removeLayer("cluster-hml-0")
+    this.removeLayer("cluster-hml-1")
+    this.removeLayer("cluster-hml-2")
+    this.removeLayer(FIRE_SYMBOL_LAYER)
+
+    if (this.getSource(AQI_SOURCE_ID) !=null) {
+        this.removeSource(AQI_SOURCE_ID)
+    }
+    if (this.getSource(FIRE_SOURCE_ID) !=null) {
+        this.removeSource(FIRE_SOURCE_ID)
+    }
+}
 
 
 fun Style.resetIconsForNewStyle() {
@@ -191,11 +256,27 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId:Int) : Bitmap {
     return bitmap
 }
 
+fun Location.toWebBELocation(radius:Int = 5): WebBELocation {
+    return WebBELocation(
+            address = "",
+            address_label = "",
+            id = 100001,
+            last_alert = 0L,
+            latitude = this.latitude,
+            longitude = this.longitude,
+            notifications = true,
+            notification_timer = 0,
+            radius = radius,
+            user_id = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mWebBEUser?.id ?: 10101
+    )
+
+}
 
 
 fun ApplicationLevelProvider.zoomCameraToUser() {
     CoroutineScope(Dispatchers.Main).launch {
-        val res = currentActivity.getLatestLocation()?.LatLng()
+        val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().userLocation?.LatLng()
+        //val res = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mLocations?.get(0)?.latLng
         res?.let {
             mapboxMap?.let {
                 it.animateCamera(CameraUpdateFactory.newLatLngZoom(
@@ -229,6 +310,8 @@ object Coroutines {
         }
 
 }
+
+
 
 // this extension function provides a means for using coroutines to handle Tasks within gooogles Firebase framework
 suspend fun <T> Task<T>.await(): T? {

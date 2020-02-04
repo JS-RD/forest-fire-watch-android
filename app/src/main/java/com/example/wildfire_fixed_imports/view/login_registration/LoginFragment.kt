@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment() {
 
+
     private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     //private lateinit var imgAppbarAqiGauge: ImageView
@@ -40,11 +42,11 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
+
+
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-
-
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+
 
         /*
         Makes toggle disappear
@@ -70,6 +72,7 @@ class LoginFragment : Fragment() {
         val loginButton = view.findViewById<Button>(R.id.btn_login) as Button
         val loadingProgressBar = view.findViewById<ProgressBar>(R.id.loading)
         val button_reg = view.findViewById<View>(R.id.button_register) as Button
+
 
 
 
@@ -152,8 +155,8 @@ class LoginFragment : Fragment() {
 
 
 
-    }
 
+    }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
@@ -167,11 +170,5 @@ class LoginFragment : Fragment() {
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-    override fun onDetach() {
-        super.onDetach()
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-    }
+
 }

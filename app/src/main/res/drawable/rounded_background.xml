@@ -3,9 +3,9 @@
     android:color="?android:attr/colorControlHighlight">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/white" />
+            <solid android:color="@color/designed_color_background" />
             <corners android:radius="20dp" />
         </shape>
     </item>
-    <item android:drawable="@drawable/rounded_white_shape" />
+    <item android:drawable="@drawable/rounded_background_shape" />
 </ripple>

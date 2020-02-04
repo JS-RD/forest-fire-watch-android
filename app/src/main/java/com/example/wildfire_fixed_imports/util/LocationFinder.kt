@@ -5,40 +5,40 @@ import android.location.Location
 import android.location.LocationManager
 
 class LocationFinder(context: Context) {
-    var lm = context
+    private var lm = context
             .getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    var gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    var network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    private var gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    private var networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-    var net_loc: Location? = null
+    private var netLoc: Location? = null
 
 
-    var gps_loc: Location? = null
-    var finalLoc: Location? = null
+    private  var gpsLoc: Location? = null
+    private  var finalLoc: Location? = null
 
     fun check(): Location? {//smaller the number more accurate result will
         try {
-            if (gps_enabled) {
-                gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if (gpsEnabled) {
+                gpsLoc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             }
         } catch (e: SecurityException) {
 
         }
         try {
-            if (network_enabled) {
-                net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            if (networkEnabled) {
+                netLoc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
             }
         } catch (e: SecurityException) {
 
         }
-        if (gps_loc != null && net_loc != null) {
-            finalLoc = if (gps_loc!!.accuracy > net_loc!!.accuracy) net_loc else gps_loc
+        if (gpsLoc != null && netLoc != null) {
+            finalLoc = if (gpsLoc!!.accuracy > netLoc!!.accuracy) netLoc else gpsLoc
             // I used this just to get an idea (if both avail, its upto you which you want to take as I've taken location with more accuracy)
         } else {
-            if (gps_loc != null) {
-                finalLoc = gps_loc
-            } else if (net_loc != null) {
-                finalLoc = net_loc
+            if (gpsLoc != null) {
+                finalLoc = gpsLoc
+            } else if (netLoc != null) {
+                finalLoc = netLoc
             }
         }
 

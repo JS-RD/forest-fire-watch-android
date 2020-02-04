@@ -1,5 +1,8 @@
 package com.example.wildfire_fixed_imports.util
 
+import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.model.WebBELocation
+
 //File provide static constants usable across the application,
 
 const val MY_PERMISSIONS_REQUEST_FINE_LOCATION = 666 // magic number for fine location request
@@ -11,6 +14,9 @@ const val MY_PERMISSIONS_COARSE_LOCATION = 668 // magic number for internet perm
 const val WEB_BASE_URL = "https://wildfire-watch.herokuapp.com/"
 // the new backend is at https://web-wildfirewatch.herokuapp.com/ and we should be able to switch in this url
 // as soon as the web folks have their stuff set up, as of 1/14 we're holding off on switching.
+
+const val AQI_NEAREST_NEIGHBOR_SOURCE_ID = "temporary_source_id_for_manual_circles"
+const val AQI_NEAREST_NEIGHBOR_LAYER_ID = "temporary_layer_id_for_manual_circles"
 
 const val SIMPLE_HEATMAP_LAYER_ID = "heat-map-layer-uno"
 
@@ -26,27 +32,25 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
 //this is the source id for aqi
 const val AQI_SOURCE_ID = "aqiID"
-//aqi count layer
-const val AQI_SUM_COUNT_LAYER = "count"
-//aqi unclustered layer
-const val AQI_UNCLUSTERED_LAYER = "unclustered-aqi-points"
-
-//CIRCLE heatmaplite LAYERS AQI
-val AQI_HML_CIRCLE_LAYERS = arrayListOf("cluster-hml-0", "cluster-hml-1", "cluster-hml-2")
-
-//CIRCLE LAYERS AQI
-val AQI_CIRCLE_LAYERS = arrayListOf("cluster-0", "cluster-1", "cluster-2")
-
 
 
 //text layer aqi
-const val AQI_TEXT_LAYER = "aqi-text-layer"
+const val AQI_BASE_TEXT_LAYER = "aqi-text-layer"
 
 //bottom heatmap lite aqi circles
 const val AQI_HEATLITE_BASE_LAYER="heatmap_lite_base"
 
 //bottom heatmap lite aqi circles
 const val AQI_HEATLITE_CLUSTER_LAYER="heatmap_lite_cluster"
+//aqi count layer
+const val AQI_CLUSTERED_COUNT_LAYER = "count"
+
+
+//CIRCLE LAYERS AQI
+val AQI_CIRCLE_LAYERS = arrayListOf("cluster-0", "cluster-1", "cluster-2")
+//CIRCLE heatmaplite LAYERS AQI
+val AQI_HML_CIRCLE_LAYERS = arrayListOf("cluster-hml-0", "cluster-hml-1", "cluster-hml-2")
+
 
 const val aqiCloudIcon = "cloudicon"
 //source id for fire
@@ -61,6 +65,16 @@ const val fireIconTarget = "fire_icon_50"
 const val crossIconTarget = "cross-icon-id"
 
 
+//DarkMode
+const val PREFS_NAME = "theme_prefs"
+const val KEY_THEME = "prefs.theme"
+const val THEME_UNDEFINED = -1
+const val THEME_LIGHT = 0
+const val THEME_DARK = 1
+const val THEME_SYSTEM = 2
+const val THEME_BATTERY = 3
+
+
 val methodName
     get() = StackTraceInfo.invokingMethodName
 
@@ -70,6 +84,18 @@ val className
 val fileName
     get() = StackTraceInfo.invokingFileName
 
+val DEFAULT_WEBBELOCATION = WebBELocation(
+        address = "",
+        address_label = "",
+        id = 100000,
+        last_alert = 0L,
+        latitude = 18.0,
+        longitude = 26.0,
+        notifications = true,
+        notification_timer = 0,
+        radius = 5,
+        user_id = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mWebBEUser?.id ?: 10000
+)
 
 
 //Thread.currentThread().stackTrace[2].methodName

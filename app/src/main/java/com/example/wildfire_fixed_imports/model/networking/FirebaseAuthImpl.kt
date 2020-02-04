@@ -67,7 +67,6 @@ class FirebaseAuthImpl () {
                         return null
                 }
                 else if (currentUser != null) {
-                        applicationLevelProvider.firebaseUser = currentUser
                         return currentUser
                 }
 
@@ -80,16 +79,19 @@ class FirebaseAuthImpl () {
                 var result:FirebaseUser? = null
                 try {
                         autheticationRepo.register(email, password)?.let {
+
                                 authenticationState.postValue(
                                         true
                                 )
                              /*   applicationLevelProvider.firebaseUser=it
                                 result=it*/
-                                applicationLevelProvider.firebaseUser= firebaseAuth.currentUser
                                 result =firebaseAuth.currentUser
-                                Timber.i("$TAG ${it.toString()} and $it")
+
+                               // firebaseAuth.signInWithCustomToken(cred?.token ?:"sayce")
+                               //val results = firebaseAuth.signInWithCredential(cred as AuthCredential).await()
+                            //    Timber.i("$TAG ${results.credential} CREDCHECK and \n${results.user}")
+
                                 Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
-                                Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email}")
                                 return SuccessFailWrapper.Success("Success",result)
                         } ?: run {
                                 authenticationState.postValue(
@@ -115,9 +117,9 @@ class FirebaseAuthImpl () {
                         authenticationState.postValue(
                                 true
                         )
-                        applicationLevelProvider.firebaseUser=it
+
                         result=it
-                        Timber.i("$TAG ${it.toString()} and $it")
+                        Timber.i("$TAG ${it} and $it")
                         Timber.i("$TAG signinUser = ${applicationLevelProvider.firebaseUser.toString()}")
                         Timber.i("$TAG  ${applicationLevelProvider.firebaseUser?.email} \n ${applicationLevelProvider.firebaseUser?.describeContents().toString()} \n ${applicationLevelProvider.firebaseUser?.displayName}")
                         return SuccessFailWrapper.Success("Success",result)
@@ -165,10 +167,10 @@ class FirebaseAuthImpl () {
                 }
                 val userToDeleteEmail = firebaseAuth.currentUser?.email
                 // run the delete command
+                 val sauce = firebaseAuth.currentUser
                 firebaseAuth.currentUser?.delete()?.await()
                 //check to make sure no user is logged in and hence, the user is deleted
                 if (firebaseAuth.currentUser ==null) {
-                        applicationLevelProvider.firebaseUser= null
                         Toast.makeText(applicationLevelProvider.applicationContext,
                                 "User ($userToDeleteEmail) successfully deleted",
                                 Toast.LENGTH_SHORT).show()
@@ -180,9 +182,12 @@ class FirebaseAuthImpl () {
                                 Toast.LENGTH_SHORT).show()
                         return null
                 }
+
         }
 
-
+fun tokenHiJinx() {
+        firebaseAuth
+}
 
 
 
@@ -191,7 +196,6 @@ class FirebaseAuthImpl () {
                         Timber.d( "$TAG,  user not null ${firebaseAuth.currentUser}\n running firebaseauth.signOut()")
                 firebaseAuth.signOut()
                         Timber.d( "$TAG,  user signed out, current status ${firebaseAuth.currentUser}")
-                        applicationLevelProvider.firebaseUser = null
                 }
                 if (firebaseAuth.currentUser != null) {
                         //failed to sign out somehow
@@ -219,7 +223,6 @@ class FirebaseAuthImpl () {
                                         val user = firebaseAuth.currentUser
                                         if (user != null) {
                                                 Timber.d( "$TAG, ${user.toString()}")
-                                                applicationLevelProvider.firebaseUser =user
                                         }
 
                                 } else {
@@ -244,7 +247,7 @@ class FirebaseAuthImpl () {
                                         Timber.d( "$TAG,  signInWithEmail:success")
                                         val user = firebaseAuth.currentUser
                                         if (user != null) {
-                                                applicationLevelProvider.firebaseUser =user
+                                               Timber.i("$TAG user = $user")
                                         }
 
                                 } else {

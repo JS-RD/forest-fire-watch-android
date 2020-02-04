@@ -2,7 +2,7 @@ package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
-import com.example.wildfire_fixed_imports.model.SafeWebBELocation
+
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
 import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.model.WebBELocationSubmit
@@ -22,7 +22,8 @@ class UserLocationWebBEController () {
 
     private val retroImpl = applicationLevelProvider.retrofitWebService
 
-    private var webBEUser = applicationLevelProvider.webUser
+    private val webBEUser
+    get() =  applicationLevelProvider.webUser
 
     private val TAG = "UserLocationWebBEController"
     /*
@@ -44,7 +45,7 @@ class UserLocationWebBEController () {
         if (webBEUser?.token != null) {
             try {
                 Timber.i("$TAG try postWebBELocation triggered")
-                val result = retroImpl.postWebBELocation(webBEUser?.token.toString(),
+                val result = retroImpl.postWebBELocation(webBEUser?.token as String,
                         WebBELocationSubmit(address, radius))
                 Timber.i("$TAG success\n location = $result \n ")
                 return SuccessFailWrapper.Success("Success", result)
@@ -59,7 +60,7 @@ class UserLocationWebBEController () {
         return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
     }
 
-    suspend fun updateWebBELocation(id: String, location: SafeWebBELocation): SuccessFailWrapper<String> {
+    suspend fun updateWebBELocation(id: String, location: WebBELocation.SafeWebBELocation): SuccessFailWrapper<String> {
         if (webBEUser?.token != null) {
             try {
                 Timber.i("$TAG try postWebBELocation triggered")
@@ -84,7 +85,7 @@ class UserLocationWebBEController () {
         if (webBEUser?.token != null) {
             try {
                 Timber.i("$TAG try postWebBELocation triggered")
-                val result = retroImpl.getWebBELocations(webBEUser?.token.toString())
+                val result = retroImpl.getWebBELocations(webBEUser?.token as String)
 
                 Timber.i("$TAG success\n location = $result \n ")
                 return SuccessFailWrapper.Success("Success", result)
@@ -98,7 +99,7 @@ class UserLocationWebBEController () {
             }
 
         }
-        return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in \n")
+        return SuccessFailWrapper.Fail("webbeuser token null, likely not logged in ")
     }
 
 
