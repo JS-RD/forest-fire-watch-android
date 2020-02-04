@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,7 +35,7 @@ class RegistrationFragment : Fragment(){
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
+
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -103,9 +104,6 @@ class RegistrationFragment : Fragment(){
         savedInstanceState: Bundle?
     ):View?{
 
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
-
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
@@ -113,16 +111,6 @@ class RegistrationFragment : Fragment(){
     }
 
 
-
-
-    override fun onPause() {
-        super.onPause()
-
-    }
-    override fun onDetach() {
-        super.onDetach()
-
-    }
 
 
 

@@ -11,9 +11,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.airbnb.paris.extensions.style
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
@@ -43,9 +43,8 @@ class SettingsFragment : Fragment() {
     ): View? {
 
 
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
 
 
         settingsViewModel =
@@ -70,15 +69,16 @@ class SettingsFragment : Fragment() {
         themeGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.themeLight -> {setTheme(AppCompatDelegate.MODE_NIGHT_NO, THEME_LIGHT)
-                    applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+
+
                 }
                 R.id.themeDark -> {setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
-                    applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
+
 
                 }
                 R.id.themeBattery -> {setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, THEME_BATTERY)
                     settings_textView_saver_info.visibility = View.VISIBLE
-                    applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
+
                 }
                 R.id.themeSystem -> {setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, THEME_SYSTEM)}
             }
@@ -115,6 +115,17 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+
+        super.onAttach(context)
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
     }
 
 

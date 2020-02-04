@@ -16,7 +16,7 @@
 
 
     <EditText
-        style="@style/PrimaryText"
+        style="@style/SecondaryText"
         android:id="@+id/says_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        style="@style/PrimaryText"
+        style="@style/SecondaryText"
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

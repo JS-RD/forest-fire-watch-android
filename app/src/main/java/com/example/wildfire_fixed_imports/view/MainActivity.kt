@@ -105,6 +105,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         setSupportActionBar(toolbar)
@@ -121,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         // drawer toggle aka burger menu changes
         drawerToggle.isDrawerIndicatorEnabled = true
         applicationLevelProvider.drawerToggle = drawerToggle
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
+
         drawer_layout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
         actionBar!!.setDisplayShowTitleEnabled(false)
@@ -199,6 +201,7 @@ class MainActivity : AppCompatActivity() {
              //  switchFireBSIcon.visibility = View.INVISIBLE
              // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+             legendText.visibility = INVISIBLE
 
 
 
@@ -208,10 +211,12 @@ class MainActivity : AppCompatActivity() {
              // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-             legendText.setText(R.string.filters)
+             legendText.setText("FILTERS")
+             legendText.visibility = VISIBLE
          }
 
      }
+
 
 
 
@@ -269,7 +274,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                     R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
-                    R.id.nav_debug, R.id.nav_share, R.id.nav_send
+                    R.id.nav_debug//, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
 

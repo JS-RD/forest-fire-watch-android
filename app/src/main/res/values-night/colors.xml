@@ -8,6 +8,6 @@
     <color name="textSecondary">#CCCCCC</color>
     <color name="buttonTextPrimary">#FFFFFF</color>
 
-
+    <color name="drawerIconColorStyle">#FFFFFF</color>
     <color name="designed_color_background">#555555</color>
 </resources>

@@ -13,20 +13,22 @@
 
 
         <!-- Actually burger menu icon but I don't get a choice of name unfortunately -->
-        <item name="drawerArrowStyle">@style/DrawerIconWhite</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
-    <style name="DrawerIconWhite" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@android:color/white</item>
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/drawerIconColorStyle</item>
+
     </style>
 
 
 
     <style name="PrimaryText" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">24sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textStyle">bold</item>
 
     </style>
 
@@ -40,6 +42,7 @@
     <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/buttonTextPrimary</item>
         <item name="android:background">@drawable/button_background</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 

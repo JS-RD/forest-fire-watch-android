@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="@string/first_name"
-            style="@style/PrimaryText"
+            style="@style/SecondaryText"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email"
             app:layout_constraintTop_toBottomOf="@+id/regfrag_text_signup"
@@ -54,7 +54,7 @@
             android:layout_margin="16dp"
             android:ems="10"
             android:hint="@string/last_name"
-            style="@style/PrimaryText"
+            style="@style/SecondaryText"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/regfrag_et_firstname"
             tools:layout_editor_absoluteX="16dp" />
@@ -82,7 +82,7 @@
             android:layout_margin="16dp"
             android:ems="10"
             android:hint="@string/email"
-            style="@style/PrimaryText"
+            style="@style/SecondaryText"
             android:inputType="textEmailAddress"
             />
 
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            style="@style/PrimaryText"
+            style="@style/SecondaryText"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@android:color/white" />
