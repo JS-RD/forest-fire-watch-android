@@ -41,6 +41,8 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
+
+
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)

@@ -195,7 +195,7 @@ class MainActivity : AppCompatActivity() {
              //  switchFireBSIcon.visibility = View.INVISIBLE
              // switchAqiCloudBSIcon.visibility = View.INVISIBLE
              arrow.setImageResource(R.drawable.ic_arrow_drop_down)
-             legendText.setText("")
+
 
 
          }
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
              // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
              arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-             legendText.setText(R.string.swipe_up_for_more_filters)
+             legendText.setText(R.string.filters)
          }
 
      }

@@ -10,7 +10,7 @@
 	<color name="aqiColorOne">#99CC00</color>
     <color name="aqiColorTwo">#00CC99</color>
     <color name="aqiColorThree">#992299</color>
-    <color name="design_default_color_background">#FFFFFF</color>
+    <color name="designed_color_background">#FFFFFF</color>
     <color name="aqi0Green">#00FF00</color>
     <color name="aqi1Yellow">#FFFF00</color>
     <color name="aqi2Orange">#FFA500</color>

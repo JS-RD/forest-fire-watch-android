@@ -49,6 +49,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/battery_saver_theme" />
+        <TextView
+            android:id="@+id/settings_textView_saver_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:text="Uses a dark mode when the system's 'Battery Saver' feature is enabled, otherwise it uses a 'light mode"
+            />
 
         <RadioButton
             android:id="@+id/themeSystem"

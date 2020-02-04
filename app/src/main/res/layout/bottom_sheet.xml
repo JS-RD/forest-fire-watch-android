@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:id="@+id/bottomSheet_main"
+    android:background="@drawable/rounded_background"
     android:orientation="vertical">
 
     <ImageView
@@ -33,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_fireicon_bottomsheet"
-
         app:layout_constraintEnd_toEndOf="@+id/bottomsheert_switch_fire"
         app:layout_constraintStart_toStartOf="@+id/bottomsheert_switch_fire"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheert_switch_fire" />
@@ -66,12 +66,11 @@
         android:id="@+id/bottomsheert_tv_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/roboto"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        style="@style/PrimaryText"
         android:text="@string/filters"
-        android:textColor="@color/colorPrimary"
         android:textAlignment="center"
-        android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/bottomsheert_img_cloud"
         app:layout_constraintStart_toEndOf="@+id/bottomsheert_img_fire"
@@ -91,7 +90,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_index"
         app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_index"
-        app:thumbTint="@android:color/holo_red_light" />
+        app:thumbTint="#00BCD4" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/bottomsheet_switch_radius"
@@ -107,7 +106,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_radius"
         app:layout_constraintTop_toTopOf="@+id/bottomsheet_tv_radius"
-        app:thumbTint="@android:color/holo_red_light" />
+        app:thumbTint="#00BCD4" />
 
     <TextView
 
@@ -117,7 +116,7 @@
         android:padding="16dp"
         android:text="Air Quality index"
         android:textSize="24sp"
-        android:fontFamily="@font/roboto"
+        style="@style/PrimaryText"
         app:layout_constraintBottom_toTopOf="@+id/bottomsheet_tv_radius"
         app:layout_constraintEnd_toStartOf="@+id/bottomsheet_switch_index"
         app:layout_constraintHorizontal_bias="0.5"
@@ -129,7 +128,7 @@
         android:id="@+id/bottomsheet_tv_radius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
+        style="@style/PrimaryText"
         android:padding="16dp"
         android:text="Air Quality Radius"
         android:textSize="24sp"
