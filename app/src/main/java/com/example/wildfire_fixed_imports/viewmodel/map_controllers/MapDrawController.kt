@@ -87,12 +87,7 @@ class MapDrawController() {
      //   Timber.e(AQIgeoJson)
         applicationLevelProvider.mapboxView.getMapAsync { myMapboxMap ->
             myMapboxMap.getStyle { style->
-                if (style.getSource(AQI_SOURCE_ID) !=null) {
-                    style.removeSource(AQI_SOURCE_ID)
-                }
-                if (style.getSource(FIRE_SOURCE_ID) !=null) {
-                    style.removeSource(FIRE_SOURCE_ID)
-                }
+                style.flushLayersAndSources()
             }
 
             myMapboxMap.getStyle {  style->

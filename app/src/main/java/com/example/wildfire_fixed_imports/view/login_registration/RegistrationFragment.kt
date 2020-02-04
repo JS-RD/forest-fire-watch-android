@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.showSnackbar
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -34,6 +35,7 @@ class RegistrationFragment : Fragment(){
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -86,7 +88,13 @@ class RegistrationFragment : Fragment(){
                 regfrag_et_lastname.requestFocus()
                 return@setOnClickListener
             }
-
+            AQI_BASE_TEXT_LAYER
+            AQI_CLUSTERED_COUNT_LAYER
+            AQI_HEATLITE_BASE_LAYER
+            "cluster-hml-0"
+            "cluster-hml-1"
+            "cluster-hml-2"
+            FIRE_SYMBOL_LAYER
             CoroutineScope(Dispatchers.IO).launch {
                 loginViewModel.registerNewUser(email,password,firstname,lastename)
 
@@ -102,9 +110,6 @@ class RegistrationFragment : Fragment(){
         savedInstanceState: Bundle?
     ):View?{
 
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
@@ -112,14 +117,6 @@ class RegistrationFragment : Fragment(){
     }
 
 
-    override fun onPause() {
-        super.onPause()
-
-    }
-    override fun onDetach() {
-        super.onDetach()
-
-    }
 
 
 

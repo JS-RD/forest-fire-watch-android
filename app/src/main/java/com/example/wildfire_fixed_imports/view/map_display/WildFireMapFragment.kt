@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,7 @@ class WildFireMapFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
         if (::mapViewModel.isInitialized){
             mapViewModel.triggerMapRedraw()
         }
@@ -129,22 +131,19 @@ class WildFireMapFragment : Fragment() {
             aqiToggleButtonOnClick()
         }
 
-        applicationLevelProvider.btmSheetToggle1?.setOnClickListener {
+        applicationLevelProvider.btmsheetToggleIndex?.setOnClickListener {
             aqiToggleBaseText()
-        }
-        applicationLevelProvider.btmSheetToggle2?.setOnClickListener {
             aqiToggleCompositeText()
         }
-        applicationLevelProvider.btmSheetToggle3?.setOnClickListener {
+
+        applicationLevelProvider.btmSheetToggleRadius?.setOnClickListener {
             aqiToggleBaseHML()
-        }
-        applicationLevelProvider.btmSheetToggle4?.setOnClickListener {
             aqiToggleCompositeHML()
         }
-        applicationLevelProvider.btmSheetTv1?.text="bottom text layer"
-        applicationLevelProvider.btmSheetTv2?.text="composite text layer"
-        applicationLevelProvider.btmSheetTv3?.text="bottom circles layer"
-        applicationLevelProvider.btmSheetTv4?.text="composite circles layer"
+
+        applicationLevelProvider.btmSheetTvIndex?.text="Air Quality index"
+        applicationLevelProvider.btmSheetTvRadius?.text="Air Quality Radius"
+
     }
 
     fun aqiToggleBaseText() {
@@ -245,16 +244,14 @@ class WildFireMapFragment : Fragment() {
     }
    private fun toggleAQIDetailSwitchs(switchOn: Boolean) {
        if(switchOn) {
-           applicationLevelProvider.btmSheetToggle4?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle3?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle2?.setChecked(true)
-           applicationLevelProvider.btmSheetToggle1?.setChecked(true)
+
+           applicationLevelProvider.btmSheetToggleRadius?.setChecked(true)
+           applicationLevelProvider.btmsheetToggleIndex?.setChecked(true)
        }
        else {
-           applicationLevelProvider.btmSheetToggle4?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle3?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle2?.setChecked(false)
-           applicationLevelProvider.btmSheetToggle1?.setChecked(false)
+
+           applicationLevelProvider.btmSheetToggleRadius?.setChecked(false)
+           applicationLevelProvider.btmsheetToggleIndex?.setChecked(false)
        }
    }
 
@@ -342,6 +339,7 @@ class WildFireMapFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
         mapView?.onResume()
     }
 
@@ -376,4 +374,10 @@ class WildFireMapFragment : Fragment() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
     }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+
+
 }

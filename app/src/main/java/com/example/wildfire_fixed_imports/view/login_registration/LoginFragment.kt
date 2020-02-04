@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.view.login_registration
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -41,9 +42,11 @@ class LoginFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
+
+
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
+
 
         /*
         Makes toggle disappear
@@ -167,12 +170,5 @@ class LoginFragment : Fragment() {
         Toast.makeText(appContext, errorString, Toast.LENGTH_LONG).show()
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-    override fun onDetach() {
-        super.onDetach()
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
-    }
+
 }

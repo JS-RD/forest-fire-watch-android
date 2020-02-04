@@ -1,15 +1,13 @@
-package com.example.wildfire_fixed_imports.model
+package com.example.wildfire_fixed_imports.model.local_store
 
 import android.content.Context
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
+import com.example.wildfire_fixed_imports.model.*
 import com.example.wildfire_fixed_imports.util.*
-import com.example.wildfire_fixed_imports.view.login_registration.LoginResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /*

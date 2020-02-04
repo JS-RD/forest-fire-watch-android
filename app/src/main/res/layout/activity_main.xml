@@ -24,9 +24,7 @@
         android:background="@drawable/rounded_background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:itemTextAppearance="@style/TextAppearance.AppCompat.Large"
-        app:itemTextColor="@color/colorPrimaryDark"
-
+        app:itemTextAppearance="@style/PrimaryText"
         app:menu="@menu/activity_main_drawer" />
 
 

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
     <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed">true</item><!-- shows error because min sdk is 23 but still compiles. -->
@@ -9,8 +9,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+
+
+
         <!-- Actually burger menu icon but I don't get a choice of name unfortunately -->
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
+    </style>
+
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/drawerIconColorStyle</item>
+
     </style>
 
 
@@ -20,6 +28,8 @@
         <item name="android:textSize">24sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:textStyle">bold</item>
+
     </style>
 
     <style name="SecondaryText" parent="TextAppearance.AppCompat.Body2">
@@ -28,6 +38,13 @@
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_regular</item>
     </style>
+
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/buttonTextPrimary</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 
 
     <!-- This is for smooth reset activity on switch click on off-->
@@ -41,9 +58,9 @@
     </style>
 
 
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
-    <item name="switchStyle">@android:color/holo_red_light</item>
-</style>
+
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -52,10 +69,9 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="TextColor" parent="AppTheme">
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
-    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@android:color/white</item>
-    </style>
+
 
 
 

@@ -5,7 +5,7 @@
     android:id="@+id/registration_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+   android:background="@color/designed_color_background"
     app:layoutDescription="@xml/fragment_gallery_scene"
     tools:context=".view.login_registration.RegistrationFragment">
 
@@ -15,8 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:ems="10"
-        android:textColor="@android:color/white"
-        app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_lastname"
         app:layout_constraintEnd_toEndOf="@+id/regfrag_layout_lastname"
@@ -29,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="@string/first_name"
+            style="@style/SecondaryText"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email"
             app:layout_constraintTop_toBottomOf="@+id/regfrag_text_signup"
@@ -42,8 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textColor="@android:color/white"
-        app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_layout_email"
         app:layout_constraintEnd_toEndOf="@+id/regfrag_layout_email"
@@ -57,6 +54,7 @@
             android:layout_margin="16dp"
             android:ems="10"
             android:hint="@string/last_name"
+            style="@style/SecondaryText"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/regfrag_et_firstname"
             tools:layout_editor_absoluteX="16dp" />
@@ -69,8 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:textColor="@android:color/white"
-        app:boxBackgroundColor="@android:color/white"
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/regfrag_text_input_layout_password"
         app:layout_constraintEnd_toEndOf="@+id/regfrag_text_input_layout_password"
@@ -86,8 +82,9 @@
             android:layout_margin="16dp"
             android:ems="10"
             android:hint="@string/email"
+            style="@style/SecondaryText"
             android:inputType="textEmailAddress"
-            android:textColor="@android:color/white" />
+            />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,8 +96,6 @@
         android:layout_margin="16dp"
         android:ems="10"
         android:inputType="textPassword"
-        android:textColor="@color/colorAccent"
-        app:boxBackgroundColor="@color/design_default_color_background"
         app:counterEnabled="true"
         app:counterMaxLength="12"
         app:errorEnabled="true"
@@ -116,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:fontFamily="@font/roboto"
+            style="@style/SecondaryText"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@android:color/white" />
@@ -125,14 +120,12 @@
 
     <Button
         android:id="@+id/regfrag_btn_register"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/button_background"
         android:padding="16dp"
         android:text="@string/sign_up"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -145,7 +138,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/register_here"
         android:textAlignment="center"
-        android:textSize="20sp"
+        style="@style/PrimaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
