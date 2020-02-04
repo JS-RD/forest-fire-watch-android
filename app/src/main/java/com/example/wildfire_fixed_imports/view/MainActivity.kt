@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         setSupportActionBar(toolbar)
@@ -177,6 +179,8 @@ class MainActivity : AppCompatActivity() {
             Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
 
     }
+
+
 
  fun setUpOnClicks() {
      aqiGaugeExpanded.setOnClickListener {

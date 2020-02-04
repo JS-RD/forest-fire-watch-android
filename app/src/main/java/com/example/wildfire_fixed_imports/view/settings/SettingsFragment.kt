@@ -77,8 +77,8 @@ class SettingsFragment : Fragment() {
 
                 }
                 R.id.themeBattery -> {setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, THEME_BATTERY)
-
                     settings_textView_saver_info.visibility = View.VISIBLE
+                    applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
                 }
                 R.id.themeSystem -> {setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, THEME_SYSTEM)}
             }
@@ -119,9 +119,4 @@ class SettingsFragment : Fragment() {
 
 
 
-    override fun onDetach() {
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.WHITE)
-        super.onDetach()
-    }
 }

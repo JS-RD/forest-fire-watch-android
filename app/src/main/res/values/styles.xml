@@ -37,6 +37,10 @@
         <item name="android:fontFamily">@font/raleway_regular</item>
     </style>
 
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/buttonTextPrimary</item>
+        <item name="android:background">@drawable/button_background</item>
+    </style>
 
 
 

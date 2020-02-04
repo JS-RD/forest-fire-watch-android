@@ -34,6 +34,7 @@ class RegistrationFragment : Fragment(){
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
                 .get(LoginViewModel::class.java)
@@ -103,13 +104,15 @@ class RegistrationFragment : Fragment(){
     ):View?{
 
         applicationLevelProvider.drawerToggle.drawerArrowDrawable.setColor(Color.BLACK)
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
+
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_registration, container, false)
 
     }
+
+
 
 
     override fun onPause() {

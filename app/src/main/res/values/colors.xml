@@ -18,6 +18,7 @@
     <color name="aqi4purple">#924CAF</color>
     <color name="aqi5brown">#AC5E3A</color>
 
+    <color name="buttonTextPrimary">#FFFFFF</color>
     <color name="textPrimary">#000000</color>
     <color name="textSecondary">#555555</color>
 

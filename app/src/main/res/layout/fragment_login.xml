@@ -10,13 +10,13 @@
     android:paddingTop="@dimen/fragment_vertical_margin"
     android:paddingRight="@dimen/fragment_horizontal_margin"
     android:paddingBottom="@dimen/fragment_vertical_margin"
-    android:background="@android:color/white"
+    android:background="@color/designed_color_background"
     tools:context=".view.login_registration.LoginFragment"
     app:layoutDescription="@xml/fragment_login_scene">
 
 
     <EditText
-        android:textColor="@android:color/white"
+        style="@style/PrimaryText"
         android:id="@+id/says_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:textColor="@android:color/white"
+        style="@style/PrimaryText"
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -50,13 +50,12 @@
         app:layout_constraintTop_toBottomOf="@+id/says_username" />
 
     <Button
-        android:textColor="@android:color/white"
+
         android:id="@+id/btn_login"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/button_background"
         android:padding="16dp"
         android:text="@string/sign_in"
         app:layout_constraintBottom_toTopOf="@+id/button_register"
@@ -79,13 +78,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:textColor="@android:color/white"
         android:id="@+id/button_register"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/button_background"
         android:padding="16dp"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
