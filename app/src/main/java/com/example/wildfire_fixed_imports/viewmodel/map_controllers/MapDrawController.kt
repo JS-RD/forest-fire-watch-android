@@ -1,9 +1,7 @@
 package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.util.*
@@ -12,14 +10,11 @@ import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.L
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Point
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mapbox.geojson.FeatureCollection
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.expressions.Expression.*
 import com.mapbox.mapboxsdk.style.layers.*
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import okhttp3.internal.trimSubstring
 import timber.log.Timber
 import java.net.URISyntaxException
 
@@ -53,9 +48,8 @@ class MapDrawController() {
         }
 
         val myObjectMapper = ObjectMapper()
-        val resultGeoJson = myObjectMapper.writeValueAsString(result)
 
-        return resultGeoJson
+        return myObjectMapper.writeValueAsString(result)
 
     }
 
@@ -83,9 +77,8 @@ class MapDrawController() {
 
 
         val myObjectMapper = ObjectMapper()
-        val resultGeoJson = myObjectMapper.writeValueAsString(result)
 
-        return resultGeoJson
+        return myObjectMapper.writeValueAsString(result)
 
     }
 
