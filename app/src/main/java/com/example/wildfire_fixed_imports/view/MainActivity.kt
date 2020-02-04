@@ -208,7 +208,11 @@ class MainActivity : AppCompatActivity() {
          }
 
      }
+
+
+
      bottomSheet.progress.observe(this, bottomSheetObserver)
+
 
 
 
