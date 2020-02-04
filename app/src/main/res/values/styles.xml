@@ -33,7 +33,7 @@
     </style>
 
     <style name="BottomSheetStyle" parent="TextAppearance.AppCompat.Body2">
-        <style name="Widget.AppCompat.Button.Colored" parent="Base.Widget.AppCompat.Button.Colored"/>
+
         <item name="android:textSize">19sp</item>
         <item name="android:padding">8dp</item>
         <item name="android:fontFamily">@font/raleway_regular</item>
