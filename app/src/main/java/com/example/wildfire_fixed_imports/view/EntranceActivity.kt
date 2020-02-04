@@ -42,6 +42,9 @@ class EntranceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_entrance)
         textView=findViewById(R.id.entry_tv)
         initPermissions()
+        textView.setOnClickListener {
+            redirect()
+        }
     }
 
     fun initPermissions() {
@@ -240,7 +243,7 @@ class EntranceActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.coarseLocationPermission = true
                     textView.showSnackbar("Internet granted successfully", Snackbar.LENGTH_SHORT)
-                    
+
                 } else {
                     applicationLevelProvider.coarseLocationPermission = false
                     textView.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
