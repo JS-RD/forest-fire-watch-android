@@ -1,9 +1,7 @@
 package com.example.wildfire_fixed_imports.viewmodel.map_controllers
 
 import android.graphics.Color
-import androidx.core.content.ContextCompat
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.util.*
@@ -12,14 +10,11 @@ import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.L
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Point
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mapbox.geojson.FeatureCollection
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.expressions.Expression
 import com.mapbox.mapboxsdk.style.expressions.Expression.*
 import com.mapbox.mapboxsdk.style.layers.*
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
-import okhttp3.internal.trimSubstring
 import timber.log.Timber
 import java.net.URISyntaxException
 
@@ -53,9 +48,8 @@ class MapDrawController() {
         }
 
         val myObjectMapper = ObjectMapper()
-        val resultGeoJson = myObjectMapper.writeValueAsString(result)
 
-        return resultGeoJson
+        return myObjectMapper.writeValueAsString(result)
 
     }
 
@@ -83,9 +77,8 @@ class MapDrawController() {
 
 
         val myObjectMapper = ObjectMapper()
-        val resultGeoJson = myObjectMapper.writeValueAsString(result)
 
-        return resultGeoJson
+        return myObjectMapper.writeValueAsString(result)
 
     }
 
@@ -93,7 +86,16 @@ class MapDrawController() {
     fun createStyleFromGeoJson(AQIgeoJson: String, FireGeoJson: String) {
      //   Timber.e(AQIgeoJson)
         applicationLevelProvider.mapboxView.getMapAsync { myMapboxMap ->
-            myMapboxMap.getStyle { style ->
+            myMapboxMap.getStyle { style->
+                if (style.getSource(AQI_SOURCE_ID) !=null) {
+                    style.removeSource(AQI_SOURCE_ID)
+                }
+                if (style.getSource(FIRE_SOURCE_ID) !=null) {
+                    style.removeSource(FIRE_SOURCE_ID)
+                }
+            }
+
+            myMapboxMap.getStyle {  style->
 
                 try {
 
@@ -104,8 +106,6 @@ class MapDrawController() {
                     val pointCount = toNumber(get("point_count"))
                     val dived = ceil(division(get("sum"), pointCount))
                     val aqiFeatureCalcExpression = ceil(toNumber(get("aqi")))
-
-
 
                     style.addSource(
                             GeoJsonSource(AQI_SOURCE_ID,
@@ -118,7 +118,16 @@ class MapDrawController() {
                                             .withClusterProperty("sum", literal("+"), toNumber(get("aqi")))
                             )
                     )
-
+                    style.addSource(
+                            GeoJsonSource(FIRE_SOURCE_ID,
+                                    // Point to GeoJSON data.
+                                    FeatureCollection.fromJson(FireGeoJson),
+                                    GeoJsonOptions()
+                                            .withCluster(false)
+                                            .withClusterMaxZoom(14)
+                                            .withClusterRadius(50)
+                            )
+                    )
 
                     val aqiTextLayer = SymbolLayer(AQI_BASE_TEXT_LAYER, AQI_SOURCE_ID)
 
@@ -141,18 +150,18 @@ class MapDrawController() {
                             PropertyFactory.textHaloWidth(2f),
                             PropertyFactory.textFont(arrayOf("Roboto Black", "Arial Unicode MS Bold"))
                             /*     PropertyFactory.iconImage(crossIconTarget),
-                        PropertyFactory.iconSize(2f),
-                        PropertyFactory.iconColor(
-                                interpolate(
-                                        linear(), aqiFeatureCalcExpression, //
-                                        literal(0), rgb(0, 255, 0),
-                                        literal(50), rgb(255, 255, 0),
-                                        literal(100), rgb(255, 165, 0),
-                                        literal(150), rgb(255, 0, 0),
-                                        literal(200), rgb(146, 76, 175),
-                                        literal(500), rgb(172, 94, 58)
-                                )
-                        ),*/
+                            PropertyFactory.iconSize(2f),
+                            PropertyFactory.iconColor(
+                                    interpolate(
+                                            linear(), aqiFeatureCalcExpression, //
+                                            literal(0), rgb(0, 255, 0),
+                                            literal(50), rgb(255, 255, 0),
+                                            literal(100), rgb(255, 165, 0),
+                                            literal(150), rgb(255, 0, 0),
+                                            literal(200), rgb(146, 76, 175),
+                                            literal(500), rgb(172, 94, 58)
+                                    )
+                            ),*/
 
 
                     )
@@ -163,10 +172,10 @@ class MapDrawController() {
                     val textSumLayer = SymbolLayer(AQI_CLUSTERED_COUNT_LAYER, AQI_SOURCE_ID)
                     textSumLayer.setProperties(
                             /*
-                        *this esoteric horror show breaks down as follows:
-                        *Expression.division(get("sum"),get("point_count"))
-                        * gets the sum of the contained features aqi property, divide that by the number of features counted
-                        * */
+                            *this esoteric horror show breaks down as follows:
+                            *Expression.division(get("sum"),get("point_count"))
+                            * gets the sum of the contained features aqi property, divide that by the number of features counted
+                            * */
                             PropertyFactory.visibility(applicationLevelProvider.aqiClusterTextLayerVisibility
                             ),
                             PropertyFactory.textField(
@@ -224,8 +233,8 @@ class MapDrawController() {
                         val circles = CircleLayer("cluster-hml-$i", AQI_SOURCE_ID)
                         circles.setProperties(
                                 /*                 PropertyFactory.textField("adsfasdf"),       //get("aqi")),
-                                             PropertyFactory.textSize(40f),
-                                             PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*/
+                                                 PropertyFactory.textSize(40f),
+                                                 PropertyFactory.textColor( Expression.rgb(255, 255, 255)),*/
                                 PropertyFactory.visibility(applicationLevelProvider.aqiClusterHMLLayerVisibility
                                 ),
                                 PropertyFactory.circleColor(
@@ -252,17 +261,8 @@ class MapDrawController() {
                         style.addLayerBelow(circles, AQI_CLUSTERED_COUNT_LAYER)
                     }
 
-//begin fire source and layers
-                    style.addSource(
-                            GeoJsonSource(FIRE_SOURCE_ID,
-                                    // Point to GeoJSON data.
-                                    FeatureCollection.fromJson(FireGeoJson),
-                                    GeoJsonOptions()
-                                            .withCluster(false)
-                                            .withClusterMaxZoom(14)
-                                            .withClusterRadius(50)
-                            )
-                    )
+    //begin fire source and layers
+
                     val fireSymbols = SymbolLayer(FIRE_SYMBOL_LAYER, FIRE_SOURCE_ID)
 
                     fireSymbols.setProperties(
