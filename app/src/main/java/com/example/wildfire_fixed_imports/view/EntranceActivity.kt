@@ -49,7 +49,7 @@ class EntranceActivity : AppCompatActivity() {
         motion_layout_entrance.transitionToEnd()
         val intent = Intent(this, MainActivity::class.java)
         textView=findViewById(R.id.entry_tv)
-        Timer().schedule(700){
+        Timer().schedule(950){
         initPermissions()
         }
         textView.setOnClickListener {
@@ -85,8 +85,8 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.internetPermission = true
             //pop snackbar to notify of permissions
-            textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+            //TODO removed for demo textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+            //TODO removed for demo "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
 
 
         } else {
@@ -131,8 +131,8 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.fineLocationPermission = true
             //pop snackbar to notify of permissions
-            textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
+            //TODO removed for demo textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
+            //TODO removed for demo "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
             redirect()
         } else {
             // Permission is missing and must be requested.
@@ -149,8 +149,8 @@ class EntranceActivity : AppCompatActivity() {
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.coarseLocationPermission = true
             //pop snackbar to notify of permissions
-            textView.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
-                    "Fine Location permission: ${applicationLevelProvider.coarseLocationPermission}", Snackbar.LENGTH_SHORT)
+           //TODO removed for demo textView.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
+            //TODO removed for demo "Fine Location permission: ${applicationLevelProvider.coarseLocationPermission}", Snackbar.LENGTH_SHORT)
             redirect()
         } else {
             // Permission is missing and must be requested.
