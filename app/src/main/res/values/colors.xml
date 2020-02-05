@@ -3,7 +3,7 @@
     <color name="colorPrimary">#20709B</color>
     <color name="colorPrimaryDark">#20333C</color>
     <color name="colorAccent">#C3C3C3</color>
-
+    <color name="splashTextColor">#20333C</color>
 	<color name="aqiColorBegin">#FF0000</color>
     <color name="aqiColorMiddle">#00FF00</color>
     <color name="aqiColorEnd">#0000FF</color>
@@ -13,6 +13,7 @@
     <color name="designed_color_background">#FFFFFF</color>
     <color name="aqi0Green">#00FF00</color>
     <color name="aqi1Yellow">#FFFF00</color>
+    <color name="yellowFireBackground">#FFFF00</color>
     <color name="aqi2Orange">#FFA500</color>
     <color name="aqi3red">#FF0000</color>
     <color name="aqi4purple">#924CAF</color>

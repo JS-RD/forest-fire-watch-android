@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_index"
-        app:layout_constraintTop_toBottomOf="@+id/bottomsheert_tv_status"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheert_img_cloud"
         app:thumbTint="#00BCD4" />
 
     <androidx.appcompat.widget.SwitchCompat
