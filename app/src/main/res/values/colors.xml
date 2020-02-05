@@ -3,7 +3,7 @@
     <color name="colorPrimary">#20709B</color>
     <color name="colorPrimaryDark">#20333C</color>
     <color name="colorAccent">#C3C3C3</color>
-
+    <color name="splashTextColor">#20333C</color>
 	<color name="aqiColorBegin">#FF0000</color>
     <color name="aqiColorMiddle">#00FF00</color>
     <color name="aqiColorEnd">#0000FF</color>

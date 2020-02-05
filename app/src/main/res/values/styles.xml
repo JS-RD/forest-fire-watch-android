@@ -32,6 +32,15 @@
 
     </style>
 
+    <style name="SplashTextStyle" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/splashTextColor</item>
+        <item name="android:textSize">50sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">@font/xscale</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
     <style name="SecondaryText" parent="TextAppearance.AppCompat.Body2">
         <item name="android:textColor">@color/textSecondary</item>
         <item name="android:textSize">19sp</item>
