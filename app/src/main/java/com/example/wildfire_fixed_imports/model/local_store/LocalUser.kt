@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /*
@@ -46,11 +47,13 @@ class LocalUser(
     init {
         Timber.i("$TAG \n LocalUser init")
 
-
+        mTheme = getSavedTheme()
+        Timber.i("$TAG theme = $mTheme")
+        setTheme(mTheme as Int)
 
         mDefaultRadius = getDefaultRadius()
 
-        CoroutineScope(Dispatchers.IO).async {
+        CoroutineScope(Dispatchers.IO).launch {
 
             if (firebaseAuth.currentUser?.uid != null) {
                 val result = CoroutineScope(Dispatchers.IO).async {applicationLevelProvider.userWebBEController.signin()}.await()
@@ -68,9 +71,7 @@ class LocalUser(
                 }
                 getLayerVisibilityFromPrefs()
                 getUserLocationsInit()
-                mTheme = getSavedTheme()
-                Timber.i("$TAG theme = $mTheme")
-                setTheme(mTheme as Int)
+
             }
 
 
@@ -122,12 +123,14 @@ class LocalUser(
 
     private fun setTheme(prefsMode: Int) {
         Timber.i("theme prefsmode= $prefsMode")
-        when (prefsMode) {
-            THEME_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme follow sys") }
-            THEME_BATTERY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY).also { Timber.i("theme auth batt ") }
-            THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES).also { Timber.i("theme night yes ") }
-            THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO).also { Timber.i("theme night no ") }
-            else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme else af  ") }
+        CoroutineScope(Dispatchers.Main).launch {
+            when (prefsMode) {
+                THEME_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme follow sys") }
+                THEME_BATTERY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY).also { Timber.i("theme auth batt ") }
+                THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES).also { Timber.i("theme night yes ") }
+                THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO).also { Timber.i("theme night no ") }
+                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme else af  ") }
+            }
         }
 
     }
