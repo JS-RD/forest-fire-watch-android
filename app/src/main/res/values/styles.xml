@@ -30,6 +30,15 @@
 
     </style>
 
+    <style name="OutlinedTextStyle" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">3</item>
+        <item name="android:shadowDy">3</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:fontFamily">@font/xscale</item>
+    </style>
+
     <style name="SplashTextStyle" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/splashTextColor</item>
         <item name="android:textSize">50sp</item>

@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -48,7 +49,7 @@ class EntranceActivity : AppCompatActivity() {
         motion_layout_entrance.transitionToEnd()
         val intent = Intent(this, MainActivity::class.java)
         textView=findViewById(R.id.entry_tv)
-        Timer().schedule(2000){
+        Timer().schedule(700){
         initPermissions()
         }
         textView.setOnClickListener {
