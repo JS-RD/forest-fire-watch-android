@@ -202,7 +202,9 @@ var FIREJOBS:Job = Job()
         lstOfReturnData.forEach {
             Timber.i("test 2-${System.currentTimeMillis()}")
             if (it is SuccessFailWrapper.Success) {
-                compositeResult.addAll(cleanAQIStationData(it.value))
+                //this is what happens when you let the IDE demand shit out of you.
+                it.value.let { list -> compositeResult.addAll(list?.toList() ?: listOf())}
+
 
             } else {
                 when (it) {
@@ -212,7 +214,7 @@ var FIREJOBS:Job = Job()
                 }
             }
         }
-        return compositeResult
+        return cleanAQIStationData(compositeResult)
 
 
     }
