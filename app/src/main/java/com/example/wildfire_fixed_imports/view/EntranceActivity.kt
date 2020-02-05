@@ -11,11 +11,14 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_entrance.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 /*
@@ -42,20 +45,24 @@ class EntranceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_entrance)
 
 
+        motion_layout_entrance.transitionToEnd()
+        val intent = Intent(this, MainActivity::class.java)
         textView=findViewById(R.id.entry_tv)
+        Timer().schedule(6000){
         initPermissions()
+        }
         textView.setOnClickListener {
             redirect()
         }
     }
 
     fun initPermissions() {
- CoroutineScope(Dispatchers.Main).async {
-     withContext(Dispatchers.Default) {  checkInternetPermission() }
-     withContext(Dispatchers.Default) { checkFineLocationPermission() }
-     withContext(Dispatchers.Default) { checkCoarseLocationPermission()}
-     Timber.i("init - initpermissions")
- }
+        CoroutineScope(Dispatchers.Main).async {
+            withContext(Dispatchers.Default) {  checkInternetPermission() }
+            withContext(Dispatchers.Default) { checkFineLocationPermission() }
+            withContext(Dispatchers.Default) { checkCoarseLocationPermission()}
+            Timber.i("init - initpermissions")
+        }
 
     }
 
@@ -72,7 +79,7 @@ class EntranceActivity : AppCompatActivity() {
         Timber.i("init - check internet")
         // Check if the INTERNET permission has been granted
         if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.INTERNET) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             Timber.i("init - internet already available")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.internetPermission = true
@@ -95,12 +102,12 @@ class EntranceActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             textView.showSnackbar(
-                    "INTERNET acess is required for this app to function at all.",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "INTERNET acess is required for this app to function at all.",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissions(
-                        arrayOf(Manifest.permission.INTERNET),
-                        MY_PERMISSIONS_REQUEST_INTERNET
+                    arrayOf(Manifest.permission.INTERNET),
+                    MY_PERMISSIONS_REQUEST_INTERNET
                 )
             }
 
@@ -109,7 +116,7 @@ class EntranceActivity : AppCompatActivity() {
 
             // Request the permission. The result will be received in onRequestPermissionResult().
             requestPermissions(arrayOf(Manifest.permission.INTERNET),
-                    MY_PERMISSIONS_REQUEST_INTERNET
+                MY_PERMISSIONS_REQUEST_INTERNET
             )
         }
     }
@@ -118,7 +125,7 @@ class EntranceActivity : AppCompatActivity() {
         Timber.i("init - check fine location")
         // Check if the Camera permission has been granted
         if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             Timber.i("init -  fine location already granted")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.fineLocationPermission = true
@@ -136,7 +143,7 @@ class EntranceActivity : AppCompatActivity() {
         Timber.i("init - check coarse location")
         // Check if the Camera permission has been granted
         if (ContextCompat.checkSelfPermission(applicationLevelProvider.applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             Timber.i("init -  coarse location already granted")
             // Permission is already available, set boolean in ApplicationLevelProvider
             applicationLevelProvider.coarseLocationPermission = true
@@ -158,12 +165,12 @@ class EntranceActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             textView.showSnackbar(
-                    "GPS location data is needed to provide accurate local results",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "GPS location data is needed to provide accurate local results",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissions(
-                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                        MY_PERMISSIONS_COARSE_LOCATION
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                    MY_PERMISSIONS_COARSE_LOCATION
                 )
             }
 
@@ -172,7 +179,7 @@ class EntranceActivity : AppCompatActivity() {
 
             // Request the permission. The result will be received in onRequestPermissionResult().
             requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    MY_PERMISSIONS_COARSE_LOCATION
+                MY_PERMISSIONS_COARSE_LOCATION
             )
         }
     }
@@ -185,12 +192,12 @@ class EntranceActivity : AppCompatActivity() {
             // and the user would benefit from additional context for the use of the permission.
             // Display a SnackBar with a button to request the missing permission.
             textView.showSnackbar(
-                    "GPS location data is needed to provide accurate local results",
-                    Snackbar.LENGTH_INDEFINITE, "OK"
+                "GPS location data is needed to provide accurate local results",
+                Snackbar.LENGTH_INDEFINITE, "OK"
             ) {
                 requestPermissions(
-                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
                 )
             }
 
@@ -199,7 +206,7 @@ class EntranceActivity : AppCompatActivity() {
 
             // Request the permission. The result will be received in onRequestPermissionResult().
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
+                MY_PERMISSIONS_REQUEST_FINE_LOCATION
             )
         }
     }
@@ -250,7 +257,7 @@ class EntranceActivity : AppCompatActivity() {
                     applicationLevelProvider.coarseLocationPermission = false
                     textView.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
-                   // TODO("CAUSE APPLICATION TO EXIT HERE")
+                    // TODO("CAUSE APPLICATION TO EXIT HERE")
                 }
                 return
             }
