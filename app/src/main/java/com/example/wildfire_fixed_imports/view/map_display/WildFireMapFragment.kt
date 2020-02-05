@@ -46,9 +46,9 @@ class WildFireMapFragment : Fragment() {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
-        if (::mapViewModel.isInitialized){
+   /*     if (::mapViewModel.isInitialized){
             mapViewModel.triggerMapRedraw()
-        }
+        }*/
 
 
     }

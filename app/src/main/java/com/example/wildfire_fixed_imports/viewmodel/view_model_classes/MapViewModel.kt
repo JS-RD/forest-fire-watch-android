@@ -88,9 +88,16 @@ class MapViewModel : ViewModel() {
         }
 
     }
+fun onMapLoaded(){
 
+    val aqistations = applicationLevelProvider.dataRepository.aqiGeoJson
+    val firedata = applicationLevelProvider.dataRepository.fireGeoJson
+    mapDrawController.createStyleFromGeoJson(aqistations,firedata)
 
-    fun onMapLoaded() {
+}
+
+/*    fun onMapLoaded() {
+
         if (!::targetMaster.isInitialized) {
             Timber.i("$TAG \n resume initialize check ")
 
@@ -102,8 +109,9 @@ class MapViewModel : ViewModel() {
 
 
         }
+
         triggerMapRedraw()
-    }
+    }*/
         fun startFireRetrieval() {
             viewModelScope.launch {
                 _fireServiceRunning.postValue(true)

@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.properties.Delegates
 
 /*
 *  this class acts as a repository for user related objects
@@ -22,7 +23,7 @@ class LocalUser(
         var mLocations: MutableList<WebBELocation?> = mutableListOf(DEFAULT_WEBBELOCATION),
         var mDefaultRadius: Double = 5.0,
         var mTheme: Int? = THEME_UNDEFINED,
-        var mAqiStations: MutableList<AQIStations> = mutableListOf(),
+
         var mFireLocations: MutableList<DSFires> = mutableListOf(),
         var mLayerVisibility: MutableMap<String, Boolean> = mutableMapOf(
                 AQI_BASE_TEXT_LAYER to true,
@@ -34,6 +35,17 @@ class LocalUser(
 
 
 ) {
+    var observableData: String by Delegates.observable("Initial value") {
+        property, oldValue, newValue ->
+        println("${property.name}: $oldValue -> $newValue")
+    }
+    var mAqiStations: MutableList<AQIStations> by Delegates.observable(mutableListOf()){ property, oldValue, newValue ->
+       oldValue.addAll(newValue)
+       oldValue.toSet()
+
+    }
+
+    var AqiGeoJson:String = ""
 
     val mFirebaseUser: FirebaseUser? get() =  firebaseAuth.currentUser
 
@@ -71,7 +83,8 @@ class LocalUser(
                 }
                 getLayerVisibilityFromPrefs()
                 getUserLocationsInit()
-
+                Timber.i("test $mLocations")
+                applicationLevelProvider.dataRepository.initData()
             }
 
 
@@ -91,6 +104,7 @@ class LocalUser(
                 result.value?.forEach {
                     mLocations.add(it)
                 }
+
             }
             else -> Timber.e("$TAG \n ERROR IN GET USER LOCATIONS INIT \n $result")
         }
@@ -145,7 +159,7 @@ class LocalUser(
 
     companion object {
         private var mInstance: LocalUser? = null
-        fun getInstance(context: Context): LocalUser {
+        fun getInstance(): LocalUser {
             if (mInstance == null) mInstance = LocalUser()
             return mInstance as LocalUser
         }

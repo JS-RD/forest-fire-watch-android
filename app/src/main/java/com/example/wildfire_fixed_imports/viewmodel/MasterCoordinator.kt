@@ -40,12 +40,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-    private val targetMap: MapboxMap by lazy {
-        applicationLevelProvider.mapboxMap
-    }
-    private val mapboxView: View by lazy {
-        applicationLevelProvider.mapboxView
-    }
 
     private val fireDSController by lazy {
         applicationLevelProvider.fireDSController
@@ -55,10 +49,8 @@ import java.util.concurrent.atomic.AtomicBoolean
         applicationLevelProvider.aqidsController
     }
 
-
-
     private val mapDrawController by lazy {
-        MapDrawController().also { applicationLevelProvider.mapDrawController = it }
+        applicationLevelProvider.mapDrawController
     }
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
@@ -77,7 +69,7 @@ import java.util.concurrent.atomic.AtomicBoolean
     val fireData: LiveData<List<DSFires>> = _fireData
     private var fireObserver: Observer<List<DSFires>>
 
-    private val _AQIStations = MutableLiveData<List<AQIStations>>().apply { value = listOf<AQIStations>() }
+    private val _AQIStations = MutableLiveData<List<AQIStations>>() //.apply { value = listOf<AQIStations>() }
     val AQIStations: LiveData<List<AQIStations>> = _AQIStations
     private var AQIStationObserver: Observer<List<AQIStations>>
 
@@ -198,12 +190,12 @@ var FIREJOBS:Job = Job()
                             it?.radius ?: 5.0)
             )
         }
-        var compositeResult = mutableListOf<AQIStations>()
+        val compositeResult = mutableListOf<AQIStations>()
         lstOfReturnData.forEach {
             Timber.i("test 2-${System.currentTimeMillis()}")
             if (it is SuccessFailWrapper.Success) {
                 //this is what happens when you let the IDE demand shit out of you.
-                it.value.let { list -> compositeResult.addAll(list?.toList() ?: listOf())}
+              compositeResult.addAll(it.value ?: listOf())
 
 
             } else {
@@ -214,75 +206,11 @@ var FIREJOBS:Job = Job()
                 }
             }
         }
+        Timber.e("test + "+compositeResult.toString().subSequence(0,30))
         return cleanAQIStationData(compositeResult)
 
 
     }
-   /*     val composite= Job()
-
-
-
-        userLocations.forEach {
-                    withContext(Dispatchers.IO) {this.launch {
-                        Timber.i("test 2${System.currentTimeMillis()}")
-                        lstOfReturnData.add(
-                                aqidsController.getAQIStations(
-                                        it?.latitude ?: 20.0,
-                                        it?.longitude ?: 20.0,
-                                        it?.radius ?: 5.0)
-                        )
-                    }
-                    }
-                }
-
-            lstOfReturnData.forEach {
-
-                if (it is SuccessFailWrapper.Success) {
-                    compositeResult.addAll(cleanAQIStationData(it.value))
-
-                } else {
-                    when (it) {
-                        is SuccessFailWrapper.Throwable -> Timber.i("fail at ${it.message} ${it.t.toString()}")
-                        is SuccessFailWrapper.Fail -> Timber.i("fail at ${it.message}")
-                        else -> Timber.i("fail! $it")
-                    }
-                }
-            }
-        return compositeResult
-*/
-
-
-
-
-
-
-/*
-        val currentLocal = applicationLevelProvider.userLocation?.LatLng()
-                ?: LatLng(20.0, 20.0).also {
-                    Toast.makeText(applicationLevelProvider.currentActivity,
-                            "Something went wrong when finding your location, please enable GPS in your application settings",
-                            Toast.LENGTH_SHORT).show()
-                }
-        val it = aqidsController.getAQIStations(
-                currentLocal.latitude,
-                currentLocal.longitude,
-                30.0)
-        if (result is SuccessFailWrapper.Success) {
-            return cleanAQIStationData(it.value)
-
-        } else {
-            when (it) {
-                is SuccessFailWrapper.Throwable -> Timber.i(it.message)
-                is SuccessFailWrapper.Fail -> Timber.i(it.message).also { isAQIdatasServiceRunning.set(false) }.also {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(applicationLevelProvider.applicationContext,
-                                "canceled or error" + this@MasterCoordinator.it.message, Toast.LENGTH_LONG).show()
-                        applicationLevelProvider.showSnackbar("AQI service quitting", Snackbar.LENGTH_INDEFINITE)
-                    }
-                }
-                else -> Timber.i(it.toString())
-            }
-        }*/
 
 
     fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
@@ -335,11 +263,11 @@ var FIREJOBS:Job = Job()
             AQIJOBS=Job()
                 AQIJOBS = withContext(AQIJOBS) {
                     this.launch {
-
                         val result = getAQIstations()
                         if (result != null) {
                             //now that we got em, call the data retriever
                             _AQIStations.postValue(result)
+                            applicationLevelProvider.localUser?.mAqiStations = result.toMutableList()
                         } else {
                             Timber.i("$TAG failed to load AQI Stations")
                         }
