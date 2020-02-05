@@ -3,6 +3,7 @@ package com.example.wildfire_fixed_imports.view.settings
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,18 +70,25 @@ class SettingsFragment : Fragment() {
         themeGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.themeLight -> {setTheme(AppCompatDelegate.MODE_NIGHT_NO, THEME_LIGHT)
+                typeFaceSetter(themeLight)
+
 
 
                 }
                 R.id.themeDark -> {setTheme(AppCompatDelegate.MODE_NIGHT_YES, THEME_DARK)
+                    typeFaceSetter(themeDark)
 
 
                 }
                 R.id.themeBattery -> {setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, THEME_BATTERY)
                     settings_textView_saver_info.visibility = View.VISIBLE
+                    typeFaceSetter(themeBattery)
+                    
 
                 }
-                R.id.themeSystem -> {setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, THEME_SYSTEM)}
+                R.id.themeSystem -> {setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, THEME_SYSTEM)
+                typeFaceSetter(themeSystem)
+                }
             }
 
 
@@ -116,6 +124,34 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    fun typeFaceSetter(textView: TextView){
+        if(textView == themeLight){
+            textView.typeface = Typeface.DEFAULT_BOLD
+            themeDark.typeface = Typeface.DEFAULT
+            themeBattery.typeface = Typeface.DEFAULT
+            themeSystem.typeface = Typeface.DEFAULT
+        }else if (textView == themeDark){
+            textView.typeface = Typeface.DEFAULT_BOLD
+            themeLight.typeface = Typeface.DEFAULT
+            themeBattery.typeface = Typeface.DEFAULT
+            themeSystem.typeface = Typeface.DEFAULT
+
+        }else if (textView == themeBattery){
+            textView.typeface = Typeface.DEFAULT_BOLD
+            themeDark.typeface = Typeface.DEFAULT
+            themeLight.typeface = Typeface.DEFAULT
+            themeSystem.typeface = Typeface.DEFAULT
+
+        }else{
+            textView.typeface = Typeface.DEFAULT_BOLD
+            themeDark.typeface = Typeface.DEFAULT
+            themeLight.typeface = Typeface.DEFAULT
+            themeBattery.typeface = Typeface.DEFAULT
+
+        }
+
     }
 
     override fun onAttach(context: Context) {
