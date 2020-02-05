@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
-import com.example.wildfire_fixed_imports.util.showSnackbar
+import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -88,7 +88,13 @@ class RegistrationFragment : Fragment(){
                 regfrag_et_lastname.requestFocus()
                 return@setOnClickListener
             }
-
+            AQI_BASE_TEXT_LAYER
+            AQI_CLUSTERED_COUNT_LAYER
+            AQI_HEATLITE_BASE_LAYER
+            "cluster-hml-0"
+            "cluster-hml-1"
+            "cluster-hml-2"
+            FIRE_SYMBOL_LAYER
             CoroutineScope(Dispatchers.IO).launch {
                 loginViewModel.registerNewUser(email,password,firstname,lastename)
 

@@ -15,7 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.model.LocalUser
+import com.example.wildfire_fixed_imports.model.local_store.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
 import com.example.wildfire_fixed_imports.model.networking.FirebaseAuthImpl
@@ -87,7 +87,7 @@ class ApplicationLevelProvider : Application() {
     * */
 
     // local user object, functionally cache/repo for app
-    var localUser:LocalUser? = null
+    var localUser: LocalUser? = null
 
 
     // Initialize Firebase analytics, Auth

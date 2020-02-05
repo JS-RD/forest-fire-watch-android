@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports.model.networking
 
 import com.example.wildfire_fixed_imports.util.WEB_BASE_URL
 import com.example.wildfire_fixed_imports.model.*
+import com.example.wildfire_fixed_imports.util.LOGGING_LEVEL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -55,11 +56,11 @@ interface RetrofitImplementationForWebBackend {
         fun createWEB(): RetrofitImplementationForWebBackend {
             val logger = HttpLoggingInterceptor()
             //      logger.level = HttpLoggingInterceptor.Level.BASIC
-            logger.level = HttpLoggingInterceptor.Level.BODY
+            logger.level = LOGGING_LEVEL
 
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor(logger)
-                    .retryOnConnectionFailure(false)
+                    .retryOnConnectionFailure(true)
                     .readTimeout(10, TimeUnit.SECONDS)
                     .connectTimeout(15, TimeUnit.SECONDS)
                     .build()

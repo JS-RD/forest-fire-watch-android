@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         fusedLocationClient=LocationServices.getFusedLocationProviderClient(this)
         //set up toolbar
         setSupportActionBar(toolbar)

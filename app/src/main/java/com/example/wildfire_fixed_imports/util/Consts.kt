@@ -2,6 +2,7 @@ package com.example.wildfire_fixed_imports.util
 
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.WebBELocation
+import okhttp3.logging.HttpLoggingInterceptor
 
 //File provide static constants usable across the application,
 
@@ -32,6 +33,10 @@ const val ALT_AUTH_ERROR_STRING_WEB_BE = "provide a token"
 
 //this is the source id for aqi
 const val AQI_SOURCE_ID = "aqiID"
+
+//shared prefs keys
+const val KEY_THEME = "prefs.theme"
+const val KEY_DEFAULT_RADIUS = "prefs.default_radius"
 
 
 //text layer aqi
@@ -67,13 +72,15 @@ const val crossIconTarget = "cross-icon-id"
 
 //DarkMode
 const val PREFS_NAME = "theme_prefs"
-const val KEY_THEME = "prefs.theme"
 const val THEME_UNDEFINED = -1
 const val THEME_LIGHT = 0
 const val THEME_DARK = 1
 const val THEME_SYSTEM = 2
 const val THEME_BATTERY = 3
 
+//http logging level
+
+val LOGGING_LEVEL = HttpLoggingInterceptor.Level.BASIC
 
 val methodName
     get() = StackTraceInfo.invokingMethodName
@@ -93,7 +100,7 @@ val DEFAULT_WEBBELOCATION = WebBELocation(
         longitude = 26.0,
         notifications = true,
         notification_timer = 0,
-        radius = 5,
+        radius = 5.0,
         user_id = ApplicationLevelProvider.getApplicaationLevelProviderInstance().localUser?.mWebBEUser?.id ?: 10000
 )
 
