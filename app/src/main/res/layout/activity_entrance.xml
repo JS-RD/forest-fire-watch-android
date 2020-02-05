@@ -5,6 +5,7 @@
     android:id="@+id/motion_layout_entrance"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/yellowFireBackground"
     app:layoutDescription="@xml/splash_animation"
     tools:context=".view.EntranceActivity">
 
@@ -14,7 +15,7 @@
         android:layout_height="220dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/ic_fireicon"
         android:backgroundTint="@color/aqi3red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,9 +29,7 @@
         android:elevation="100dp"
         android:gravity="bottom|center"
         android:text="Anal Sex Batman"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        style="@style/PrimaryText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

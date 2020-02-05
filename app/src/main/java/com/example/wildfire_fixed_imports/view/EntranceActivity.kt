@@ -48,7 +48,7 @@ class EntranceActivity : AppCompatActivity() {
         motion_layout_entrance.transitionToEnd()
         val intent = Intent(this, MainActivity::class.java)
         textView=findViewById(R.id.entry_tv)
-        Timer().schedule(6000){
+        Timer().schedule(2000){
         initPermissions()
         }
         textView.setOnClickListener {
