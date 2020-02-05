@@ -40,6 +40,8 @@ class EntranceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entrance)
+
+
         textView=findViewById(R.id.entry_tv)
         initPermissions()
         textView.setOnClickListener {
