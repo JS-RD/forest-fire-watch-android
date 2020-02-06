@@ -84,7 +84,7 @@ init {
                 is SuccessFailWrapper.Fail -> Timber.i(result.message)
                 else -> Timber.i(result.toString())
             }
-            return getFires()
+            return null
         }
     }
 
@@ -173,11 +173,14 @@ init {
         this.postValue(false)
     }
     override fun getCurrentLoading(): LiveData<LoadingDefinition> {
+
         return liveDataCurrentLoading
     }
 
     override fun loadingComplete(): LiveData<Boolean> {
-
+        if (!aqiNearestNeighborGeoJson.value.isNullOrEmpty()) {
+            liveDataLoadingComplete.postValue(true)
+        }
         return liveDataLoadingComplete
     }
 }
