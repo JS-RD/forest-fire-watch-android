@@ -128,7 +128,10 @@ init {
                     is SuccessFailWrapper.Fail -> Timber.i("fail at ${it.message}")
                     else -> Timber.i("fail! $it")
                 }
-                Toast.makeText(applicationLevelProvider.baseContext,"Some AQI data may be missing, please reload app and try again later",Toast.LENGTH_SHORT).show()
+
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(applicationLevelProvider.baseContext, "Some AQI data may be missing, please reload app and try again later", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         Timber.e("test + "+compositeResult.toString().subSequence(0,30))
@@ -160,10 +163,10 @@ init {
 
 
     val liveDataCurrentLoading:MutableLiveData<LoadingDefinition> = MutableLiveData<LoadingDefinition>().apply {
-        this.value= LoadingDefinition.Throwable()
+        this.postValue(LoadingDefinition.Throwable())
     }
     val liveDataLoadingComplete:MutableLiveData<Boolean> = MutableLiveData<Boolean>().apply {
-        this.value= false
+        this.postValue(false)
     }
     override fun getCurrentLoading(): LiveData<LoadingDefinition> {
         return liveDataCurrentLoading
