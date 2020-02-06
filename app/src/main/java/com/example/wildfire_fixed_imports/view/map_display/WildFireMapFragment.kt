@@ -101,6 +101,12 @@ class WildFireMapFragment : Fragment() {
             mapViewModel.onMapLoaded()
             Timber.w("$TAG config")
 
+
+            applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.triggerMapRedraw()
+                }
+            })
             applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
                 if (string.isNotBlank()) {
                     mapViewModel.triggerMapRedraw()
@@ -113,10 +119,7 @@ class WildFireMapFragment : Fragment() {
             }
             )
             // start the fire service/immediately to start retrieving fires
-            CoroutineScope(Dispatchers.IO).launch {
-                mapViewModel.startFireRetrieval()
-                mapViewModel.startAQIRetrieval()
-            }
+
 
         }
 

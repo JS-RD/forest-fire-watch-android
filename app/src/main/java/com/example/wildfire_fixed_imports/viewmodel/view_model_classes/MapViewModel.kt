@@ -40,7 +40,7 @@ class MapViewModel : ViewModel() {
     fun doExperimental(){
         Timber.i(TAG)
         val aqiNearestNeighborApproach=applicationLevelProvider.dataRepository.aqiNearestNeighborGeoJson?.value ?: ""
-        if (aqiNearestNeighborApproach.isNotBlank()) {
+        if (aqiNearestNeighborApproach.isNotBlank() && aqiNearestNeighborApproach.isNotEmpty()) {
             nearestNeighborApproach.createCircleStyleFromGeoJson(aqiNearestNeighborApproach)
         }
     }
