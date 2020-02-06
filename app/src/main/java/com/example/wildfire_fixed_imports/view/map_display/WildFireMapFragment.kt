@@ -46,9 +46,7 @@ class WildFireMapFragment : Fragment() {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
         applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
-   /*     if (::mapViewModel.isInitialized){
-            mapViewModel.triggerMapRedraw()
-        }*/
+
 
 
     }
@@ -108,6 +106,12 @@ class WildFireMapFragment : Fragment() {
 
             mapViewModel.onMapLoaded()
             Timber.w("$TAG config")
+
+            applicationLevelProvider.dataRepository.aqiGeoJson.observeForever {string->
+                if (string.isNotBlank()){
+                    mapViewModel.triggerMapRedraw()
+                }
+            }
 
             // start the fire service/immediately to start retrieving fires
             CoroutineScope(Dispatchers.IO).launch {

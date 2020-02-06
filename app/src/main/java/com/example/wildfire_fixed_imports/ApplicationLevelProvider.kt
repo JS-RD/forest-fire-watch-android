@@ -30,7 +30,6 @@ import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment
-import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
@@ -171,7 +170,7 @@ class ApplicationLevelProvider : Application() {
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
     lateinit var debugFragment: DebugFragment
-    var masterCoordinator: MasterCoordinator? = null
+   // var masterCoordinator: MasterCoordinator? = null
     lateinit var symbolManager: SymbolManager
 
 

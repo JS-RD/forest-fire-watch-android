@@ -3,25 +3,27 @@ package com.example.wildfire_fixed_imports.model
 
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import com.example.wildfire_fixed_imports.util.Coroutines
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.properties.Delegates
+import kotlin.properties.ObservableProperty
 
 class DataRepository () {
-
     private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val aqidsController = applicationLevelProvider.aqidsController
     private val fireDSController =applicationLevelProvider.fireDSController
     private val mapDrawController = applicationLevelProvider.mapDrawController
+ var sauce = " fasdf"
+init {
 
 
+}
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
@@ -37,20 +39,21 @@ class DataRepository () {
     ){ property, oldValue, newValue ->
         oldValue.addAll(newValue)
         oldValue.toSet()
-       aqiGeoJson= mapDrawController.makeAQIGeoJson(oldValue)
-        Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.subSequence(0,aqiGeoJson.length)}")
+       aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(oldValue))
+        Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
     }
     var fireLocations: MutableList<DSFires> by Delegates.observable(
     mutableListOf()
     ){ property, oldValue, newValue ->
         oldValue.addAll(newValue)
         oldValue.toSet()
-        fireGeoJson = mapDrawController.makeFireGeoJson(oldValue)
-        Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.subSequence(0,fireGeoJson.length)}")
+        fireGeoJson.postValue( mapDrawController.makeFireGeoJson(oldValue))
+        Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
     }
 
-     var aqiGeoJson:String =""
-     var fireGeoJson:String = ""
+     var aqiGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
+
+     var fireGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
 
 
     fun initData() {

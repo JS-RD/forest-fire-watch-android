@@ -1,4 +1,5 @@
-package com.example.wildfire_fixed_imports.viewmodel
+
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.z_delete_discarded
 
 import android.app.Activity
 
@@ -24,6 +25,7 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 
+
 /*
 *           MasterCoordinator
 *   MasterCoordinator is repsonsible for recieving instructions on what lens are to be drawn to the map and then gathering data from network controller
@@ -33,7 +35,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 * this is perhaps a violation of MVVM as stated but it really seems to be the best choice from what we can reckon for this app.
 *
 *
-* */
+* *//*
+
  class MasterCoordinator() {
 
     //set correct mapbox map and the view containing the mapbox map via dependency injection
@@ -150,7 +153,9 @@ var FIREJOBS:Job = Job()
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
-        /* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*/
+        */
+/* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*//*
+
         AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
 
         fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
@@ -299,7 +304,8 @@ var FIREJOBS:Job = Job()
     //get aqi stations for each location, or for users current location if unspecified
     //send that to the view controller
 
- /*   @SuppressLint("BinaryOperationInTimber")
+ */
+/*   @SuppressLint("BinaryOperationInTimber")
     suspend fun getAQIdata() {
         Timber.i("$TAG begin getaqidata method")
         if(AQIStations.value.isNullOrEmpty()){
@@ -307,7 +313,11 @@ var FIREJOBS:Job = Job()
             startAQIService()
         }
         else{
-          *//*  var listOfFreshNodes = mutableListOf<AQIdata>()*//*
+          *//*
+*/
+/*  var listOfFreshNodes = mutableListOf<AQIdata>()*//*
+*/
+/*
             val mapStationToData = mutableMapOf<AQIStations,AQIdata>()
             for (i in (AQIStations.value as List<AQIStations>).indices) {
                 //TODO() IMPLEMENT SYSTEM TO RESTRICT DETAILED DATA CALLS OR AT LEAST ALERT USER THAT IT MAY TAKE A LONNNNNGGGG TIME (SEVERAL MINUTES FOR 500+ CALLS(
@@ -320,7 +330,11 @@ var FIREJOBS:Job = Job()
                     if (result is SuccessFailWrapper.Success
                             && result.value != null
                            ) {
-                        *//*  listOfFreshNodes.add(result.value)*//*
+                        *//*
+*/
+/*  listOfFreshNodes.add(result.value)*//*
+*/
+/*
                         mapStationToData[current] = result.value
 
                     } else {
@@ -376,8 +390,10 @@ var FIREJOBS:Job = Job()
     }
       var AQIJOBS:Job = Job()
 
-*/
+*//*
 
+
+*/
 /*
     fun addAllFires(DSFires:List<DSFires>) {
         for (i in DSFires.indices) {
@@ -426,15 +442,19 @@ var FIREJOBS:Job = Job()
 
     }
 
+*//*
+
+
+
 */
-
-
 /*    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
 
-     private var AQIObserver:Observer<List<AQIdata>>*/
+     private var AQIObserver:Observer<List<AQIdata>>*//*
+
+*/
 /*    AQIObserver = Observer { list ->
            // Update the UI, in this case, a TextView.
            Timber.i("$TAG aqi observer")
