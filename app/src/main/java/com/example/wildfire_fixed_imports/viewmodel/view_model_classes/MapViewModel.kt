@@ -1,28 +1,21 @@
 package com.example.wildfire_fixed_imports.viewmodel.view_model_classes
 
 
-import androidx.lifecycle.*
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
-import kotlinx.coroutines.launch
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
-import kotlinx.coroutines.CoroutineScope
 import timber.log.Timber
 
 
 class MapViewModel : ViewModel() {
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
+    private val nearestNeighborApproach =applicationLevelProvider.experimentalNearestNeighborApproach
     private val TAG: String get() = "search\n class: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
     private val mapDrawController = MapDrawController()
 
@@ -35,64 +28,23 @@ class MapViewModel : ViewModel() {
     fun triggerMapRedraw() {
 
         Timber.i(TAG)
-
         val aqistations = applicationLevelProvider.dataRepository.aqiGeoJson?.value ?: ""
         val firedata = applicationLevelProvider.dataRepository.fireGeoJson?.value ?: ""
         if (aqistations.isNotBlank() && firedata.isNotBlank()) {
             mapDrawController.createStyleFromGeoJson(aqistations, firedata)
+            doExperimental()
         }
 
     }
 
-
-
-  /*  fun triggerMapRedraw() {
-        Timber.i(TAG + "triggermapredraw")
-        if (::targetMaster.isInitialized) {
-            Timber.i(TAG + "triggermapredraw targetmaster is initialized")
-            val aqistations = targetMaster.AQIGeoJson.value
-            val firedata = targetMaster.fireGeoJson.value
-
-            if (!aqistations.isNullOrEmpty() && !firedata.isNullOrEmpty()) {
-                Timber.i("$TAG \naqi + fire not null not empty")
-                mapDrawController.createStyleFromGeJson(aqistations, firedata)
-
-             viewModelScope.launch {
-                    val exp = ExperimentalNearestNeighborApproach()
-
-                            exp.createCircleStyleFromGeoJson(
-                            exp.makeGeoJsonCirclesManually(targetMaster.AQIStations.value?: listOf())
-                            )
-
-                }
-
-
-
-
-            }
+    fun doExperimental(){
+        Timber.i(TAG)
+        val aqiNearestNeighborApproach=applicationLevelProvider.dataRepository.aqiNearestNeighborGeoJson?.value ?: ""
+        if (aqiNearestNeighborApproach.isNotBlank()) {
+            nearestNeighborApproach.createCircleStyleFromGeoJson(aqiNearestNeighborApproach)
         }
-
     }
-    */
 
-
-
-/*    fun onMapLoaded() {
-
-        if (!::targetMaster.isInitialized) {
-            Timber.i("$TAG \n resume initialize check ")
-
-            targetMaster = MasterCoordinator()
-            applicationLevelProvider.masterCoordinator = targetMaster
-            fireServiceRunning.observe(currentActivity as LifecycleOwner, fireObserver)
-            aqiServiceRunning.observe(currentActivity as LifecycleOwner, aqiObserver)
-
-
-
-        }
-
-        triggerMapRedraw()
-    }*/
         fun startFireRetrieval() {
          /*   viewModelScope.launch {
                _fireServiceRunning.postValue(true)

@@ -30,6 +30,7 @@ import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
 import com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
@@ -129,6 +130,10 @@ class ApplicationLevelProvider : Application() {
         FirebaseAuthImpl()
     }
 
+    val experimentalNearestNeighborApproach by lazy {
+        ExperimentalNearestNeighborApproach()
+    }
+
     val userWebBEController by lazy {
         UserWebBEController()
     }
@@ -185,7 +190,7 @@ class ApplicationLevelProvider : Application() {
     lateinit var switchFireBSIcon: SwitchCompat
     lateinit var fireImageView: ImageView
     lateinit var cloudImageView: ImageView
-    lateinit var aqiGaugeExpanded: ViewGroup
+     var aqiGaugeExpanded: ViewGroup? = null
     lateinit var aqiGaugeMinimized: ImageView
     lateinit var drawerToggle: ActionBarDrawerToggle
     lateinit var appBarLayout: AppBarLayout
@@ -244,7 +249,6 @@ class ApplicationLevelProvider : Application() {
 
         instance = this
 
-        dataRepository.observableData = "df"
 
         localUser = LocalUser.getInstance()
         //hash tag team smoke trees

@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
     ): View? {
 
 
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.INVISIBLE
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
 
 

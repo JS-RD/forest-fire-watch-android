@@ -1,25 +1,25 @@
 package com.example.wildfire_fixed_imports.model
 
 
+import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
+import com.example.wildfire_fixed_imports.DataRepositoryWatcher
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
 import kotlinx.coroutines.*
 import timber.log.Timber
-import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.properties.Delegates
-import kotlin.properties.ObservableProperty
 
-class DataRepository () {
+class DataRepository: DataRepositoryWatcher {
     private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val aqidsController = applicationLevelProvider.aqidsController
     private val fireDSController =applicationLevelProvider.fireDSController
     private val mapDrawController = applicationLevelProvider.mapDrawController
- var sauce = " fasdf"
+    private val nearestNeighborApproach =applicationLevelProvider.experimentalNearestNeighborApproach
 init {
 
 
@@ -27,19 +27,16 @@ init {
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
-    var isFiresServiceRunning = AtomicBoolean()
-    var isAQIdatasServiceRunning = AtomicBoolean()
-
-    var observableData: String by Delegates.observable("Initial value") {
-        property, oldValue, newValue ->
-        println("${property.name}: $oldValue -> $newValue")
-    }
     var aqiStations: MutableList<AQIStations> by Delegates.observable(
             mutableListOf()
     ){ property, oldValue, newValue ->
         oldValue.addAll(newValue)
         oldValue.toSet()
        aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(oldValue))
+        if (aqiNearestNeighborGeoJson.value.isNullOrEmpty()){
+            Timber.d("$TAG \n ${aqiNearestNeighborGeoJson?.value} (aqiNearestNeighborGeoJson.value) isNullORblack")
+        getExperimental()
+        }
         Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
     }
     var fireLocations: MutableList<DSFires> by Delegates.observable(
@@ -55,6 +52,8 @@ init {
 
      var fireGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
 
+    var aqiNearestNeighborGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
+
 
     fun initData() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -64,6 +63,12 @@ init {
             fireLocations = getFires()?.toMutableList() ?: mutableListOf()
         }
     }
+
+fun getExperimental() {
+    CoroutineScope(Dispatchers.Default).launch {
+                aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
+    }
+}
 
     suspend fun getFires(): List<DSFires>? {
         val result = fireDSController.getDSFireLocations()
@@ -75,8 +80,8 @@ init {
                 is SuccessFailWrapper.Fail -> Timber.i(result.message)
                 else -> Timber.i(result.toString())
             }
+            return getFires()
         }
-        return null
     }
 
 
@@ -123,6 +128,7 @@ init {
                     is SuccessFailWrapper.Fail -> Timber.i("fail at ${it.message}")
                     else -> Timber.i("fail! $it")
                 }
+                Toast.makeText(applicationLevelProvider.baseContext,"Some AQI data may be missing, please reload app and try again later",Toast.LENGTH_SHORT).show()
             }
         }
         Timber.e("test + "+compositeResult.toString().subSequence(0,30))
@@ -150,5 +156,21 @@ init {
             if (mInstance == null) mInstance = DataRepository()
             return mInstance as DataRepository
         }
+    }
+
+
+    var liveDataCurrentLoading:LiveData<String> = MutableLiveData<String>().apply {
+        this.value= ""
+    }
+    var liveDataLoadingComplete:LiveData<Boolean> = MutableLiveData<Boolean>().apply {
+        this.value=  false
+    }
+    override fun getCurrentLoading(): LiveData<String> {
+        return liveDataCurrentLoading
+    }
+
+    override fun loadingComplete(): LiveData<Boolean> {
+     //   if (aqiGeoJson.value.isNullOrEmpty() && fireGeoJson.value.isNullOrEmpty())
+        return liveDataLoadingComplete
     }
 }
