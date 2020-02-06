@@ -52,7 +52,11 @@ init {
 
      var fireGeoJson:MutableLiveData<String> = MutableLiveData()
 
-    var aqiNearestNeighborGeoJson:MutableLiveData<String> = MutableLiveData()
+    var aqiNearestNeighborGeoJson:MutableLiveData<String>  by Delegates.observable(MutableLiveData()) {property, oldValue, newValue ->
+        if (!newValue.value.isNullOrBlank()){
+            liveDataLoadingComplete.postValue(true)
+        }
+    }
 
 
     fun initData() {
@@ -173,7 +177,7 @@ init {
     }
 
     override fun loadingComplete(): LiveData<Boolean> {
-     //   if (aqiGeoJson.value.isNullOrEmpty() && fireGeoJson.value.isNullOrEmpty())
+
         return liveDataLoadingComplete
     }
 }
