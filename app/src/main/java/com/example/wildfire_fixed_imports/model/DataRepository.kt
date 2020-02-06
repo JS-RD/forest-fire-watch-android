@@ -48,11 +48,11 @@ init {
         Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
     }
 
-     var aqiGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
+     var aqiGeoJson:MutableLiveData<String> = MutableLiveData()
 
-     var fireGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
+     var fireGeoJson:MutableLiveData<String> = MutableLiveData()
 
-    var aqiNearestNeighborGeoJson:MutableLiveData<String> = MutableLiveData<String>().apply { "" }
+    var aqiNearestNeighborGeoJson:MutableLiveData<String> = MutableLiveData()
 
 
     fun initData() {
@@ -64,7 +64,7 @@ init {
         }
     }
 
-fun getExperimental() {
+ fun getExperimental() {
     CoroutineScope(Dispatchers.Default).launch {
                 aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
     }
@@ -159,13 +159,13 @@ fun getExperimental() {
     }
 
 
-    var liveDataCurrentLoading:LiveData<String> = MutableLiveData<String>().apply {
-        this.value= ""
+    val liveDataCurrentLoading:MutableLiveData<LoadingDefinition> = MutableLiveData<LoadingDefinition>().apply {
+        this.value= LoadingDefinition.Throwable()
     }
-    var liveDataLoadingComplete:LiveData<Boolean> = MutableLiveData<Boolean>().apply {
-        this.value=  false
+    val liveDataLoadingComplete:MutableLiveData<Boolean> = MutableLiveData<Boolean>().apply {
+        this.value= false
     }
-    override fun getCurrentLoading(): LiveData<String> {
+    override fun getCurrentLoading(): LiveData<LoadingDefinition> {
         return liveDataCurrentLoading
     }
 
