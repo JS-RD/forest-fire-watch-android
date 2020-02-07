@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
     ): View? {
 
 
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.INVISIBLE
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
 
 
@@ -92,9 +92,10 @@ class SettingsFragment : Fragment() {
         saveTheme(prefsMode)
     }
 
-    private fun getSavedTheme() = sharedPrefs.getInt(KEY_THEME, THEME_UNDEFINED)
+    private fun getSavedTheme() = applicationLevelProvider.localUser?.mTheme
 
-    private fun saveTheme(theme: Int) = sharedPrefs.edit().putInt(KEY_THEME, theme).apply()
+    private fun saveTheme(theme: Int) = applicationLevelProvider.localUser?.saveTheme(theme)
+
 
     private fun initTheme() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){

@@ -101,7 +101,7 @@
         layout="@layout/aqi_bar"
         android:layout_marginTop="100dp"
         android:layout_width="85sp"
-        android:layout_height="281sp"
+        android:layout_height="250sp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="12dp" />
 

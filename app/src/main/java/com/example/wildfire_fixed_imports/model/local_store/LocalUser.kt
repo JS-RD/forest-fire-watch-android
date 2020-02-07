@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports.model.local_store
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.*
 import com.example.wildfire_fixed_imports.util.*
@@ -8,7 +9,9 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.properties.Delegates
 
 /*
 *  this class acts as a repository for user related objects
@@ -18,8 +21,9 @@ import timber.log.Timber
 class LocalUser(
         var mWebBEUser: WebBEUser? = null,
         var mLocations: MutableList<WebBELocation?> = mutableListOf(DEFAULT_WEBBELOCATION),
+        var mDefaultRadius: Double = 5.0,
         var mTheme: Int? = THEME_UNDEFINED,
-        var mAqiStations: MutableList<AQIStations> = mutableListOf(),
+
         var mFireLocations: MutableList<DSFires> = mutableListOf(),
         var mLayerVisibility: MutableMap<String, Boolean> = mutableMapOf(
                 AQI_BASE_TEXT_LAYER to true,
@@ -31,6 +35,17 @@ class LocalUser(
 
 
 ) {
+    var observableData: String by Delegates.observable("Initial value") {
+        property, oldValue, newValue ->
+        println("${property.name}: $oldValue -> $newValue")
+    }
+    var mAqiStations: MutableList<AQIStations> by Delegates.observable(mutableListOf()){ property, oldValue, newValue ->
+       oldValue.addAll(newValue)
+       oldValue.toSet()
+
+    }
+
+    var AqiGeoJson:String = ""
 
     val mFirebaseUser: FirebaseUser? get() =  firebaseAuth.currentUser
 
@@ -43,7 +58,14 @@ class LocalUser(
 
     init {
         Timber.i("$TAG \n LocalUser init")
-        CoroutineScope(Dispatchers.IO).async {
+
+        mTheme = getSavedTheme()
+        Timber.i("$TAG theme = $mTheme")
+        setTheme(mTheme as Int)
+
+        mDefaultRadius = getDefaultRadius()
+
+        CoroutineScope(Dispatchers.IO).launch {
 
             if (firebaseAuth.currentUser?.uid != null) {
                 val result = CoroutineScope(Dispatchers.IO).async {applicationLevelProvider.userWebBEController.signin()}.await()
@@ -61,10 +83,14 @@ class LocalUser(
                 }
                 getLayerVisibilityFromPrefs()
                 getUserLocationsInit()
+                Timber.i("test $mLocations")
+                applicationLevelProvider.dataRepository.initData()
             }
 
 
         }
+
+
     }
 
     private suspend fun getUserLocationsInit() {
@@ -78,6 +104,7 @@ class LocalUser(
                 result.value?.forEach {
                     mLocations.add(it)
                 }
+
             }
             else -> Timber.e("$TAG \n ERROR IN GET USER LOCATIONS INIT \n $result")
         }
@@ -93,7 +120,7 @@ class LocalUser(
     private fun getLayerVisibilityFromPrefs() {
         mLayerVisibility.forEach{
             mLayerVisibility[it.key] =sharedPreferencesHelper.getBoolean(it.key,true)
-            Timber.d("\n ${it.key} = key \n ${it.value} = value ")
+            //Timber.d("\n ${it.key} = key \n ${it.value} = value ")
         }
     }
     private fun saveLayerVisibility() {
@@ -102,10 +129,27 @@ class LocalUser(
             sharedPreferencesHelper.saveBoolean(it.key,it.value)
         }
     }
+    private fun getDefaultRadius():Double =  sharedPreferencesHelper.getDouble(KEY_DEFAULT_RADIUS, 5.0)
 
-    private fun getSavedTheme() = sharedPreferencesHelper.getInteger(KEY_THEME, THEME_UNDEFINED)
+    fun saveDefaultRadius(defaultRadius: Double) = sharedPreferencesHelper.saveDouble(KEY_DEFAULT_RADIUS, defaultRadius).also { mDefaultRadius=defaultRadius }
 
-    private fun saveTheme(theme: Int) = sharedPreferencesHelper.saveInteger(KEY_THEME, theme)
+    private fun getSavedTheme():Int = sharedPreferencesHelper.getInteger(KEY_THEME, THEME_UNDEFINED)
+
+    private fun setTheme(prefsMode: Int) {
+        Timber.i("theme prefsmode= $prefsMode")
+        CoroutineScope(Dispatchers.Main).launch {
+            when (prefsMode) {
+                THEME_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme follow sys") }
+                THEME_BATTERY -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY).also { Timber.i("theme auth batt ") }
+                THEME_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES).also { Timber.i("theme night yes ") }
+                THEME_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO).also { Timber.i("theme night no ") }
+                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).also { Timber.i("theme else af  ") }
+            }
+        }
+
+    }
+
+    fun saveTheme(theme: Int) = sharedPreferencesHelper.saveInteger(KEY_THEME, theme)
 
     fun saveUser() {
 
@@ -115,7 +159,7 @@ class LocalUser(
 
     companion object {
         private var mInstance: LocalUser? = null
-        fun getInstance(context: Context): LocalUser {
+        fun getInstance(): LocalUser {
             if (mInstance == null) mInstance = LocalUser()
             return mInstance as LocalUser
         }

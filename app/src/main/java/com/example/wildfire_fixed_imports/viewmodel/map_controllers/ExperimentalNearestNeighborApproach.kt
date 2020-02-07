@@ -18,6 +18,8 @@ import com.mapbox.mapboxsdk.style.layers.FillLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.net.URISyntaxException
 import kotlin.math.cos
@@ -50,30 +52,38 @@ class ExperimentalNearestNeighborApproach {
 
 
     fun createCircleStyleFromGeoJson( AqiCircle: String) {
-        applicationLevelProvider.mapboxMap.getStyle { style ->
+        Coroutines.main {
+            Timber.i(TAG)
+            applicationLevelProvider.mapboxMap.getStyle { style ->
+                style.removeLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID)
+                style.removeSource(AQI_NEAREST_NEIGHBOR_SOURCE_ID)
+            }
 
-            try {
 
-                applicationLevelProvider.mapboxStyle = style
-                val pointCount = Expression.toNumber(Expression.get("point_count"))
-                val dived = Expression.ceil(Expression.division(Expression.get("sum"), pointCount))
-                val aqiFeatureCalcExpression = Expression.ceil(Expression.toNumber(Expression.get("aqi")))
+            applicationLevelProvider.mapboxMap.getStyle { style ->
 
-                // new manual aqi circle sheet
-                style.addSource(
-                        GeoJsonSource(
-                                AQI_NEAREST_NEIGHBOR_SOURCE_ID,
+                try {
 
-                                // Point to GeoJSON data.
-                                FeatureCollection.fromJson(AqiCircle),
-                                GeoJsonOptions()
-                                        .withCluster(false)
-                                /*         .withClusterMaxZoom(15) // Max zoom to cluster points on
+                    applicationLevelProvider.mapboxStyle = style
+                    val pointCount = Expression.toNumber(Expression.get("point_count"))
+                    val dived = Expression.ceil(Expression.division(Expression.get("sum"), pointCount))
+                    val aqiFeatureCalcExpression = Expression.ceil(Expression.toNumber(Expression.get("aqi")))
+
+                    // new manual aqi circle sheet
+                    style.addSource(
+                            GeoJsonSource(
+                                    AQI_NEAREST_NEIGHBOR_SOURCE_ID,
+
+                                    // Point to GeoJSON data.
+                                    FeatureCollection.fromJson(AqiCircle),
+                                    GeoJsonOptions()
+                                            .withCluster(false)
+                                    /*         .withClusterMaxZoom(15) // Max zoom to cluster points on
                                          .withClusterRadius(30) // Use small cluster radius for the hotspots look
                                          .withClusterProperty("sum", literal("+"), toNumber(get("aqi"))*/
 
-                        )
-                )
+                            )
+                    )
 
 /*
 * map.addSource("polygon", createGeoJSONCircle([-93.6248586, 41.58527859], 0.5));
@@ -90,30 +100,30 @@ map.addLayer({
 });
 * */
 
-                val fillLayer = FillLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID, AQI_NEAREST_NEIGHBOR_SOURCE_ID)
-                fillLayer.setProperties(PropertyFactory.fillColor(
+                    val fillLayer = FillLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID, AQI_NEAREST_NEIGHBOR_SOURCE_ID)
+                    fillLayer.setProperties(PropertyFactory.fillColor(
 
-                        Expression.interpolate(
-                                Expression.linear(), aqiFeatureCalcExpression, //
-                                Expression.literal(0), Expression.rgb(0, 255, 0),
-                                Expression.literal(50), Expression.rgb(255, 255, 0),
-                                Expression.literal(100), Expression.rgb(255, 153, 51),
-                                Expression.literal(150), Expression.rgb(255, 0, 0),
-                                Expression.literal(500), Expression.rgb(127, 52, 52)
-                        )
+                            Expression.interpolate(
+                                    Expression.linear(), aqiFeatureCalcExpression, //
+                                    Expression.literal(0), Expression.rgb(0, 255, 0),
+                                    Expression.literal(50), Expression.rgb(255, 255, 0),
+                                    Expression.literal(100), Expression.rgb(255, 153, 51),
+                                    Expression.literal(150), Expression.rgb(255, 0, 0),
+                                    Expression.literal(500), Expression.rgb(127, 52, 52)
+                            )
 
 
-                ))
+                    ))
 // Add fill layer to map
-                // Add fill layer to map
-                style.addLayer(fillLayer)
+                    // Add fill layer to map
+                    style.addLayer(fillLayer)
 
 
-            } catch (uriSyntaxException: URISyntaxException) {
-                Timber.e("Check the URL %s", uriSyntaxException.message)
+                } catch (uriSyntaxException: URISyntaxException) {
+                    Timber.e("Check the URL %s", uriSyntaxException.message)
+                }
             }
         }
-
 
     }
 

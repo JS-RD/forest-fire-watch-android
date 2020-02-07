@@ -1,4 +1,5 @@
-package com.example.wildfire_fixed_imports.viewmodel
+
+package com.example.wildfire_fixed_imports.viewmodel.map_controllers.z_delete_discarded
 
 import android.app.Activity
 
@@ -12,6 +13,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.AQIStations
 import com.example.wildfire_fixed_imports.model.DSFires
 import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +22,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
+
 
 /*
 *           MasterCoordinator
@@ -31,19 +35,14 @@ import java.util.concurrent.atomic.AtomicBoolean
 * this is perhaps a violation of MVVM as stated but it really seems to be the best choice from what we can reckon for this app.
 *
 *
-* */
+* *//*
+
  class MasterCoordinator() {
 
     //set correct mapbox map and the view containing the mapbox map via dependency injection
 
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
 
-    private val targetMap: MapboxMap by lazy {
-        applicationLevelProvider.mapboxMap
-    }
-    private val mapboxView: View by lazy {
-        applicationLevelProvider.mapboxView
-    }
 
     private val fireDSController by lazy {
         applicationLevelProvider.fireDSController
@@ -53,10 +52,8 @@ import java.util.concurrent.atomic.AtomicBoolean
         applicationLevelProvider.aqidsController
     }
 
-
-
     private val mapDrawController by lazy {
-        MapDrawController().also { applicationLevelProvider.mapDrawController = it }
+        applicationLevelProvider.mapDrawController
     }
     //additional dependency injection
     private val currentActivity: Activity = applicationLevelProvider.currentActivity
@@ -75,7 +72,7 @@ import java.util.concurrent.atomic.AtomicBoolean
     val fireData: LiveData<List<DSFires>> = _fireData
     private var fireObserver: Observer<List<DSFires>>
 
-    private val _AQIStations = MutableLiveData<List<AQIStations>>().apply { value = listOf<AQIStations>() }
+    private val _AQIStations = MutableLiveData<List<AQIStations>>() //.apply { value = listOf<AQIStations>() }
     val AQIStations: LiveData<List<AQIStations>> = _AQIStations
     private var AQIStationObserver: Observer<List<AQIStations>>
 
@@ -156,7 +153,9 @@ var FIREJOBS:Job = Job()
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         fireData.observe(currentActivity as LifecycleOwner, fireObserver)
-        /* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*/
+        */
+/* AQIData.observe(currentActivity as LifecycleOwner, AQIObserver)*//*
+
         AQIStations.observe(currentActivity as LifecycleOwner, AQIStationObserver)
 
         fireGeoJson.observe(currentActivity as LifecycleOwner, fireGeoJsonObserver)
@@ -165,10 +164,8 @@ var FIREJOBS:Job = Job()
     }
 
 
-    suspend fun getAQIstations(): List<AQIStations>? {
-        //TODO this will eventually need to check user prefs and react accordingly,
-        // for now, we simply will check from the users location
 
+    suspend fun getAQIstations(): List<AQIStations>? {
         // 8.0 is max distance that can be set and still expect maximum local resolution (or very close to it), any higher
         // and you will start to notice local stations dropping off the list
         // 15-20 can be a nice middle ground as you'll get your half of north america (West or east coast or central, a bit of central america
@@ -179,40 +176,51 @@ var FIREJOBS:Job = Job()
         //      50 is the current demo setting as it allows us to explore the us but also see how there may be several aqi stations in your city and many in your
         //                  state
         //
+        val userLocations:MutableList<WebBELocation?> = applicationLevelProvider.localUser?.mLocations
+                ?: mutableListOf<WebBELocation?>()
+                .also{ Timber.e("$TAG mLocations is null, exiting getaqistations unsuccessfully"); return null}
+
+        Timber.e("user locations in get aqi stations" )
+        userLocations.forEach {
+            Timber.i("$it another test "+it?.latitude)
+        }
+
+        val lstOfReturnData = ConcurrentLinkedQueue<SuccessFailWrapper<List<AQIStations>>>()
+        userLocations.forEach {
+            Timber.i("test 1-${System.currentTimeMillis()}")
+            lstOfReturnData.add(
+                    aqidsController.getAQIStations(
+                            it?.latitude ?: 20.0,
+                            it?.longitude ?: 20.0,
+                            it?.radius ?: 5.0)
+            )
+        }
+        val compositeResult = mutableListOf<AQIStations>()
+        lstOfReturnData.forEach {
+            Timber.i("test 2-${System.currentTimeMillis()}")
+            if (it is SuccessFailWrapper.Success) {
+                //this is what happens when you let the IDE demand shit out of you.
+              compositeResult.addAll(it.value ?: listOf())
 
 
-        val currentLocal = applicationLevelProvider.userLocation?.LatLng()
-                ?: LatLng(20.0, 20.0).also {
-                    Toast.makeText(applicationLevelProvider.currentActivity,
-                            "Something went wrong when finding your location, please enable GPS in your application settings",
-                            Toast.LENGTH_SHORT).show()
+            } else {
+                when (it) {
+                    is SuccessFailWrapper.Throwable -> Timber.i("fail at ${it.message} ${it.t.toString()}")
+                    is SuccessFailWrapper.Fail -> Timber.i("fail at ${it.message}")
+                    else -> Timber.i("fail! $it")
                 }
-        val result = aqidsController.getAQIStations(
-                currentLocal.latitude,
-                currentLocal.longitude,
-                30.0)
-        if (result is SuccessFailWrapper.Success) {
-            return cleanAQIStationData(result.value)
-
-        } else {
-            when (result) {
-                is SuccessFailWrapper.Throwable -> Timber.i(result.message)
-                is SuccessFailWrapper.Fail -> Timber.i(result.message).also { isAQIdatasServiceRunning.set(false) }.also {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Toast.makeText(applicationLevelProvider.applicationContext,
-                                "canceled or error" + result.message, Toast.LENGTH_LONG).show()
-                        applicationLevelProvider.showSnackbar("AQI service quitting", Snackbar.LENGTH_INDEFINITE)
-                    }
-                }
-                else -> Timber.i(result.toString())
             }
         }
-        return null
+        Timber.e("test + "+compositeResult.toString().subSequence(0,30))
+        return cleanAQIStationData(compositeResult)
+
+
     }
+
 
     fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
         val mutListResult = mutableListOf<AQIStations>()
-        aqiStations?.forEach{
+        aqiStations?.toSet()?.forEach{
             if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
                 mutListResult.add(it)
             }
@@ -251,7 +259,7 @@ var FIREJOBS:Job = Job()
 
     }
     suspend fun startAQIService() {
-        Timber.i("$javaClass $methodName initialized")
+        Timber.i("$javaClass $methodName startaqi initialized")
         isAQIdatasServiceRunning.set(true)
         var countup = 0
         while (isAQIdatasServiceRunning.get()) {
@@ -264,6 +272,7 @@ var FIREJOBS:Job = Job()
                         if (result != null) {
                             //now that we got em, call the data retriever
                             _AQIStations.postValue(result)
+                            applicationLevelProvider.localUser?.mAqiStations = result.toMutableList()
                         } else {
                             Timber.i("$TAG failed to load AQI Stations")
                         }
@@ -295,7 +304,8 @@ var FIREJOBS:Job = Job()
     //get aqi stations for each location, or for users current location if unspecified
     //send that to the view controller
 
- /*   @SuppressLint("BinaryOperationInTimber")
+ */
+/*   @SuppressLint("BinaryOperationInTimber")
     suspend fun getAQIdata() {
         Timber.i("$TAG begin getaqidata method")
         if(AQIStations.value.isNullOrEmpty()){
@@ -303,7 +313,11 @@ var FIREJOBS:Job = Job()
             startAQIService()
         }
         else{
-          *//*  var listOfFreshNodes = mutableListOf<AQIdata>()*//*
+          *//*
+*/
+/*  var listOfFreshNodes = mutableListOf<AQIdata>()*//*
+*/
+/*
             val mapStationToData = mutableMapOf<AQIStations,AQIdata>()
             for (i in (AQIStations.value as List<AQIStations>).indices) {
                 //TODO() IMPLEMENT SYSTEM TO RESTRICT DETAILED DATA CALLS OR AT LEAST ALERT USER THAT IT MAY TAKE A LONNNNNGGGG TIME (SEVERAL MINUTES FOR 500+ CALLS(
@@ -316,7 +330,11 @@ var FIREJOBS:Job = Job()
                     if (result is SuccessFailWrapper.Success
                             && result.value != null
                            ) {
-                        *//*  listOfFreshNodes.add(result.value)*//*
+                        *//*
+*/
+/*  listOfFreshNodes.add(result.value)*//*
+*/
+/*
                         mapStationToData[current] = result.value
 
                     } else {
@@ -372,8 +390,10 @@ var FIREJOBS:Job = Job()
     }
       var AQIJOBS:Job = Job()
 
-*/
+*//*
 
+
+*/
 /*
     fun addAllFires(DSFires:List<DSFires>) {
         for (i in DSFires.indices) {
@@ -422,15 +442,19 @@ var FIREJOBS:Job = Job()
 
     }
 
+*//*
+
+
+
 */
-
-
 /*    private val _AQIData = MutableLiveData<List<AQIdata>>().apply {
         value= listOf<AQIdata>()
     }
     val AQIData: LiveData<List<AQIdata>> = _AQIData
 
-     private var AQIObserver:Observer<List<AQIdata>>*/
+     private var AQIObserver:Observer<List<AQIdata>>*//*
+
+*/
 /*    AQIObserver = Observer { list ->
            // Update the UI, in this case, a TextView.
            Timber.i("$TAG aqi observer")

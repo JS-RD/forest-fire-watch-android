@@ -1,28 +1,22 @@
 package com.example.wildfire_fixed_imports.view.map_display
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
-import com.google.android.material.snackbar.Snackbar
-import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
@@ -45,10 +39,8 @@ class WildFireMapFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
-        if (::mapViewModel.isInitialized){
-            mapViewModel.triggerMapRedraw()
-        }
+        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
+
 
 
     }
@@ -96,7 +88,7 @@ class WildFireMapFragment : Fragment() {
 
     fun finishLoading() {
         val style = Style.SATELLITE
-        mapboxMap.setStyle(style) {
+        mapboxMap.setStyle(style) { it ->
 
             it.transition = TransitionOptions(0, 0, false)
 
@@ -109,11 +101,25 @@ class WildFireMapFragment : Fragment() {
             mapViewModel.onMapLoaded()
             Timber.w("$TAG config")
 
-            // start the fire service/immediately to start retrieving fires
-            CoroutineScope(Dispatchers.IO).launch {
-                mapViewModel.startFireRetrieval()
-                mapViewModel.startAQIRetrieval()
+
+            applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.triggerMapRedraw()
+                }
+            })
+            applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.triggerMapRedraw()
+                }
+            })
+            applicationLevelProvider.dataRepository.aqiNearestNeighborGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.doExperimental()
+                }
             }
+            )
+            // start the fire service/immediately to start retrieving fires
+
 
         }
 
