@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports.view.map_display
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.view.EntranceActivity
+import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
@@ -41,8 +44,10 @@ class WildFireMapFragment : Fragment() {
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
         applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
 
+        if (applicationLevelProvider.dataRepository.fireGeoJson.value.isNullOrEmpty()) {
 
-
+            startActivity(Intent(this.context, EntranceActivity::class.java))
+        }
     }
 
     private lateinit var mapViewModel: MapViewModel
