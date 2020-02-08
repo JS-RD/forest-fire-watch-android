@@ -55,7 +55,6 @@ class EntranceActivity : AppCompatActivity() {
         textView.setOnClickListener {
             redirect()
         }
-
     }
 
     fun initPermissions() {

@@ -32,6 +32,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.z_delete_discarded.initHeatmapColors
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -384,7 +385,8 @@ class MainActivity : AppCompatActivity() {
                     applicationLevelProvider.internetPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
-                    TODO("CAUSE APPLICATION TO EXIT HERE")
+
+                    initHeatmapColors()
                 }
                 return
             }
@@ -415,96 +417,3 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-/*
-*
-*
-*
-*
-    var permissionsListener: PermissionsListener = object : PermissionsListener {
-        override fun onExplanationNeeded(permissionsToExplain: List<String>) {
-        }
-        override fun onPermissionResult(granted: Boolean) {
-            if (granted) {
-                // Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
-            } else {
-                // User denied the permission
-            }
-        }
-    }
-*
-*
-*   fun checkPermissions() {
-        // Here, this is the current activity
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.READ_CONTACTS),
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION
-                )
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-        }
-    }
-*
-*     var permissionsManager = PermissionsManager()
-    if (PermissionsManager.areLocationPermissionsGranted(this)) {
-// Permission sensitive logic called here, such as activating the Maps SDK's LocationComponent to show the device's location
-    } else {
-        permissionsManager = PermissionsManager(this)
-        permissionsManager.requestLocationPermissions(this)
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-                                            grantResults: IntArray) {
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-}
-* */
-
-
-/*
-*
-*          val fm = supportFragmentManager
-             val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-             val fragment2= navHostFragment!!.childFragmentManager.fragments[0]
-              println(fragment2.toString())
-                      (fragment2 as HomeFragment).mapIT()*/
-           // val homeid = findNavController(R.id.nav_host_fragment).currentDestination!!.id
-         /*   will give you your current Fragment's id where
-*/
-          //  private fun navController() = Navigation.findNavController(this, R.id.navHostFragment)
-/*            this id is the id which you have given in your Navigation Graph XML file under fragment tag.
-            You could also compare currentDestination.label if you wan*/
-
-       /*   *//*  val fragment: HomeFragment =
-                fm.findFragmentById(R.id.home) as HomeFragment*//*
-         //   NewsItemFragment tag = ( NewsItemFragment)getFragmentManager().findFragmentByTag(MainActivity.NEWSITEM_FRAGMENT)
-            val fragment2 = fm.findFragmentById(R.id.nav_host_fragment)
-                val fraglist  = fm.fragments
-            print(fraglist.toString())
-            println("huh")
-            println(fragment2)
-       *//*  //   println(fragment2!!.tag)
-            println(fragment2.id)
-            *//*            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()*/
