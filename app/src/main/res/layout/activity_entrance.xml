@@ -5,7 +5,7 @@
     android:id="@+id/motion_layout_entrance"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellowFireBackground"
+    android:background="@color/intro_animated_background"
     app:layoutDescription="@xml/splash_animation"
     tools:context=".view.EntranceActivity">
 
@@ -15,8 +15,8 @@
         android:layout_height="220dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_fireicon"
-        android:backgroundTint="@color/aqi3red"
+        android:background="@drawable/ic_fire_animated"
+        android:backgroundTint="@color/intro_fire_animated_reactive"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
