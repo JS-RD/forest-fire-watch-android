@@ -32,7 +32,6 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.z_delete_discarded.initHeatmapColors
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -46,9 +45,7 @@ import com.mapbox.mapboxsdk.location.modes.RenderMode
 import com.mapbox.mapboxsdk.maps.Style
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+
 import timber.log.Timber
 
 
@@ -386,7 +383,7 @@ class MainActivity : AppCompatActivity() {
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
 
-                    initHeatmapColors()
+
                 }
                 return
             }

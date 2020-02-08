@@ -170,6 +170,9 @@ class ApplicationLevelProvider : Application() {
         MapViewModelFactory()
     }
 
+    val mapboxToken by lazy {
+        getString(R.string.mapbox_access_token)
+    }
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
@@ -233,7 +236,7 @@ class ApplicationLevelProvider : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
+        Mapbox.getInstance(this, mapboxToken )
         networkConnectionInterceptor = NetworkConnectionInterceptor(this)
 
         aqiIconCircle =
