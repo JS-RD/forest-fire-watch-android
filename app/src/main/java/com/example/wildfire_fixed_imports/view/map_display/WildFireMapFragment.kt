@@ -62,7 +62,7 @@ class WildFireMapFragment : Fragment() {
         applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
 
         if (applicationLevelProvider.dataRepository.fireGeoJson.value.isNullOrEmpty()) {
-
+            Timber.e("$TAG \n\n FIREGEOJSON NULL, DID WE GET BACK TO ENTRACE ACTIVITY??? \n\n\n")
             startActivity(Intent(this.context, EntranceActivity::class.java))
         }
     }
@@ -94,7 +94,7 @@ class WildFireMapFragment : Fragment() {
             applicationLevelProvider.currentActivity.locationInit()
 
         }
-
+        supportFragmentManager =this.activity?.supportFragmentManager ?: applicationLevelProvider.currentActivity.supportFragmentManager
         if (savedInstanceState == null) {
             val placeOptions = PlaceOptions.builder()
                     .toolbarColor(ContextCompat.getColor(applicationLevelProvider.applicationContext, R.color.colorPrimary))
@@ -106,7 +106,7 @@ class WildFireMapFragment : Fragment() {
                     Mapbox.getAccessToken() ?: throw MapboxConfigurationException(),
                     placeOptions
             )
-            supportFragmentManager =this.activity?.supportFragmentManager ?: applicationLevelProvider.currentActivity.supportFragmentManager
+
             val container= view!!.findViewById<FrameLayout>(R.id.fragment_container)
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.fragment_container, autocompleteFragment, PlaceAutocompleteFragment.TAG)
@@ -119,8 +119,6 @@ class WildFireMapFragment : Fragment() {
             override fun onPlaceSelected(carmenFeature: CarmenFeature) {
                 Toast.makeText(applicationLevelProvider.applicationContext,
                         carmenFeature.text()
-
-
 
                         , Toast.LENGTH_LONG).show()
                 val mapboxGeocoding = MapboxGeocoding.builder()

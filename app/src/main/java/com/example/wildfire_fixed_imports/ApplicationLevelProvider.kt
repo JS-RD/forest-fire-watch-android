@@ -15,7 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.model.DataRepository
+import com.example.wildfire_fixed_imports.model.local_store.DataRepository
 import com.example.wildfire_fixed_imports.model.local_store.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper

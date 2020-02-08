@@ -30,7 +30,7 @@ class ExperimentalNearestNeighborApproach {
 
 
     private val TAG: String
-        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+        get() = "\nclass: $className -- file name: $fileName -- method: $methodName \n"
 
 
     fun aqiForUser(list: List<AQIStations>) {

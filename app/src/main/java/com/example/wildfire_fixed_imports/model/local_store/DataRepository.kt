@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.model
+package com.example.wildfire_fixed_imports.model.local_store
 
 
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.DataRepositoryWatcher
+import com.example.wildfire_fixed_imports.model.*
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
@@ -69,9 +70,11 @@ init {
     }
 
  fun getExperimental() {
-    CoroutineScope(Dispatchers.Default).launch {
-                aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
-    }
+     if (aqiNearestNeighborGeoJson.value.isNullOrBlank()) {
+         CoroutineScope(Dispatchers.Default).launch {
+             aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
+         }
+     }
 }
 
     suspend fun getFires(): List<DSFires>? {
