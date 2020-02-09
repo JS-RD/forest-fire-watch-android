@@ -1,6 +1,7 @@
 package com.example.wildfire_fixed_imports.view.map_display
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -338,6 +339,8 @@ class WildFireMapFragment : Fragment() {
     }
 
     override fun onResume() {
+        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
         super.onResume()
 
         mapView?.onResume()
@@ -359,6 +362,8 @@ class WildFireMapFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
+        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         mapView?.onDestroy()
     }
     override fun onLowMemory() {
@@ -369,14 +374,6 @@ class WildFireMapFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         mapView?.onDestroy()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
     }
 
 

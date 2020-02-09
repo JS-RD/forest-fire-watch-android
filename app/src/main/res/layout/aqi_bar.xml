@@ -23,32 +23,26 @@
             android:scaleType="fitXY"
             app:srcCompat="@drawable/aqiscaleupsidetopwise" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#1DFFFFFF"
-            android:backgroundTint="#001A0A0A"
-            android:gravity="center"
-
-            android:text="@string/good_n0"
-            android:shadowColor="#000000"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="3"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/thumbs_up"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/thumbs_up_grey_blue"
             app:layout_constraintBottom_toBottomOf="@id/cl_aqiscale"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.airbnb.lottie.LottieAnimationView
 
+            android:id="@+id/warning"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_rawRes="@raw/warning" />
     </androidx.constraintlayout.widget.ConstraintLayout>

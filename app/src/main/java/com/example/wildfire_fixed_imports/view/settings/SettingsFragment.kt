@@ -44,10 +44,6 @@ class SettingsFragment : Fragment() {
     ): View? {
 
 
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-
-
         settingsViewModel =
             ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)

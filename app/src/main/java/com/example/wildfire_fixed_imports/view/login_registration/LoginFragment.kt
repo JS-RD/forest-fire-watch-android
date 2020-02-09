@@ -44,9 +44,6 @@ class LoginFragment : Fragment() {
 
 
 
-        applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
-
 
         /*
         Makes toggle disappear
@@ -157,6 +154,9 @@ class LoginFragment : Fragment() {
 
 
     }
+
+
+
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome) + model.displayName
