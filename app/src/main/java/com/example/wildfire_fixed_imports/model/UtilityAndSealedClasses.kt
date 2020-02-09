@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.model
 
+import android.view.View
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Response
@@ -22,6 +23,7 @@ sealed class LoadingDefinition ()  {
     data class Error(val text:String= "",val e:java.lang.Exception? = null) : LoadingDefinition()
     object NetworkError: LoadingDefinition()
 }
+
 
 abstract class SafeApiRequest {
 

@@ -12,9 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cl_aqiscale"
-        android:alpha="0.6">
+        >
 
         <ImageView
+            android:alpha="0.6"
             android:id="@+id/img_aqiscale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,26 +30,31 @@
             android:background="#1DFFFFFF"
             android:backgroundTint="#001A0A0A"
             android:gravity="center"
-            android:shadowColor="#00ff00"
-            android:text="Good\n0"
+
+            android:text="@string/good_n0"
+            android:shadowColor="#000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:fontFamily="@font/raleway_medium"
             app:layout_constraintBottom_toBottomOf="@id/cl_aqiscale"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:shadowColor="#000000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="3"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/cl_aqiscale"
             android:gravity="center"
-            android:shadowColor="#EC4242"
-            android:textStyle="bold"
-            android:fontFamily="@font/raleway_medium"
-            android:text="500\nhazardous"
-            android:textColor="@android:color/white" />
+            android:text="@string/_500_nhazardous"
+           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -230,6 +230,16 @@ class MainActivity : AppCompatActivity() {
 
  }
 
+    //public functions for visibility
+    fun showAllMapControls() {
+        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
+        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
+    }
+
+
+
+
+
     //navigation and interface methods
 
     fun locationInit() {
@@ -288,7 +298,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-    
+
 
 
     //for location component
