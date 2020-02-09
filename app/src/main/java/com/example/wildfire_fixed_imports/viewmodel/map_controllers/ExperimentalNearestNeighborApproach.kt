@@ -22,10 +22,13 @@ import com.mapbox.mapboxsdk.style.layers.FillLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.net.URISyntaxException
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -77,6 +80,8 @@ class ExperimentalNearestNeighborApproach {
     }
 
     fun createCircleStyleFromGeoJson( AqiCircle: String) {
+
+
         Coroutines.main {
             Timber.i(TAG)
             applicationLevelProvider.mapboxMap.getStyle { style ->
