@@ -59,8 +59,6 @@ class MapDrawController() {
         val result = com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.FeatureCollection()
         aqiList.forEach {
 
-
-
             result.apply {
                 add(Feature().apply {
                     geometry = Point(LngLatAlt(it.lon, it.lat))
