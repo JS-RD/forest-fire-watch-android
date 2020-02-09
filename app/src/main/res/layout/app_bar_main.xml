@@ -95,7 +95,7 @@
             layout="@layout/bottom_sheet" />
 
     </com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout>
-<!--
+
     <include
         android:id="@+id/aqi_bar_include"
         layout="@layout/aqi_bar"
@@ -115,7 +115,7 @@
         android:layout_marginTop="83dp"
         android:visibility="invisible"
         app:srcCompat="@drawable/meter_clipart" />
--->
+
 
 
 </RelativeLayout>
