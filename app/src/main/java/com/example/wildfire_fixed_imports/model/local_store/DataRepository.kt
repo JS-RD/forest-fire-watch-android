@@ -15,16 +15,14 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.properties.Delegates
 
+@Suppress("UNCHECKED_CAST")
 class DataRepository: DataRepositoryWatcher {
     private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val aqidsController = applicationLevelProvider.aqidsController
     private val fireDSController =applicationLevelProvider.fireDSController
     private val mapDrawController = applicationLevelProvider.mapDrawController
     private val nearestNeighborApproach =applicationLevelProvider.experimentalNearestNeighborApproach
-init {
 
-
-}
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
@@ -148,13 +146,15 @@ init {
     }
 
     fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
-        val mutListResult = mutableListOf<AQIStations>()
-        aqiStations?.toSet()?.forEach{
+        var count = 0
+       val set = aqiStations?.toSet()
+        val mutListResult = arrayOfNulls<AQIStations>(set?.size ?: 1)
+        set?.forEach{
             if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
-                mutListResult.add(it)
+                mutListResult[count++] = it
             }
         }
-        return mutListResult
+        return mutListResult.toList() as List<AQIStations>
     }
 
 

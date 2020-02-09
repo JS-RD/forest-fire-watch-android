@@ -33,7 +33,7 @@ class ExperimentalNearestNeighborApproach {
         get() = "\nclass: $className -- file name: $fileName -- method: $methodName \n"
 
 
-    fun aqiForUser(list: List<AQIStations>) {
+    fun aqiForUser(list: List<AQIStations>) :AQIStations? {
         val user = applicationLevelProvider.userLocation?.LatLng() ?: LatLng(20.0, 20.0)
         var nearestNeighbor: AQIStations? = null
         var bestDist: Double? = null
@@ -47,7 +47,9 @@ class ExperimentalNearestNeighborApproach {
                 nearestNeighbor = current
             }
         }
-        Toast.makeText(applicationLevelProvider.currentActivity, "hey girl you aqi close is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}", Toast.LENGTH_SHORT).show()
+
+        return nearestNeighbor
+      //  Toast.makeText(applicationLevelProvider.currentActivity, "hey girl you aqi close is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}", Toast.LENGTH_SHORT).show()
     }
 
 
