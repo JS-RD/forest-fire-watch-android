@@ -1,28 +1,40 @@
 package com.example.wildfire_fixed_imports.view.map_display
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
+import com.example.wildfire_fixed_imports.view.EntranceActivity
+import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
-import com.google.android.material.snackbar.Snackbar
+import com.mapbox.api.geocoding.v5.MapboxGeocoding
+import com.mapbox.api.geocoding.v5.models.CarmenFeature
+import com.mapbox.api.geocoding.v5.models.GeocodingResponse
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.exceptions.MapboxConfigurationException
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.model.PlaceOptions
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceAutocompleteFragment
+import com.mapbox.mapboxsdk.plugins.places.autocomplete.ui.PlaceSelectionListener
 import com.mapbox.mapboxsdk.style.layers.Layer
 import com.mapbox.mapboxsdk.style.layers.Property.NONE
 import com.mapbox.mapboxsdk.style.layers.Property.VISIBLE
@@ -31,6 +43,9 @@ import com.mapbox.mapboxsdk.style.layers.TransitionOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import timber.log.Timber
 
 
@@ -40,30 +55,31 @@ class WildFireMapFragment : Fragment() {
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
-
+    private lateinit var mapViewModel: MapViewModel
+    private lateinit var mapboxMap: MapboxMap
+    private lateinit var autocompleteFragment: PlaceAutocompleteFragment
+    private lateinit var supportFragmentManager: FragmentManager
+    private var mapView: MapView? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider.aqiGaugeExpanded.visibility = View.VISIBLE
-        if (::mapViewModel.isInitialized){
-            mapViewModel.triggerMapRedraw()
+        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
+
+        if (applicationLevelProvider.dataRepository.fireGeoJson.value.isNullOrEmpty()) {
+            Timber.e("$TAG \n\n FIREGEOJSON NULL, DID WE GET BACK TO ENTRACE ACTIVITY??? \n\n\n")
+            startActivity(Intent(this.context, EntranceActivity::class.java))
         }
-
-
     }
 
-    private lateinit var mapViewModel: MapViewModel
-    private lateinit var mapboxMap:MapboxMap
 
-    var mapView: MapView? = null
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
         // Initialize Home View Model
         mapViewModel = ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
                 MapViewModel::class.java)
-        applicationLevelProvider.appMapViewModel =mapViewModel
+        applicationLevelProvider.appMapViewModel = mapViewModel
 
         mapView = v.findViewById(R.id.mapview_main)
         mapView?.onCreate(savedInstanceState)
@@ -74,20 +90,86 @@ class WildFireMapFragment : Fragment() {
             mapboxMap = myMapboxMap
             applicationLevelProvider.mapboxView = mapView as MapView
 
-                finishLoading()
-                Timber.i("First finish loading")
-                applicationLevelProvider.currentActivity.locationInit()
+            finishLoading()
+            Timber.i("First finish loading")
+            applicationLevelProvider.currentActivity.locationInit()
 
         }
+        supportFragmentManager =this.activity?.supportFragmentManager ?: applicationLevelProvider.currentActivity.supportFragmentManager
+        if (savedInstanceState == null) {
+            val placeOptions = PlaceOptions.builder()
+                    .toolbarColor(ContextCompat.getColor(applicationLevelProvider.applicationContext, R.color.colorPrimary))
+                    .statusbarColor(Color.YELLOW)
+                    .hint("Begin searching...")
+                    .build()
+
+            autocompleteFragment = PlaceAutocompleteFragment.newInstance(
+                    Mapbox.getAccessToken() ?: throw MapboxConfigurationException(),
+                    placeOptions
+            )
+
+            val container= view!!.findViewById<FrameLayout>(R.id.fragment_container)
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, autocompleteFragment, PlaceAutocompleteFragment.TAG)
+            transaction.commit()
+        } else {
+            autocompleteFragment = supportFragmentManager.findFragmentByTag(PlaceAutocompleteFragment.TAG) as PlaceAutocompleteFragment
+        }
+
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(carmenFeature: CarmenFeature) {
+                Toast.makeText(applicationLevelProvider.applicationContext,
+                        carmenFeature.text()
+
+                        , Toast.LENGTH_LONG).show()
+                val mapboxGeocoding = MapboxGeocoding.builder()
+                        .accessToken(applicationLevelProvider.mapboxToken)
+                        .query(carmenFeature.text() ?: "uhnolsax battmon")
+                        .build()
+
+                mapboxGeocoding.enqueueCall(object : Callback<GeocodingResponse> {
+                    override fun onResponse(call: Call<GeocodingResponse>, response: Response<GeocodingResponse>) {
+
+                        val results = response.body()!!.features()
+                        Timber.i( "onResponse: " + results.toString())
+                        if (results.size > 0) {
+
+                            // Log the first results Point.
+                            val firstResultPoint = results[0].center()
+                            Timber.i( "onResponse: " + firstResultPoint!!.toString())
+
+                        } else {
+
+                            // No result for your request were found.
+                            Timber.i( "onResponse: No result found")
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<GeocodingResponse>, throwable: Throwable) {
+                        throwable.printStackTrace()
+                    }
+                })
+
+
+                Timber.i("$\n\n{carmenFeature.text()}  carmen feature.txt \n\n"
+                + "${mapboxGeocoding} mapboxgeocoding result\n"
+                )
+
+                // finish()
+            }
+
+            override fun onCancel() {
+                //finish()
+            }
+        })
 
     }
 
-
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -96,7 +178,7 @@ class WildFireMapFragment : Fragment() {
 
     fun finishLoading() {
         val style = Style.SATELLITE
-        mapboxMap.setStyle(style) {
+        mapboxMap.setStyle(style) { it ->
 
             it.transition = TransitionOptions(0, 0, false)
 
@@ -109,11 +191,25 @@ class WildFireMapFragment : Fragment() {
             mapViewModel.onMapLoaded()
             Timber.w("$TAG config")
 
-            // start the fire service/immediately to start retrieving fires
-            CoroutineScope(Dispatchers.IO).launch {
-                mapViewModel.startFireRetrieval()
-                mapViewModel.startAQIRetrieval()
+
+            applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.triggerMapRedraw()
+                }
+            })
+            applicationLevelProvider.dataRepository.aqiGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.triggerMapRedraw()
+                }
+            })
+            applicationLevelProvider.dataRepository.aqiNearestNeighborGeoJson.observe(this, Observer { string ->
+                if (string.isNotBlank()) {
+                    mapViewModel.doExperimental()
+                }
             }
+            )
+            // start the fire service/immediately to start retrieving fires
+
 
         }
 
@@ -141,8 +237,8 @@ class WildFireMapFragment : Fragment() {
             aqiToggleCompositeHML()
         }
 
-        applicationLevelProvider.btmSheetTvIndex?.text="Air Quality index"
-        applicationLevelProvider.btmSheetTvRadius?.text="Air Quality Radius"
+        applicationLevelProvider.btmSheetTvIndex?.text = "Air Quality index"
+        applicationLevelProvider.btmSheetTvRadius?.text = "Air Quality Radius"
 
     }
 
@@ -187,17 +283,17 @@ class WildFireMapFragment : Fragment() {
     fun aqiToggleBaseHML() {
         mapboxMap.getStyle { style ->
 
-        val layer1: Layer? = style.getLayer(AQI_HEATLITE_BASE_LAYER)
-        if (layer1 != null) {
-            if (VISIBLE == layer1.visibility.getValue()) {
-                layer1.setProperties(visibility(NONE))
-                applicationLevelProvider.aqiBaseHMLLayerVisibility = NONE
-            } else {
-                layer1.setProperties(visibility(VISIBLE))
-                applicationLevelProvider.aqiBaseHMLLayerVisibility = VISIBLE
+            val layer1: Layer? = style.getLayer(AQI_HEATLITE_BASE_LAYER)
+            if (layer1 != null) {
+                if (VISIBLE == layer1.visibility.getValue()) {
+                    layer1.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiBaseHMLLayerVisibility = NONE
+                } else {
+                    layer1.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiBaseHMLLayerVisibility = VISIBLE
+                }
             }
         }
-    }
     }
 
     fun aqiToggleCompositeHML() {
@@ -217,7 +313,6 @@ class WildFireMapFragment : Fragment() {
             }
         }
     }
-
 
 
     fun fireToggleButtonOnClick() {
@@ -240,20 +335,19 @@ class WildFireMapFragment : Fragment() {
         Timber.i("$TAG toggle fire")
 
 
-
     }
-   private fun toggleAQIDetailSwitchs(switchOn: Boolean) {
-       if(switchOn) {
 
-           applicationLevelProvider.btmSheetToggleRadius?.setChecked(true)
-           applicationLevelProvider.btmsheetToggleIndex?.setChecked(true)
-       }
-       else {
+    private fun toggleAQIDetailSwitchs(switchOn: Boolean) {
+        if (switchOn) {
 
-           applicationLevelProvider.btmSheetToggleRadius?.setChecked(false)
-           applicationLevelProvider.btmsheetToggleIndex?.setChecked(false)
-       }
-   }
+            applicationLevelProvider.btmSheetToggleRadius?.setChecked(true)
+            applicationLevelProvider.btmsheetToggleIndex?.setChecked(true)
+        } else {
+
+            applicationLevelProvider.btmSheetToggleRadius?.setChecked(false)
+            applicationLevelProvider.btmsheetToggleIndex?.setChecked(false)
+        }
+    }
 
     fun aqiToggleButtonOnClick() {
         opacitySwitch(applicationLevelProvider.cloudImageView)
@@ -281,12 +375,12 @@ class WildFireMapFragment : Fragment() {
             if (layer != null) {
                 if (VISIBLE == layer.visibility.getValue()) {
                     layer.setProperties(visibility(NONE))
-                    applicationLevelProvider.aqiLayerVisibility =NONE
+                    applicationLevelProvider.aqiLayerVisibility = NONE
                     applicationLevelProvider.aqiClusterTextLayerVisibility = NONE
 
                 } else {
                     layer.setProperties(visibility(VISIBLE))
-                    applicationLevelProvider.aqiLayerVisibility =VISIBLE
+                    applicationLevelProvider.aqiLayerVisibility = VISIBLE
                     applicationLevelProvider.aqiClusterTextLayerVisibility = VISIBLE
 
                 }
@@ -319,16 +413,13 @@ class WildFireMapFragment : Fragment() {
     }
 
 
-    fun opacitySwitch(view: ImageView){
-        if (view.alpha == 1F){
+    fun opacitySwitch(view: ImageView) {
+        if (view.alpha == 1F) {
             view.alpha = 0.5F
-        }else{
+        } else {
             view.alpha = 1F
         }
     }
-
-
-
 
 
     //mapbox boilerplate for surviving config changes
@@ -357,10 +448,12 @@ class WildFireMapFragment : Fragment() {
         super.onSaveInstanceState(outState)
         mapView?.onSaveInstanceState(outState)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         mapView?.onDestroy()
     }
+
     override fun onLowMemory() {
         super.onLowMemory()
         mapView?.onLowMemory()
