@@ -48,13 +48,11 @@ class EntranceActivity : AppCompatActivity() {
 
         motion_layout_entrance.transitionToEnd()
         val intent = Intent(this, MainActivity::class.java)
-        textView=findViewById(R.id.entry_tv)
+
         Timer().schedule(950){
         initPermissions()
         }
-        textView.setOnClickListener {
-            redirect()
-        }
+
     }
 
     fun initPermissions() {
