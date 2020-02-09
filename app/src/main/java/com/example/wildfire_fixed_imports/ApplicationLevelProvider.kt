@@ -15,7 +15,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.model.local_store.DataRepository
 import com.example.wildfire_fixed_imports.model.local_store.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
@@ -29,7 +28,8 @@ import com.example.wildfire_fixed_imports.util.methodName
 import com.example.wildfire_fixed_imports.view.MainActivity
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
 import com.example.wildfire_fixed_imports.view.map_display.WildFireMapFragment
-import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
+import com.example.wildfire_fixed_imports.view.z_delete_discarded.DebugFragment
+import com.example.wildfire_fixed_imports.viewmodel.MasterCoordinator
 import com.example.wildfire_fixed_imports.viewmodel.map_controllers.MapDrawController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.example.wildfire_fixed_imports.viewmodel.network_controllers.FireDSController
@@ -89,6 +89,7 @@ class ApplicationLevelProvider : Application() {
     // local user object, functionally cache/repo for app
     var localUser: LocalUser? = null
 
+
     // Initialize Firebase analytics, Auth
 
     val mFirebaseAnalytics by lazy {
@@ -99,24 +100,25 @@ class ApplicationLevelProvider : Application() {
     }
 
     val firebaseUser: FirebaseUser?
-        get() {
-            if (firebaseAuth.currentUser != null) {
-                return firebaseAuth.currentUser
-            } else {
-                return null
-            }
+    get() {
+        if (firebaseAuth.currentUser != null) {
+            return firebaseAuth.currentUser
         }
+        else {
+            return null
+        }
+    }
 
-    val webUser: WebBEUser?
-        get() = localUser?.mWebBEUser
+    val webUser:WebBEUser?
+    get() = localUser?.mWebBEUser
 
     val userLocation: Location? get() = latestLocation
-    val latestLocation: Location? get() = locationFinder.check()
+    val latestLocation:Location? get() = locationFinder.check()
 
     var fineLocationPermission: Boolean = false
     var coarseLocationPermission: Boolean = false
     var internetPermission: Boolean = false
-    var initZoom: Boolean = false
+    var initZoom:Boolean =false
 
 
     val retrofitWebService by lazy {
@@ -129,11 +131,7 @@ class ApplicationLevelProvider : Application() {
         FirebaseAuthImpl()
     }
 
-    val experimentalNearestNeighborApproach by lazy {
-        ExperimentalNearestNeighborApproach()
-    }
-
-    val userWebBEController by lazy {
+    val userWebBEController by lazy{
         UserWebBEController()
     }
 
@@ -157,42 +155,38 @@ class ApplicationLevelProvider : Application() {
         LocationFinder(this)
     }
 
-    val dataRepository: DataRepository by lazy {
-        DataRepository.getInstance()
-    }
-
-    val mapDrawController: MapDrawController by lazy {
-        MapDrawController()
-    }
 
 
-    val mapViewModelFactory by lazy {
-        MapViewModelFactory()
-    }
 
-    val mapboxToken by lazy {
-        getString(R.string.mapbox_access_token)
-    }
+
+val mapViewModelFactory by lazy {
+    MapViewModelFactory()
+}
+
+
+
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
+    lateinit var debugFragment: DebugFragment
+     var masterCoordinator: MasterCoordinator? = null
+    lateinit var symbolManager:SymbolManager
 
-   // var masterCoordinator: MasterCoordinator? = null
-    lateinit var symbolManager: SymbolManager
+    lateinit var mapDrawController:MapDrawController
 
 
     lateinit var mapboxMap: MapboxMap
     lateinit var mapboxView: MapView
-    lateinit var mapboxStyle: Style
-    lateinit var nav_view: NavigationView
+    lateinit var mapboxStyle:Style
+    lateinit var nav_view:NavigationView
 
-    lateinit var arrow: ImageView
+    lateinit var arrow:ImageView
     lateinit var legendText: TextView
-    lateinit var switchAqiCloudBSIcon: SwitchCompat
-    lateinit var switchFireBSIcon: SwitchCompat
+    lateinit var switchAqiCloudBSIcon:SwitchCompat
+    lateinit var switchFireBSIcon:SwitchCompat
     lateinit var fireImageView: ImageView
     lateinit var cloudImageView: ImageView
-     var aqiGaugeExpanded: ViewGroup? = null
+    lateinit var aqiGaugeExpanded: ViewGroup
     lateinit var aqiGaugeMinimized: ImageView
     lateinit var drawerToggle: ActionBarDrawerToggle
     lateinit var appBarLayout: AppBarLayout
@@ -208,6 +202,12 @@ class ApplicationLevelProvider : Application() {
     var btmSheetTvRadius: TextView? = null
 
 
+
+
+
+
+
+
     var aqiLayerVisibility = Property.VISIBLE
     var aqiBaseTextLayerVisibility = Property.VISIBLE
     var aqiClusterTextLayerVisibility = Property.VISIBLE
@@ -216,10 +216,15 @@ class ApplicationLevelProvider : Application() {
     var fireLayerVisibility = Property.VISIBLE
 
 
+
+
+
+
     lateinit var appMapViewModel: MapViewModel
 
     lateinit var aqiIconCircle: Drawable
     lateinit var fireIconAlt: Bitmap
+
 
 
     lateinit var networkConnectionInterceptor: NetworkConnectionInterceptor
@@ -236,23 +241,22 @@ class ApplicationLevelProvider : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
-        Mapbox.getInstance(this, mapboxToken )
-        networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        Mapbox.getInstance(this,  getString(R.string.mapbox_access_token))
+        networkConnectionInterceptor=NetworkConnectionInterceptor(this)
 
-        aqiIconCircle =
+        aqiIconCircle=
                 getDrawable(R.drawable.imageof_cloud) as Drawable
 
 
         fireIconAlt =
-                getBitmapFromVectorDrawable(
-                        this
-                        , R.drawable.ic_fireicon
-                )
+            getBitmapFromVectorDrawable(
+                this
+                , R.drawable.ic_fireicon
+            )
 
         instance = this
 
-
-        localUser = LocalUser.getInstance()
+        localUser= LocalUser.getInstance(this)
         //hash tag team smoke trees
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
@@ -260,6 +264,7 @@ class ApplicationLevelProvider : Application() {
             Timber.plant(CrashReportingTree())
         }
         Timber.i("$javaClass $methodName initialized")
+
 
 
     }
@@ -277,7 +282,7 @@ class ApplicationLevelProvider : Application() {
                 return
             }
             Crashlytics.setUserIdentifier(getApplicaationLevelProviderInstance().firebaseUser.toString())
-            Crashlytics.log(priority, tag, message)
+            Crashlytics.log(priority,tag,message)
             if (t != null) {
                 if (priority == Log.ERROR) {
                     Crashlytics.logException(t)
@@ -290,7 +295,6 @@ class ApplicationLevelProvider : Application() {
         }
     }
 }
-
 /*   val iconFactory by lazy { IconFactory.getInstance(this) }
         val fireBitmap =getBitmap(this.applicationContext, R.drawable.noun_fire_2355447);
 */

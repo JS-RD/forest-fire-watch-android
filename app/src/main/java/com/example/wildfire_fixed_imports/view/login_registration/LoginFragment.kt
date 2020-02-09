@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
 
 
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
-        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
 
 
         /*

@@ -17,6 +17,7 @@
     <color name="intro_fire_animated_reactive">#FF0000</color>
     <color name="aqi2Orange">#FFA500</color>
     <color name="aqi3red">#FF0000</color>
+    <color name="entrance_title">#FF0000</color>
     <color name="aqi4purple">#924CAF</color>
     <color name="aqi5brown">#AC5E3A</color>
     <color name="drawerIconColorStyle">#20709B</color>

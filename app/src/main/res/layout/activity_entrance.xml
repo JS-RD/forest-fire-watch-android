@@ -9,16 +9,8 @@
 
     <!--  android:background="@color/intro_animated_background"
       app:layoutDescription="@xml/splash_animation"-->
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_entrance_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:lottie_rawRes="@raw/air_pollution_health_affected_animation"
-        app:lottie_progress="@android:integer/config_shortAnimTime"
-        app:lottie_autoPlay="true">
 
-    </com.airbnb.lottie.LottieAnimationView>
-<!--
+    <!--
     <View
         android:id="@+id/box"
         android:layout_width="220dp"
@@ -31,22 +23,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+   -->
 
     <TextView
         android:id="@+id/entry_tv"
+        style="@style/SplashTextStyle"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:elevation="100dp"
         android:gravity="bottom|center"
         android:text="Fire Watch"
-        android:textColor="@android:color/white"
-        style="@style/SplashTextStyle"
+        android:textColor="@color/entrance_title"
+        app:layout_constraintBottom_toTopOf="@+id/lottie_entrance_loading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_editor_absoluteX="106dp"
+        app:layout_editor_absoluteY="310dp"
+        tools:layout_editor_absoluteY="207dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_entrance_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_editor_absoluteX="206dp"
+        app:layout_editor_absoluteY="525dp"
+        app:lottie_autoPlay="true"
+        app:lottie_progress="@android:integer/config_shortAnimTime"
+        app:lottie_rawRes="@raw/air_pollution_health_affected_animation">
 
-        -->
+    </com.airbnb.lottie.LottieAnimationView>
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

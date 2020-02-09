@@ -13,16 +13,6 @@ sealed class SuccessFailWrapper<out T>  {
     object NetworkError: SuccessFailWrapper<Nothing>()
 }
 
-sealed class LoadingDefinition ()  {
-    data class NetworkLoad(val text:String= ""): LoadingDefinition()
-    data class FireProcessing(val text:String= "") : LoadingDefinition()
-    data class AQIProcessing(val text:String= "") : LoadingDefinition()
-    data class UserProcessing(val text:String= "") : LoadingDefinition()
-    data class Throwable(val text:String= "", val t: kotlin.Throwable? = null) : LoadingDefinition()
-    data class Error(val text:String= "",val e:java.lang.Exception? = null) : LoadingDefinition()
-    object NetworkError: LoadingDefinition()
-}
-
 abstract class SafeApiRequest {
 
     suspend fun<T: Any> apiRequest(call: suspend () -> Response<T>) : T{

@@ -12,20 +12,26 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.LoginViewModel
+import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.SettingsViewModel
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 class SettingsFragment : Fragment() {
 
-
+    private lateinit var settingsViewModel: SettingsViewModel
+    private lateinit var loginViewModel: LoginViewModel
     private val applicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
-
+    lateinit var switchCompat: SwitchCompat
+    private val sharedPrefs by lazy {   this.activity!!.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE) }
+    private lateinit var settingsTVSaver:TextView
 
   /*  var preferences =
         this.activity!!.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)*/
@@ -38,10 +44,12 @@ class SettingsFragment : Fragment() {
     ): View? {
 
 
-        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.INVISIBLE
+        applicationLevelProvider.aqiGaugeExpanded.visibility = View.INVISIBLE
         applicationLevelProvider.bottomSheet?.visibility = View.INVISIBLE
 
 
+        settingsViewModel =
+            ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
 
         return root
