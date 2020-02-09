@@ -288,12 +288,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-
-
-
-
-
+    
 
 
     //for location component
@@ -302,7 +297,6 @@ class MainActivity : AppCompatActivity() {
             Timber.i("location log" + location.longitude + ":" + location.latitude)
 
         }
-
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
@@ -312,7 +306,6 @@ class MainActivity : AppCompatActivity() {
     fun enableLocationComponent(loadedMapStyle: Style) {
 // Check if permissions are enabled and if not let user known
         if (applicationLevelProvider.fineLocationPermission) {
-
 // Create and customize the LocationComponent's options
             val customLocationComponentOptions = LocationComponentOptions.builder(this)
                 .trackingGesturesManagement(true)
@@ -346,11 +339,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun rotateArrow(progress: Float) {
-        arrow.rotation = 180 * progress
-        bottomSheet.toggle()
-        Timber.i("arrow click")
-    }
 
 
 
@@ -382,12 +370,9 @@ class MainActivity : AppCompatActivity() {
                     applicationLevelProvider.internetPermission = false
                     applicationLevelProvider.showSnackbar("Internet not granted", Snackbar.LENGTH_SHORT)
                     //
-
-
                 }
                 return
             }
-
             MY_PERMISSIONS_COARSE_LOCATION -> {
                 Timber.i("on request == after while loop internet")
                 // If request is cancelled, the result arrays are empty.

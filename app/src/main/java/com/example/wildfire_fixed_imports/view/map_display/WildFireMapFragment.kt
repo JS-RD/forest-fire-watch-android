@@ -55,6 +55,11 @@ class WildFireMapFragment : Fragment() {
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
+    private lateinit var mapViewModel: MapViewModel
+    private lateinit var mapboxMap: MapboxMap
+    private lateinit var autocompleteFragment: PlaceAutocompleteFragment
+    private lateinit var supportFragmentManager: FragmentManager
+    private var mapView: MapView? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,11 +72,7 @@ class WildFireMapFragment : Fragment() {
         }
     }
 
-    private lateinit var mapViewModel: MapViewModel
-    private lateinit var mapboxMap: MapboxMap
-    private lateinit var autocompleteFragment: PlaceAutocompleteFragment
-    private lateinit var supportFragmentManager: FragmentManager
-    private var mapView: MapView? = null
+
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
