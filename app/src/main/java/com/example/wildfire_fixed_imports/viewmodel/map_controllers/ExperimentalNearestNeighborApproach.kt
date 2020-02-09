@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.AQIStations
+import com.example.wildfire_fixed_imports.model.AQIdata
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Feature
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.LngLatAlt
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Polygon
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -52,6 +56,25 @@ class ExperimentalNearestNeighborApproach {
       //  Toast.makeText(applicationLevelProvider.currentActivity, "hey girl you aqi close is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}", Toast.LENGTH_SHORT).show()
     }
 
+
+   suspend fun aqiForUserBetter() : AQIdata? {
+        val currentLocal= applicationLevelProvider.localUser!!.mLocations[0] as WebBELocation
+
+      val result =  applicationLevelProvider.aqidsController.getAQIData(
+               lat =   currentLocal.latitude,
+               lng =   currentLocal.longitude
+       )
+
+        when (result) {
+            is SuccessFailWrapper.Success -> {
+                return result.value
+            }
+            else -> {
+                Timber.i("$TAG failure at return data for aqiDetailed")
+            }
+        }
+        return null
+    }
 
     fun createCircleStyleFromGeoJson( AqiCircle: String) {
         Coroutines.main {
