@@ -14,10 +14,7 @@ import com.example.wildfire_fixed_imports.model.LoadingDefinition
 import com.example.wildfire_fixed_imports.util.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_entrance.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import timber.log.Timber
 import java.util.*
 import kotlin.concurrent.schedule
@@ -50,9 +47,15 @@ class EntranceActivity : AppCompatActivity() {
         motion_layout_entrance.transitionToEnd()
         val intent = Intent(this, MainActivity::class.java)
 
-        Timer().schedule(950){
+      applicationLevelProvider.dataRepository.liveDataLoadingComplete.observeForever {
+          if (it){
+              redirect()
+          }
+      }
+
+
         initPermissions()
-        }
+
 
     }
 
@@ -132,7 +135,7 @@ class EntranceActivity : AppCompatActivity() {
             //pop snackbar to notify of permissions
             //TODO removed for demo textView.showSnackbar("Internet permission: ${applicationLevelProvider.internetPermission} \n " +
             //TODO removed for demo "Fine Location permission: ${applicationLevelProvider.fineLocationPermission}", Snackbar.LENGTH_SHORT)
-            redirect()
+
         } else {
             // Permission is missing and must be requested.
             requestFineLocationPermission()
@@ -150,7 +153,7 @@ class EntranceActivity : AppCompatActivity() {
             //pop snackbar to notify of permissions
            //TODO removed for demo textView.showSnackbar("coarse permission: ${applicationLevelProvider.coarseLocationPermission} \n " +
             //TODO removed for demo "Fine Location permission: ${applicationLevelProvider.coarseLocationPermission}", Snackbar.LENGTH_SHORT)
-            redirect()
+
         } else {
             // Permission is missing and must be requested.
             requestCoarseLocationPermission()
@@ -222,7 +225,6 @@ class EntranceActivity : AppCompatActivity() {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     applicationLevelProvider.fineLocationPermission = true
                     textView.showSnackbar("Fine Location granted successfully", Snackbar.LENGTH_SHORT)
-                    redirect()
 
                 } else {
                     applicationLevelProvider.fineLocationPermission = false

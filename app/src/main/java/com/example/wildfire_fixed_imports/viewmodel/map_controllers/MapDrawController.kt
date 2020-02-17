@@ -58,18 +58,20 @@ class MapDrawController() {
 
         val result = com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.FeatureCollection()
         aqiList.forEach {
-
-            result.apply {
-                add(Feature().apply {
-                    geometry = Point(LngLatAlt(it.lon, it.lat))
-                    properties = mapOf("name" to it.station.name,
+            if(it !=null) {
+                result.apply {
+                    add(Feature().apply {
+                        geometry = Point(LngLatAlt(it.lon, it.lat))
+                        properties = mapOf(
+                            "name" to it.station.name,
                             "aqi" to it.aqi,
                             "time" to it.station.time,
                             "air" to true
 
-                    )
-                    id = it.uid.toString()
-                })
+                        )
+                        id = it.uid.toString()
+                    })
+                }
             }
         }
 

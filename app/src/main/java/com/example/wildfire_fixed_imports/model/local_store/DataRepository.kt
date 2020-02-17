@@ -29,22 +29,25 @@ class DataRepository: DataRepositoryWatcher {
     var aqiStations: MutableList<AQIStations> by Delegates.observable(
             mutableListOf()
     ){ property, oldValue, newValue ->
-        oldValue.addAll(newValue)
-        oldValue.toSet()
-       aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(oldValue))
-        if (aqiNearestNeighborGeoJson.value.isNullOrEmpty()){
-            Timber.d("$TAG \n ${aqiNearestNeighborGeoJson?.value} (aqiNearestNeighborGeoJson.value) isNullORblack")
-        getExperimental()
+        if(newValue.isNotEmpty()) {
+            aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(newValue.toSet().toList()))
+            if (aqiNearestNeighborGeoJson.value.isNullOrEmpty()) {
+                Timber.d("$TAG \n ${aqiNearestNeighborGeoJson?.value} (aqiNearestNeighborGeoJson.value) isNullORblack")
+            }
+            Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
+            getExperimental()
         }
-        Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
+
     }
     var fireLocations: MutableList<DSFires> by Delegates.observable(
     mutableListOf()
     ){ property, oldValue, newValue ->
-        oldValue.addAll(newValue)
-        oldValue.toSet()
-        fireGeoJson.postValue( mapDrawController.makeFireGeoJson(oldValue))
-        Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
+        if(newValue.isNotEmpty()) {
+            oldValue.addAll(newValue)
+            oldValue.toSet()
+            fireGeoJson.postValue(mapDrawController.makeFireGeoJson(oldValue))
+            Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
+        }
     }
 
      var aqiGeoJson:MutableLiveData<String> = MutableLiveData()
@@ -60,7 +63,7 @@ class DataRepository: DataRepositoryWatcher {
 
     fun initData() {
         CoroutineScope(Dispatchers.IO).launch {
-            aqiStations = getAQIstations()?.toMutableList() ?: mutableListOf()
+            aqiStations = getAQIstations()?.toSet()?.toMutableList() ?: mutableListOf()
         }
         CoroutineScope(Dispatchers.IO).launch  {
             fireLocations = getFires()?.toMutableList() ?: mutableListOf()
@@ -68,9 +71,11 @@ class DataRepository: DataRepositoryWatcher {
     }
 
  fun getExperimental() {
-     if (aqiNearestNeighborGeoJson.value.isNullOrBlank()) {
+     loadingComplete()
+     if (aqiNearestNeighborGeoJson.value.isNullOrBlank() &&  !aqiStations.isNullOrEmpty()) {
          CoroutineScope(Dispatchers.Default).launch {
              aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
+
          }
      }
 }
@@ -125,8 +130,11 @@ class DataRepository: DataRepositoryWatcher {
         lstOfReturnData.forEach {
             Timber.i("test 2-${System.currentTimeMillis()}")
             if (it is SuccessFailWrapper.Success) {
-                //this is what happens when you let the IDE demand shit out of you.
-                compositeResult.addAll(it.value ?: listOf())
+                if (!it.value.isNullOrEmpty())
+                {
+                    compositeResult.addAll(it.value)
+                }
+
             } else {
                 when (it) {
                     is SuccessFailWrapper.Throwable -> Timber.i("fail at ${it.message} ${it.t.toString()}")
@@ -139,22 +147,21 @@ class DataRepository: DataRepositoryWatcher {
                 }
             }
         }
-        Timber.e("test + "+compositeResult.toString().subSequence(0,30))
+        Timber.e("test + $compositeResult")
         return cleanAQIStationData(compositeResult)
 
 
     }
 
     fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
-        var count = 0
        val set = aqiStations?.toSet()
-        val mutListResult = arrayOfNulls<AQIStations>(set?.size ?: 1)
+        val mutListResult = mutableListOf<AQIStations>()
         set?.forEach{
             if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
-                mutListResult[count++] = it
+                mutListResult.add(it)
             }
         }
-        return mutListResult.toList() as List<AQIStations>
+        return mutListResult.toList()
     }
 
 
@@ -181,7 +188,7 @@ class DataRepository: DataRepositoryWatcher {
     }
 
     override fun loadingComplete(): LiveData<Boolean> {
-        if (!aqiNearestNeighborGeoJson.value.isNullOrEmpty()) {
+        if (!aqiStations.isNullOrEmpty()) {
             liveDataLoadingComplete.postValue(true)
         }
         return liveDataLoadingComplete
