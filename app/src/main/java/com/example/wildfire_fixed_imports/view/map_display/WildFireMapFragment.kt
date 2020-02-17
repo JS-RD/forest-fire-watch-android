@@ -63,15 +63,16 @@ class WildFireMapFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        applicationLevelProvider.bottomSheet?.visibility = View.VISIBLE
-        applicationLevelProvider.aqiGaugeExpanded?.visibility = View.VISIBLE
-
         if (applicationLevelProvider.dataRepository.fireGeoJson.value.isNullOrEmpty()) {
             Timber.e("$TAG \n\n FIREGEOJSON NULL, DID WE GET BACK TO ENTRACE ACTIVITY??? \n\n\n")
             startActivity(Intent(this.context, EntranceActivity::class.java))
         }
     }
 
+    override fun onDetach() {
+
+        super.onDetach()
+    }
 
 
     override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
@@ -437,6 +438,9 @@ class WildFireMapFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         mapView?.onPause()
+
+
+
     }
 
     override fun onStop() {
@@ -468,9 +472,6 @@ class WildFireMapFragment : Fragment() {
         super.onConfigurationChanged(newConfig)
     }
 
-    override fun onDetach() {
-        super.onDetach()
-    }
 
 
 }

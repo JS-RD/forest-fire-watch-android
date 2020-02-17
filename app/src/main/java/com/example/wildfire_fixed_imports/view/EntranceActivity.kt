@@ -45,12 +45,11 @@ class EntranceActivity : AppCompatActivity() {
 
 
         motion_layout_entrance.transitionToEnd()
-        val intent = Intent(this, MainActivity::class.java)
 
       applicationLevelProvider.dataRepository.liveDataLoadingComplete.observeForever {
-          if (it){
-              redirect()
-          }
+          when(it){
+           true->redirect()
+      }
       }
 
 

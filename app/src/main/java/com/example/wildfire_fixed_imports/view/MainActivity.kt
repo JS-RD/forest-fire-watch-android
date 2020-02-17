@@ -11,8 +11,7 @@ import android.os.Bundle
 import android.text.Layout
 import android.view.Menu
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -89,9 +88,9 @@ class MainActivity : AppCompatActivity() {
 
         applicationLevelProvider.currentActivity = this
         mapViewModel =
-                ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
-                        MapViewModel::class.java
-                )
+            ViewModelProviders.of(this, applicationLevelProvider.mapViewModelFactory).get(
+                MapViewModel::class.java
+            )
 
         applicationLevelProvider.appMapViewModel = mapViewModel
         applicationLevelProvider.nav_view = findViewById(R.id.nav_view)
@@ -109,11 +108,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
 
-         drawerToggle = ActionBarDrawerToggle(this,
+        drawerToggle = ActionBarDrawerToggle(this,
             drawer_layout,
             toolbar,
-                 R.string.navigation_drawer_open,
-                 R.string.navigation_drawer_close)
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close)
 
 
 
@@ -174,61 +173,79 @@ class MainActivity : AppCompatActivity() {
 
         setUpOnClicks()
         setUpNav()
-
-            Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
+        setUpNavListeners()
+        Timber.e("web be user"+applicationLevelProvider.localUser?.mWebBEUser)
 
     }
 
+    fun setUpNavListeners(){
+        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
 
+            when(destination.id) {
+                R.id.map_view -> showMapAccessories(true)
+                else -> showMapAccessories(false)
+            }
+        }
+    }
+    fun showMapAccessories(show:Boolean){
+        if (show) {
+            applicationLevelProvider.bottomSheet?.visibility = VISIBLE
+            applicationLevelProvider.aqiGaugeExpanded?.visibility = VISIBLE
+        }
+        else{
+            applicationLevelProvider.bottomSheet?.visibility = GONE
+            applicationLevelProvider.aqiGaugeExpanded?.visibility = GONE
+        }
+    }
 
- fun setUpOnClicks() {
-     aqiGaugeExpanded.setOnClickListener {
-         aqiGaugeExpanded.visibility = INVISIBLE
-         aqiGaugeMinimized.visibility = VISIBLE
-        // aqiGaugeMinimized.setAlpha(0.3f)
-     }
-     aqiGaugeMinimized.setOnClickListener {
-         aqiGaugeExpanded.visibility = VISIBLE
-         aqiGaugeMinimized.visibility = INVISIBLE
-         //aqiGaugeExpanded.setAlpha(0.3f)
-     }
+    fun setUpOnClicks() {
+        aqiGaugeExpanded.setOnClickListener {
+            aqiGaugeExpanded.visibility = INVISIBLE
+            aqiGaugeMinimized.visibility = VISIBLE
+            // aqiGaugeMinimized.setAlpha(0.3f)
+        }
+        aqiGaugeMinimized.setOnClickListener {
+            aqiGaugeExpanded.visibility = VISIBLE
+            aqiGaugeMinimized.visibility = INVISIBLE
+            //aqiGaugeExpanded.setAlpha(0.3f)
+        }
 
-     val bottomSheetObserver = Observer<Float> {
-         if (it ==1f){
-             //  switchFireBSIcon.visibility = View.INVISIBLE
-             // switchAqiCloudBSIcon.visibility = View.INVISIBLE
-             arrow.setImageResource(R.drawable.ic_arrow_drop_down)
-             legendText.visibility = INVISIBLE
-
-
-
-         }
-         else {
-             //switchFireBSIcon.visibility = View.VISIBLE
-             // switchAqiCloudBSIcon.visibility =View.VISIBLE
-
-             arrow.setImageResource(R.drawable.ic_arrow_drop_up)
-             legendText.setText("FILTERS")
-             legendText.visibility = VISIBLE
-         }
-
-     }
-
-
-
-
-     bottomSheet.progress.observe(this, bottomSheetObserver)
-
-
+        val bottomSheetObserver = Observer<Float> {
+            if (it ==1f){
+                //  switchFireBSIcon.visibility = View.INVISIBLE
+                // switchAqiCloudBSIcon.visibility = View.INVISIBLE
+                arrow.setImageResource(R.drawable.ic_arrow_drop_down)
+                legendText.visibility = INVISIBLE
 
 
 
+            }
+            else {
+                //switchFireBSIcon.visibility = View.VISIBLE
+                // switchAqiCloudBSIcon.visibility =View.VISIBLE
 
-     arrow.setOnClickListener{ bottomSheet.toggle()
-         Timber.i("arrow click")}
+                arrow.setImageResource(R.drawable.ic_arrow_drop_up)
+                legendText.setText("FILTERS")
+                legendText.visibility = VISIBLE
+            }
+
+        }
 
 
- }
+
+
+        bottomSheet.progress.observe(this, bottomSheetObserver)
+
+
+
+
+
+
+        arrow.setOnClickListener{ bottomSheet.toggle()
+            Timber.i("arrow click")}
+
+
+    }
 
     //public functions for visibility
     fun showAllMapControls() {
@@ -244,7 +261,7 @@ class MainActivity : AppCompatActivity() {
 
     fun locationInit() {
         if (checkSelfPermissionCompat(Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED) {
             try {
                 // Request location updates
 
@@ -256,7 +273,7 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             if (checkSelfPermissionCompat(Manifest.permission.INTERNET) ==
-                    PackageManager.PERMISSION_GRANTED) {
+                PackageManager.PERMISSION_GRANTED) {
                 try {
                     locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
                 } catch (ex: SecurityException) {
@@ -280,8 +297,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                    R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
-                    R.id.nav_debug//, R.id.nav_share, R.id.nav_send
+                R.id.nav_home, R.id.nav_login, R.id.nav_reg, R.id.nav_settings,
+                R.id.nav_debug//, R.id.nav_share, R.id.nav_send
             ), drawerLayout
         )
 
