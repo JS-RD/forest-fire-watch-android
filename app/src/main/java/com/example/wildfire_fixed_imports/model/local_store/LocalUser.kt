@@ -81,18 +81,23 @@ class LocalUser(
                     */
                     else -> "$TAG login fail $result"
                 }
-                getLayerVisibilityFromPrefs()
-                getUserLocationsInit()
-                Timber.i("test $mLocations")
-                applicationLevelProvider.dataRepository.initData()
+                finishLoading()
             }
-
+            else{
+                finishLoading()
+            }
 
         }
 
 
     }
 
+    private suspend fun finishLoading(){
+        getLayerVisibilityFromPrefs()
+        getUserLocationsInit()
+        Timber.i("test $mLocations")
+        applicationLevelProvider.dataRepository.initData()
+    }
     private suspend fun getUserLocationsInit() {
         mLocations= mutableListOf()
         mLocations.add(applicationLevelProvider.latestLocation?.toWebBELocation()

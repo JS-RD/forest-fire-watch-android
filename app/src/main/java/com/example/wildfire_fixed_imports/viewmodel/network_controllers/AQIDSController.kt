@@ -1,5 +1,6 @@
 package com.example.wildfire_fixed_imports.viewmodel.network_controllers
 
+import android.widget.Toast
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.util.RetrofitErrorHandler
 import com.example.wildfire_fixed_imports.model.AQIStations
@@ -65,11 +66,11 @@ class AQIDSController() {
 
         } catch (throwable: Throwable) {
             Timber.i("$TAG catch triggered in postWebBELocation")
+            Toast.makeText(applicationLevelProvider.applicationContext,"We're sorry but some AQI data failed to load, please try again",Toast.LENGTH_SHORT).show()
             RetrofitErrorHandler(
                 throwable
             )
-
-        }
+                  }
     }
 
 

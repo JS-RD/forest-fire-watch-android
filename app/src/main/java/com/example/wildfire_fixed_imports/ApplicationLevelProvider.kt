@@ -15,7 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import com.crashlytics.android.Crashlytics
-import com.example.wildfire_fixed_imports.model.DataRepository
+import com.example.wildfire_fixed_imports.model.local_store.DataRepository
 import com.example.wildfire_fixed_imports.model.local_store.LocalUser
 import com.example.wildfire_fixed_imports.model.WebBEUser
 import com.example.wildfire_fixed_imports.model.local_store.SharedPreferencesHelper
@@ -170,6 +170,9 @@ class ApplicationLevelProvider : Application() {
         MapViewModelFactory()
     }
 
+    val mapboxToken by lazy {
+        getString(R.string.mapbox_access_token)
+    }
 
     lateinit var currentActivity: MainActivity
     lateinit var mapFragment: WildFireMapFragment
@@ -233,7 +236,7 @@ class ApplicationLevelProvider : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.getDefaultNightMode())
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
+        Mapbox.getInstance(this, mapboxToken )
         networkConnectionInterceptor = NetworkConnectionInterceptor(this)
 
         aqiIconCircle =

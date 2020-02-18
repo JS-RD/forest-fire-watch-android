@@ -1,4 +1,4 @@
-package com.example.wildfire_fixed_imports.model
+package com.example.wildfire_fixed_imports.model.local_store
 
 
 import android.widget.Toast
@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.DataRepositoryWatcher
+import com.example.wildfire_fixed_imports.model.*
 import com.example.wildfire_fixed_imports.util.StackTraceInfo
 import com.example.wildfire_fixed_imports.util.className
 import com.example.wildfire_fixed_imports.util.fileName
@@ -14,38 +15,39 @@ import timber.log.Timber
 import java.util.concurrent.ConcurrentLinkedQueue
 import kotlin.properties.Delegates
 
+@Suppress("UNCHECKED_CAST")
 class DataRepository: DataRepositoryWatcher {
     private val applicationLevelProvider: ApplicationLevelProvider = ApplicationLevelProvider.getApplicaationLevelProviderInstance()
     private val aqidsController = applicationLevelProvider.aqidsController
     private val fireDSController =applicationLevelProvider.fireDSController
     private val mapDrawController = applicationLevelProvider.mapDrawController
     private val nearestNeighborApproach =applicationLevelProvider.experimentalNearestNeighborApproach
-init {
 
-
-}
     val TAG: String
         get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
 
     var aqiStations: MutableList<AQIStations> by Delegates.observable(
             mutableListOf()
     ){ property, oldValue, newValue ->
-        oldValue.addAll(newValue)
-        oldValue.toSet()
-       aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(oldValue))
-        if (aqiNearestNeighborGeoJson.value.isNullOrEmpty()){
-            Timber.d("$TAG \n ${aqiNearestNeighborGeoJson?.value} (aqiNearestNeighborGeoJson.value) isNullORblack")
-        getExperimental()
+        if(newValue.isNotEmpty()) {
+            aqiGeoJson.postValue(mapDrawController.makeAQIGeoJson(newValue.toSet().toList()))
+            if (aqiNearestNeighborGeoJson.value.isNullOrEmpty()) {
+                Timber.d("$TAG \n ${aqiNearestNeighborGeoJson?.value} (aqiNearestNeighborGeoJson.value) isNullORblack")
+            }
+            Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
+            getExperimental()
         }
-        Timber.d("$TAG \n aqiGeoJson wirrten \n ${aqiGeoJson.value}")
+
     }
     var fireLocations: MutableList<DSFires> by Delegates.observable(
     mutableListOf()
     ){ property, oldValue, newValue ->
-        oldValue.addAll(newValue)
-        oldValue.toSet()
-        fireGeoJson.postValue( mapDrawController.makeFireGeoJson(oldValue))
-        Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
+        if(newValue.isNotEmpty()) {
+            oldValue.addAll(newValue)
+            oldValue.toSet()
+            fireGeoJson.postValue(mapDrawController.makeFireGeoJson(oldValue))
+            Timber.d("$TAG \n firegeojson wirrten \n ${fireGeoJson.value}")
+        }
     }
 
      var aqiGeoJson:MutableLiveData<String> = MutableLiveData()
@@ -61,7 +63,7 @@ init {
 
     fun initData() {
         CoroutineScope(Dispatchers.IO).launch {
-            aqiStations = getAQIstations()?.toMutableList() ?: mutableListOf()
+            aqiStations = getAQIstations()?.toSet()?.toMutableList() ?: mutableListOf()
         }
         CoroutineScope(Dispatchers.IO).launch  {
             fireLocations = getFires()?.toMutableList() ?: mutableListOf()
@@ -69,9 +71,13 @@ init {
     }
 
  fun getExperimental() {
-    CoroutineScope(Dispatchers.Default).launch {
-                aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
-    }
+     loadingComplete()
+     if (aqiNearestNeighborGeoJson.value.isNullOrBlank() &&  !aqiStations.isNullOrEmpty()) {
+         CoroutineScope(Dispatchers.Default).launch {
+             aqiNearestNeighborGeoJson.postValue(nearestNeighborApproach.makeGeoJsonCirclesManually(applicationLevelProvider.dataRepository.aqiStations))
+
+         }
+     }
 }
 
     suspend fun getFires(): List<DSFires>? {
@@ -124,8 +130,11 @@ init {
         lstOfReturnData.forEach {
             Timber.i("test 2-${System.currentTimeMillis()}")
             if (it is SuccessFailWrapper.Success) {
-                //this is what happens when you let the IDE demand shit out of you.
-                compositeResult.addAll(it.value ?: listOf())
+                if (!it.value.isNullOrEmpty())
+                {
+                    compositeResult.addAll(it.value)
+                }
+
             } else {
                 when (it) {
                     is SuccessFailWrapper.Throwable -> Timber.i("fail at ${it.message} ${it.t.toString()}")
@@ -138,20 +147,21 @@ init {
                 }
             }
         }
-        Timber.e("test + "+compositeResult.toString().subSequence(0,30))
+        Timber.e("test + $compositeResult")
         return cleanAQIStationData(compositeResult)
 
 
     }
 
     fun cleanAQIStationData(aqiStations: List<AQIStations>?) :List<AQIStations> {
+       val set = aqiStations?.toSet()
         val mutListResult = mutableListOf<AQIStations>()
-        aqiStations?.toSet()?.forEach{
+        set?.forEach{
             if (!it.aqi.isBlank() && it.aqi.toIntOrNull() != null) {
                 mutListResult.add(it)
             }
         }
-        return mutListResult
+        return mutListResult.toList()
     }
 
 
@@ -178,7 +188,7 @@ init {
     }
 
     override fun loadingComplete(): LiveData<Boolean> {
-        if (!aqiNearestNeighborGeoJson.value.isNullOrEmpty()) {
+        if (!aqiStations.isNullOrEmpty()) {
             liveDataLoadingComplete.postValue(true)
         }
         return liveDataLoadingComplete

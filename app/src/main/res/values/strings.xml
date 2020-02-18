@@ -50,4 +50,6 @@
     <string name="dark_theme">Light theme</string>
     <string name="system_theme">Use system theme</string>
     <string name="battery_saver_theme">Battery saver theme</string>
+    <string name="_500_nhazardous">500\nhazardous</string>
+    <string name="good_n0">Good\n0</string>
 </resources>

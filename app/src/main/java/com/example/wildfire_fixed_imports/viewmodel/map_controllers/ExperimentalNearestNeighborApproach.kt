@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.widget.Toast
 import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.model.AQIStations
+import com.example.wildfire_fixed_imports.model.AQIdata
+import com.example.wildfire_fixed_imports.model.SuccessFailWrapper
+import com.example.wildfire_fixed_imports.model.WebBELocation
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Feature
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.LngLatAlt
 import com.example.wildfire_fixed_imports.util.geojson_dsl.geojson_for_jackson.Polygon
+import com.example.wildfire_fixed_imports.viewmodel.network_controllers.AQIDSController
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -18,10 +22,13 @@ import com.mapbox.mapboxsdk.style.layers.FillLayer
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.net.URISyntaxException
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -30,10 +37,10 @@ class ExperimentalNearestNeighborApproach {
 
 
     private val TAG: String
-        get() = "\nclass: $className -- file name: $fileName -- method: ${StackTraceInfo.invokingMethodName} \n"
+        get() = "\nclass: $className -- file name: $fileName -- method: $methodName \n"
 
 
-    fun aqiForUser(list: List<AQIStations>) {
+    fun aqiForUser(list: List<AQIStations>) :AQIStations? {
         val user = applicationLevelProvider.userLocation?.LatLng() ?: LatLng(20.0, 20.0)
         var nearestNeighbor: AQIStations? = null
         var bestDist: Double? = null
@@ -47,11 +54,34 @@ class ExperimentalNearestNeighborApproach {
                 nearestNeighbor = current
             }
         }
-        Toast.makeText(applicationLevelProvider.currentActivity, "hey girl you aqi close is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}", Toast.LENGTH_SHORT).show()
+
+        return nearestNeighbor
+      //  Toast.makeText(applicationLevelProvider.currentActivity, "hey girl you aqi close is ${nearestNeighbor?.aqi} and it is ${nearestNeighbor?.station?.name}", Toast.LENGTH_SHORT).show()
     }
 
 
+   suspend fun aqiForUserBetter() : AQIdata? {
+        val currentLocal= applicationLevelProvider.localUser!!.mLocations[0] as WebBELocation
+
+      val result =  applicationLevelProvider.aqidsController.getAQIData(
+               lat =   currentLocal.latitude,
+               lng =   currentLocal.longitude
+       )
+
+        when (result) {
+            is SuccessFailWrapper.Success -> {
+                return result.value
+            }
+            else -> {
+                Timber.i("$TAG failure at return data for aqiDetailed")
+            }
+        }
+        return null
+    }
+
     fun createCircleStyleFromGeoJson( AqiCircle: String) {
+
+
         Coroutines.main {
             Timber.i(TAG)
             applicationLevelProvider.mapboxMap.getStyle { style ->

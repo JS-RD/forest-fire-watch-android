@@ -32,6 +32,18 @@ import java.util.concurrent.CancellationException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
+fun View.makeVisible() {
+    this.setVisibility(View.VISIBLE)
+}
+
+fun View.makeInvisible() {
+    this.setVisibility(View.INVISIBLE)
+}
+
+fun View.makeGone() {
+    this.setVisibility(View.GONE)
+}
+
 fun View.showSnackbar(msgId: Int, length: Int) {
     showSnackbar(this.context.getString(msgId), length)
 }

@@ -27,7 +27,7 @@ class MapViewModel : ViewModel() {
 
     fun triggerMapRedraw() {
 
-        Timber.i(TAG)
+        Timber.i("$TAG\n\nDO EXPERIMENTAL")
         val aqistations = applicationLevelProvider.dataRepository.aqiGeoJson?.value ?: ""
         val firedata = applicationLevelProvider.dataRepository.fireGeoJson?.value ?: ""
         if (aqistations.isNotBlank() && firedata.isNotBlank()) {
@@ -38,9 +38,10 @@ class MapViewModel : ViewModel() {
     }
 
     fun doExperimental(){
-        Timber.i(TAG)
+        Timber.i("$TAG\n\nDO EXPERIMENTAL")
         val aqiNearestNeighborApproach=applicationLevelProvider.dataRepository.aqiNearestNeighborGeoJson?.value ?: ""
         if (aqiNearestNeighborApproach.isNotBlank() && aqiNearestNeighborApproach.isNotEmpty()) {
+            Timber.i("\n$TAG\n\n  am i triggered? \n\n value  = $aqiNearestNeighborApproach")
             nearestNeighborApproach.createCircleStyleFromGeoJson(aqiNearestNeighborApproach)
         }
     }
