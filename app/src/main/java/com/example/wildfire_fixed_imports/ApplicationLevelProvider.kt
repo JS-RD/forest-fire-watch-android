@@ -260,6 +260,7 @@ class ApplicationLevelProvider : Application() {
         //hash tag team smoke trees
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())
+            sharedPreferencesHelper.setLogging(true)
         } else {
             Timber.plant(CrashReportingTree())
         }

@@ -42,6 +42,7 @@ class SharedPreferencesHelper {
         isLoggingEnabled = enabled
     }
 
+    @Deprecated("HERE BE DRAGONS, you sure you want to be deleting everything with out any checks? be careful")
     fun clearAll() {
         editor.clear()
         editor.apply()
