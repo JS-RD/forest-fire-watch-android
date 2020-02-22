@@ -31,6 +31,7 @@ import com.example.wildfire_fixed_imports.ApplicationLevelProvider
 import com.example.wildfire_fixed_imports.R
 import com.example.wildfire_fixed_imports.util.*
 import com.example.wildfire_fixed_imports.view.bottom_sheet.BottomSheetLayout
+import com.example.wildfire_fixed_imports.viewmodel.map_controllers.ExperimentalNearestNeighborApproach
 import com.example.wildfire_fixed_imports.viewmodel.view_model_classes.MapViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var btmsheetToggleIndex: SwitchCompat
     private lateinit var btmSheetToggleRadius: SwitchCompat
+    private lateinit var btmSheetToggleNearestNeighbor: SwitchCompat
 
     private lateinit var btmSheetTvIndex: TextView
     private lateinit var btmSheetTvRadius: TextView
@@ -147,8 +149,10 @@ class MainActivity : AppCompatActivity() {
         //bottom sheet toggles and textviews
         btmsheetToggleIndex = findViewById(R.id.bottomsheet_switch_index)
         btmSheetToggleRadius = findViewById(R.id.bottomsheet_switch_radius)
+        btmSheetToggleNearestNeighbor=findViewById(R.id.bottomsheet_switch_nearest_neighbor)
         btmSheetTvIndex = findViewById(R.id.bottomsheet_tv_index)
         btmSheetTvRadius = findViewById(R.id.bottomsheet_tv_radius)
+        applicationLevelProvider.btmSheetToggleNearestNeighbor =btmSheetToggleNearestNeighbor
         applicationLevelProvider.btmsheetToggleIndex=btmsheetToggleIndex
         applicationLevelProvider.btmSheetToggleRadius=btmSheetToggleRadius
         applicationLevelProvider.btmSheetTvIndex=btmSheetTvIndex
@@ -182,19 +186,19 @@ class MainActivity : AppCompatActivity() {
         findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener { _, destination, _ ->
 
             when(destination.id) {
-                R.id.map_view -> showMapAccessories(true)
+                R.id.nav_home -> showMapAccessories(true)
                 else -> showMapAccessories(false)
             }
         }
     }
-    fun showMapAccessories(show:Boolean){
+    private fun showMapAccessories(show:Boolean){
         if (show) {
             applicationLevelProvider.bottomSheet?.visibility = VISIBLE
             applicationLevelProvider.aqiGaugeExpanded?.visibility = VISIBLE
         }
         else{
-            applicationLevelProvider.bottomSheet?.visibility = GONE
-            applicationLevelProvider.aqiGaugeExpanded?.visibility = GONE
+            applicationLevelProvider.bottomSheet?.visibility = INVISIBLE
+            applicationLevelProvider.aqiGaugeExpanded?.visibility = INVISIBLE
         }
     }
 

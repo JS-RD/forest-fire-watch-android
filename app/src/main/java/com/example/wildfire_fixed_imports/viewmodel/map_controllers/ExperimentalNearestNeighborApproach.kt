@@ -131,8 +131,9 @@ map.addLayer({
 * */
 
                     val fillLayer = FillLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID, AQI_NEAREST_NEIGHBOR_SOURCE_ID)
-                    fillLayer.setProperties(PropertyFactory.fillColor(
-
+                    fillLayer.setProperties(
+                        PropertyFactory.visibility(applicationLevelProvider.aqiNearestNeighborLayerVisibility),
+                        PropertyFactory.fillColor(
                             Expression.interpolate(
                                     Expression.linear(), aqiFeatureCalcExpression, //
                                     Expression.literal(0), Expression.rgb(0, 255, 0),

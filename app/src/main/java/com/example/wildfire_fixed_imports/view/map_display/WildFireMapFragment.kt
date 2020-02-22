@@ -96,7 +96,7 @@ class WildFireMapFragment : Fragment() {
             applicationLevelProvider.currentActivity.locationInit()
 
         }
-        supportFragmentManager =this.activity?.supportFragmentManager ?: applicationLevelProvider.currentActivity.supportFragmentManager
+/*        supportFragmentManager =this.activity?.supportFragmentManager ?: applicationLevelProvider.currentActivity.supportFragmentManager
         if (savedInstanceState == null) {
             val placeOptions = PlaceOptions.builder()
                     .toolbarColor(ContextCompat.getColor(applicationLevelProvider.applicationContext, R.color.colorPrimary))
@@ -109,7 +109,7 @@ class WildFireMapFragment : Fragment() {
                     placeOptions
             )
 
-            val container= view!!.findViewById<FrameLayout>(R.id.fragment_container)
+                // val container= view!!.findViewById<FrameLayout>(R.id.fragment_container)
             val transaction = supportFragmentManager.beginTransaction()
             transaction.add(R.id.fragment_container, autocompleteFragment, PlaceAutocompleteFragment.TAG)
             transaction.commit()
@@ -164,7 +164,7 @@ class WildFireMapFragment : Fragment() {
                 //finish()
             }
         })
-
+   */
     }
 
     override fun onCreateView(
@@ -233,6 +233,11 @@ class WildFireMapFragment : Fragment() {
             aqiToggleCompositeText()
         }
 
+        applicationLevelProvider.btmSheetToggleNearestNeighbor?.setOnClickListener {
+            aqiToggleNearestNeighbor()
+
+        }
+
         applicationLevelProvider.btmSheetToggleRadius?.setOnClickListener {
             aqiToggleBaseHML()
             aqiToggleCompositeHML()
@@ -276,6 +281,22 @@ class WildFireMapFragment : Fragment() {
                     layer.setProperties(visibility(VISIBLE))
                     applicationLevelProvider.aqiClusterTextLayerVisibility = VISIBLE
 
+                }
+            }
+        }
+    }
+
+    fun aqiToggleNearestNeighbor() {
+        mapboxMap.getStyle { style ->
+
+            val layer1: Layer? = style.getLayer(AQI_NEAREST_NEIGHBOR_LAYER_ID)
+            if (layer1 != null) {
+                if (VISIBLE == layer1.visibility.getValue()) {
+                    layer1.setProperties(visibility(NONE))
+                    applicationLevelProvider.aqiNearestNeighborLayerVisibility = NONE
+                } else {
+                    layer1.setProperties(visibility(VISIBLE))
+                    applicationLevelProvider.aqiNearestNeighborLayerVisibility = VISIBLE
                 }
             }
         }

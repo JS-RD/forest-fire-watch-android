@@ -86,6 +86,8 @@ class ApplicationLevelProvider : Application() {
     * --- >
     * */
 
+
+
     // local user object, functionally cache/repo for app
     var localUser: LocalUser? = null
 
@@ -203,12 +205,14 @@ class ApplicationLevelProvider : Application() {
     //bottom sheet toggles
     var btmsheetToggleIndex: SwitchCompat? = null
     var btmSheetToggleRadius: SwitchCompat? = null
+    var btmSheetToggleNearestNeighbor: SwitchCompat? =null
 
     var btmSheetTvIndex: TextView? = null
     var btmSheetTvRadius: TextView? = null
 
 
     var aqiLayerVisibility = Property.VISIBLE
+    var aqiNearestNeighborLayerVisibility = Property.VISIBLE
     var aqiBaseTextLayerVisibility = Property.VISIBLE
     var aqiClusterTextLayerVisibility = Property.VISIBLE
     var aqiBaseHMLLayerVisibility = Property.VISIBLE

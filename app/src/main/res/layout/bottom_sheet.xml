@@ -101,12 +101,43 @@
         android:padding="16dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/bottomsheet_switch_nearest_neighbor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_radius"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_switch_index"
         app:thumbTint="#00BCD4" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/bottomsheet_switch_nearest_neighbor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:elevation="11dp"
+        android:padding="16dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bottomsheet_tv_nearest_neighbor"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_switch_radius"
+        app:thumbTint="#00BCD4" />
+
+    <TextView
+
+        android:id="@+id/bottomsheet_tv_nearest_neighbor"
+        style="@style/PrimaryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Air Quality index"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bottomsheet_switch_nearest_neighbor"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tv_radius" />
 
     <TextView
 
@@ -132,7 +163,7 @@
         android:padding="16dp"
         android:text="Air Quality Radius"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/bottomsheet_tv_nearest_neighbor"
         app:layout_constraintEnd_toStartOf="@+id/bottomsheet_switch_radius"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
